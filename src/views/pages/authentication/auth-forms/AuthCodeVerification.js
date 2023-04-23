@@ -9,7 +9,7 @@ import OtpInput from 'react-otp-input-rc-17';
 
 // ============================|| STATIC - CODE VERIFICATION ||============================ //
 
-const AuthCodeVerification = () => {
+const AuthCodeVerification = ({ onChange }) => {
     const theme = useTheme();
     const [otp, setOtp] = useState();
     const borderColor = theme.palette.mode === 'dark' ? theme.palette.grey[200] : theme.palette.grey[300];
@@ -17,9 +17,13 @@ const AuthCodeVerification = () => {
         <Grid container spacing={3}>
             <Grid item xs={12}>
                 <OtpInput
+                    shouldAutoFocus={true}
                     value={otp}
-                    onChange={(otpNumber) => setOtp(otpNumber)}
-                    numInputs={4}
+                    onChange={(otpNumber) => {
+                        setOtp(otpNumber)
+                        onChange(otpNumber)
+                    }}
+                    numInputs={6}
                     containerStyle={{ justifyContent: 'space-between' }}
                     inputStyle={{
                         width: '100%',
@@ -42,14 +46,14 @@ const AuthCodeVerification = () => {
                     Continue
                 </Button>
             </Grid>
-            <Grid item xs={12}>
+            {/* <Grid item xs={12}>
                 <Stack direction="row" justifyContent="space-between" alignItems="baseline">
                     <Typography>Did not receive the email? Check your spam filter, or</Typography>
                     <Typography variant="body1" sx={{ minWidth: 85, ml: 2, textDecoration: 'none', cursor: 'pointer' }} color="primary">
                         Resend code
                     </Typography>
                 </Stack>
-            </Grid>
+            </Grid> */}
         </Grid>
     );
 };

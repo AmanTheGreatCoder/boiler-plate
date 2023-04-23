@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
@@ -36,11 +36,18 @@ import { strengthColor, strengthIndicatorNumFunc } from 'utils/password-strength
 // assets
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import { NumberWithCountryCode } from 'components';
+import APIManager from 'utils/APImanager';
+import { PhoneNumberContext } from 'contexts/PhoneNumberContext';
 
 // ===========================|| FIREBASE - REGISTER ||=========================== //
 
+const apiManager = new APIManager();
+
 const FirebaseRegister = ({ ...others }) => {
     const theme = useTheme();
+    const navigate = useNavigate();
+    const { setDetail } = useContext(PhoneNumberContext);
     const scriptedRef = useScriptRef();
     const matchDownSM = useMediaQuery(theme.breakpoints.down('md'));
     const { borderRadius } = useConfig();
@@ -79,7 +86,7 @@ const FirebaseRegister = ({ ...others }) => {
 
     return (
         <>
-            <Grid container direction="column" justifyContent="center" spacing={2}>
+            {/* <Grid container direction="column" justifyContent="center" spacing={2}>
                 <Grid item xs={12}>
                     <AnimateButton>
                         <Button
@@ -131,73 +138,85 @@ const FirebaseRegister = ({ ...others }) => {
                         <Typography variant="subtitle1">Sign up with Email address</Typography>
                     </Box>
                 </Grid>
-            </Grid>
+            </Grid> */}
 
             <Formik
                 initialValues={{
+                    phoneDetailObj: '',
+                    fullName: '',
                     email: '',
                     password: '',
-                    submit: null
+                    submit: null,
+                    termsAndConditions: false
                 }}
                 validationSchema={Yup.object().shape({
-                    email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
-                    password: Yup.string().max(255).required('Password is required')
+                    fullName: Yup.string().max(100,'Full name is too long').required('Full name is required'),
+                    email: Yup.string().email('Must be a valid email address').max(255,'Email address is too long').required('Email address is required'),
+                    termsAndConditions: Yup.boolean().oneOf([true], 'Please accept the terms and conditions'),
                 })}
-                onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
-                    try {
-                        await firebaseRegister(values.email, values.password).then(
-                            () => {
-                                // WARNING: do not set any formik state here as formik might be already destroyed here. You may get following error by doing so.
-                                // Warning: Can't perform a React state update on an unmounted component. This is a no-op, but it indicates a memory leak in your application.
-                                // To fix, cancel all subscriptions and asynchronous tasks in a useEffect cleanup function.
-                                // github issue: https://github.com/formium/formik/issues/2430
-                            },
-                            (err) => {
-                                if (scriptedRef.current) {
-                                    setStatus({ success: false });
-                                    setErrors({ submit: err.message });
-                                    setSubmitting(false);
-                                }
-                            }
-                        );
-                    } catch (err) {
-                        console.error(err);
-                        if (scriptedRef.current) {
-                            setStatus({ success: false });
-                            setErrors({ submit: err.message });
-                            setSubmitting(false);
-                        }
+                onSubmit={async (values) => {
+                    const res = await apiManager.post('auth/register', {
+                        fullName: values.fullName,
+                        countryCode: values.phoneDetailObj.dialCode,
+                        phoneNumber: values.phoneDetailObj.phoneNumber,
+                        email: values.email
+                      })
+                    if(!res.error){
+                        setDetail({countryCode:values.phoneDetailObj.dialCode,phoneNumber:values.phoneDetailObj.phoneNumber});
+                        navigate('/otp-screen')
                     }
+                    // try {
+                        // await firebaseRegister(values.email, values.password).then(
+                        //     () => {
+                        //         // WARNING: do not set any formik state here as formik might be already destroyed here. You may get following error by doing so.
+                        //         // Warning: Can't perform a React state update on an unmounted component. This is a no-op, but it indicates a memory leak in your application.
+                        //         // To fix, cancel all subscriptions and asynchronous tasks in a useEffect cleanup function.
+                        //         // github issue: https://github.com/formium/formik/issues/2430
+                        //     },
+                        //     (err) => {
+                        //         if (scriptedRef.current) {
+                        //             setStatus({ success: false });
+                        //             setErrors({ submit: err.message });
+                        //             setSubmitting(false);
+                        //         }
+                        //     }
+                        // );
+                        console.log(values,'valuesss')
+                    // }
+                    // catch (err) {
+                    //     console.error(err);
+                    //     if (scriptedRef.current) {
+                    //         setStatus({ success: false });
+                    //         setErrors({ submit: err.message });
+                    //         setSubmitting(false);
+                    //     }
+                    // }
                 }}
             >
                 {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
                     <form noValidate onSubmit={handleSubmit} {...others}>
-                        <Grid container spacing={matchDownSM ? 0 : 2}>
-                            <Grid item xs={12} sm={6}>
-                                <TextField
-                                    fullWidth
-                                    label="First Name"
-                                    margin="normal"
-                                    name="fname"
-                                    type="text"
-                                    defaultValue=""
-                                    sx={{ ...theme.typography.customInput }}
-                                />
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                                <TextField
-                                    fullWidth
-                                    label="Last Name"
-                                    margin="normal"
-                                    name="lname"
-                                    type="text"
-                                    defaultValue=""
-                                    sx={{ ...theme.typography.customInput }}
-                                />
-                            </Grid>
-                        </Grid>
+                        <FormControl fullWidth error={Boolean(touched.fullName && errors.fullName)} sx={{ ...theme.typography.customInput }}>
+                            <InputLabel htmlFor="outlined-adornment-email-register">Full Name</InputLabel>
+                            <OutlinedInput
+                                id="outlined-adornment-email-register"
+                                type="text"
+                                value={values.fullName}
+                                name="fullName"
+                                onBlur={handleBlur}
+                                onChange={handleChange}
+                                inputProps={{}}
+                            />
+                            {touched.fullName && errors.fullName && (
+                                <FormHelperText error id="standard-weight-helper-text--register">
+                                    {errors.fullName}
+                                </FormHelperText>
+                            )}
+                        </FormControl>
+                        <FormControl fullWidth sx={{ ...theme.typography.customInput }}>
+                            <NumberWithCountryCode fieldName="phoneDetailObj" />
+                        </FormControl>
                         <FormControl fullWidth error={Boolean(touched.email && errors.email)} sx={{ ...theme.typography.customInput }}>
-                            <InputLabel htmlFor="outlined-adornment-email-register">Email Address / Username</InputLabel>
+                            <InputLabel htmlFor="outlined-adornment-email-register">Email Address</InputLabel>
                             <OutlinedInput
                                 id="outlined-adornment-email-register"
                                 type="email"
@@ -214,7 +233,7 @@ const FirebaseRegister = ({ ...others }) => {
                             )}
                         </FormControl>
 
-                        <FormControl
+                        {/* <FormControl
                             fullWidth
                             error={Boolean(touched.password && errors.password)}
                             sx={{ ...theme.typography.customInput }}
@@ -251,9 +270,9 @@ const FirebaseRegister = ({ ...others }) => {
                                     {errors.password}
                                 </FormHelperText>
                             )}
-                        </FormControl>
+                        </FormControl> */}
 
-                        {strength !== 0 && (
+                        {/* {strength !== 0 && (
                             <FormControl fullWidth>
                                 <Box sx={{ mb: 2 }}>
                                     <Grid container spacing={2} alignItems="center">
@@ -271,16 +290,16 @@ const FirebaseRegister = ({ ...others }) => {
                                     </Grid>
                                 </Box>
                             </FormControl>
-                        )}
+                        )} */}
 
                         <Grid container alignItems="center" justifyContent="space-between">
                             <Grid item>
                                 <FormControlLabel
                                     control={
                                         <Checkbox
-                                            checked={checked}
-                                            onChange={(event) => setChecked(event.target.checked)}
-                                            name="checked"
+                                            checked={values.termsAndConditions}
+                                            onChange={handleChange}
+                                            name="termsAndConditions"
                                             color="primary"
                                         />
                                     }
@@ -295,6 +314,11 @@ const FirebaseRegister = ({ ...others }) => {
                                 />
                             </Grid>
                         </Grid>
+                        {errors.termsAndConditions && (
+                            <Box sx={{ mt: 3 }}>
+                                <FormHelperText error>{errors.termsAndConditions}</FormHelperText>
+                            </Box>
+                        )}
                         {errors.submit && (
                             <Box sx={{ mt: 3 }}>
                                 <FormHelperText error>{errors.submit}</FormHelperText>

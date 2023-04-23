@@ -6,6 +6,8 @@ import {
 import MuiPhoneNumber from 'material-ui-phone-number';
 import { simplifyString, removeFirstSubstring } from 'utils/Helper'
 import { useTheme } from '@mui/material/styles';
+import { useField } from 'formik';
+import { countryCodeRegex, phoneRegExp } from 'utils/Regex';
 
 
 const CustomPhoneStyle = styled.div`
@@ -29,28 +31,46 @@ const CustomPhoneStyle = styled.div`
 
   `;
 
-function NumberWithCountryCode({ onChange, error }) {
+function NumberWithCountryCode({  fieldName }) {
+  const [field, meta, helpers] = useField({
+    name: fieldName,
+    validate: (newValue) =>{
+      let error = null;
+      console.log(newValue.phoneNumber,'check phone lefkjdsal')
+      if(!phoneRegExp.test(newValue.phoneNumber)){
+        error = "Phone number is not valid"
+      }
+      return error;
+    }
+  });
+
+  const { name, onBlur, value = "" } = field;
+  const { error, touched } = meta;
+  const { setValue } = helpers;
+  const hasError = Boolean(error) && touched;
 
   let phoneNumber = '';
   let simplePhoneNumber = '';
   return (
     <CustomPhoneStyle>
       <MuiPhoneNumber
+        error={hasError}
+        name={name}
+        onBlur={onBlur}
+        helperText={hasError && error}
+        value={value}
         disableAreaCodes={true}
         variant="outlined"
         id="phone-input"
-        name='phoneNumber'
         label="Phone number"
-        error={error}
         defaultCountry={'in'}
         onChange={(phone, others) => {
-          console.log(phone,others,'heree')
           phoneNumber = removeFirstSubstring(phone, others.dialCode)
           simplePhoneNumber = simplifyString(phoneNumber)
-          onChange({
+          setValue({
             phoneNumber: simplePhoneNumber || '',
             ...others
-          });
+          })
         }}
       />
     </CustomPhoneStyle>

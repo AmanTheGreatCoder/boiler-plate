@@ -1,5 +1,7 @@
 {
     "dashboard": "Tableau de bord",
+    "settings": "paramètres",
+    "country": "pays",
     "default": ",Défaut",
     "analytics": "Analytique",
 

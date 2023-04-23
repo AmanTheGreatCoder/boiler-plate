@@ -183,7 +183,7 @@ const pages = {
                             id: 'code-verification3',
                             title: <FormattedMessage id="code-verification" />,
                             type: 'item',
-                            url: '/pages/code-verification/code-verification3',
+                            url: '/otp-screen',
                             target: true
                         }
                     ]

@@ -1,7 +1,8 @@
 import { useContext } from 'react';
 
 // auth provider
-import AuthContext from 'contexts/FirebaseContext';
+// import AuthContext from 'contexts/FirebaseContext';
+import { AzhaiAuthContext } from 'contexts/AzhaiAuthContext';
 // import AuthContext from 'contexts/Auth0Context';
 // import AuthContext from 'contexts/JWTContext';
 // import AuthContext from 'contexts/AWSCognitoContext';
@@ -9,11 +10,12 @@ import AuthContext from 'contexts/FirebaseContext';
 // ==============================|| AUTH HOOKS ||============================== //
 
 const useAuth = () => {
-    const context = useContext(AuthContext);
+    const { auth } = useContext(AzhaiAuthContext);
+    console.log('isAuthenticated in context',auth)
 
-    if (!context) throw new Error('context must be use inside provider');
+    // if (!isAuthenticated) throw new Error('context must be use inside provider');
 
-    return context;
+    return auth;
 };
 
 export default useAuth;

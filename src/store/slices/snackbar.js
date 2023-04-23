@@ -5,15 +5,15 @@ const initialState = {
     open: false,
     message: 'Note archived',
     anchorOrigin: {
-        vertical: 'bottom',
-        horizontal: 'right'
+        vertical: 'top',
+        horizontal: 'center'
     },
     variant: 'default',
     alert: {
         color: 'primary',
         variant: 'filled'
     },
-    transition: 'Fade',
+    transition: 'SlideDown',
     close: true,
     actionButton: false
 };

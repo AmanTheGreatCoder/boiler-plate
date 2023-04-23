@@ -10,6 +10,7 @@ import Loadable from 'ui-component/Loadable';
 const AuthLogin = Loadable(lazy(() => import('views/pages/authentication/authentication3/Login3')));
 const AuthRegister = Loadable(lazy(() => import('views/pages/authentication/authentication3/Register3')));
 const AuthForgotPassword = Loadable(lazy(() => import('views/pages/authentication/authentication3/ForgotPassword3')));
+const AuthCodeVerification3 = Loadable(lazy(() => import('views/pages/authentication/authentication3/CodeVerification3')));
 
 // ==============================|| AUTH ROUTING ||============================== //
 
@@ -34,6 +35,10 @@ const LoginRoutes = {
         {
             path: '/forgot',
             element: <AuthForgotPassword />
+        },
+        {
+            path: '/otp-screen',
+            element: <AuthCodeVerification3 />
         }
     ]
 };

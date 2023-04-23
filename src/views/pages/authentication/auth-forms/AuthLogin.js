@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
@@ -32,13 +32,18 @@ import MuiPhoneNumber from 'material-ui-phone-number';
 import AnimateButton from 'ui-component/extended/AnimateButton';
 import { countryCodeRegex, phoneRegExp } from 'utils/Regex';
 import APImanager from 'utils/APImanager';
-import { NumberWithCountryCode} from 'components'
+import { NumberWithCountryCode } from 'components'
+import { PhoneNumberContext } from 'contexts/PhoneNumberContext';
+import { dispatch } from 'store';
+import { openSnackbar } from 'store/slices/snackbar';
 
 const apiManager = new APImanager();
 
 const Login = ({ loginProp, ...others }) => {
   const theme = useTheme();
   const [checked, setChecked] = React.useState(true);
+  const navigate = useNavigate();
+  const { detail, setDetail } = useContext(PhoneNumberContext);
 
 
   return (
@@ -46,40 +51,44 @@ const Login = ({ loginProp, ...others }) => {
 
       <Formik
         initialValues={{
-          phone_number: '123456',
-          countryCode: '91',
-          phoneNumber: '',
-          submit: null
+          phoneDetailObj: ''
         }}
-        validateOnChange
-        validateOnBlur={true}
-        validationSchema={Yup.object().shape({
-          phoneNumber: Yup.string().matches(phoneRegExp, 'Must be a valid phone number').min(5,'Phone number is too short').max(20).required('Phone number is required'),
-          countryCode: Yup.string().matches(countryCodeRegex, 'Must be a valid country code').required('Country code is required')
-        })}
         onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
-          const res = await apiManager.post('auth/login', {
-            countryCode: values.countryCode,
-            phoneNumber: values.phoneNumber
-          })
-          console.log('response', res)
+          try{
+            const res = await apiManager.post('auth/login', {
+              countryCode: values.phoneDetailObj.dialCode,
+              phoneNumber: values.phoneDetailObj.phoneNumber
+            })
+            // if(res.error){
+            //   console.log('some error occured response')
+            //   dispatch(
+            //     openSnackbar({
+            //         open: true,
+            //         message: res.data.message,
+            //         variant: 'alert',
+            //         alert: {
+            //             color: 'error'
+            //         },
+            //         close: false
+            //     })
+            // );
+            // }
+             if(!res.error) {
+              setDetail({countryCode:values.phoneDetailObj.dialCode,phoneNumber:values.phoneDetailObj.phoneNumber});
+              navigate('/otp-screen')
+              console.log('response', res)
+            }
+          } catch(e){
+            console.error(e)
+          }
         }
         }
       >
         {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values, setFieldValue }) => (
           <form noValidate onSubmit={handleSubmit} {...others}>
             <FormControl fullWidth sx={{ ...theme.typography.customInput }}>
-              <NumberWithCountryCode error={Boolean(touched.phoneNumber && errors.phoneNumber)} onChange={e=>{
-                setFieldValue('phoneNumber',e.phoneNumber)
-                setFieldValue('countryCode',e.dialCode)
-                console.log(e,'imcheck')
-                }} />
+              <NumberWithCountryCode fieldName="phoneDetailObj"/>
             </FormControl>
-            {touched.phoneNumber && errors.phoneNumber && (
-                <FormHelperText error id="standard-weight-helper-text-email-login">
-                  {errors.phoneNumber}
-                </FormHelperText>
-              )}
             <Stack direction="row" alignItems="center" justifyContent="space-between" spacing={1}>
               <FormControlLabel
                 control={
@@ -106,11 +115,6 @@ const Login = ({ loginProp, ...others }) => {
                 Forgot Password?
               </Typography>
             </Stack>
-            {errors.submit && (
-              <Box sx={{ mt: 3 }}>
-                <FormHelperText error>{errors.submit}</FormHelperText>
-              </Box>
-            )}
 
             <Box sx={{ mt: 2 }}>
               <AnimateButton>
@@ -123,7 +127,7 @@ const Login = ({ loginProp, ...others }) => {
                   variant="contained"
                   color="secondary"
                 >
-                  Sign in
+                  Send Code
                 </Button>
               </AnimateButton>
             </Box>

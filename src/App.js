@@ -11,6 +11,8 @@ import './index.css'
 
 // auth provider
 import { FirebaseProvider as AuthProvider } from 'contexts/FirebaseContext';
+import { PhoneNumberProvider } from 'contexts/PhoneNumberContext';
+import { AzhaiAuthProvider } from 'contexts/AzhaiAuthContext';
 // import { AWSCognitoProvider as AuthProvider } from 'contexts/AWSCognitoContext';
 // import { JWTProvider as AuthProvider } from 'contexts/JWTContext';
 // import { Auth0Provider as AuthProvider } from 'contexts/Auth0Context';
@@ -24,10 +26,14 @@ const App = () => (
             <Locales>
                 <NavigationScroll>
                     <AuthProvider>
-                        <>
-                            <Routes />
-                            <Snackbar />
-                        </>
+                        <AzhaiAuthProvider>
+                            <PhoneNumberProvider>
+                                <>
+                                    <Routes />
+                                    <Snackbar />
+                                </>
+                            </PhoneNumberProvider>
+                        </AzhaiAuthProvider>
                     </AuthProvider>
                 </NavigationScroll>
             </Locales>
