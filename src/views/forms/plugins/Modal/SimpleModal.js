@@ -9,45 +9,61 @@ import MainCard from 'ui-component/cards/MainCard';
 
 // assets
 import CloseIcon from '@mui/icons-material/Close';
+import { useFormikContext } from 'formik';
 
-const Body = React.forwardRef(({ modalStyle, handleClose, children }, ref) => (
-    <div ref={ref} tabIndex={-1}>
-        <MainCard
-            style={modalStyle}
-            sx={{
-                position: 'absolute',
-                width: { xs: 280, lg: 450 },
-                top: '50%',
-                left: '50%',
-                transform: 'translate(-50%, -50%)'
-            }}
-            title="Title"
-            content={false}
-            secondary={
-                <IconButton onClick={handleClose} size="large">
-                    <CloseIcon fontSize="small" />
-                </IconButton>
-            }
-        >
-            <CardContent>
-                <Typography variant="body1">
-                    {children}
-                </Typography>
-            </CardContent>
-            <Divider />
-            <CardActions>
-                <Grid item>
-                    <Button variant="contained">Primary</Button>
-                </Grid>
-                <Grid item>
+const Body = forwardRef(({ submitForm, modalStyle, handleClose, children, onSubmit, handleSubmit, errors, title }, ref) => {
+    // const {errors}=useFormikContext();
+    console.log('actual errors',errors)
+    return (
+        <form onSubmit={(e) => {
+            e.preventDefault();
+            // handleSubmit();
+            console.log('errors', errors)
+            // if (Object.keys(errors).length === 0) {
+            //     onSubmit();
+            // }
+            submitForm();
+        }} ref={ref} tabIndex={-1}>
+            <MainCard
+                style={modalStyle}
+                sx={{
+                    position: 'absolute',
+                    width: { xs: 280, lg: 450 },
+                    top: '50%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)'
+                }}
+                title={title || "Title"}
+                content={false}
+                secondary={
+                    <IconButton onClick={handleClose} size="large">
+                        <CloseIcon fontSize="small" />
+                    </IconButton>
+                }
+            >
+                <CardContent sx={{
+                    maxHeight: '50vh',
+                    overflow: 'auto'
+                }}>
+                    <Typography variant="body1">
+                        {children}
+                    </Typography>
+                </CardContent>
+                <Divider />
+                <CardActions>
+                    <Grid item>
+                        <Button type="submit" variant="contained">Submit</Button>
+                    </Grid>
+                    {/* <Grid item>
                     <Button variant="contained" color="secondary">
                         Secondary
                     </Button>
-                </Grid>
-            </CardActions>
-        </MainCard>
-    </div>
-));
+                </Grid> */}
+                </CardActions>
+            </MainCard>
+        </form>
+    )
+});
 
 Body.propTypes = {
     modalStyle: PropTypes.object,
@@ -56,21 +72,26 @@ Body.propTypes = {
 
 // ==============================|| SIMPLE MODAL ||============================== //
 
-const SimpleModal = forwardRef(({ children }, ref) => {
+const SimpleModal = forwardRef(({ children, onSubmit, errors, handleSubmit, resetForm, submitForm, title }, ref) => {
     const [open, setOpen] = React.useState(false);
     useImperativeHandle(ref, () => ({
         handleOpen() {
             setOpen(true);
+        },
+        handleClose() {
+            setOpen(false);
+            resetForm();
         }
-      }));
+    }));
 
     const handleClose = () => {
         setOpen(false);
-    };
+        resetForm();
+    }
     return (
         <Grid container justifyContent="flex-end">
             <Modal open={open} onClose={handleClose} aria-labelledby="simple-modal-title" aria-describedby="simple-modal-description">
-                <Body handleClose={handleClose} >
+                <Body title={title} submitForm={submitForm} errors={errors} handleSubmit={handleSubmit} onSubmit={onSubmit} handleClose={handleClose} >
                     {children}
                 </Body>
             </Modal>

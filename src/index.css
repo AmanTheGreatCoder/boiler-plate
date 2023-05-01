@@ -8,3 +8,6 @@
 .react-tel-input .form-control{
   border-color: #bdbdbd !important;
 }
+.capitalize{
+  text-transform: capitalize;
+}

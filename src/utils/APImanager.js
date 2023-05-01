@@ -92,18 +92,39 @@ export default class APIManager {
       body: JSON.stringify(body)
     });
     const data = await response.json();
-    if(!response.ok){
-      dispatch(
-        openSnackbar({
-            open: true,
-            message: data.message,
-            variant: 'alert',
-            alert: {
-                color: 'error'
-            },
-            close: false
-        })
-      );
+    if(response.status === 401){
+      window.location.href = '/login';
+    }
+    console.log({
+      data,
+      response
+    },'responsessss')
+    if(data?.message){
+      if(!response.ok){
+        dispatch(
+          openSnackbar({
+              open: true,
+              message: data.message,
+              variant: 'alert',
+              alert: {
+                  color: 'error'
+              },
+              close: false
+          })
+        );
+      }else if(response.ok){
+        dispatch(
+          openSnackbar({
+              open: true,
+              message: data.message,
+              variant: 'alert',
+              alert: {
+                  color: 'success'
+              },
+              close: false
+          })
+        );
+      }
     }
     return {
       data: data,

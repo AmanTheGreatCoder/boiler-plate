@@ -3,6 +3,9 @@
     "default": "Default",
     "settings": "Settings",
     "country": "Country",
+    "plans":"Plans",
+    "phone number":"Phone Number",
+    "city":"City",
     "analytics": "Analytics",
 
     "widget": "Widget",

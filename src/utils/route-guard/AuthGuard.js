@@ -37,10 +37,6 @@ const AuthGuard = ({ children }) => {
             navigate('login', { replace: true });
         }
 
-        // console.log('isAuthenticated', isAuthenticated)
-        // if (!isAuthenticated) {
-        //     navigate('login', { replace: true });
-        // }
     }, [navigate]);
 
     return children;

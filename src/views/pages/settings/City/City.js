@@ -5,40 +5,38 @@ import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Linea
 import { Switch } from '@mui/material'
 
 // project imports
-import CountryAddEdit from './CountryAddEdit';
+import CityAddEdit from './CityAddEdit';
 import withPagination from 'higher order components/withPagination/withPagination';
 import confirm from 'views/forms/plugins/Confirm/confirm'
 import APIManager from 'utils/APImanager'
 import { confirmMessage } from 'utils/Helper'
 import TableHeader from 'components/TableHeader/TableHeader';
 import ActionButtons from 'components/ActionButtons/ActionButtons';
-import { addDefaultSrc } from 'utils/Helper'
-import { MODULE_NAME } from './Values';
+import { MODULE_NAME } from './Values'
 
 const apiManager = new APIManager();
 
 const columns = [
+  { id: 'cityName', label: 'City Name', style: { minWidth: 30 } },
   { id: 'countryName', label: 'Country Name', style: { minWidth: 30 } },
-  { id: 'countryCode', label: 'ISO\u00a0Code', style: { minWidth: 100 } },
   { id: 'isActive', label: 'Active', style: { minWidth: 30 } },
-  { id: 'flag', label: 'Flag', style: { minWidth: 30 }, },
   { id: 'actions', label: 'Actions', style: { minWidth: 70 }, align: 'right' },
 ];
 
 
-function Country({ list, setList, otherData, rowsPerPage, getList, searchSection, setSearch, clearSearchField, loading, emptyData, children }) {
+function City({ list, setList, otherData, rowsPerPage, getList, searchSection, setSearch, clearSearchField, loading, emptyData, children }) {
   const modalRef = useRef(null)
   const [editData, setEditData] = useState("")
   const renderCell = (ele, e) => {
     if (ele.id === 'flag') {
       return (
-        <img src={`${otherData.imageUrl}${e.flag}`} onError={addDefaultSrc} height='30' width='30' alt="country flag" />
+        <img src={`${otherData.imageUrl}${e.flag}`} height='30' width='30' alt="country flag" />
       )
     } else if (ele.id === 'isActive') {
       return (
         <Switch checked={e.isActive} onClick={() => {
           confirm(confirmMessage(`${e.isActive ? 'de' : ''}active`)).then(async () => {
-            const res = await apiManager.put(`country/status/${e._id}`, {
+            const res = await apiManager.put(`city/status/${e._id}`, {
               status: !e.isActive
             })
             if (!res.error) {
@@ -96,7 +94,7 @@ function Country({ list, setList, otherData, rowsPerPage, getList, searchSection
                 <TableRow key={e._id}>
                   {columns.map(ele => {
                     return (
-                      <TableCell key={e._id+ele.id} align={ele.align} className={`${ele.id === 'countryName' ? 'capitalize' : ''}`}>
+                      <TableCell key={e._id+ele.id} align={ele.align} className={`${ele.id === 'countryName' || ele.id === 'cityName' ? 'capitalize' : ''}`}>
                         {renderCell(ele, e)}
                       </TableCell>
                     )
@@ -108,11 +106,11 @@ function Country({ list, setList, otherData, rowsPerPage, getList, searchSection
         </Table>}
       </TableContainer>
 
-      <CountryAddEdit clearSearchField={clearSearchField} setSearch={setSearch} editData={editData} getList={getList} rowsPerPage={rowsPerPage} ref={modalRef} />
+      <CityAddEdit clearSearchField={clearSearchField} setSearch={setSearch} editData={editData} getList={getList} rowsPerPage={rowsPerPage} ref={modalRef} />
 
       {/* table pagination */}
       {children}
     </TableHeader>
   );
 }
-export default withPagination(Country, 'country/list', { imageRequired: true });
+export default withPagination(City, 'city/listAll', { imageRequired: true });

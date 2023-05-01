@@ -52,7 +52,7 @@ const Landing = () => (
             <Subscribe />
         </SecondWrapper>
         <Footer />
-        <Customization />
+        {/* <Customization /> */}
     </>
 );
 

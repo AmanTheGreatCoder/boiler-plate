@@ -1,4 +1,5 @@
 import { onlyNumber } from "./Regex";
+import Flag from 'assets/images/flag.svg'
 export const simplifyString = (value) => {
   // remove parentheses, commas, hyphens, and spaces from a string
   const cleanedStr = value.replace(/[\s()-]+/g, '');
@@ -26,4 +27,17 @@ export const maskPhoneNumber = (phoneNumber) => {
 
 export const isNumber = (value) => {
   return onlyNumber.test(value)
+}
+
+export const trimValues = (values) => Object.keys(values).reduce((acc, key) => {
+  acc[key] = typeof values[key] === 'string' ? values[key].trim() : values[key];
+  return acc;
+}, {});
+
+export const confirmMessage = (value) => {
+  return `Are you sure you want to ${value}?`
+}
+
+export const addDefaultSrc = (ev) => {
+  ev.target.src = Flag
 }

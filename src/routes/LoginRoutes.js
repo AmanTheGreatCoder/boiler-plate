@@ -28,14 +28,14 @@ const LoginRoutes = {
             path: '/login',
             element: <AuthLogin />
         },
-        {
-            path: '/register',
-            element: <AuthRegister />
-        },
-        {
-            path: '/forgot',
-            element: <AuthForgotPassword />
-        },
+        // {
+        //     path: '/register',
+        //     element: <AuthRegister />
+        // },
+        // {
+        //     path: '/forgot',
+        //     element: <AuthForgotPassword />
+        // },
         {
             path: '/otp-screen',
             element: <AuthCodeVerification3 />

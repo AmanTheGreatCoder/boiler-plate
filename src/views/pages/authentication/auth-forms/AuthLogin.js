@@ -41,7 +41,6 @@ const apiManager = new APImanager();
 
 const Login = ({ loginProp, ...others }) => {
   const theme = useTheme();
-  const [checked, setChecked] = React.useState(true);
   const navigate = useNavigate();
   const { detail, setDetail } = useContext(PhoneNumberContext);
 
@@ -51,11 +50,12 @@ const Login = ({ loginProp, ...others }) => {
 
       <Formik
         initialValues={{
-          phoneDetailObj: ''
+          phoneDetailObj: '',
+          checked: true
         }}
         onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
           try{
-            const res = await apiManager.post('auth/login', {
+            const res = await apiManager.post('auth/admin-login', {
               countryCode: values.phoneDetailObj.dialCode,
               phoneNumber: values.phoneDetailObj.phoneNumber
             })
@@ -74,7 +74,7 @@ const Login = ({ loginProp, ...others }) => {
             // );
             // }
              if(!res.error) {
-              setDetail({countryCode:values.phoneDetailObj.dialCode,phoneNumber:values.phoneDetailObj.phoneNumber});
+              setDetail({countryCode:values.phoneDetailObj.dialCode,phoneNumber:values.phoneDetailObj.phoneNumber,isRemember:values.checked});
               navigate('/otp-screen')
               console.log('response', res)
             }
@@ -93,15 +93,15 @@ const Login = ({ loginProp, ...others }) => {
               <FormControlLabel
                 control={
                   <Checkbox
-                    checked={checked}
-                    onChange={(event) => setChecked(event.target.checked)}
+                    checked={values.checked}
+                    onChange={handleChange}
                     name="checked"
                     color="primary"
                   />
                 }
                 label="Remember me"
               />
-              <Typography
+              {/* <Typography
                 variant="subtitle1"
                 component={Link}
                 to={
@@ -113,7 +113,7 @@ const Login = ({ loginProp, ...others }) => {
                 sx={{ textDecoration: 'none' }}
               >
                 Forgot Password?
-              </Typography>
+              </Typography> */}
             </Stack>
 
             <Box sx={{ mt: 2 }}>

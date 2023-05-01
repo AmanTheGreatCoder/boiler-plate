@@ -131,6 +131,7 @@ const UtilsGrid = Loadable(lazy(() => import('views/utilities/Grid')));
 
 // settings routing
 const Country = Loadable(lazy(()=> import('views/pages/settings/country/Country')))
+const City = Loadable(lazy(()=> import('views/pages/settings/City/City')))
 
 // sample page routing
 const SamplePage = Loadable(lazy(() => import('views/sample-page')));
@@ -145,6 +146,26 @@ const MainRoutes = {
         </AuthGuard>
     ),
     children: [
+        {
+            path: '/dashboard/default',
+            element: <DashboardDefault />
+        },
+        {
+            path: '/settings/country',
+            element: <Country />
+        },
+        {
+            path: '/settings/city',
+            element: <City />
+        },
+        {
+            path: '/settings/plans',
+            element: <Country />
+        },
+        {
+            path: '/settings/phone-number',
+            element: <Country />
+        },
         // {
         //     path: '/widget/statistics',
         //     element: <WidgetStatistics />
@@ -306,51 +327,51 @@ const MainRoutes = {
         //     element: <FrmComponentsDateTime />
         // },
 
-        {
-            path: '/forms/layouts/layouts',
-            element: <FrmLayoutLayout />
-        },
-        {
-            path: '/forms/layouts/multi-column-forms',
-            element: <FrmLayoutMultiColumnForms />
-        },
-        {
-            path: '/forms/layouts/action-bar',
-            element: <FrmLayoutActionBar />
-        },
-        {
-            path: '/forms/layouts/sticky-action-bar',
-            element: <FrmLayoutStickyActionBar />
-        },
+        // {
+        //     path: '/forms/layouts/layouts',
+        //     element: <FrmLayoutLayout />
+        // },
+        // {
+        //     path: '/forms/layouts/multi-column-forms',
+        //     element: <FrmLayoutMultiColumnForms />
+        // },
+        // {
+        //     path: '/forms/layouts/action-bar',
+        //     element: <FrmLayoutActionBar />
+        // },
+        // {
+        //     path: '/forms/layouts/sticky-action-bar',
+        //     element: <FrmLayoutStickyActionBar />
+        // },
 
-        {
-            path: '/forms/frm-autocomplete',
-            element: <FrmAutocomplete />
-        },
-        {
-            path: '/forms/frm-mask',
-            element: <FrmMask />
-        },
-        {
-            path: '/forms/frm-clipboard',
-            element: <FrmClipboard />
-        },
-        {
-            path: '/forms/frm-recaptcha',
-            element: <FrmRecaptcha />
-        },
-        {
-            path: '/forms/frm-wysiwug',
-            element: <FrmWysiwugEditor />
-        },
-        {
-            path: '/forms/frm-modal',
-            element: <FrmModal />
-        },
-        {
-            path: '/forms/frm-tooltip',
-            element: <FrmTooltip />
-        },
+        // {
+        //     path: '/forms/frm-autocomplete',
+        //     element: <FrmAutocomplete />
+        // },
+        // {
+        //     path: '/forms/frm-mask',
+        //     element: <FrmMask />
+        // },
+        // {
+        //     path: '/forms/frm-clipboard',
+        //     element: <FrmClipboard />
+        // },
+        // {
+        //     path: '/forms/frm-recaptcha',
+        //     element: <FrmRecaptcha />
+        // },
+        // {
+        //     path: '/forms/frm-wysiwug',
+        //     element: <FrmWysiwugEditor />
+        // },
+        // {
+        //     path: '/forms/frm-modal',
+        //     element: <FrmModal />
+        // },
+        // {
+        //     path: '/forms/frm-tooltip',
+        //     element: <FrmTooltip />
+        // },
 
         // {
         //     path: '/tables/tbl-basic',
@@ -372,10 +393,10 @@ const MainRoutes = {
         //     path: '/tables/tbl-customized',
         //     element: <TableCustomized />
         // },
-        {
-            path: '/tables/tbl-sticky-header',
-            element: <TableStickyHead />
-        },
+        // {
+        //     path: '/tables/tbl-sticky-header',
+        //     element: <TableStickyHead />
+        // },
         // {
         //     path: '/tables/tbl-collapse',
         //     element: <TableCollapsible />
@@ -389,10 +410,10 @@ const MainRoutes = {
         //     path: '/forms/charts/orgchart',
         //     element: <OrgChartPage />
         // },
-        {
-            path: '/forms/forms-validation',
-            element: <FrmFormsValidation />
-        },
+        // {
+        //     path: '/forms/forms-validation',
+        //     element: <FrmFormsValidation />
+        // },
         // {
         //     path: '/forms/forms-wizard',
         //     element: <FrmFormsWizard />
@@ -517,18 +538,6 @@ const MainRoutes = {
         //     path: '/sample-page',
         //     element: <SamplePage />
         // },
-        {
-            path: '/dashboard/default',
-            element: <DashboardDefault />
-        },
-        // {
-        //     path: '/dashboard/analytics',
-        //     element: <DashboardAnalytics />
-        // },
-        {
-            path: '/settings/country',
-            element: <Country />
-        }
     ]
 };
 

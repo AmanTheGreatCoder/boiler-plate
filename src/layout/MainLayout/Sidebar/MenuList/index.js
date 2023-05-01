@@ -10,10 +10,12 @@ import menuItem from 'menu-items';
 // ==============================|| SIDEBAR MENU LIST ||============================== //
 
 const MenuList = () => {
-    const navItems = menuItem.items.map((item) => {
+    const navItems = menuItem.items.map((item, index) => {
         switch (item.type) {
             case 'group':
-                return <NavGroup key={item.id} item={item} />;
+                return (
+                    <NavGroup key={item.id} item={item} lastItem={menuItem.items.length-1 === index} />
+                )
             default:
                 return (
                     <Typography key={item.id} variant="h6" color="error" align="center">

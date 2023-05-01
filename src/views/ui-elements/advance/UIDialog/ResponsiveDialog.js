@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef, useImperativeHandle } from 'react';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
@@ -6,14 +6,24 @@ import { Button, Dialog, DialogActions, DialogContent, DialogContentText, Dialog
 
 // ===============================|| UI DIALOG - RESPONSIVE ||=============================== //
 
-export default function ResponsiveDialog() {
+const ResponsiveDialog = forwardRef(({ confirmation = 'ARE YOU SURE?', content, onAgree, proceed, dismiss }, ref) => {
+
+    const [open, setOpen] = React.useState(true);
+    let onAgreeFunc;
+
+    // useImperativeHandle(ref, () => ({
+    //     handleOpen() {
+    //         setOpen(true);
+    //     },
+    //     handleClose() {
+    //         setOpen(false);
+    //     },
+    //     sendAgreeFunc(fn){
+    //         onAgreeFunc = fn
+    //     }
+    // }));
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
-
-    const [open, setOpen] = React.useState(false);
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
 
     const handleClose = () => {
         setOpen(false);
@@ -21,27 +31,30 @@ export default function ResponsiveDialog() {
 
     return (
         <div>
-            <Button variant="outlined" onClick={handleClickOpen}>
-                Open responsive dialog
-            </Button>
             <Dialog fullScreen={fullScreen} open={open} onClose={handleClose} aria-labelledby="responsive-dialog-title">
                 {open && (
                     <>
-                        <DialogTitle id="responsive-dialog-title">Use Google&apos;s location service?</DialogTitle>
-                        <DialogContent>
+                        <DialogTitle id="responsive-dialog-title">{confirmation}</DialogTitle>
+                        {/* <DialogContent>
                             <DialogContentText>
                                 <Typography variant="body2" component="span">
-                                    Let Google help apps determine location. This means sending anonymous location data to Google, even when
-                                    no apps are running.
+                                    {content}
                                 </Typography>
                             </DialogContentText>
-                        </DialogContent>
+                        </DialogContent> */}
                         <DialogActions sx={{ pr: 2.5 }}>
-                            <Button sx={{ color: theme.palette.error.dark }} autoFocus onClick={handleClose} color="secondary">
-                                Disagree
+                            <Button sx={{ color: theme.palette.error.dark }} autoFocus onClick={()=>{
+                                handleClose()
+                                dismiss()
+                                }} color="secondary">
+                                No
                             </Button>
-                            <Button variant="contained" size="small" onClick={handleClose} autoFocus>
-                                Agree
+                            {console.log('theme.palette.primary', theme.palette)}
+                            <Button variant="contained" color="primary" sx={{ background: '#6275d1', '&:hover':{background: '#4f5aa6' }}} size="small" onClick={() => {
+                                handleClose()
+                                proceed();
+                            }} autoFocus>
+                                Yes
                             </Button>
                         </DialogActions>
                     </>
@@ -49,4 +62,5 @@ export default function ResponsiveDialog() {
             </Dialog>
         </div>
     );
-}
+})
+export default ResponsiveDialog;

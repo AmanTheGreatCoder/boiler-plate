@@ -43,6 +43,7 @@ const CodeVerification = () => {
     const res = await apiManager.post('auth/verify-otp', {
       countryCode: detail.countryCode,
       phoneNumber: detail.phoneNumber,
+      isRemember: detail.isRemember,
       otp: parseInt(OTP)
     })
     if(!res.error){
@@ -89,7 +90,7 @@ const CodeVerification = () => {
                               fontSize="0.875rem"
                               textAlign={matchDownSM ? 'center' : 'inherit'}
                             >
-                              We’ve send you code on {maskedNumber}
+                              We’ve send you code on +{detail.countryCode} {maskedNumber}
                             </Typography>
                           </Stack>
                         </Grid>

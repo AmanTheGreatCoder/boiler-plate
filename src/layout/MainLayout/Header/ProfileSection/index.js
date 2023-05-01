@@ -58,7 +58,8 @@ const ProfileSection = () => {
     const anchorRef = useRef(null);
     const handleLogout = async () => {
         try {
-            await logout();
+            localStorage.removeItem('token');
+            navigate('/')
         } catch (err) {
             console.error(err);
         }
@@ -160,7 +161,7 @@ const ProfileSection = () => {
                             <Paper>
                                 {open && (
                                     <MainCard border={false} elevation={16} content={false} boxShadow shadow={theme.shadows[16]}>
-                                        <Box sx={{ p: 2, pb: 0 }}>
+                                        <Box sx={{ p: 2 }}>
                                             <Stack>
                                                 <Stack direction="row" spacing={0.5} alignItems="center">
                                                     <Typography variant="h4">Good Morning,</Typography>
@@ -170,7 +171,7 @@ const ProfileSection = () => {
                                                 </Stack>
                                                 <Typography variant="subtitle2">Project Admin</Typography>
                                             </Stack>
-                                            <OutlinedInput
+                                            {/* <OutlinedInput
                                                 sx={{ width: '100%', pr: 1, pl: 2, my: 2 }}
                                                 id="input-search-profile"
                                                 value={value}
@@ -185,59 +186,14 @@ const ProfileSection = () => {
                                                 inputProps={{
                                                     'aria-label': 'weight'
                                                 }}
-                                            />
-                                            <Divider />
+                                            /> */}
+                                            {/* <Divider /> */}
                                         </Box>
                                         <PerfectScrollbar style={{ height: '100%', maxHeight: 'calc(100vh - 250px)', overflowX: 'hidden' }}>
                                             <Box sx={{ p: 2, pt: 0 }}>
-                                                <UpgradePlanCard />
+                                                {/* <UpgradePlanCard /> */}
                                                 <Divider />
-                                                <Card
-                                                    sx={{
-                                                        bgcolor:
-                                                            theme.palette.mode === 'dark'
-                                                                ? theme.palette.dark[800]
-                                                                : theme.palette.primary.light,
-                                                        my: 2
-                                                    }}
-                                                >
-                                                    <CardContent>
-                                                        <Grid container spacing={3} direction="column">
-                                                            <Grid item>
-                                                                <Grid item container alignItems="center" justifyContent="space-between">
-                                                                    <Grid item>
-                                                                        <Typography variant="subtitle1">Start DND Mode</Typography>
-                                                                    </Grid>
-                                                                    <Grid item>
-                                                                        <Switch
-                                                                            color="primary"
-                                                                            checked={sdm}
-                                                                            onChange={(e) => setSdm(e.target.checked)}
-                                                                            name="sdm"
-                                                                            size="small"
-                                                                        />
-                                                                    </Grid>
-                                                                </Grid>
-                                                            </Grid>
-                                                            <Grid item>
-                                                                <Grid item container alignItems="center" justifyContent="space-between">
-                                                                    <Grid item>
-                                                                        <Typography variant="subtitle1">Allow Notifications</Typography>
-                                                                    </Grid>
-                                                                    <Grid item>
-                                                                        <Switch
-                                                                            checked={notification}
-                                                                            onChange={(e) => setNotification(e.target.checked)}
-                                                                            name="sdm"
-                                                                            size="small"
-                                                                        />
-                                                                    </Grid>
-                                                                </Grid>
-                                                            </Grid>
-                                                        </Grid>
-                                                    </CardContent>
-                                                </Card>
-                                                <Divider />
+                                                {/* <Divider /> */}
                                                 <List
                                                     component="nav"
                                                     sx={{

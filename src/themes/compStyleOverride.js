@@ -288,11 +288,19 @@ export default function componentStyleOverrides(theme, borderRadius, outlinedFil
             styleOverrides: {
                 root: {
                     borderColor: mode === 'dark' ? theme.palette.text.primary + 15 : theme.palette.grey[200],
+                    padding: '7px 16px',
                     '&.MuiTableCell-head': {
                         fontSize: '0.875rem',
                         color: theme.palette.grey[600],
                         fontWeight: 500
                     }
+                }
+            }
+        },
+        MuiTableContainer: {
+            styleOverrides: {
+                root: {
+                    maxHeight: 'calc(100vh - 305px) !important'
                 }
             }
         },

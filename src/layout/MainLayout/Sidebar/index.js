@@ -48,7 +48,7 @@ const Sidebar = ({ window }) => {
                 }}
             >
                 <MenuList />
-                <MenuCard />
+                {/* <MenuCard /> */}
                 <Stack direction="row" justifyContent="center" sx={{ mb: 2 }}>
                     <Chip label={process.env.REACT_APP_VERSION} disabled chipcolor="secondary" size="small" sx={{ cursor: 'pointer' }} />
                 </Stack>

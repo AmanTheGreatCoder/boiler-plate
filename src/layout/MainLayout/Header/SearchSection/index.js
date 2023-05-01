@@ -1,5 +1,7 @@
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useEffect, useState, useCallback, forwardRef, useImperativeHandle } from 'react';
+// import { debounce, __ } from 'lodash'
+import debounce from 'lodash.debounce'
 
 // material-ui
 import { useTheme, styled } from '@mui/material/styles';
@@ -111,9 +113,28 @@ MobileSearch.propTypes = {
 
 // ==============================|| SEARCH INPUT ||============================== //
 
-const SearchSection = () => {
+const SearchSection = forwardRef(({ getValue },ref) => {
+    useImperativeHandle(ref, () => ({
+        clearSearch(){
+            setValue("")
+        }
+    }));
     const theme = useTheme();
     const [value, setValue] = useState('');
+
+    const verify = useCallback(
+        debounce(value => {
+            console.log('is this infinite')
+          getValue(value)
+        }, 1000),
+        []
+      );
+
+    useEffect(() => {
+            console.log('get value called after 3')
+            verify(value)
+    }, [value])
+
 
     return (
         <>
@@ -166,19 +187,19 @@ const SearchSection = () => {
                             <IconSearch stroke={1.5} size="1rem" color={theme.palette.grey[500]} />
                         </InputAdornment>
                     }
-                    endAdornment={
-                        <InputAdornment position="end">
-                            <HeaderAvatarStyle variant="rounded">
-                                <IconAdjustmentsHorizontal stroke={1.5} size="1.3rem" />
-                            </HeaderAvatarStyle>
-                        </InputAdornment>
-                    }
+                    // endAdornment={
+                    //     <InputAdornment position="end">
+                    //         <HeaderAvatarStyle variant="rounded">
+                    //             <IconAdjustmentsHorizontal stroke={1.5} size="1.3rem" />
+                    //         </HeaderAvatarStyle>
+                    //     </InputAdornment>
+                    // }
                     aria-describedby="search-helper-text"
                     inputProps={{ 'aria-label': 'weight' }}
                 />
             </Box>
         </>
     );
-};
+});
 
 export default SearchSection;

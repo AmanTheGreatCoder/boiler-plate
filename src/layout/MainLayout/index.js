@@ -123,7 +123,7 @@ const MainLayout = () => {
                     </>
                 )}
             </Main>
-            <Customization />
+            {/* <Customization /> */}
         </Box>
     );
 };
