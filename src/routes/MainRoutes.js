@@ -130,9 +130,9 @@ const UtilsAnimation = Loadable(lazy(() => import('views/utilities/Animation')))
 const UtilsGrid = Loadable(lazy(() => import('views/utilities/Grid')));
 
 // settings routing
-const Country = Loadable(lazy(()=> import('views/pages/settings/country/Country')))
-const City = Loadable(lazy(()=> import('views/pages/settings/City/City')))
-
+const Country = Loadable(lazy(() => import('views/pages/settings/country/Country')))
+const City = Loadable(lazy(() => import('views/pages/settings/City/City')))
+const Subscription = Loadable(lazy(() => import('views/pages/settings/Subscription/Subscription')))
 // sample page routing
 const SamplePage = Loadable(lazy(() => import('views/sample-page')));
 
@@ -166,6 +166,10 @@ const MainRoutes = {
             path: '/settings/phone-number',
             element: <Country />
         },
+        {
+            path: '/settings/subscription',
+            element: <Subscription />
+        }
         // {
         //     path: '/widget/statistics',
         //     element: <WidgetStatistics />

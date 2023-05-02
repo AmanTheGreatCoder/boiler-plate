@@ -10,9 +10,9 @@ import MuiPhoneNumber from 'material-ui-phone-number';
 import { simplifyString, removeFirstSubstring } from 'utils/Helper'
 import { useTheme } from '@mui/material/styles';
 import { useField } from 'formik';
-import { countryCodeRegex, phoneRegExp, isoCountryRegex } from 'utils/Regex';
+import { countryCodeRegex, phoneRegExp, onlyNumber, isoCountryRegex } from 'utils/Regex';
 
-function ReusableValidation({ fieldName, required, control, fieldValue, isSubmitting, varName }) {
+function ReusableValidation({ fieldName, disabled, required, control, fieldValue, isSubmitting, varName }) {
   const theme = useTheme();
   const errorMessage = (fieldName) => {
     return `${fieldName} is not valid`
@@ -29,6 +29,9 @@ function ReusableValidation({ fieldName, required, control, fieldValue, isSubmit
           break;
         case "isoCountry":
           if (!isoCountryRegex.test(value)) error = errorMessage(fieldName)
+          break;
+        case "isNumber":
+          if (!onlyNumber.test(value)) error = errorMessage(fieldName)
           break;
       }
     }
@@ -62,11 +65,12 @@ function ReusableValidation({ fieldName, required, control, fieldValue, isSubmit
   // }, [isSubmitting]);
 
   return (
-    <FormControl fullWidth error={hasError} sx={{ ...theme.typography.customInput }}>
+    <FormControl disabled={disabled} fullWidth error={hasError} sx={{ ...theme.typography.customInput }}>
       <InputLabel htmlFor="outlined-adornment-email-register">{fieldName}</InputLabel>
       <OutlinedInput
         id="outlined-adornment-email-register"
         type="text"
+        disabled={disabled}
         value={value}
         name={name}
         onBlur={onBlur}

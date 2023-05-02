@@ -26,7 +26,8 @@ const columns = [
 ];
 
 
-function Country({ list, setList, otherData, rowsPerPage, getList, searchSection, setSearch, clearSearchField, loading, emptyData, children }) {
+function Country(props) {
+  const { list, setList, otherData, rowsPerPage, getList, searchSection, setSearch, clearSearchField, loading, emptyData, children } = props;
   const modalRef = useRef(null)
   const [editData, setEditData] = useState("")
   const renderCell = (ele, e) => {
@@ -96,7 +97,7 @@ function Country({ list, setList, otherData, rowsPerPage, getList, searchSection
                 <TableRow key={e._id}>
                   {columns.map(ele => {
                     return (
-                      <TableCell key={e._id+ele.id} align={ele.align} className={`${ele.id === 'countryName' ? 'capitalize' : ''}`}>
+                      <TableCell key={e._id + ele.id} align={ele.align} className={`${ele.id === 'countryName' ? 'capitalize' : ''}`}>
                         {renderCell(ele, e)}
                       </TableCell>
                     )
