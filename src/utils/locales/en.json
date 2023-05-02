@@ -4,6 +4,7 @@
     "settings": "Settings",
     "country": "Country",
     "plans":"Plans",
+    "subscription":"Subscription",
     "phone number":"Phone Number",
     "city":"City",
     "analytics": "Analytics",
@@ -12,7 +13,6 @@
     "statistics": "Statistics",
     "data": "Data",
     "chart": "Chart",
-
     "application": "Application",
     "users": "Users",
     "social-profile": "Social Profile",

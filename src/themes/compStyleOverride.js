@@ -293,14 +293,15 @@ export default function componentStyleOverrides(theme, borderRadius, outlinedFil
                         fontSize: '0.875rem',
                         color: theme.palette.grey[600],
                         fontWeight: 500
-                    }
+                    },
+                    textTransform: 'capitalize'
                 }
             }
         },
         MuiTableContainer: {
             styleOverrides: {
                 root: {
-                    maxHeight: 'calc(100vh - 305px) !important'
+                    maxHeight: 'calc(100vh - 307px) !important'
                 }
             }
         },

@@ -38,14 +38,6 @@ const dashboard = {
             breadcrumbs: false
         },
         {
-            id: 'plans',
-            title: <FormattedMessage id="plans" />,
-            type: 'item',
-            url: '/settings/plans',
-            icon: icons.IconBrandCashapp,
-            breadcrumbs: false
-        },
-        {
             id: 'phone-number',
             title: <FormattedMessage id="phone number" />,
             type: 'item',
@@ -53,14 +45,14 @@ const dashboard = {
             icon: icons.IconPhoneCall,
             breadcrumbs: false
         },
-        // {
-        //     id: 'analytics',
-        //     title: <FormattedMessage id="analytics" />,
-        //     type: 'item',
-        //     url: '/dashboard/analytics',
-        //     icon: icons.IconDeviceAnalytics,
-        //     breadcrumbs: false
-        // }
+        {
+            id: 'subscription',
+            title: <FormattedMessage id="subscription" />,
+            type: 'item',
+            url: '/settings/subscription',
+            icon: icons.IconBrandCashapp,
+            breadcrumbs: false
+        },
     ]
 };
 

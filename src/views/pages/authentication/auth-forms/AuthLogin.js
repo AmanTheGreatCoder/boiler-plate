@@ -46,62 +46,46 @@ const Login = ({ loginProp, ...others }) => {
 
 
   return (
-    <>
-
-      <Formik
-        initialValues={{
-          phoneDetailObj: '',
-          checked: true
-        }}
-        onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
-          try{
-            const res = await apiManager.post('auth/admin-login', {
-              countryCode: values.phoneDetailObj.dialCode,
-              phoneNumber: values.phoneDetailObj.phoneNumber
-            })
-            // if(res.error){
-            //   console.log('some error occured response')
-            //   dispatch(
-            //     openSnackbar({
-            //         open: true,
-            //         message: res.data.message,
-            //         variant: 'alert',
-            //         alert: {
-            //             color: 'error'
-            //         },
-            //         close: false
-            //     })
-            // );
-            // }
-             if(!res.error) {
-              setDetail({countryCode:values.phoneDetailObj.dialCode,phoneNumber:values.phoneDetailObj.phoneNumber,isRemember:values.checked});
-              navigate('/otp-screen')
-              console.log('response', res)
-            }
-          } catch(e){
-            console.error(e)
+    <Formik
+      initialValues={{
+        phoneDetailObj: '',
+        checked: true
+      }}
+      onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
+        try {
+          const res = await apiManager.post('auth/admin-login', {
+            countryCode: values.phoneDetailObj.dialCode,
+            phoneNumber: values.phoneDetailObj.phoneNumber
+          })
+          if (!res.error) {
+            setDetail({ countryCode: values.phoneDetailObj.dialCode, phoneNumber: values.phoneDetailObj.phoneNumber, isRemember: values.checked });
+            navigate('/otp-screen')
+            console.log('response', res)
           }
+        } catch (e) {
+          console.error(e)
         }
-        }
-      >
-        {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values, setFieldValue }) => (
-          <form noValidate onSubmit={handleSubmit} {...others}>
-            <FormControl fullWidth sx={{ ...theme.typography.customInput }}>
-              <NumberWithCountryCode fieldName="phoneDetailObj"/>
-            </FormControl>
-            <Stack direction="row" alignItems="center" justifyContent="space-between" spacing={1}>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={values.checked}
-                    onChange={handleChange}
-                    name="checked"
-                    color="primary"
-                  />
-                }
-                label="Remember me"
-              />
-              {/* <Typography
+      }
+      }
+    >
+      {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values, setFieldValue }) => (
+        <form noValidate onSubmit={handleSubmit} {...others}>
+          <FormControl fullWidth sx={{ ...theme.typography.customInput }}>
+            <NumberWithCountryCode fieldName="phoneDetailObj" />
+          </FormControl>
+          <Stack direction="row" alignItems="center" justifyContent="space-between" spacing={1}>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={values.checked}
+                  onChange={handleChange}
+                  name="checked"
+                  color="primary"
+                />
+              }
+              label="Remember me"
+            />
+            {/* <Typography
                 variant="subtitle1"
                 component={Link}
                 to={
@@ -114,27 +98,26 @@ const Login = ({ loginProp, ...others }) => {
               >
                 Forgot Password?
               </Typography> */}
-            </Stack>
+          </Stack>
 
-            <Box sx={{ mt: 2 }}>
-              <AnimateButton>
-                <Button
-                  disableElevation
-                  disabled={isSubmitting}
-                  fullWidth
-                  size="large"
-                  type="submit"
-                  variant="contained"
-                  color="secondary"
-                >
-                  Send Code
-                </Button>
-              </AnimateButton>
-            </Box>
-          </form>
-        )}
-      </Formik>
-    </>
+          <Box sx={{ mt: 2 }}>
+            <AnimateButton>
+              <Button
+                disableElevation
+                disabled={isSubmitting}
+                fullWidth
+                size="large"
+                type="submit"
+                variant="contained"
+                color="secondary"
+              >
+                Send Code
+              </Button>
+            </AnimateButton>
+          </Box>
+        </form>
+      )}
+    </Formik>
   );
 };
 
