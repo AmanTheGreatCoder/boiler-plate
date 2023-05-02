@@ -5,7 +5,7 @@ import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Linea
 import { Switch } from '@mui/material'
 
 // project imports
-import CityAddEdit from './CityAddEdit';
+import PhoneNumberAddEdit from './PhoneNumberAddEdit';
 import withPagination from 'higher order components/withPagination/withPagination';
 import confirm from 'views/forms/plugins/Confirm/confirm'
 import APIManager from 'utils/APImanager'
@@ -17,14 +17,15 @@ import { MODULE_NAME } from './Values'
 const apiManager = new APIManager();
 
 const columns = [
-  { id: 'cityName', label: 'City Name', style: { minWidth: 30, textTransform: 'capitalize' } },
+  { id: 'phoneNumber', label: 'Phone Number', style: { minWidth: 30 } },
+  { id: 'cityId.cityName', label: 'City Name', style: { minWidth: 30, textTransform: 'capitalize' } },
   { id: 'countryId.countryName', label: 'Country Name', style: { minWidth: 30, textTransform: 'capitalize' } },
   { id: 'isActive', label: 'Active', style: { minWidth: 30 } },
   { id: 'actions', label: 'Actions', style: { minWidth: 70 }, align: 'right' },
 ];
 
 
-function City({ list, setList, otherData, rowsPerPage, getList, searchSection, setSearch, clearSearchField, loading, emptyData, children }) {
+function PhoneNumber({ list, setList, otherData, rowsPerPage, getList, searchSection, setSearch, clearSearchField, loading, emptyData, children }) {
   const modalRef = useRef(null)
   const [editData, setEditData] = useState("")
   const renderCell = (ele, e) => {
@@ -32,7 +33,7 @@ function City({ list, setList, otherData, rowsPerPage, getList, searchSection, s
       return (
         <Switch checked={e.isActive} onClick={() => {
           confirm(confirmMessage(`${e.isActive ? 'de' : ''}active`)).then(async () => {
-            const res = await apiManager.put(`city/status/${e._id}`, {
+            const res = await apiManager.put(`phone/status/${e._id}`, {
               status: !e.isActive
             })
             if (!res.error) {
@@ -51,7 +52,7 @@ function City({ list, setList, otherData, rowsPerPage, getList, searchSection, s
           }}
           deleteOnClick={() => {
             confirm(confirmMessage('delete')).then(async () => {
-              const res = await apiManager.delete(`city/delete/${e._id}`,{
+              const res = await apiManager.delete(`phone/delete/${e._id}`,{
                 status: true
               })
               if(!res.error){
@@ -109,11 +110,11 @@ function City({ list, setList, otherData, rowsPerPage, getList, searchSection, s
         </Table>}
       </TableContainer>
 
-      <CityAddEdit clearSearchField={clearSearchField} setSearch={setSearch} editData={editData} getList={getList} rowsPerPage={rowsPerPage} ref={modalRef} />
+      <PhoneNumberAddEdit clearSearchField={clearSearchField} setSearch={setSearch} editData={editData} getList={getList} rowsPerPage={rowsPerPage} ref={modalRef} />
 
       {/* table pagination */}
       {children}
     </TableHeader>
   );
 }
-export default withPagination(City, 'city/listAll', { imageRequired: true, title: MODULE_NAME });
+export default withPagination(PhoneNumber, 'phone/list', { imageRequired: true, title: MODULE_NAME });

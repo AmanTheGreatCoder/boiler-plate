@@ -56,8 +56,13 @@ function Country({ list, setList, otherData, rowsPerPage, getList, searchSection
             setEditData(e);
           }}
           deleteOnClick={() => {
-            confirm(confirmMessage('delete')).then(() => {
-              // delete logic
+            confirm(confirmMessage('delete')).then(async () => {
+              const res = await apiManager.delete(`country/delete/${e._id}`,{
+                status: true
+              })
+              if(!res.error){
+                getList()
+              }
             })
           }}
         />
@@ -71,10 +76,10 @@ function Country({ list, setList, otherData, rowsPerPage, getList, searchSection
     <TableHeader
       title={MODULE_NAME}
       searchSection={searchSection}
-      addOnClick={() => {
-        modalRef.current.handleOpen();
-        setEditData('');
-      }}
+      // addOnClick={() => {
+      //   modalRef.current.handleOpen();
+      //   setEditData('');
+      // }}
     >
       {/* table */}
       {loading && <LinearProgress color="secondary" />}
@@ -115,4 +120,4 @@ function Country({ list, setList, otherData, rowsPerPage, getList, searchSection
     </TableHeader>
   );
 }
-export default withPagination(Country, 'country/list', { imageRequired: true });
+export default withPagination(Country, 'country/list', { imageRequired: true, title: MODULE_NAME });

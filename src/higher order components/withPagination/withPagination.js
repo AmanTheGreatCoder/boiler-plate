@@ -52,6 +52,9 @@ const withPagination = (WrappedComponent, url, { ...otherParams }) => {
       })
       getList(rowsPerPage, page, search);
     }, [rowsPerPage, search, page])
+    useEffect(() => {
+      document.title = otherParams.title || WrappedComponent.name
+    }, [])
     console.log(`[${new Date().toISOString()}] Rendering ${WrappedComponent.name} with props:`, props);
     return (
       <WrappedComponent emptyData={count === 0 && <img className='withPagination__img' src={noData} alt="No data image" />}

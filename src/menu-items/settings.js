@@ -38,19 +38,19 @@ const dashboard = {
             breadcrumbs: false
         },
         {
-            id: 'plans',
-            title: <FormattedMessage id="plans" />,
-            type: 'item',
-            url: '/settings/plans',
-            icon: icons.IconBrandCashapp,
-            breadcrumbs: false
-        },
-        {
             id: 'phone-number',
             title: <FormattedMessage id="phone number" />,
             type: 'item',
             url: '/settings/phone-number',
             icon: icons.IconPhoneCall,
+            breadcrumbs: false
+        },
+        {
+            id: 'plans',
+            title: <FormattedMessage id="plans" />,
+            type: 'item',
+            url: '/settings/plans',
+            icon: icons.IconBrandCashapp,
             breadcrumbs: false
         },
         // {

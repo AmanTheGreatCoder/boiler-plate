@@ -131,6 +131,7 @@ const UtilsGrid = Loadable(lazy(() => import('views/utilities/Grid')));
 
 // settings routing
 const Country = Loadable(lazy(()=> import('views/pages/settings/country/Country')))
+const PhoneNumber = Loadable(lazy(()=> import('views/pages/settings/PhoneNumber/PhoneNumber')))
 const City = Loadable(lazy(()=> import('views/pages/settings/City/City')))
 
 // sample page routing
@@ -164,7 +165,7 @@ const MainRoutes = {
         },
         {
             path: '/settings/phone-number',
-            element: <Country />
+            element: <PhoneNumber />
         },
         // {
         //     path: '/widget/statistics',
