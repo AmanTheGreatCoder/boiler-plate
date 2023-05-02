@@ -46,21 +46,13 @@ const dashboard = {
             breadcrumbs: false
         },
         {
-            id: 'plans',
-            title: <FormattedMessage id="plans" />,
+            id: 'subscription',
+            title: <FormattedMessage id="subscription" />,
             type: 'item',
-            url: '/settings/plans',
+            url: '/settings/subscription',
             icon: icons.IconBrandCashapp,
             breadcrumbs: false
         },
-        // {
-        //     id: 'analytics',
-        //     title: <FormattedMessage id="analytics" />,
-        //     type: 'item',
-        //     url: '/dashboard/analytics',
-        //     icon: icons.IconDeviceAnalytics,
-        //     breadcrumbs: false
-        // }
     ]
 };
 

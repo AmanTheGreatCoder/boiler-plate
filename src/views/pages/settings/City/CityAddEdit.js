@@ -26,7 +26,7 @@ const CityAddEdit = forwardRef(({ getList, rowsPerPage, editData, setSearch, cle
       onSubmit={async (values) => {
         const { _id: countryId } = values.SelectValue;
         const { cityName, isActive } = values;
-        const trimmedValues = trimValues({countryId,cityName,isActive})
+        const trimmedValues = trimValues({ countryId, cityName, isActive })
         console.log('SelectValue', values.SelectValue)
         const res = editData? await apiManager.patch(`city/update/${initialValues._id}`, trimmedValues):await apiManager.post('city/create',trimmedValues)
         if (!res.error) {
@@ -48,7 +48,7 @@ const CityAddEdit = forwardRef(({ getList, rowsPerPage, editData, setSearch, cle
             url="country/list"
             fieldName="SelectValue"
             errorName={"Country"}
-            optionRow={["countryName","isoCountry",{countryCode:true,field:"countryCode"}]}
+            optionRow={["countryName", "isoCountry", { countryCode: true, field: "countryCode" }]}
             showFlag={true}
             valueToShowInField="countryName"
           />

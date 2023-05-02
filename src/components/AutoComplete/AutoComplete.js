@@ -15,18 +15,18 @@ function AutoComplete({ placeholder, url, optionRow, valueToShowInField, fieldNa
 
   const fetchData = async (value) => {
     let queryString = `${url}?limit=20&pageNo=1&search=${value ? value : ''}`
-    if(query){
-      Object.keys(query).map(e=>{
+    if (query) {
+      Object.keys(query).map(e => {
         queryString += `&${e}=${query[e]}`
       })
     }
     const res = await apiManager.get(queryString);
-      if (!res.error) {
-        if(showFlag){
-          setImageUrl(res.data.imageUrl)
-        }
-        setOptions(res.data.data)
+    if (!res.error) {
+      if (showFlag) {
+        setImageUrl(res.data.imageUrl)
       }
+      setOptions(res.data.data)
+    }
   }
 
   const verify = useCallback(
@@ -46,17 +46,18 @@ function AutoComplete({ placeholder, url, optionRow, valueToShowInField, fieldNa
   }, [])
 
   const getOptionRow = (option) => {
-    const temp = optionRow.map(e => {
-      if(typeof e === 'string'){
+    console.log('eamanmc', option)
+    const temp = optionRow?.map(e => {
+      if (typeof e === 'string') {
         return <span className='space-to-right'>{`${option[e]}`}</span>
-      } else if(typeof e === 'object' && e.field === 'countryCode'){
-        // logic to print + (plus sign) before country code
+      } else if (typeof e === 'object' && e.field === 'countryCode') {
         return <span className='space-to-right'>{`+${option[e.field]}`}</span>
       }
     })
-    if(showFlag){
-      temp.unshift(<img className='space-to-right' height={16} width={16} src={imageUrl+option.flag} onError={addDefaultSrc}/>)
+    if (showFlag) {
+      temp.unshift(<img className='space-to-right' height={16} width={16} src={imageUrl + option.flag} onError={addDefaultSrc} />)
     }
+    console.log({ temp })
     return temp
   }
 
@@ -64,8 +65,8 @@ function AutoComplete({ placeholder, url, optionRow, valueToShowInField, fieldNa
     name: fieldName,
     validate: (newValue) => {
       let error = null;
-      console.log('newValue',newValue)
-      if(!newValue || (typeof newValue === 'object' && Object.keys(newValue).length === 0)){
+      console.log('newValue', newValue)
+      if (!newValue || (typeof newValue === 'object' && Object.keys(newValue).length === 0)) {
         error = `${errorName} is required`
       }
       return error
@@ -77,24 +78,28 @@ function AutoComplete({ placeholder, url, optionRow, valueToShowInField, fieldNa
   const { setValue, setTouched, setError } = helpers;
   const hasError = Boolean(error) && touched;
 
+  useEffect(() => {
+    console.log({ options })
+  }, [options])
+
 
 
   return (
     <Autocomplete
+      multiple={multiple}
+      freeSolo={freeSolo}
       id="country-select-demo"
       options={options}
       name={name}
       autoHighlight
-      getOptionLabel={(option) => option[valueToShowInField]}
-      isOptionEqualToValue={(option, value) => option.id === value.id}
+      getOptionLabel={(option) => valueToShowInField ? option[valueToShowInField] : option}
+      // isOptionEqualToValue={(option, value) => option.id === value.id}
       renderOption={(props, option) => (
-        <li {...props} style={{ fontSize: 15 }}>
-          {/* <span style={{ marginRight: 10, fontSize: 18 }}>{countryToFlag(option.code)}</span> */}
-          {/* {option.countryName} ({option.isoCountry}) +{option.countryCode} */}
+        optionRow && (<li {...props} style={{ fontSize: 15 }}>
           {getOptionRow(option)}
-        </li>
+        </li>)
       )}
-      value={value? value : null}
+      value={value ? value : null}
       // onBlur={() => {
       //   setFormValue('')
       //   onBlur()
@@ -127,5 +132,4 @@ function AutoComplete({ placeholder, url, optionRow, valueToShowInField, fieldNa
     />
   )
 }
-
 export default AutoComplete

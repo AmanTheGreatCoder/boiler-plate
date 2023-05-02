@@ -41,7 +41,7 @@ const CountryAddEdit = forwardRef(({ getList, rowsPerPage, editData, setSearch, 
       }
     }
   }
-  if(editData){
+  if (editData) {
     initialValues._id = editData._id
   }
   // useEffect(() => {
@@ -70,7 +70,6 @@ const CountryAddEdit = forwardRef(({ getList, rowsPerPage, editData, setSearch, 
           <ReusableValidation
             varName="countryName"
             fieldName={"Country Name"}
-            fieldValue={values.countryName}
             required={true}
           // isSubmitting={isSubmitting}
           />
