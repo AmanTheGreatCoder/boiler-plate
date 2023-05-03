@@ -9,7 +9,7 @@ import CityAddEdit from './CityAddEdit';
 import withPagination from 'higher order components/withPagination/withPagination';
 import confirm from 'views/forms/plugins/Confirm/confirm'
 import APIManager from 'utils/APImanager'
-import { confirmMessage } from 'utils/Helper'
+import { confirmMessage, getValueFromObject } from 'utils/Helper'
 import TableHeader from 'components/TableHeader/TableHeader';
 import ActionButtons from 'components/ActionButtons/ActionButtons';
 import { MODULE_NAME } from './Values'
@@ -17,8 +17,8 @@ import { MODULE_NAME } from './Values'
 const apiManager = new APIManager();
 
 const columns = [
-  { id: 'cityName', label: 'City Name', style: { minWidth: 30 } },
-  { id: 'countryName', label: 'Country Name', style: { minWidth: 30 } },
+  { id: 'cityName', label: 'City Name', style: { minWidth: 30, textTransform: 'capitalize' } },
+  { id: 'countryId.countryName', label: 'Country Name', style: { minWidth: 30, textTransform: 'capitalize' } },
   { id: 'isActive', label: 'Active', style: { minWidth: 30 } },
   { id: 'actions', label: 'Actions', style: { minWidth: 70 }, align: 'right' },
 ];
@@ -28,11 +28,7 @@ function City({ list, setList, otherData, rowsPerPage, getList, searchSection, s
   const modalRef = useRef(null)
   const [editData, setEditData] = useState("")
   const renderCell = (ele, e) => {
-    if (ele.id === 'flag') {
-      return (
-        <img src={`${otherData.imageUrl}${e.flag}`} height='30' width='30' alt="country flag" />
-      )
-    } else if (ele.id === 'isActive') {
+    if (ele.id === 'isActive') {
       return (
         <Switch checked={e.isActive} onClick={() => {
           confirm(confirmMessage(`${e.isActive ? 'de' : ''}active`)).then(async () => {
@@ -54,12 +50,19 @@ function City({ list, setList, otherData, rowsPerPage, getList, searchSection, s
             setEditData(e);
           }}
           deleteOnClick={() => {
-            confirm(confirmMessage('delete')).then(() => {
-              // delete logic
+            confirm(confirmMessage('delete')).then(async () => {
+              const res = await apiManager.delete(`city/delete/${e._id}`,{
+                status: true
+              })
+              if(!res.error){
+                getList()
+              }
             })
           }}
         />
       )
+    } else if (ele.id.includes('.')){
+      return getValueFromObject(ele.id,e)
     }
     const value = e[ele.id];
     return (value)
@@ -94,7 +97,7 @@ function City({ list, setList, otherData, rowsPerPage, getList, searchSection, s
                 <TableRow key={e._id}>
                   {columns.map(ele => {
                     return (
-                      <TableCell key={e._id+ele.id} align={ele.align} className={`${ele.id === 'countryName' || ele.id === 'cityName' ? 'capitalize' : ''}`}>
+                      <TableCell key={e._id+ele.id} align={ele.align} style={{...ele.style}} className={`${ele.id === 'countryName' || ele.id === 'cityName' ? 'capitalize' : ''}`}>
                         {renderCell(ele, e)}
                       </TableCell>
                     )
@@ -113,4 +116,4 @@ function City({ list, setList, otherData, rowsPerPage, getList, searchSection, s
     </TableHeader>
   );
 }
-export default withPagination(City, 'city/listAll', { imageRequired: true });
+export default withPagination(City, 'city/listAll', { imageRequired: true, title: MODULE_NAME });

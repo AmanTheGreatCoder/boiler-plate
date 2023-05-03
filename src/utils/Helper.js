@@ -41,3 +41,15 @@ export const confirmMessage = (value) => {
 export const addDefaultSrc = (ev) => {
   ev.target.src = Flag
 }
+
+export const getValueFromObject = (str, obj) => {
+  const keys = str.split('.');
+  let value = obj;
+  for (const key of keys) {
+    value = value[key];
+    if (!value) {
+      break;
+    }
+  }
+  return value;
+}

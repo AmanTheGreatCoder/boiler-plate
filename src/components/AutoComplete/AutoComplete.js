@@ -8,23 +8,24 @@ import './AutoComplete.css'
 import { addDefaultSrc } from 'utils/Helper'
 
 const apiManager = new APIManager();
-function AutoComplete(props) {
-  const { placeholder, url, optionRow, valueToShowInField, fieldName, errorName, showFlag, multiple, freeSolo
-  } = props;
+function AutoComplete({ placeholder, url, optionRow, valueToShowInField, fieldName, errorName, showFlag, query, onChange, multiple, freeSolo }) {
   const [options, setOptions] = useState([]);
-  const [selectedValue, setSelectedValue] = useState('')
   const [formValue, setFormValue] = useState('')
   const [imageUrl, setImageUrl] = useState('')
 
   const fetchData = async (value) => {
-    if (url) {
-      const res = await apiManager.get(`${url}?limit=20&pageNo=1&search=${value ? value : ''}`);
-      if (!res.error) {
-        if (showFlag) {
-          setImageUrl(res.data.imageUrl)
-        }
-        setOptions(res.data.data)
+    let queryString = `${url}?limit=20&pageNo=1&search=${value ? value : ''}`
+    if (query) {
+      Object.keys(query).map(e => {
+        queryString += `&${e}=${query[e]}`
+      })
+    }
+    const res = await apiManager.get(queryString);
+    if (!res.error) {
+      if (showFlag) {
+        setImageUrl(res.data.imageUrl)
       }
+      setOptions(res.data.data)
     }
   }
 
@@ -106,10 +107,9 @@ function AutoComplete(props) {
       onBlur={onBlur}
       onInputChange={(e) => setFormValue(e?.target?.value)}
       onChange={(event, value) => {
-
-        setSelectedValue(value)
         setValue(value)
-        console.log({ selectValue: value })
+        console.log(value)
+        onChange && onChange(value)
       }}
       renderInput={(params) => (
         <TextField
@@ -132,5 +132,4 @@ function AutoComplete(props) {
     />
   )
 }
-
 export default AutoComplete

@@ -5,41 +5,45 @@ import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Linea
 import { Switch } from '@mui/material'
 
 // project imports
-import CountryAddEdit from './CountryAddEdit';
+import PhoneNumberAddEdit from './PhoneNumberAddEdit';
 import withPagination from 'higher order components/withPagination/withPagination';
 import confirm from 'views/forms/plugins/Confirm/confirm'
 import APIManager from 'utils/APImanager'
-import { confirmMessage } from 'utils/Helper'
+import { confirmMessage, getValueFromObject } from 'utils/Helper'
 import TableHeader from 'components/TableHeader/TableHeader';
 import ActionButtons from 'components/ActionButtons/ActionButtons';
-import { addDefaultSrc } from 'utils/Helper'
-import { MODULE_NAME } from './Values';
+import { MODULE_NAME } from './Values'
+import { Button } from '@mui/material';
+import AssignNumberModal from './AssignNumberModal';
 
 const apiManager = new APIManager();
 
-const columns = [
-  { id: 'countryName', label: 'Country Name', style: { minWidth: 30 } },
-  { id: 'countryCode', label: 'ISO\u00a0Code', style: { minWidth: 100 } },
-  { id: 'isActive', label: 'Active', style: { minWidth: 30 } },
-  { id: 'flag', label: 'Flag', style: { minWidth: 30 }, },
-  { id: 'actions', label: 'Actions', style: { minWidth: 70 }, align: 'right' },
-];
 
 
-function Country(props) {
-  const { list, setList, otherData, rowsPerPage, getList, searchSection, setSearch, clearSearchField, loading, emptyData, children } = props;
+function PhoneNumber({ list, setList, otherData, rowsPerPage, getList, searchSection, setSearch, clearSearchField, loading, emptyData, children }) {
   const modalRef = useRef(null)
+  const assignModalRef = useRef(null)
+  const columns = [
+    { id: 'phoneNumber', label: 'Phone Number', style: { minWidth: 30 } },
+    { id: 'cityId.cityName', label: 'City Name', style: { minWidth: 30, textTransform: 'capitalize' } },
+    { id: 'countryId.countryName', label: 'Country Name', style: { minWidth: 30, textTransform: 'capitalize' } },
+    { id: 'isActive', label: 'Active', style: { minWidth: 30, textAlign: 'center' } },
+    {
+      id: 'assignTo', label: 'Assigned To', style: { minWidth: 30, textAlign: 'center' }, fallback: (
+        <Button size='small' variant="contained" onClick={() => {assignModalRef.current.handleOpen()}}>
+          Assign
+        </Button>
+      )
+    },
+    { id: 'actions', label: 'Actions', style: { minWidth: 70 }, align: 'right' },
+  ];
   const [editData, setEditData] = useState("")
   const renderCell = (ele, e) => {
-    if (ele.id === 'flag') {
-      return (
-        <img src={`${otherData.imageUrl}${e.flag}`} onError={addDefaultSrc} height='30' width='30' alt="country flag" />
-      )
-    } else if (ele.id === 'isActive') {
+    if (ele.id === 'isActive') {
       return (
         <Switch checked={e.isActive} onClick={() => {
           confirm(confirmMessage(`${e.isActive ? 'de' : ''}active`)).then(async () => {
-            const res = await apiManager.put(`country/status/${e._id}`, {
+            const res = await apiManager.put(`phone/status/${e._id}`, {
               status: !e.isActive
             })
             if (!res.error) {
@@ -58,29 +62,31 @@ function Country(props) {
           }}
           deleteOnClick={() => {
             confirm(confirmMessage('delete')).then(async () => {
-              const res = await apiManager.delete(`country/delete/${e._id}`,{
+              const res = await apiManager.delete(`phone/delete/${e._id}`, {
                 status: true
               })
-              if(!res.error){
+              if (!res.error) {
                 getList()
               }
             })
           }}
         />
       )
+    } else if (ele.id.includes('.')) {
+      return getValueFromObject(ele.id, e)
     }
-    const value = e[ele.id];
-    return (value)
+    const value = e[ele.id] || ele.fallback;
+    return (value) || '-'
   }
 
   return (
     <TableHeader
       title={MODULE_NAME}
       searchSection={searchSection}
-      // addOnClick={() => {
-      //   modalRef.current.handleOpen();
-      //   setEditData('');
-      // }}
+      addOnClick={() => {
+        modalRef.current.handleOpen();
+        setEditData('');
+      }}
     >
       {/* table */}
       {loading && <LinearProgress color="secondary" />}
@@ -102,7 +108,7 @@ function Country(props) {
                 <TableRow key={e._id}>
                   {columns.map(ele => {
                     return (
-                      <TableCell key={e._id + ele.id} align={ele.align} className={`${ele.id === 'countryName' ? 'capitalize' : ''}`}>
+                      <TableCell key={e._id + ele.id} align={ele.align} style={{ ...ele.style }} className={`${ele.id === 'countryName' || ele.id === 'cityName' ? 'capitalize' : ''}`}>
                         {renderCell(ele, e)}
                       </TableCell>
                     )
@@ -114,11 +120,12 @@ function Country(props) {
         </Table>}
       </TableContainer>
 
-      <CountryAddEdit clearSearchField={clearSearchField} setSearch={setSearch} editData={editData} getList={getList} rowsPerPage={rowsPerPage} ref={modalRef} />
+      <PhoneNumberAddEdit clearSearchField={clearSearchField} setSearch={setSearch} editData={editData} getList={getList} rowsPerPage={rowsPerPage} ref={modalRef} />
+      <AssignNumberModal ref={assignModalRef} />
 
       {/* table pagination */}
       {children}
     </TableHeader>
   );
 }
-export default withPagination(Country, 'country/list', { imageRequired: true, title: MODULE_NAME });
+export default withPagination(PhoneNumber, 'phone/list', { imageRequired: true, title: MODULE_NAME });

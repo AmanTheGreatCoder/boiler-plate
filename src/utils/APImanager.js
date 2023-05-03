@@ -148,8 +148,8 @@ export default class APIManager {
     return await this.request(endpoint, 'PATCH', body);
   }
 
-  async delete(endpoint) {
-    return await this.request(endpoint, 'DELETE');
+  async delete(endpoint, body) {
+    return await this.request(endpoint, 'DELETE', body);
   }
 }
 

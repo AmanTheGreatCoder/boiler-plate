@@ -11,9 +11,9 @@ function TableHeader({children, title, searchSection, addOnClick}) {
       secondary={(
         <div style={{ display: 'flex', alignItems: 'center' }}>
           {searchSection}
-          <Button sx={{ ml: 3 }} variant="contained" startIcon={<AddIcon />} onClick={() => addOnClick()}>
+          {addOnClick && <Button size='large' sx={{ ml: 3 }} variant="contained" startIcon={<AddIcon />} onClick={() => addOnClick()}>
             Add
-          </Button>
+          </Button>}
         </div>
       )}
     >

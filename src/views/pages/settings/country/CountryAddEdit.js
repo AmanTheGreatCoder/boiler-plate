@@ -57,10 +57,10 @@ const CountryAddEdit = forwardRef(({ getList, rowsPerPage, editData, setSearch, 
     <Formik enableReinitialize initialValues={initialValues}
       onSubmit={async (values) => {
         const trimmedValues = trimValues(values)
-        const res = await apiManager.post(`${editData ? `country/update/${initialValues._id}` : 'country/create'}`, trimmedValues);
+        const res =  editData?await apiManager.patch(`country/update/${initialValues._id}`, trimmedValues):await apiManager.post('country/create',trimmedValues)
         if (!res.error) {
           modalRef.current.handleClose();
-          // getList(rowsPerPage)
+          getList()
           setSearch("")
           clearSearchField();
         }
@@ -87,22 +87,11 @@ const CountryAddEdit = forwardRef(({ getList, rowsPerPage, editData, setSearch, 
             control="isoCountry"
           // isSubmitting={isSubmitting}
           />
-          <ReusableValidation
+          {/* <ReusableValidation
             varName="flag"
             fieldName={"Flag"}
             required={true}
-          // isSubmitting={isSubmitting}
-          />
-          {/* <FormControl>
-            <FormGroup aria-label="position" row>
-              <FormControlLabel
-                value="start"
-                control={<Switch checked={values.isActive} onChange={handleChange} name="isActive" color="primary" />}
-                label="Active"
-                labelPlacement="start"
-              />
-            </FormGroup>
-          </FormControl> */}
+          /> */}
         </SimpleModal>
       )}
     </Formik>

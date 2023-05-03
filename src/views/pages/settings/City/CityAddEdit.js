@@ -14,8 +14,11 @@ const apiManager = new APIManager();
 const CityAddEdit = forwardRef(({ getList, rowsPerPage, editData, setSearch, clearSearchField }, modalRef) => {
   let initialValues = {
     cityName: editData.cityName || "",
-    SelectValue: editData || '',
+    SelectValue: editData.countryId || '',
     isActive: true
+  }
+  if(editData){
+    initialValues._id = editData._id
   }
 
   return (
@@ -25,7 +28,7 @@ const CityAddEdit = forwardRef(({ getList, rowsPerPage, editData, setSearch, cle
         const { cityName, isActive } = values;
         const trimmedValues = trimValues({ countryId, cityName, isActive })
         console.log('SelectValue', values.SelectValue)
-        const res = await apiManager.post(`${editData ? `country/update/${initialValues._id}` : 'city/create'}`, trimmedValues);
+        const res = editData? await apiManager.patch(`city/update/${initialValues._id}`, trimmedValues):await apiManager.post('city/create',trimmedValues)
         if (!res.error) {
           modalRef.current.handleClose();
           getList(rowsPerPage)
@@ -38,7 +41,6 @@ const CityAddEdit = forwardRef(({ getList, rowsPerPage, editData, setSearch, cle
           <ReusableValidation
             varName="cityName"
             fieldName={"City Name"}
-            fieldValue={values.countryName}
             required={true}
           />
           <AutoComplete
