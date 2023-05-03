@@ -8,7 +8,7 @@ import './AutoComplete.css'
 import { addDefaultSrc } from 'utils/Helper'
 
 const apiManager = new APIManager();
-function AutoComplete({ placeholder, url, optionRow, valueToShowInField, fieldName, errorName, showFlag, query, onChange }) {
+function AutoComplete({ placeholder, url, optionRow, valueToShowInField, fieldName, errorName, showFlag, query, onChange, multiple, freeSolo }) {
   const [options, setOptions] = useState([]);
   const [formValue, setFormValue] = useState('')
   const [imageUrl, setImageUrl] = useState('')
