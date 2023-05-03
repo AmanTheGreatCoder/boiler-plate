@@ -25,32 +25,57 @@ const apiManager = new APIManager();
 
 const CodeVerification = () => {
   const theme = useTheme();
+  const [disabled, setDisabled] = useState(false);
   const [OTP, setOTP] = useState(null)
+  const [time, setTime] = useState(60);
+  const [error, setError] = useState(false);
   const matchDownSM = useMediaQuery(theme.breakpoints.down('md'));
   const navigate = useNavigate();
   const { detail } = useContext(PhoneNumberContext);
   const maskedNumber = maskPhoneNumber(detail.phoneNumber)
-  console.log('myvalue',detail)
   useEffect(() => {
     console.log('useeffect called')
-    if(!detail.phoneNumber){
+    if (!detail.phoneNumber) {
       navigate('/login')
     }
   }, [detail])
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log('detail', detail)
     const res = await apiManager.post('auth/verify-otp', {
       countryCode: detail.countryCode,
       phoneNumber: detail.phoneNumber,
       isRemember: detail.isRemember,
       otp: parseInt(OTP)
     })
-    if(!res.error){
-      localStorage.setItem('token',res.data['access_token'])
+    if (!res.error) {
+      localStorage.setItem('token', res.data['access_token'])
       navigate('/dashboard/default')
     }
+    else {
+      setError(true);
+    }
   }
+
+
+  useEffect(() => {
+    let timerId;
+    if (disabled) {
+      timerId = setTimeout(() => {
+        if (time > 0) {
+          setTime(time - 1);
+        } else {
+          setDisabled(false);
+          setTime(60);
+        }
+      }, 1000);
+    }
+
+    return () => {
+      clearTimeout(timerId);
+    };
+  }, [disabled, time]);
 
   return (
     <AuthWrapper1>
@@ -97,7 +122,7 @@ const CodeVerification = () => {
                       </Grid>
                     </Grid>
                     <Grid item xs={12}>
-                      <AuthCodeVerification onChange={otp=> setOTP(otp)} />
+                      <AuthCodeVerification error={error} onChange={otp => setOTP(otp)} />
                     </Grid>
                     <Grid item xs={12}>
                       <Divider />
@@ -105,8 +130,6 @@ const CodeVerification = () => {
                     <Grid item xs={12}>
                       <Grid item container direction="column" alignItems="center" xs={12}>
                         <Typography
-                          component={Link}
-                          to="#"
                           variant="subtitle1"
                           sx={{ textDecoration: 'none' }}
                           textAlign={matchDownSM ? 'center' : 'inherit'}
@@ -119,13 +142,24 @@ const CodeVerification = () => {
                       <AnimateButton>
                         <Button
                           disableElevation
+                          disabled={disabled}
                           fullWidth
                           size="large"
-                          type="submit"
+                          onClick={async () => {
+                            try {
+                              const res = await apiManager.post('auth/admin-login', {
+                                countryCode: detail.countryCode,
+                                phoneNumber: detail.phoneNumber
+                              })
+                              setDisabled(true)
+                            } catch (e) {
+                              console.error(e)
+                            }
+                          }}
                           variant="outlined"
                           color="secondary"
                         >
-                          Resend Code
+                          {disabled ? time : ' Resend Code'}
                         </Button>
                       </AnimateButton>
                     </Grid>

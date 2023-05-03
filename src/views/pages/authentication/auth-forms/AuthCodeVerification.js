@@ -9,7 +9,7 @@ import OtpInput from 'react-otp-input-rc-17';
 
 // ============================|| STATIC - CODE VERIFICATION ||============================ //
 
-const AuthCodeVerification = ({ onChange }) => {
+const AuthCodeVerification = ({ onChange, error }) => {
     const theme = useTheme();
     const [otp, setOtp] = useState();
     const borderColor = theme.palette.mode === 'dark' ? theme.palette.grey[200] : theme.palette.grey[300];
@@ -23,6 +23,8 @@ const AuthCodeVerification = ({ onChange }) => {
                         setOtp(otpNumber)
                         onChange(otpNumber)
                     }}
+                    errorStyle={{ borderColor: 'red' }}
+                    hasErrored={error}
                     numInputs={6}
                     containerStyle={{ justifyContent: 'space-between' }}
                     inputStyle={{

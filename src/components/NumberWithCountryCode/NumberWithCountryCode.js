@@ -9,35 +9,28 @@ import { useTheme } from '@mui/material/styles';
 import { useField } from 'formik';
 import { countryCodeRegex, phoneRegExp } from 'utils/Regex';
 
+const NumberStyle = styled.div`
 
-const CustomPhoneStyle = styled.div`
-& > div > label{
-  top: 20px;
-}
-& > div > div{
-  padding-top: 11px;
-}
-& > div{
-  width: 100%;
-}
-&.error > div > label{
-  // color: ${props=>props.theme.palette.error.main};
-}
-.error{
-    background: ${props=>props.theme.palette.error.dark};
-    height: 40px;
-    width: 40px;
+  & > div{
+    width:100%;
   }
 
-  `;
+  label{
+    background: #fff;
+    top:2px;
+    padding: 0 10px;
+  }
+  
+`
 
-function NumberWithCountryCode({  fieldName }) {
+function NumberWithCountryCode({ fieldName }) {
+  const theme = useTheme()
   const [field, meta, helpers] = useField({
     name: fieldName,
-    validate: (newValue) =>{
+    validate: (newValue) => {
       let error = null;
-      console.log(newValue.phoneNumber,'check phone lefkjdsal')
-      if(!phoneRegExp.test(newValue.phoneNumber)){
+      console.log(newValue.phoneNumber, 'check phone ')
+      if (newValue.phoneNumber && !phoneRegExp.test(newValue.phoneNumber)) {
         error = "Phone number is not valid"
       }
       return error;
@@ -52,7 +45,7 @@ function NumberWithCountryCode({  fieldName }) {
   let phoneNumber = '';
   let simplePhoneNumber = '';
   return (
-    <CustomPhoneStyle>
+    <NumberStyle>
       <MuiPhoneNumber
         error={hasError}
         name={name}
@@ -73,7 +66,7 @@ function NumberWithCountryCode({  fieldName }) {
           })
         }}
       />
-    </CustomPhoneStyle>
+    </NumberStyle>
   )
 }
 

@@ -17,7 +17,7 @@ const CityAddEdit = forwardRef(({ getList, rowsPerPage, editData, setSearch, cle
     SelectValue: editData.countryId || '',
     isActive: true
   }
-  if(editData){
+  if (editData) {
     initialValues._id = editData._id
   }
 
@@ -28,7 +28,7 @@ const CityAddEdit = forwardRef(({ getList, rowsPerPage, editData, setSearch, cle
         const { cityName, isActive } = values;
         const trimmedValues = trimValues({ countryId, cityName, isActive })
         console.log('SelectValue', values.SelectValue)
-        const res = editData? await apiManager.patch(`city/update/${initialValues._id}`, trimmedValues):await apiManager.post('city/create',trimmedValues)
+        const res = editData ? await apiManager.patch(`city/update/${initialValues._id}`, trimmedValues) : await apiManager.post('city/create', trimmedValues)
         if (!res.error) {
           modalRef.current.handleClose();
           getList(rowsPerPage)
@@ -51,6 +51,7 @@ const CityAddEdit = forwardRef(({ getList, rowsPerPage, editData, setSearch, cle
             optionRow={["countryName", "isoCountry", { countryCode: true, field: "countryCode" }]}
             showFlag={true}
             valueToShowInField="countryName"
+            required={true}
           />
         </SimpleModal>
       )}
