@@ -5,6 +5,7 @@ import {
   FormHelperText,
   InputLabel,
   OutlinedInput,
+  TextField,
 } from '@mui/material';
 import MuiPhoneNumber from 'material-ui-phone-number';
 import { simplifyString, removeFirstSubstring } from 'utils/Helper'
@@ -65,11 +66,12 @@ function ReusableValidation({ fieldName, disabled, required, control, fieldValue
   // }, [isSubmitting]);
 
   return (
-    <FormControl disabled={disabled} fullWidth error={hasError} sx={{ ...theme.typography.customInput }}>
-      <InputLabel htmlFor="outlined-adornment-email-register">{fieldName}</InputLabel>
-      <OutlinedInput
-        id="outlined-adornment-email-register"
+    <FormControl disabled={disabled} fullWidth error={hasError} sx={{ mt: 1, mb: 0.5 }}>
+      <TextField
         type="text"
+        label={fieldName}
+        error={hasError}
+        variant='outlined'
         disabled={disabled}
         value={value}
         name={name}
