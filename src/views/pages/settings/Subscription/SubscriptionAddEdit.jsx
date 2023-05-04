@@ -20,7 +20,6 @@ const SubscriptionAddEdit = forwardRef(({ getList, rowsPerPage, editData, setSea
 
     console.log("edit Data", editData)
     let initialValues = {
-        //TODO remove uneccessary here
         name: editData.name || "",
         interval: editData.interval || "month",
         amount: editData?.amount || "",

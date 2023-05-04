@@ -16,6 +16,7 @@ import { PhoneNumberContext } from 'contexts/PhoneNumberContext';
 import { maskPhoneNumber } from 'utils/Helper';
 import APIManager from 'utils/APImanager';
 import { AzhaiAuthContext } from 'contexts/AzhaiAuthContext';
+import withTitle from 'higher order components/withTitle';
 
 // assets
 
@@ -177,4 +178,4 @@ const CodeVerification = () => {
   );
 };
 
-export default CodeVerification;
+export default withTitle(CodeVerification, 'OTP');

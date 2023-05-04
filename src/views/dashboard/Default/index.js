@@ -11,6 +11,7 @@ import TotalIncomeDarkCard from './TotalIncomeDarkCard';
 import TotalIncomeLightCard from './TotalIncomeLightCard';
 import TotalGrowthBarChart from './TotalGrowthBarChart';
 import { gridSpacing } from 'store/constant';
+import withTitle from 'higher order components/withTitle';
 
 // ==============================|| DEFAULT DASHBOARD ||============================== //
 
@@ -56,4 +57,4 @@ const Dashboard = () => {
     );
 };
 
-export default Dashboard;
+export default withTitle(Dashboard, 'Dashboard');
