@@ -11,9 +11,9 @@ import MainCard from 'ui-component/cards/MainCard';
 import CloseIcon from '@mui/icons-material/Close';
 import { useFormikContext } from 'formik';
 
-const Body = forwardRef(({ submitForm, modalStyle, handleClose, children, onSubmit, handleSubmit, errors, title }, ref) => {
+const Body = forwardRef(({ submitForm, modalStyle, handleClose, children, onClear, onSubmit, handleSubmit, errors, title, showClearButton, resetForm }, ref) => {
     // const {errors}=useFormikContext();
-    console.log('actual errors',errors)
+    console.log('actual errors', errors)
     return (
         <form onSubmit={(e) => {
             e.preventDefault();
@@ -54,11 +54,14 @@ const Body = forwardRef(({ submitForm, modalStyle, handleClose, children, onSubm
                     <Grid item>
                         <Button type="submit" variant="contained">Submit</Button>
                     </Grid>
-                    {/* <Grid item>
-                    <Button variant="contained" color="secondary">
-                        Secondary
-                    </Button>
-                </Grid> */}
+                    {showClearButton && <Grid item>
+                        <Button variant="contained" color="secondary" onClick={()=>{
+                            resetForm()
+                            onClear && onClear()
+                            }}>
+                            Clear
+                        </Button>
+                    </Grid>}
                 </CardActions>
             </MainCard>
         </form>
@@ -72,7 +75,7 @@ Body.propTypes = {
 
 // ==============================|| SIMPLE MODAL ||============================== //
 
-const SimpleModal = forwardRef(({ children, onSubmit, errors, handleSubmit, resetForm, submitForm, title }, ref) => {
+const SimpleModal = forwardRef(({ children, onSubmit, errors, handleSubmit, resetForm, submitForm, title, showClearButton, resetOnClear, onClear }, ref) => {
     const [open, setOpen] = React.useState(false);
     useImperativeHandle(ref, () => ({
         handleOpen() {
@@ -80,18 +83,18 @@ const SimpleModal = forwardRef(({ children, onSubmit, errors, handleSubmit, rese
         },
         handleClose() {
             setOpen(false);
-            resetForm();
+            !resetOnClear && resetForm();
         }
     }));
 
     const handleClose = () => {
         setOpen(false);
-        resetForm();
+        !resetOnClear && resetForm();
     }
     return (
         <Grid container justifyContent="flex-end">
             <Modal open={open} onClose={handleClose} aria-labelledby="simple-modal-title" aria-describedby="simple-modal-description">
-                <Body title={title} submitForm={submitForm} errors={errors} handleSubmit={handleSubmit} onSubmit={onSubmit} handleClose={handleClose} >
+                <Body title={title} resetForm={resetForm} showClearButton={showClearButton} submitForm={submitForm} onClear={onClear} errors={errors} handleSubmit={handleSubmit} onSubmit={onSubmit} handleClose={handleClose} >
                     {children}
                 </Body>
             </Modal>
