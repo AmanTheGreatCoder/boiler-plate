@@ -11,6 +11,7 @@ import AuthLogin from '../auth-forms/AuthLogin';
 import Logo from 'ui-component/Logo';
 import AuthFooter from 'ui-component/cards/AuthFooter';
 import useAuth from 'hooks/useAuth';
+import withTitle from 'higher order components/withTitle';
 
 // assets
 
@@ -92,4 +93,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default withTitle(Login, 'Login');

@@ -10,6 +10,7 @@ import { MODULE_NAME, CURRENCY_JSON } from './Values';
 import { useTheme } from '@mui/material/styles';
 import AutoComplete from 'components/AutoComplete/AutoComplete';
 import { Autocomplete as AutoCompleteMUI } from '@mui/material'
+import { initial } from 'lodash';
 
 const apiManager = new APIManager();
 
@@ -20,7 +21,6 @@ const SubscriptionAddEdit = forwardRef(({ getList, rowsPerPage, editData, setSea
 
     console.log("edit Data", editData)
     let initialValues = {
-        //TODO remove uneccessary here
         name: editData.name || "",
         interval: editData.interval || "month",
         amount: editData?.amount || "",
@@ -90,14 +90,19 @@ const SubscriptionAddEdit = forwardRef(({ getList, rowsPerPage, editData, setSea
                         disabled={disabled}
                         control={'isNumber'}
                     />
-                    <AutoComplete
-                        placeholder='Benefits'
-                        multiple={true}
-                        freeSolo={true}
-                        errorName={'Benefits'}
-                        fieldName={"benefits"}
-                        required={true}
-                    />
+                    {/* {initialValues.benefits.map(item => (
+                        <ReusableValidation
+                            varName="benefits"
+                            fieldName={"Benefits"}
+                            required={true}
+                        />
+                    ))} */}
+                    {/* <TextField
+                        type='text'
+                        label='Benefits'
+                        value={item}
+                        onChange={e => setValue(e.target.value)}
+                    /> */}
                 </SimpleModal>
             )}
         </Formik>
