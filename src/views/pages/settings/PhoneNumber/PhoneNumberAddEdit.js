@@ -46,6 +46,7 @@ const PhoneNumberAddEdit = forwardRef(({ getList, rowsPerPage, editData, setSear
         <SimpleModal title={MODULE_NAME} submitForm={submitForm} resetForm={resetForm} ref={modalRef} errors={errors} handleSubmit={handleSubmit} >
           <ReusableValidation
             varName="phoneNumber"
+            control="isNumber"
             fieldName={"Phone Number"}
             required={true}
           />

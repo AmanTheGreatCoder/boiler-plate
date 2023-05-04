@@ -3,7 +3,7 @@ import { Button } from '@mui/material';
 import MainCard from 'ui-component/cards/MainCard';
 import AddIcon from '@mui/icons-material/Add';
 
-function TableHeader({children, title, searchSection, addOnClick}) {
+function TableHeader({children, title, searchSection, addOnClick, filterOnClick}) {
   return (
     <MainCard
       content={false}
@@ -11,6 +11,9 @@ function TableHeader({children, title, searchSection, addOnClick}) {
       secondary={(
         <div style={{ display: 'flex', alignItems: 'center' }}>
           {searchSection}
+          {filterOnClick && <Button size='large' sx={{ ml: 3 }} variant="contained" startIcon={<AddIcon />} onClick={() => filterOnClick()}>
+            Filter
+          </Button>}
           {addOnClick && <Button size='large' sx={{ ml: 3 }} variant="contained" startIcon={<AddIcon />} onClick={() => addOnClick()}>
             Add
           </Button>}

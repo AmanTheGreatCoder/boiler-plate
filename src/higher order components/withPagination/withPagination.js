@@ -18,6 +18,7 @@ const withPagination = (WrappedComponent, url, { ...otherParams }) => {
     const [list, setList] = useState([])
     const [rowsPerPage, setRowsPerPage] = useState(10);
     const [count, setCount] = useState(1)
+    const [query, setQuery] = useState(null)
     const [otherData, setOtherData] = useState({
       imageUrl: ''
     })
@@ -32,7 +33,13 @@ const withPagination = (WrappedComponent, url, { ...otherParams }) => {
     };
     const getList = async () => {
       setLoading(true)
-      const res = await apiManager.get(`${url}?limit=${rowsPerPage}&pageNo=${page + 1}&search=${search}`);
+      let queryString = `${url}?limit=${rowsPerPage}&pageNo=${page + 1}&search=${search}`;
+      if (query) {
+        Object.keys(query).map(e => {
+          queryString += `&${e}=${query[e]}`
+        })
+      }
+      const res = await apiManager.get(`${queryString}`);
       setLoading(false)
       if (!res.error) {
         setList(res.data.data);
@@ -51,7 +58,7 @@ const withPagination = (WrappedComponent, url, { ...otherParams }) => {
         search
       })
       getList(rowsPerPage, page, search);
-    }, [rowsPerPage, search, page])
+    }, [rowsPerPage, search, page, query])
     useEffect(() => {
       document.title = otherParams.title || WrappedComponent.name
     }, [])
@@ -61,6 +68,7 @@ const withPagination = (WrappedComponent, url, { ...otherParams }) => {
         setList={setList}
         loading={loading}
         setSearch={setSearch}
+        setQuery={setQuery}
         clearSearchField={() => searchRef.current.clearSearch()}
         searchSection={(
           <SearchSection ref={searchRef} getValue={(e) => {
@@ -71,7 +79,8 @@ const withPagination = (WrappedComponent, url, { ...otherParams }) => {
         getList={getList}
         rowsPerPage={rowsPerPage}
         otherData={otherData}
-        list={list} {...props} >
+        list={list} {...props}
+      >
         {console.log(searchRef, 'here check')}
         <TablePagination
           rowsPerPageOptions={[10, 25, 100]}

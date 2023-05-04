@@ -11,7 +11,7 @@ import MuiPhoneNumber from 'material-ui-phone-number';
 import { simplifyString, removeFirstSubstring } from 'utils/Helper'
 import { useTheme } from '@mui/material/styles';
 import { useField } from 'formik';
-import { countryCodeRegex, phoneRegExp, onlyNumber, isoCountryRegex } from 'utils/Regex';
+import { countryCodeRegex, phoneRegExp, onlyNumber, isoCountryRegex, domainRegex, ipRegex } from 'utils/Regex';
 
 function ReusableValidation({ fieldName, disabled, required, control, fieldValue, isSubmitting, varName }) {
   const theme = useTheme();
@@ -20,7 +20,7 @@ function ReusableValidation({ fieldName, disabled, required, control, fieldValue
   }
   const validation = (value) => {
     let error = null;
-    if (required && !value?.trim()) {
+    if (required && typeof value === 'string' && !value?.trim()) {
       error = `${fieldName} is required`
     }
     else if (control) {
@@ -33,6 +33,15 @@ function ReusableValidation({ fieldName, disabled, required, control, fieldValue
           break;
         case "isNumber":
           if (!onlyNumber.test(value)) error = errorMessage(fieldName)
+          break;
+        case "isDomain":
+          if (!domainRegex.test(value)) error = errorMessage(fieldName)
+          break;
+        case "isIP":
+          if (!ipRegex.test(value)) error = errorMessage(fieldName)
+          break;
+        case "isPort":
+          if (value < 0 || value > 65535) error = errorMessage(fieldName)
           break;
       }
     }
@@ -76,7 +85,15 @@ function ReusableValidation({ fieldName, disabled, required, control, fieldValue
         value={value}
         name={name}
         onBlur={onBlur}
-        onChange={(e) => setValue(e.target.value)}
+        onChange={(e) => {
+          if(control==='isNumber' && !onlyNumber.test(e.target.value)){
+            if (e.target.value === ""){
+              setValue("");
+            }
+            return;
+          }
+          setValue(e.target.value)
+        }}
         inputProps={{}}
       />
       {hasError && (

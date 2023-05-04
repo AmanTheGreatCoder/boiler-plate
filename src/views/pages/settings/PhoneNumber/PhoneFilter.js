@@ -11,14 +11,11 @@ import AutoComplete from 'components/AutoComplete/AutoComplete';
 
 const apiManager = new APIManager();
 
-const AssignNumberModal = forwardRef(({ getList, rowsPerPage, editData, setSearch, clearSearchField }, assignModalRef) => {
+const PhoneFilter = forwardRef(({ getList, rowsPerPage, editData, setSearch, clearSearchField, onFilterChange, onClear }, modalRef) => {
 
   let initialValues = {
-    // phoneNumber: editData.phoneNumber || "",
-    // countryId: editData.countryId || '',
-    // cityId: editData.cityId || "",
-    // providerId: editData.providerId || "",
-    // isActive: true
+    countryId: '',
+    cityId: ""
   }
   if (editData) {
     initialValues._id = editData._id
@@ -28,28 +25,15 @@ const AssignNumberModal = forwardRef(({ getList, rowsPerPage, editData, setSearc
   return (
     <Formik enableReinitialize initialValues={initialValues}
       onSubmit={async (values) => {
-        const { _id: countryId, countryCode } = values.countryId;
-        const { _id: cityId } = values.cityId;
-        const { _id: providerId } = values.providerId;
-        const { phoneNumber, isActive } = values;
-        const trimmedValues = trimValues({ countryId, cityId, phoneNumber, providerId, countryCode, isActive })
-        const res = editData ? await apiManager.patch(`phone/update/${initialValues._id}`, trimmedValues) : await apiManager.post('phone/create', trimmedValues);
-        console.log({ res })
-        if (!res.error) {
-          assignModalRef.current.handleClose();
-          getList(rowsPerPage)
-          setSearch("")
-          clearSearchField();
-        }
+        onFilterChange(values)
       }}>
       {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values, resetForm, submitForm, setFieldValue }) => (
-        <SimpleModal title={MODULE_NAME} submitForm={submitForm} resetForm={resetForm} ref={assignModalRef} errors={errors} handleSubmit={handleSubmit} >
+        <SimpleModal showClearButton={true} resetOnClear={true} title={MODULE_NAME} onClear={onClear} submitForm={submitForm} resetForm={resetForm} ref={modalRef} errors={errors} handleSubmit={handleSubmit} >
           <AutoComplete
-            placeholder="Choose a user"
+            placeholder="Choose a country"
             url="country/list"
             fieldName="countryId"
             errorName={"Country"}
-            required={true}
             // onChange={}
             optionRow={["countryName", "isoCountry", { countryCode: true, field: "countryCode" }]}
             showFlag={true}
@@ -58,10 +42,20 @@ const AssignNumberModal = forwardRef(({ getList, rowsPerPage, editData, setSearc
               setFieldValue("cityId", "")
             }}
           />
+          <AutoComplete
+            key={values.countryId._id}
+            placeholder="Choose a city"
+            url="city/listAll"
+            fieldName="cityId"
+            query={{ countryId: values?.countryId?._id }}
+            errorName={"City"}
+            optionRow={["cityName"]}
+            valueToShowInField="cityName"
+          />
         </SimpleModal>
       )}
     </Formik>
   )
 })
 
-export default AssignNumberModal
+export default PhoneFilter

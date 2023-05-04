@@ -294,7 +294,7 @@ export default function componentStyleOverrides(theme, borderRadius, outlinedFil
                         color: theme.palette.grey[600],
                         fontWeight: 500
                     },
-                    textTransform: 'capitalize'
+                    // textTransform: 'capitalize'
                 }
             }
         },
