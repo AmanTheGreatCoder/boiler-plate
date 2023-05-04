@@ -49,6 +49,7 @@ const AssignNumberModal = forwardRef(({ getList, rowsPerPage, editData, setSearc
             url="country/list"
             fieldName="countryId"
             errorName={"Country"}
+            required={true}
             // onChange={}
             optionRow={["countryName", "isoCountry", { countryCode: true, field: "countryCode" }]}
             showFlag={true}

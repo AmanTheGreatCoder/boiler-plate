@@ -22,15 +22,16 @@ const SubscriptionAddEdit = forwardRef(({ getList, rowsPerPage, editData, setSea
     let initialValues = {
         //TODO remove uneccessary here
         name: editData.name || "",
-        interval: editData.interval || "",
+        interval: editData.interval || "month",
         amount: editData?.amount || "",
-        currency: editData?.currency || "",
+        currency: editData?.currency || "gbp",
         isActive: editData?.isActive || false,
         isDeleted: editData?.isDeleted || false,
         isLimited: editData?.isLimited || false,
         benefits: editData.benefits || [],
         defaultSelected: editData?.defaultSelected || false,
         isPopular: editData?.isPopular || false,
+        recurring: editData?.recurring || false,
         totalMinutes: editData.total_minutes || "",
     }
 
@@ -69,12 +70,12 @@ const SubscriptionAddEdit = forwardRef(({ getList, rowsPerPage, editData, setSea
                         fieldName={"Name"}
                         required={true}
                     />
-                    <ReusableValidation
+                    {/* <ReusableValidation
                         varName="interval"
                         fieldName={"Interval"}
                         required={true}
                         disabled={disabled}
-                    />
+                    /> */}
                     <ReusableValidation
                         varName="amount"
                         fieldName={"Amount"}
@@ -95,13 +96,8 @@ const SubscriptionAddEdit = forwardRef(({ getList, rowsPerPage, editData, setSea
                         freeSolo={true}
                         errorName={'Benefits'}
                         fieldName={"benefits"}
+                        required={true}
                     />
-                    <AutoComplete
-                        placeholder='Currency'
-                        errorName={'Currency'}
-                        fieldName={"currency"}
-                    />
-
                 </SimpleModal>
             )}
         </Formik>

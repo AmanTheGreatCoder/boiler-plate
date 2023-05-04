@@ -8,7 +8,7 @@ import './AutoComplete.css'
 import { addDefaultSrc } from 'utils/Helper'
 
 const apiManager = new APIManager();
-function AutoComplete({ placeholder, url, optionRow, valueToShowInField, fieldName, errorName, showFlag, query, onChange, multiple, freeSolo }) {
+function AutoComplete({ placeholder, url, optionRow, valueToShowInField, fieldName, errorName, showFlag, query, onChange, multiple, freeSolo, required }) {
   const [options, setOptions] = useState([]);
   const [formValue, setFormValue] = useState('')
   const [imageUrl, setImageUrl] = useState('')
@@ -66,7 +66,8 @@ function AutoComplete({ placeholder, url, optionRow, valueToShowInField, fieldNa
     validate: (newValue) => {
       let error = null;
       console.log('newValue', newValue)
-      if (!newValue || (typeof newValue === 'object' && Object.keys(newValue).length === 0)) {
+      if (required && (!newValue || (typeof newValue === 'object' && Object.keys(newValue).length === 0))) {
+        console.log("going in", required)
         error = `${errorName} is required`
       }
       return error
@@ -111,8 +112,9 @@ function AutoComplete({ placeholder, url, optionRow, valueToShowInField, fieldNa
         console.log(value)
         onChange && onChange(value)
       }}
-      renderInput={(params) => (
-        <TextField
+      renderInput={(params) => {
+        console.log("Params ", params)
+        return <TextField
           autoComplete='off'
           error={hasError}
           onBlur={onBlur}
@@ -128,7 +130,7 @@ function AutoComplete({ placeholder, url, optionRow, valueToShowInField, fieldNa
             autoComplete: 'off', // disable autocomplete and autofill
           }}
         />
-      )}
+      }}
     />
   )
 }

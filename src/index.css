@@ -1,13 +1,20 @@
 /* to fix style of phone number with country code component used at login page */
-.react-tel-input .form-control{
+.react-tel-input .form-control {
   padding: 18.5px 14px 18.5px 58px !important;
 }
-.react-tel-input .form-control{
+.react-tel-input .form-control {
   width: 100% !important;
 }
-.react-tel-input .form-control{
+.react-tel-input .form-control {
   border-color: #bdbdbd !important;
 }
-.capitalize{
+.capitalize {
   text-transform: capitalize;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px white inset !important;
 }

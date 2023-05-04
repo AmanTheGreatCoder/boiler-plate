@@ -14,10 +14,10 @@ const apiManager = new APIManager();
 
 const columns = [
     { id: 'name', label: 'Name', style: { minWidth: 30 } },
-    { id: 'interval', label: 'Interval', style: { minWidth: 100 } },
+    // { id: 'interval', label: 'Interval', style: { minWidth: 100 } },
     { id: 'amount', label: 'Amount', style: { minWidth: 30 } },
     { id: 'total_minutes', label: 'Total Minutes', style: { minWidth: 30 }, },
-    { id: 'isActive', label: 'Active', style: { minWidth: 30 } },
+    { id: 'isActive', label: 'Active', style: { minWidth: 30, textAlign: 'center' } },
     { id: 'actions', label: 'Actions', style: { minWidth: 70 }, align: 'right' },
 ];
 
@@ -86,7 +86,7 @@ function Subscription(props) {
                                 <TableRow key={e._id}>
                                     {columns.map(ele => {
                                         return (
-                                            <TableCell key={e._id + ele.id} align={ele.align} className={`${ele.id === 'countryName' ? 'capitalize' : ''}`}>
+                                            <TableCell key={e._id + ele.id} style={{ ...ele.style }} align={ele.align} className={`${ele.id === 'countryName' ? 'capitalize' : ''}`}>
                                                 {renderCell(ele, e)}
                                             </TableCell>
                                         )
