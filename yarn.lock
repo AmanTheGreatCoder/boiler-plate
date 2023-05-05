@@ -11911,7 +11911,7 @@
     "clsx" "^1.1.1"
     "prop-types" "^15.8.1"
 
-"react-dropzone@^12.0.2":
+"react-dropzone@^12.1.0":
   "integrity" "sha512-iBYHA1rbopIvtzokEX4QubO6qk5IF/x3BtKGu74rF2JkQDXnwC4uO/lHKpaw4PJIV6iIAYOlwLv2FpiGyqHNog=="
   "resolved" "https://registry.npmjs.org/react-dropzone/-/react-dropzone-12.1.0.tgz"
   "version" "12.1.0"

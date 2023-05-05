@@ -77,6 +77,7 @@ Body.propTypes = {
 
 const SimpleModal = forwardRef(({ children, onSubmit, errors, handleSubmit, resetForm, submitForm, title, showClearButton, resetOnClear, onClear }, ref) => {
     const [open, setOpen] = React.useState(false);
+
     useImperativeHandle(ref, () => ({
         handleOpen() {
             setOpen(true);
@@ -89,7 +90,7 @@ const SimpleModal = forwardRef(({ children, onSubmit, errors, handleSubmit, rese
 
     const handleClose = () => {
         setOpen(false);
-        !resetOnClear && resetForm();
+        !resetOnClear && resetForm && resetForm();
     }
     return (
         <Grid container justifyContent="flex-end">
