@@ -2,7 +2,7 @@
 import { FormattedMessage } from 'react-intl';
 
 // assets
-import { IconDeviceAnalytics, IconCurrentLocation, IconBuildingBank, IconBrandCashapp, IconPhoneCall, IconPhone } from '@tabler/icons';
+import { IconDeviceAnalytics, IconCurrentLocation, IconBuildingBank, IconBrandCashapp, IconPhoneCall, IconPhone, IconPhonePlus } from '@tabler/icons';
 // import { IconBuildingCommunity } from '@tabler/icons-react';
 
 // constant
@@ -12,7 +12,8 @@ const icons = {
     IconBuildingBank,
     IconBrandCashapp,
     IconPhoneCall,
-    IconPhone
+    IconPhone,
+    IconPhonePlus
 };
 
 // ==============================|| DASHBOARD MENU ITEMS ||============================== //
@@ -60,6 +61,14 @@ const dashboard = {
             type: 'item',
             url: '/settings/system-config',
             icon: icons.IconPhone,
+            breadcrumbs: false
+        },
+        {
+            id: 'provider',
+            title: <FormattedMessage id="provider" />,
+            type: 'item',
+            url: '/settings/provider',
+            icon: icons.IconPhonePlus,
             breadcrumbs: false
         },
     ]

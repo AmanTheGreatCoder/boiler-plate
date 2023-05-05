@@ -28,7 +28,8 @@ const Body = forwardRef(({ submitForm, modalStyle, handleClose, children, onClea
                 style={modalStyle}
                 sx={{
                     position: 'absolute',
-                    width: { xs: 280, lg: 450 },
+                    width: { xs: '90%' ,sm: '60%',lg: '50%', xl: '50%' },
+                    // width: '70%',
                     top: '50%',
                     left: '50%',
                     transform: 'translate(-50%, -50%)'

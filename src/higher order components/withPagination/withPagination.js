@@ -36,7 +36,9 @@ const withPagination = (WrappedComponent, url, { ...otherParams }) => {
       let queryString = `${url}?limit=${rowsPerPage}&pageNo=${page + 1}&search=${search}`;
       if (query) {
         Object.keys(query).map(e => {
-          queryString += `&${e}=${query[e]}`
+          if(query[e]){
+            queryString += `&${e}=${query[e]}`
+          }
         })
       }
       const res = await apiManager.get(`${queryString}`);
@@ -65,6 +67,7 @@ const withPagination = (WrappedComponent, url, { ...otherParams }) => {
     console.log(`[${new Date().toISOString()}] Rendering ${WrappedComponent.name} with props:`, props);
     return (
       <WrappedComponent emptyData={count === 0 && <img className='withPagination__img' src={noData} alt="No data image" />}
+        filtered={query?true:false}
         setList={setList}
         loading={loading}
         setSearch={setSearch}
