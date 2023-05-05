@@ -17,7 +17,9 @@ function AutoComplete({ placeholder, url, optionRow, valueToShowInField, fieldNa
     let queryString = `${url}?limit=20&pageNo=1&search=${value ? value : ''}`
     if (query) {
       Object.keys(query).map(e => {
-        queryString += `&${e}=${query[e]}`
+        if(query[e]){
+          queryString += `&${e}=${query[e]}`
+        }
       })
     }
     const res = await apiManager.get(queryString);
