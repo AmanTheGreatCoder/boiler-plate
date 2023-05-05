@@ -16,6 +16,7 @@ import ActionButtons from 'components/ActionButtons/ActionButtons';
 import { MODULE_NAME } from './Values'
 import { Button } from '@mui/material';
 import AssignNumberModal from './AssignNumberModal';
+import ImportFile from 'components/ImportFile/ImportFile';
 
 const apiManager = new APIManager();
 
@@ -23,6 +24,7 @@ const apiManager = new APIManager();
 
 function PhoneNumber({ list, setList, otherData, rowsPerPage, getList, searchSection, setSearch, filtered, clearSearchField, loading, emptyData, children, setQuery }) {
   const modalRef = useRef(null)
+  const importModalRef = useRef(null)
   const assignModalRef = useRef(null)
   const filterRef = useRef(null)
   const columns = [
@@ -93,6 +95,9 @@ function PhoneNumber({ list, setList, otherData, rowsPerPage, getList, searchSec
       filterOnClick={() => {
         filterRef.current.handleOpen()
       }}
+      importOnClick={() => {
+        importModalRef.current.handleOpen();
+      }}
     >
       {/* table */}
       {loading && <LinearProgress color="secondary" />}
@@ -141,6 +146,7 @@ function PhoneNumber({ list, setList, otherData, rowsPerPage, getList, searchSec
         }}
         ref={filterRef}
       />
+      <ImportFile clearSearchField={clearSearchField} getList={getList} rowsPerPage={rowsPerPage} setSearch={setSearch} title={MODULE_NAME} url='phone/import' ref={importModalRef} />
 
       {/* table pagination */}
       {children}

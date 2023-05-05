@@ -13,7 +13,7 @@ import { confirmMessage, getValueFromObject } from 'utils/Helper'
 import TableHeader from 'components/TableHeader/TableHeader';
 import ActionButtons from 'components/ActionButtons/ActionButtons';
 import { MODULE_NAME } from './Values'
-import ImportFile from 'components/ImportFile';
+import ImportFile from 'components/ImportFile/ImportFile';
 
 const apiManager = new APIManager();
 
@@ -53,18 +53,18 @@ function City({ list, setList, otherData, rowsPerPage, getList, searchSection, s
           }}
           deleteOnClick={() => {
             confirm(confirmMessage('delete')).then(async () => {
-              const res = await apiManager.delete(`city/delete/${e._id}`,{
+              const res = await apiManager.delete(`city/delete/${e._id}`, {
                 status: true
               })
-              if(!res.error){
+              if (!res.error) {
                 getList()
               }
             })
           }}
         />
       )
-    } else if (ele.id.includes('.')){
-      return getValueFromObject(ele.id,e)
+    } else if (ele.id.includes('.')) {
+      return getValueFromObject(ele.id, e)
     }
     const value = e[ele.id];
     return (value)
@@ -78,7 +78,7 @@ function City({ list, setList, otherData, rowsPerPage, getList, searchSection, s
         modalRef.current.handleOpen();
         setEditData('');
       }}
-      importOnClick={()=>{
+      importOnClick={() => {
         importModalRef.current.handleOpen();
       }}
     >
@@ -102,7 +102,7 @@ function City({ list, setList, otherData, rowsPerPage, getList, searchSection, s
                 <TableRow key={e._id}>
                   {columns.map(ele => {
                     return (
-                      <TableCell key={e._id+ele.id} align={ele.align} style={{...ele.style}} className={`${ele.id === 'countryName' || ele.id === 'cityName' ? 'capitalize' : ''}`}>
+                      <TableCell key={e._id + ele.id} align={ele.align} style={{ ...ele.style }} className={`${ele.id === 'countryName' || ele.id === 'cityName' ? 'capitalize' : ''}`}>
                         {renderCell(ele, e)}
                       </TableCell>
                     )
@@ -115,7 +115,7 @@ function City({ list, setList, otherData, rowsPerPage, getList, searchSection, s
       </TableContainer>
 
       <CityAddEdit clearSearchField={clearSearchField} setSearch={setSearch} editData={editData} getList={getList} rowsPerPage={rowsPerPage} ref={modalRef} />
-      <ImportFile title={MODULE_NAME} url='city/import' ref={importModalRef} />
+      <ImportFile clearSearchField={clearSearchField} getList={getList} rowsPerPage={rowsPerPage} setSearch={setSearch} title={MODULE_NAME} url='city/import' ref={importModalRef} />
       {children}
     </TableHeader>
   );

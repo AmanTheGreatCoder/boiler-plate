@@ -14,6 +14,7 @@ import TableHeader from 'components/TableHeader/TableHeader';
 import ActionButtons from 'components/ActionButtons/ActionButtons';
 import { addDefaultSrc } from 'utils/Helper'
 import { MODULE_NAME } from './Values';
+import ImportFile from 'components/ImportFile/ImportFile';
 
 const apiManager = new APIManager();
 
@@ -29,6 +30,7 @@ const columns = [
 function Country(props) {
   const { list, setList, otherData, rowsPerPage, getList, searchSection, setSearch, clearSearchField, loading, emptyData, children } = props;
   const modalRef = useRef(null)
+  const importModalRef = useRef(null)
   const [editData, setEditData] = useState("")
   const renderCell = (ele, e) => {
     if (ele.id === 'flag') {
@@ -81,6 +83,10 @@ function Country(props) {
       //   modalRef.current.handleOpen();
       //   setEditData('');
       // }}
+
+      importOnClick={() => {
+        importModalRef.current.handleOpen();
+      }}
     >
       {/* table */}
       {loading && <LinearProgress color="secondary" />}
@@ -115,9 +121,10 @@ function Country(props) {
       </TableContainer>
 
       <CountryAddEdit clearSearchField={clearSearchField} setSearch={setSearch} editData={editData} getList={getList} rowsPerPage={rowsPerPage} ref={modalRef} />
+      <ImportFile clearSearchField={clearSearchField} getList={getList} rowsPerPage={rowsPerPage} setSearch={setSearch} title={MODULE_NAME} url='country/import' ref={importModalRef} />
 
-      {/* table pagination */}
       {children}
+
     </TableHeader>
   );
 }

@@ -81,6 +81,60 @@ export default class APIManager {
     this.baseURL = "https://mobile-api2.alpha-dev.streamspace.ai";
   }
 
+  sendResponse(data, response) {
+    if (response.status === 401) {
+      window.location.href = '/login';
+    }
+    console.log({
+      data,
+      response
+    }, 'responsessss')
+    if (data?.message) {
+      if (!response.ok) {
+        dispatch(
+          openSnackbar({
+            open: true,
+            message: data.message,
+            variant: 'alert',
+            alert: {
+              color: 'error'
+            },
+            close: false
+          })
+        );
+      } else if (response.ok) {
+        dispatch(
+          openSnackbar({
+            open: true,
+            message: data.message,
+            variant: 'alert',
+            alert: {
+              color: 'success'
+            },
+            close: false
+          })
+        );
+      }
+    }
+    return {
+      data: data,
+      error: !response.ok
+    };
+  }
+
+  async requestForm(endpoint, method, body) {
+    const response = await fetch(`${this.baseURL}/${endpoint}`, {
+      method: method,
+      headers: {
+        'accept': '*/*',
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      },
+      body: body,
+    })
+    const data = await response.json();
+    return this.sendResponse(data, response);
+  }
+
   async request(endpoint, method, body) {
     const response = await fetch(`${this.baseURL}/${endpoint}`, {
       method: method,
@@ -92,44 +146,7 @@ export default class APIManager {
       body: JSON.stringify(body)
     });
     const data = await response.json();
-    if(response.status === 401){
-      window.location.href = '/login';
-    }
-    console.log({
-      data,
-      response
-    },'responsessss')
-    if(data?.message){
-      if(!response.ok){
-        dispatch(
-          openSnackbar({
-              open: true,
-              message: data.message,
-              variant: 'alert',
-              alert: {
-                  color: 'error'
-              },
-              close: false
-          })
-        );
-      }else if(response.ok){
-        dispatch(
-          openSnackbar({
-              open: true,
-              message: data.message,
-              variant: 'alert',
-              alert: {
-                  color: 'success'
-              },
-              close: false
-          })
-        );
-      }
-    }
-    return {
-      data: data,
-      error: !response.ok
-    };
+    return this.sendResponse(data, response);
   }
 
   async get(endpoint) {
@@ -138,6 +155,10 @@ export default class APIManager {
 
   async post(endpoint, body) {
     return await this.request(endpoint, 'POST', body);
+  }
+
+  async postForm(endpoint, body) {
+    return await this.requestForm(endpoint, 'POST', body)
   }
 
   async put(endpoint, body) {
