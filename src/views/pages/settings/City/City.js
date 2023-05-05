@@ -13,6 +13,7 @@ import { confirmMessage, getValueFromObject } from 'utils/Helper'
 import TableHeader from 'components/TableHeader/TableHeader';
 import ActionButtons from 'components/ActionButtons/ActionButtons';
 import { MODULE_NAME } from './Values'
+import ImportFile from 'components/ImportFile';
 
 const apiManager = new APIManager();
 
@@ -26,6 +27,7 @@ const columns = [
 
 function City({ list, setList, otherData, rowsPerPage, getList, searchSection, setSearch, clearSearchField, loading, emptyData, children }) {
   const modalRef = useRef(null)
+  const importModalRef = useRef(null)
   const [editData, setEditData] = useState("")
   const renderCell = (ele, e) => {
     if (ele.id === 'isActive') {
@@ -76,6 +78,9 @@ function City({ list, setList, otherData, rowsPerPage, getList, searchSection, s
         modalRef.current.handleOpen();
         setEditData('');
       }}
+      importOnClick={()=>{
+        importModalRef.current.handleOpen();
+      }}
     >
       {/* table */}
       {loading && <LinearProgress color="secondary" />}
@@ -110,8 +115,7 @@ function City({ list, setList, otherData, rowsPerPage, getList, searchSection, s
       </TableContainer>
 
       <CityAddEdit clearSearchField={clearSearchField} setSearch={setSearch} editData={editData} getList={getList} rowsPerPage={rowsPerPage} ref={modalRef} />
-
-      {/* table pagination */}
+      <ImportFile title={MODULE_NAME} url='city/import' ref={importModalRef} />
       {children}
     </TableHeader>
   );

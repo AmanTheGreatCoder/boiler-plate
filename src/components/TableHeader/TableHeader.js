@@ -9,21 +9,40 @@ function TableHeader({children, title, searchSection, addOnClick, filterOnClick,
     <MainCard
       content={false}
       title={title}
-      secondary={(
-        <div style={{ display: 'flex', alignItems: 'center' }}>
+      secondary={
+        <div style={{ display: "flex", alignItems: "center" }}>
           {searchSection}
-          {filterOnClick && <Button size='large' sx={{ ml: 3 }} variant={filtered?'contained':'outlined'} startIcon={<TuneIcon />} onClick={() => filterOnClick()}>
+          {filterOnClick && <Button size='large' sx={{ ml: 3 }} variant={filtered ? 'contained' : 'outlined'} startIcon={<TuneIcon />} onClick={() => filterOnClick()}>
             Filter
           </Button>}
-          {addOnClick && <Button size='large' sx={{ ml: 3 }} variant="contained" startIcon={<AddIcon />} onClick={() => addOnClick()}>
-            Add
-          </Button>}
+          {addOnClick && (
+            <Button
+              size="large"
+              sx={{ ml: 3 }}
+              variant="contained"
+              startIcon={<AddIcon />}
+              onClick={() => addOnClick()}
+            >
+              Add
+            </Button>
+          )}
+          {importOnClick && (
+            <Button
+              size="large"
+              sx={{ ml: 3 }}
+              variant="contained"
+              startIcon={<AddIcon />}
+              onClick={() => importOnClick()}
+            >
+              Import
+            </Button>
+          )}
         </div>
-      )}
+      }
     >
       {children}
     </MainCard>
-  )
+  );
 }
 
-export default TableHeader
+export default TableHeader;
