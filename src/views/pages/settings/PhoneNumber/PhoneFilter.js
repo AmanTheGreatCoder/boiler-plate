@@ -17,11 +17,6 @@ const PhoneFilter = forwardRef(({ getList, rowsPerPage, editData, setSearch, cle
     countryId: '',
     cityId: ""
   }
-  if (editData) {
-    initialValues._id = editData._id
-    initialValues.countryId.countryCode = editData.countryCode
-  }
-
   return (
     <Formik enableReinitialize initialValues={initialValues}
       onSubmit={async (values) => {
@@ -43,7 +38,7 @@ const PhoneFilter = forwardRef(({ getList, rowsPerPage, editData, setSearch, cle
             }}
           />
           <AutoComplete
-            key={values.countryId._id}
+            key={values?.countryId?._id}
             placeholder="Choose a city"
             url="city/listAll"
             fieldName="cityId"
