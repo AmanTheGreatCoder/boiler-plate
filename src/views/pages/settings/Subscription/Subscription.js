@@ -48,7 +48,7 @@ function Subscription(props) {
   } = props;
   const modalRef = useRef(null);
   const [editData, setEditData] = useState("");
-   
+  console.log("List ", list);
   const renderCell = (ele, e) => {
     if (ele.id === "actions") {
       return (

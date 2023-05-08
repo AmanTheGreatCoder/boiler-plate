@@ -17,6 +17,7 @@ import { confirmMessage } from "utils/Helper";
 import TableHeader from "components/TableHeader/TableHeader";
 import ActionButtons from "components/ActionButtons/ActionButtons";
 import { MODULE_NAME } from "./Values";
+import UserFilter from "./UserFilter";
 const apiManager = new APIManager();
 
 // {
@@ -38,6 +39,7 @@ const apiManager = new APIManager();
 const columns = [
   { id: "fullName", label: "Name", style: { minWidth: 30 } },
   { id: "phoneNumber", label: "Phone Number", style: { minWidth: 30 } },
+  { id: "role", label: "Role", style: { minWidth: 30 } },
   {
     id: "isActive",
     label: "Active",
@@ -59,17 +61,19 @@ function User(props) {
     loading,
     emptyData,
     children,
+    filtered,
+    setQuery
   } = props;
   const modalRef = useRef(null);
+  const filterRef = useRef(null);
   const [editData, setEditData] = useState("");
-   
   const renderCell = (ele, e) => {
     if (ele.id === "actions") {
       return (
         <ActionButtons
           editOnClick={() => {
-            // modalRef.current.handleOpen();
-            // setEditData(e);
+            modalRef.current.handleOpen();
+            setEditData(e);
           }}
           deleteOnClick={() => {
             confirm(confirmMessage("delete")).then(async () => {
@@ -106,6 +110,8 @@ function User(props) {
           color="primary"
         />
       );
+    } else if (ele.id === 'role') {
+      return e[ele.id] === 5 ? "user" : "admin"
     }
     const value = e[ele.id];
     return value;
@@ -115,6 +121,10 @@ function User(props) {
     <TableHeader
       title={MODULE_NAME}
       searchSection={searchSection}
+      filtered={filtered}
+      filterOnClick={() => {
+        filterRef.current.handleOpen()
+      }}
       addOnClick={() => {
         modalRef.current.handleOpen();
         setEditData("");
@@ -171,6 +181,19 @@ function User(props) {
         getList={getList}
         rowsPerPage={rowsPerPage}
         ref={modalRef}
+      />
+
+      <UserFilter
+        onFilterChange={(values) => {
+          filterRef.current.handleClose();
+          console.log("values",values)
+          setQuery({ role: values.filterObj.role })
+        }}
+        onClear={() => {
+          filterRef.current.handleClose()
+          setQuery(null)
+        }}
+        ref={filterRef}
       />
 
       {children}

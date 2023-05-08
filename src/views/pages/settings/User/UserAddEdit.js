@@ -1,6 +1,6 @@
 import ReusableValidation from "components/ReusableValidation/ReusableValidation";
 import { Formik } from "formik";
-import { forwardRef, useState } from "react";
+import { Fragment, forwardRef, useState } from "react";
 import APIManager from "utils/APImanager";
 import SimpleModal from "views/forms/plugins/Modal/SimpleModal";
 import { trimValues } from "utils/Helper";
@@ -15,7 +15,7 @@ const UserAddEdit = forwardRef(
         { getList, rowsPerPage, editData, setSearch, clearSearchField },
         modalRef
     ) => {
-        
+
         const disabled = editData ? true : false;
 
         let initialValues = {
@@ -34,17 +34,17 @@ const UserAddEdit = forwardRef(
                 enableReinitialize
                 initialValues={initialValues}
                 onSubmit={async (values) => {
-                     
+                    console.log({ values });
                     const trimmedValues = trimValues({ ...values });
-                     
+                    console.log("trimmed values", trimmedValues);
                     trimmedValues.countryCode = trimmedValues.countryCode.countryCode;
-                    const res = await apiManager.post(`auth/register`, trimmedValues);
+                    const res = await editData ? apiManager.post('user/edit', trimmedValues) : apiManager.post(`auth/admin-register`, trimmedValues);
                     if (!res.error) {
                         modalRef.current.handleClose();
                         getList(rowsPerPage);
                         setSearch("");
                         clearSearchField();
-                    } 
+                    }
                 }}
             >
                 {({
@@ -71,22 +71,26 @@ const UserAddEdit = forwardRef(
                             fieldName={"Name"}
                             required={true}
                         />
-                        <ReusableValidation
-                            varName="phoneNumber"
-                            control="isNumber"
-                            fieldName={"Phone Number"}
-                            required={true}
-                        />
-                        <AutoComplete
-                            placeholder="Choose a country"
-                            url="country/list"
-                            fieldName="countryCode"
-                            errorName={"Country"}
-                            required={true}
-                            optionRow={["countryName", "isoCountry", { countryCode: true, field: "countryCode" }]}
-                            showFlag={true}
-                            valueToShowInField="countryName"
-                        />
+                        {!editData &&
+                            <Fragment>
+                                <ReusableValidation
+                                    varName="phoneNumber"
+                                    control="isNumber"
+                                    fieldName={"Phone Number"}
+                                    required={true}
+                                />
+                                <AutoComplete
+                                    placeholder="Choose a country"
+                                    url="country/list"
+                                    fieldName="countryCode"
+                                    errorName={"Country"}
+                                    required={true}
+                                    optionRow={["countryName", "isoCountry", { countryCode: true, field: "countryCode" }]}
+                                    showFlag={true}
+                                    valueToShowInField="countryName"
+                                />
+                            </Fragment>
+                        }
                         <ReusableValidation
                             varName="email"
                             fieldName={"Email"}

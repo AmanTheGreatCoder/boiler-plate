@@ -28,10 +28,8 @@ const App = () => (
                     <AuthProvider>
                         <AzhaiAuthProvider>
                             <PhoneNumberProvider>
-                                <>
-                                    <Routes />
-                                    <Snackbar />
-                                </>
+                                <Routes />
+                                <Snackbar />
                             </PhoneNumberProvider>
                         </AzhaiAuthProvider>
                     </AuthProvider>

@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import confirm from "views/forms/plugins/Confirm/confirm";
+import { confirmMessage } from "utils/Helper";
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
@@ -57,12 +59,14 @@ const ProfileSection = () => {
      * */
     const anchorRef = useRef(null);
     const handleLogout = async () => {
-        try {
-            localStorage.removeItem('token');
-            navigate('/')
-        } catch (err) {
-            console.error(err);
-        }
+        confirm(confirmMessage("logout")).then(async () => {
+            try {
+                localStorage.removeItem('token');
+                navigate('/')
+            } catch (err) {
+                console.error(err);
+            }
+        });
     };
 
     const handleClose = (event) => {
