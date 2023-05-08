@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Table,
   TableBody,
@@ -45,9 +45,11 @@ function Subscription(props) {
     loading,
     emptyData,
     children,
+    setQuery
   } = props;
   const modalRef = useRef(null);
   const [editData, setEditData] = useState("");
+
   console.log("List ", list);
   const renderCell = (ele, e) => {
     if (ele.id === "actions") {
