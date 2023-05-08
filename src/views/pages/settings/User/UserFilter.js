@@ -27,6 +27,7 @@ const UserFilter = forwardRef(({ getList, rowsPerPage, editData, setSearch, clea
                     <AutoComplete
                         placeholder="Access Level"
                         customOptions={[{ name: "Admin", role: 2 }, { name: "User", role: 5 }]}
+                        showCustomOptions={true}
                         valueToShowInField={"name"}
                         optionRow={["name"]}
                         fieldName="filterObj"

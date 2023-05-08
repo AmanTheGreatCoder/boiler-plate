@@ -1,5 +1,5 @@
 import { Autocomplete } from '@mui/material'
-import {  TextField } from '@mui/material';
+import { TextField } from '@mui/material';
 import React, { useCallback, useEffect, useState } from 'react'
 import APIManager from 'utils/APImanager';
 import debounce from 'lodash.debounce'
@@ -9,8 +9,8 @@ import { addDefaultSrc } from 'utils/Helper'
 
 const apiManager = new APIManager();
 
-function AutoComplete({ placeholder, url, customOptions, optionRow, valueToShowInField, fieldName, errorName, showFlag, query, onChange, multiple, freeSolo, required }) {
-  const [options, setOptions] = useState(null);
+function AutoComplete({ placeholder, url, customOptions, showCustomOptions, optionRow, valueToShowInField, fieldName, errorName, showFlag, query, onChange, multiple, freeSolo, required }) {
+  const [options, setOptions] = useState([]);
   const [formValue, setFormValue] = useState('')
   const [imageUrl, setImageUrl] = useState('')
 
@@ -95,7 +95,7 @@ function AutoComplete({ placeholder, url, customOptions, optionRow, valueToShowI
       multiple={multiple}
       freeSolo={freeSolo}
       id="country-select-demo"
-      options={options || customOptions}
+      options={!showCustomOptions ? options : customOptions}
       name={name}
       autoHighlight
       getOptionLabel={(option) => valueToShowInField ? option[valueToShowInField] : option}
