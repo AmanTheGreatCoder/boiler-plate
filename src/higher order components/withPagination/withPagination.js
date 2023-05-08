@@ -41,6 +41,9 @@ const withPagination = (WrappedComponent, url, { ...otherParams }) => {
           }
         })
       }
+      if(otherParams.queryOnly && !query){
+        return;
+      }
       const res = await apiManager.get(`${queryString}`);
       setLoading(false)
       if (!res.error) {

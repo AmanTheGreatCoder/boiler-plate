@@ -13,7 +13,7 @@ import { useTheme } from '@mui/material/styles';
 import { useField } from 'formik';
 import { countryCodeRegex, phoneRegExp, onlyNumber, isoCountryRegex, domainRegex, ipRegex } from 'utils/Regex';
 
-function ReusableValidation({ fieldName, disabled, required, control, fieldValue, isSubmitting, varName }) {
+function ReusableValidation({ fieldName, disabled, required, control, fieldValue, isSubmitting, varName, type, InputProps }) {
   const theme = useTheme();
   const errorMessage = (fieldName) => {
     return `${fieldName} is not valid`
@@ -77,7 +77,7 @@ function ReusableValidation({ fieldName, disabled, required, control, fieldValue
   return (
     <FormControl disabled={disabled} fullWidth error={hasError} sx={{ mt: 1, mb: 0.5 }}>
       <TextField
-        type="text"
+        type={type || "text"}
         label={fieldName}
         error={hasError}
         variant='outlined'
@@ -94,7 +94,7 @@ function ReusableValidation({ fieldName, disabled, required, control, fieldValue
           }
           setValue(e.target.value)
         }}
-        inputProps={{}}
+        InputProps={{...InputProps}}
       />
       {hasError && (
         <FormHelperText error id="standard-weight-helper-text--register">

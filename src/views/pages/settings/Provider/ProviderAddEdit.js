@@ -16,6 +16,8 @@ const apiManager = new APIManager();
 
 const ProviderAddEdit = forwardRef(({ getList, rowsPerPage, editData, setSearch, clearSearchField }, modalRef) => {
 
+  console.log({editDataCheck:editData})
+
   let initialValues = {
     name: editData.name || "",
     outboundDomain: editData.outboundDomain || "",
@@ -25,12 +27,15 @@ const ProviderAddEdit = forwardRef(({ getList, rowsPerPage, editData, setSearch,
     isActive: true,
     isInbound: editData.isInbound || false,
     isOutBound: editData.isOutBound || false,
-    initialPulse: editData.initialPulse || 0,
-    subsequentPulse: editData.subsequentPulse || 0,
-    connectionCharge: editData.connectionCharge || 0,
-    defaultRate: editData.defaultRate || 0,
+    outboundPrefix: editData.outboundPrefix || "",
+    outboundPassword: editData.outboundPassword || "",
+    initialPulse: editData.initialPulse || "",
+    subsequentPulse: editData.subsequentPulse || "",
+    connectionCharge: editData.connectionCharge || "",
+    defaultRate: editData.defaultRate || "",
     isBilled: editData.isBilled || false,
-    inboundIP: editData.inboundIP || [
+    outboundRegister: editData.outboundRegister || false,
+    inboundIP: editData.inboundIp || [
       {
         ip: "",
         port: ""
@@ -45,6 +50,10 @@ const ProviderAddEdit = forwardRef(({ getList, rowsPerPage, editData, setSearch,
     <Formik enableReinitialize initialValues={initialValues}
       onSubmit={async (values) => {
         const trimmedValues = trimValues(values)
+        trimmedValues.initialPulse = parseInt(trimmedValues.initialPulse)
+        trimmedValues.subsequentPulse = parseInt(trimmedValues.subsequentPulse)
+        trimmedValues.connectionCharge = parseInt(trimmedValues.connectionCharge)
+        trimmedValues.defaultRate = parseInt(trimmedValues.defaultRate)
         const res = editData ? await apiManager.patch(`provider/update/${initialValues._id}`, trimmedValues) : await apiManager.post('provider/create', trimmedValues);
         console.log({ res })
         if (!res.error) {
@@ -56,15 +65,15 @@ const ProviderAddEdit = forwardRef(({ getList, rowsPerPage, editData, setSearch,
       }}>
       {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values, resetForm, submitForm, setFieldValue }) => (
         <SimpleModal title={MODULE_NAME} submitForm={submitForm} resetForm={resetForm} ref={modalRef} errors={errors} handleSubmit={handleSubmit} >
-          {console.log({inboundIP:values.inboundIP})}
+          {console.log({ inboundIP: values.inboundIP })}
           <ReusableValidation varName="name" fieldName={"Provider"} required={true} />
-          { (
+          {(
             <Fragment>
               <FieldArray name="inboundIP">
-                {({ push, remove })=>(
+                {({ push, remove }) => (
                   <Fragment>
-                    <div style={{display: 'flex', justifyContent: 'space-between'}}>
-                      <ReusableSwitch varName="isInbound" fieldName={"Inbound"}/>
+                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                      <ReusableSwitch varName="isInbound" fieldName={"Inbound"} />
                       {values.isInbound && <Button size="small" variant="contained" startIcon={<AddIcon />} onClick={() => push({
                         ip: "",
                         port: ""
@@ -72,17 +81,17 @@ const ProviderAddEdit = forwardRef(({ getList, rowsPerPage, editData, setSearch,
                         Add
                       </Button>}
                     </div>
-                    {values.isInbound && values.inboundIP.map((ele, index)=>(
+                    {values.isInbound && values.inboundIP.map((ele, index) => (
                       // <div style={{display: 'flex', alignItems: 'center'}}>
-                      <Grid container alignItems={'center'} justifyContent={'space-between'} spacing={2}>
+                      <Grid container alignItems={'flex-start'} justifyContent={'space-between'} spacing={2}>
                         <Grid item lg={5}>
-                          <ReusableValidation key={index+'ele'} varName={`inboundIP.${index}.ip`} control="isIP" fieldName="Inbound IP" required={true} />
+                          <ReusableValidation key={index + 'ele'} varName={`inboundIP.${index}.ip`} control="isIP" fieldName="Inbound IP" required={true} />
                         </Grid>
                         <Grid item lg={5}>
-                          <ReusableValidation key={'ele'+index} varName={`inboundIP.${index}.port`} control="isPort" fieldName="Inbound Port" required={true} />
+                          <ReusableValidation key={'ele' + index} varName={`inboundIP.${index}.port`} control="isPort" fieldName="Inbound Port" required={true} />
                         </Grid>
-                        <Grid item lg={2}>
-                          <Button onClick={()=>remove(index)} variant="contained">
+                        <Grid item lg={2} alignSelf="center" >
+                          <Button sx={{ justifySelf: 'end' }} onClick={() => remove(index)} variant="contained">
                             <RemoveCircleOutlineIcon />
                           </Button>
                         </Grid>
@@ -94,16 +103,30 @@ const ProviderAddEdit = forwardRef(({ getList, rowsPerPage, editData, setSearch,
               </FieldArray>
             </Fragment>
           )}
-          {values.isInbound && <Divider sx={{ mt: 1}} />}
-          <ReusableSwitch varName="isOutBound" fieldName={"Outbound"}/>
+          <ReusableSwitch varName="isOutBound" fieldName={"Outbound"} />
+          {values.isInbound && <Divider sx={{ mt: 1 }} />}
           {values.isOutBound && (
             <Fragment>
               <ReusableValidation varName="outboundDomain" control="isDomain" fieldName="Outbound Domain" required={true} />
               <ReusableValidation varName="outboundProxy" control="isIP" fieldName="Outbound Proxy" required={true} />
               <ReusableValidation varName="outboundPort" control="isPort" fieldName="Outbound Port" required={true} />
-              <ReusableValidation varName="outboundUserName" fieldName="Outbound Username" required={true} />
+              <ReusableValidation varName="outboundPrefix" fieldName="Outbound Prefix"/>
+              <ReusableValidation varName="outboundPassword" type="password" fieldName="Outbound Password" />
+              <ReusableValidation varName="outboundUserName" fieldName="Outbound Username" />
+              <ReusableSwitch varName="outboundRegister" fieldName={"Outbound Register"} />
             </Fragment>
           )}
+          <div>
+            <ReusableSwitch varName="isBilled" fieldName={"Billed"} />
+            {values.isBilled && (
+              <Fragment>
+                <ReusableValidation control="isNumber" varName="initialPulse" fieldName="Initial Pulse" required={true} />
+                <ReusableValidation control="isNumber" varName="subsequentPulse" fieldName="Subsequent Pulse" required={true} />
+                <ReusableValidation control="isNumber" varName="connectionCharge" fieldName="Connection Charge" required={true} />
+                <ReusableValidation control="isNumber" varName="defaultRate" fieldName="Default Rate" required={true} />
+              </Fragment>
+            )}
+          </div>
         </SimpleModal>
       )}
     </Formik>

@@ -1,10 +1,12 @@
 // color variants
 @import 'themes-vars.module.scss';
 
+
 // third-party
 @import '~react-perfect-scrollbar/dist/css/styles.css';
 @import '~slick-carousel/slick/slick.css';
 @import '~slick-carousel/slick/slick-theme.css';
+// @import 'developer.scss';
 
 // ==============================|| LIGHT BOX ||============================== //
 .slick-arrow:before {

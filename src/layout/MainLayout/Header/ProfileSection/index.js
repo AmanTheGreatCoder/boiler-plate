@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 // material-ui
@@ -38,10 +38,12 @@ import User1 from 'assets/images/users/user-round.svg';
 // assets
 import { IconLogout, IconSearch, IconSettings, IconUser } from '@tabler/icons';
 import useConfig from 'hooks/useConfig';
+import { AzhaiAuthContext } from 'contexts/AzhaiAuthContext';
 
 // ==============================|| PROFILE MENU ||============================== //
 
 const ProfileSection = () => {
+    const { auth } = useContext(AzhaiAuthContext);
     const theme = useTheme();
     const { borderRadius } = useConfig();
     const navigate = useNavigate();
@@ -164,12 +166,13 @@ const ProfileSection = () => {
                                         <Box sx={{ p: 2 }}>
                                             <Stack>
                                                 <Stack direction="row" spacing={0.5} alignItems="center">
-                                                    <Typography variant="h4">Good Morning,</Typography>
+                                                    <Typography variant="h4">Welcome, {auth.fullName}</Typography>
                                                     <Typography component="span" variant="h4" sx={{ fontWeight: 400 }}>
                                                         {user?.name}
                                                     </Typography>
                                                 </Stack>
-                                                <Typography variant="subtitle2">Project Admin</Typography>
+                                                <Typography sx={{ mt: 1 }} variant="subtitle2">{auth.email}</Typography>
+                                                <Typography variant="subtitle2">+{auth.countryCode + " " + auth.phoneNumber}</Typography>
                                             </Stack>
                                             {/* <OutlinedInput
                                                 sx={{ width: '100%', pr: 1, pl: 2, my: 2 }}
@@ -220,7 +223,7 @@ const ProfileSection = () => {
                                                         </ListItemIcon>
                                                         <ListItemText primary={<Typography variant="body2">Account Settings</Typography>} />
                                                     </ListItemButton>
-                                                    <ListItemButton
+                                                    {/* <ListItemButton
                                                         sx={{ borderRadius: `${borderRadius}px` }}
                                                         selected={selectedIndex === 1}
                                                         onClick={(event) => handleListItemClick(event, 1, '/user/social-profile/posts')}
@@ -250,7 +253,7 @@ const ProfileSection = () => {
                                                                 </Grid>
                                                             }
                                                         />
-                                                    </ListItemButton>
+                                                    </ListItemButton> */}
                                                     <ListItemButton
                                                         sx={{ borderRadius: `${borderRadius}px` }}
                                                         selected={selectedIndex === 4}
