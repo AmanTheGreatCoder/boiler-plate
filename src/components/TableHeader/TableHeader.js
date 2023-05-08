@@ -4,7 +4,7 @@ import MainCard from 'ui-component/cards/MainCard';
 import AddIcon from '@mui/icons-material/Add';
 import TuneIcon from '@mui/icons-material/Tune';
 
-function TableHeader({children, title, searchSection, addOnClick, filterOnClick, filtered, importOnClick}) {
+function TableHeader({children, title, searchSection, addOnClick, filterOnClick,importOnClick, filtered}) {
   return (
     <MainCard
       content={false}

@@ -9,7 +9,7 @@ import './withPagination.css'
 const apiManager = new APIManager();
 
 const withPagination = (WrappedComponent, url, { ...otherParams }) => {
-  console.log('otherParams', otherParams)
+  
   const NewComponent = (props) => {
     const searchRef = useRef(null);
     const [page, setPage] = useState(0);
@@ -57,17 +57,12 @@ const withPagination = (WrappedComponent, url, { ...otherParams }) => {
       }
     }
     useEffect(() => {
-      console.log('information', {
-        rowsPerPage,
-        page,
-        search
-      })
       getList(rowsPerPage, page, search);
     }, [rowsPerPage, search, page, query])
     useEffect(() => {
       document.title = otherParams.title || WrappedComponent.name
     }, [])
-    console.log(`[${new Date().toISOString()}] Rendering ${WrappedComponent.name} with props:`, props);
+    
     return (
       <WrappedComponent emptyData={count === 0 && <img className='withPagination__img' src={noData} alt="No data image" />}
         filtered={query?true:false}
@@ -87,7 +82,7 @@ const withPagination = (WrappedComponent, url, { ...otherParams }) => {
         otherData={otherData}
         list={list} {...props}
       >
-        {console.log(searchRef, 'here check')}
+        {}
         <TablePagination
           rowsPerPageOptions={[10, 25, 100]}
           component="div"

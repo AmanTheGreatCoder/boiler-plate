@@ -181,7 +181,7 @@ const FirebaseRegister = ({ ...others }) => {
                         //         }
                         //     }
                         // );
-                        console.log(values,'valuesss')
+                         
                     // }
                     // catch (err) {
                     //     console.error(err);

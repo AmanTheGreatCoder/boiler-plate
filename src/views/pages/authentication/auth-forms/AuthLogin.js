@@ -60,7 +60,7 @@ const Login = ({ loginProp, ...others }) => {
           if (!res.error) {
             setDetail({ countryCode: values.phoneDetailObj.dialCode, phoneNumber: values.phoneDetailObj.phoneNumber, isRemember: values.checked });
             navigate('/otp-screen')
-            console.log('response', res)
+             
           }
         } catch (e) {
           console.error(e)

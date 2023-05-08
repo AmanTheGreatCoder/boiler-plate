@@ -11,6 +11,8 @@ import AutoComplete from 'components/AutoComplete/AutoComplete';
 import ReusableSwitch from 'components/ReusableSwitch.js/ReusableSwitch';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import AddIcon from '@mui/icons-material/Add';
+import { dispatch } from 'store';
+import { openSnackbar } from 'store/slices/snackbar';
 
 const apiManager = new APIManager();
 
@@ -55,7 +57,7 @@ const ProviderAddEdit = forwardRef(({ getList, rowsPerPage, editData, setSearch,
         trimmedValues.connectionCharge = parseInt(trimmedValues.connectionCharge)
         trimmedValues.defaultRate = parseInt(trimmedValues.defaultRate)
         const res = editData ? await apiManager.patch(`provider/update/${initialValues._id}`, trimmedValues) : await apiManager.post('provider/create', trimmedValues);
-        console.log({ res })
+         
         if (!res.error) {
           modalRef.current.handleClose();
           getList(rowsPerPage)
@@ -65,15 +67,14 @@ const ProviderAddEdit = forwardRef(({ getList, rowsPerPage, editData, setSearch,
       }}>
       {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values, resetForm, submitForm, setFieldValue }) => (
         <SimpleModal title={MODULE_NAME} submitForm={submitForm} resetForm={resetForm} ref={modalRef} errors={errors} handleSubmit={handleSubmit} >
-          {console.log({ inboundIP: values.inboundIP })}
           <ReusableValidation varName="name" fieldName={"Provider"} required={true} />
           {(
             <Fragment>
               <FieldArray name="inboundIP">
                 {({ push, remove }) => (
                   <Fragment>
-                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                      <ReusableSwitch varName="isInbound" fieldName={"Inbound"} />
+                    <div className='mt-10 flex-center-bt'>
+                      <ReusableSwitch varName="isInbound" fieldName={"Inbound"}/>
                       {values.isInbound && <Button size="small" variant="contained" startIcon={<AddIcon />} onClick={() => push({
                         ip: "",
                         port: ""
@@ -90,8 +91,25 @@ const ProviderAddEdit = forwardRef(({ getList, rowsPerPage, editData, setSearch,
                         <Grid item lg={5}>
                           <ReusableValidation key={'ele' + index} varName={`inboundIP.${index}.port`} control="isPort" fieldName="Inbound Port" required={true} />
                         </Grid>
-                        <Grid item lg={2} alignSelf="center" >
-                          <Button sx={{ justifySelf: 'end' }} onClick={() => remove(index)} variant="contained">
+                        <Grid className='flex-end' item lg={2}>
+                          <Button onClick={()=>{
+                            if(values.inboundIP.length >1){
+                              remove(index)
+                            }
+                            else {
+                              dispatch(
+                                openSnackbar({
+                                  open: true,
+                                  message: "Atleast one inbound is required",
+                                  variant: 'alert',
+                                  alert: {
+                                    color: 'error'
+                                  },
+                                  close: false
+                                })
+                              );
+                            }
+                            }} variant="contained">
                             <RemoveCircleOutlineIcon />
                           </Button>
                         </Grid>

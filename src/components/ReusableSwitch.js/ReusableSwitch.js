@@ -22,7 +22,7 @@ function ReusableSwitch({
   const { setValue, setTouched, setError } = helpers;
 
   // useEffect(() => {
-  //   console.log('isSubmitting', isSubmitting)
+  //    
   //   if(isSubmitting){
   //     setTouched(true,true);
   //   }

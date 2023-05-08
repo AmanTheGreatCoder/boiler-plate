@@ -133,6 +133,7 @@ const UtilsGrid = Loadable(lazy(() => import('views/utilities/Grid')));
 const Country = Loadable(lazy(() => import('views/pages/settings/country/Country')))
 const City = Loadable(lazy(() => import('views/pages/settings/City/City')))
 const Subscription = Loadable(lazy(() => import('views/pages/settings/Subscription/Subscription')))
+const User = Loadable(lazy(() => import('views/pages/settings/User/User')))
 const SIPExtensions = Loadable(lazy(() => import('views/pages/settings/SIPExtensions/SIPExtensions')))
 const PhoneNumber = Loadable(lazy(()=> import('views/pages/settings/PhoneNumber/PhoneNumber')))
 const Provider = Loadable(lazy(()=> import('views/pages/settings/Provider/Provider')))
@@ -183,9 +184,15 @@ const MainRoutes = {
             element: <Provider />
         },
         {
+<<<<<<< src/routes/MainRoutes.js
             path: '/settings/rate-list/:type/:parentId/:providerName',
             element: <RateList />
         }
+=======
+            path: '/settings/user',
+            element: <User />
+        },
+>>>>>>> src/routes/MainRoutes.js
         // {
         //     path: '/widget/statistics',
         //     element: <WidgetStatistics />

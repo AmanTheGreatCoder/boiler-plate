@@ -35,7 +35,7 @@ const CodeVerification = () => {
   const { detail } = useContext(PhoneNumberContext);
   const maskedNumber = maskPhoneNumber(detail.phoneNumber)
   useEffect(() => {
-    console.log('useeffect called')
+     
     if (!detail.phoneNumber) {
       navigate('/login')
     }
@@ -43,7 +43,7 @@ const CodeVerification = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('detail', detail)
+     
     const res = await apiManager.post('auth/verify-otp', {
       countryCode: detail.countryCode,
       phoneNumber: detail.phoneNumber,

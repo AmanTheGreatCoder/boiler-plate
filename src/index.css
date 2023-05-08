@@ -18,3 +18,22 @@ input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
   -webkit-box-shadow: 0 0 0 30px white inset !important;
 }
+
+.mt-10{
+  margin: 10px 0;
+}
+
+.flex-end{
+  display: flex;
+  justify-content: flex-end;
+}
+
+.flex-center-bt{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.icon-size{
+  font-size: 1.2rem;
+}

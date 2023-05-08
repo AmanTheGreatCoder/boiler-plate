@@ -11,7 +11,7 @@ import MuiPhoneNumber from 'material-ui-phone-number';
 import { simplifyString, removeFirstSubstring } from 'utils/Helper'
 import { useTheme } from '@mui/material/styles';
 import { useField } from 'formik';
-import { countryCodeRegex, phoneRegExp, onlyNumber, isoCountryRegex, domainRegex, ipRegex } from 'utils/Regex';
+import { countryCodeRegex, phoneRegExp, onlyNumber, isoCountryRegex, domainRegex, ipRegex , isEmail } from 'utils/Regex';
 
 function ReusableValidation({ fieldName, disabled, required, control, fieldValue, isSubmitting, varName, type, InputProps }) {
   const theme = useTheme();
@@ -34,6 +34,9 @@ function ReusableValidation({ fieldName, disabled, required, control, fieldValue
         case "isNumber":
           if (!onlyNumber.test(value)) error = errorMessage(fieldName)
           break;
+        case "isEmail":
+          if (!isEmail.test(value)) error = errorMessage(fieldName)
+          break;
         case "isDomain":
           if (!domainRegex.test(value)) error = errorMessage(fieldName)
           break;
@@ -45,7 +48,7 @@ function ReusableValidation({ fieldName, disabled, required, control, fieldValue
           break;
       }
     }
-    console.log('error1', error)
+     
     return error;
   }
   const [field, meta, helpers] = useField({
@@ -61,14 +64,14 @@ function ReusableValidation({ fieldName, disabled, required, control, fieldValue
   const hasError = Boolean(error) && touched;
 
   useEffect(() => {
-    console.log('error1 it should run')
+     
     if (fieldValue) {
       setValue(fieldValue);
     }
     // setTouched(false,true);
   }, []);
   // useEffect(() => {
-  //   console.log('isSubmitting', isSubmitting)
+  //    
   //   if(isSubmitting){
   //     setTouched(true,true);
   //   }
