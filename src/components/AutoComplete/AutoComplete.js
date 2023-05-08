@@ -33,7 +33,7 @@ function AutoComplete({ placeholder, url, optionRow, valueToShowInField, fieldNa
 
   const verify = useCallback(
     debounce(async (value) => {
-      console.log('is this infinite')
+       
       fetchData(value);
     }, 1000),
     []
@@ -48,7 +48,7 @@ function AutoComplete({ placeholder, url, optionRow, valueToShowInField, fieldNa
   }, [])
 
   const getOptionRow = (option) => {
-    console.log('eamanmc', option)
+     
     const temp = optionRow?.map(e => {
       if (typeof e === 'string') {
         return <span className='space-to-right'>{`${option[e]}`}</span>
@@ -59,7 +59,7 @@ function AutoComplete({ placeholder, url, optionRow, valueToShowInField, fieldNa
     if (showFlag) {
       temp.unshift(<img className='space-to-right' height={16} width={16} src={imageUrl + option.flag} onError={addDefaultSrc} />)
     }
-    console.log({ temp })
+     
     return temp
   }
 
@@ -67,9 +67,9 @@ function AutoComplete({ placeholder, url, optionRow, valueToShowInField, fieldNa
     name: fieldName,
     validate: (newValue) => {
       let error = null;
-      console.log('newValue', newValue)
+       
       if (required && (!newValue || (typeof newValue === 'object' && Object.keys(newValue).length === 0))) {
-        console.log("going in", required)
+         
         error = `${errorName} is required`
       }
       return error
@@ -82,7 +82,7 @@ function AutoComplete({ placeholder, url, optionRow, valueToShowInField, fieldNa
   const hasError = Boolean(error) && touched;
 
   useEffect(() => {
-    console.log({ options })
+     
   }, [options])
 
 
@@ -111,11 +111,11 @@ function AutoComplete({ placeholder, url, optionRow, valueToShowInField, fieldNa
       onInputChange={(e) => setFormValue(e?.target?.value)}
       onChange={(event, value) => {
         setValue(value)
-        console.log(value)
+         
         onChange && onChange(value)
       }}
       renderInput={(params) => {
-        console.log("Params ", params)
+         
         return <TextField
           autoComplete='off'
           error={hasError}

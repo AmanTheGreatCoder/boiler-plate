@@ -29,7 +29,7 @@ function NumberWithCountryCode({ fieldName }) {
     name: fieldName,
     validate: (newValue) => {
       let error = null;
-      console.log(newValue.phoneNumber, 'check phone ')
+       
       if (newValue.phoneNumber && !phoneRegExp.test(newValue.phoneNumber)) {
         error = "Phone number is not valid"
       }

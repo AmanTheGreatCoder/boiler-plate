@@ -13,12 +13,12 @@ import { useFormikContext } from 'formik';
 
 const Body = forwardRef(({ submitForm, modalStyle, handleClose, children, onClear, onSubmit, handleSubmit, errors, title, showClearButton, resetForm }, ref) => {
     // const {errors}=useFormikContext();
-    console.log('actual errors', errors)
+     
     return (
         <form onSubmit={(e) => {
             e.preventDefault();
             // handleSubmit();
-            console.log('errors', errors)
+             
             // if (Object.keys(errors).length === 0) {
             //     onSubmit();
             // }

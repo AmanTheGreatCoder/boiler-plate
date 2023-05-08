@@ -124,14 +124,14 @@ const SearchSection = forwardRef(({ getValue },ref) => {
 
     const verify = useCallback(
         debounce(value => {
-            console.log('is this infinite')
+             
           getValue(value)
         }, 1000),
         []
       );
 
     useEffect(() => {
-            console.log('get value called after 3')
+             
             verify(value)
     }, [value])
 

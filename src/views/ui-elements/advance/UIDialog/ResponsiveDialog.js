@@ -49,7 +49,6 @@ const ResponsiveDialog = forwardRef(({ confirmation = 'ARE YOU SURE?', content, 
                                 }} color="secondary">
                                 No
                             </Button>
-                            {console.log('theme.palette.primary', theme.palette)}
                             <Button variant="contained" color="primary" sx={{ background: '#6275d1', '&:hover':{background: '#4f5aa6' }}} size="small" onClick={() => {
                                 handleClose()
                                 proceed();

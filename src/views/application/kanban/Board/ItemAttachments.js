@@ -39,15 +39,15 @@ function UploadFile() {
                 acceptedFiles.map((file) => {
                     const reader = new FileReader();
 
-                    reader.onabort = () => console.log('file reading was aborted');
-                    reader.onerror = () => console.log('file reading has failed');
+                    reader.onabort = () =>  
+                    reader.onerror = () =>  
                     reader.onload = () => {
                         const binaryStr = reader.result;
-                        console.log(binaryStr);
+                         
                     };
                     reader.readAsArrayBuffer(file);
 
-                    console.log(reader);
+                     
                     return Object.assign(file, {
                         preview: URL.createObjectURL(file)
                     });

@@ -11,7 +11,6 @@ import { AzhaiAuthContext } from 'contexts/AzhaiAuthContext';
 
 const useAuth = () => {
     const { auth } = useContext(AzhaiAuthContext);
-    console.log('isAuthenticated in context',auth)
 
     // if (!isAuthenticated) throw new Error('context must be use inside provider');
 

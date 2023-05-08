@@ -18,7 +18,7 @@ const SubscriptionAddEdit = forwardRef(
     const [tagValue, setTagValue] = useState("");
     const disabled = editData ? true : false;
 
-    console.log("edit Data", editData);
+     
     let initialValues = {
       name: editData.name || "",
       interval: editData.interval || "month",
@@ -34,7 +34,7 @@ const SubscriptionAddEdit = forwardRef(
       totalMinutes: editData.total_minutes || "",
     };
 
-    console.log({ initialValues });
+     
 
     if (editData) {
       initialValues._id = editData._id;
@@ -45,20 +45,12 @@ const SubscriptionAddEdit = forwardRef(
         enableReinitialize
         initialValues={initialValues}
         onSubmit={async (values) => {
-          console.log({ values });
+           
           const trimmedValues = trimValues({ ...values });
-          console.log("trimmed values", trimmedValues);
+           
           trimmedValues.amount = parseInt(trimmedValues.amount);
           trimmedValues.totalMinutes = parseInt(trimmedValues.totalMinutes);
-          let res;
-          if (editData) {
-            res = await apiManager.patch(
-              `subscription/update/${initialValues._id}`,
-              trimmedValues
-            );
-          } else {
-            res = await apiManager.post(`subscription/create`, trimmedValues);
-          }
+          const res = await editData ? apiManager.patch(`subscription/update/${initialValues._id}`, trimmedValues) : apiManager.post(`subscription/create`, trimmedValues)
           if (!res.error) {
             modalRef.current.handleClose();
             getList(rowsPerPage);

@@ -138,7 +138,7 @@ function PhoneNumber({ list, setList, otherData, rowsPerPage, getList, searchSec
           const { cityId, countryId } = values
           filterRef.current.handleClose();
           setQuery({ cityId: cityId?._id, countryId: countryId?._id })
-          console.log({ filterValue: values })
+           
         }}
         onClear={() => {
           filterRef.current.handleClose()

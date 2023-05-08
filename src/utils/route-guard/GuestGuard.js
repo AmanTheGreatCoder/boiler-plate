@@ -24,7 +24,7 @@ const GuestGuard = ({ children }) => {
     useEffect(async () => {
         if(localStorage.getItem('token')){
             const result = await apiManager.get('auth/profile')
-            // console.log(localStorage.getItem('token'),result,'isauthenticated')
+            //  
             if(!result.error){
                 navigate('/dashboard/default', { replace: true });
             } else {

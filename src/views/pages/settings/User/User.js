@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import UserAddEdit from "./UserAddEdit";
 import {
   Table,
   TableBody,
@@ -61,7 +62,7 @@ function User(props) {
   } = props;
   const modalRef = useRef(null);
   const [editData, setEditData] = useState("");
-  console.log("List ", list);
+   
   const renderCell = (ele, e) => {
     if (ele.id === "actions") {
       return (
@@ -115,12 +116,10 @@ function User(props) {
       title={MODULE_NAME}
       searchSection={searchSection}
       addOnClick={() => {
-        add user functionality , use auth register api
-        // modalRef.current.handleOpen();
-        // setEditData("");
+        modalRef.current.handleOpen();
+        setEditData("");
       }}
     >
-      {/* table */}
       {loading && <LinearProgress color="secondary" />}
       <TableContainer>
         {emptyData}
@@ -150,9 +149,8 @@ function User(props) {
                           key={e._id + ele.id}
                           style={{ ...ele.style }}
                           align={ele.align}
-                          className={`${
-                            ele.id === "countryName" ? "capitalize" : ""
-                          }`}
+                          className={`${ele.id === "countryName" ? "capitalize" : ""
+                            }`}
                         >
                           {renderCell(ele, e)}
                         </TableCell>
@@ -166,14 +164,14 @@ function User(props) {
         )}
       </TableContainer>
 
-      {/* <UserAddEdit
+      <UserAddEdit
         clearSearchField={clearSearchField}
         setSearch={setSearch}
         editData={editData}
         getList={getList}
         rowsPerPage={rowsPerPage}
         ref={modalRef}
-      /> */}
+      />
 
       {children}
     </TableHeader>

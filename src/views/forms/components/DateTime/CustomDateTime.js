@@ -21,7 +21,6 @@ const CustomDateTime = () => {
                     setValue(newValue);
                 }}
                 label="Basic Datetime Picker"
-                onError={console.log}
                 minDate={new Date('2018-01-01T00:00')}
                 inputFormat="yyyy/MM/dd hh:mm a"
                 mask="___/__/__ __:__ _M"

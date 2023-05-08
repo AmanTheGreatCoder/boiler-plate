@@ -1,5 +1,4 @@
 const Typography = (theme, borderRadius, fontFamily) => {
-    console.log(theme,'hereee');
     return ({
     fontFamily,
     h6: {

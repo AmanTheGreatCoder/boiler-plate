@@ -108,7 +108,7 @@ const ImportFile = forwardRef((props, ref) => {
             </span>
 
             <FileInput type="file" accept=".csv" value={values?.files && values.files[0]} onChange={e => {
-              console.log("setting files")
+               
               setFieldValue("files", e.target.files[0])
             }} />
           </SoundGroup>

@@ -32,7 +32,7 @@ const SIPExtensionsAddEdit = forwardRef(({ getList, rowsPerPage, editData, setSe
                 const trimmedValues = trimValues(values)
                 trimmedValues.proxyServerPort = parseInt(trimmedValues.proxyServerPort)
                 trimmedValues.sipTimeout = parseInt(trimmedValues.sipTimeout)
-                console.log('SelectValue', values.SelectValue)
+                 
                 const res = editData ? await apiManager.patch(`sip/update/${initialValues._id}`, trimmedValues) : await apiManager.post('sip/create', trimmedValues)
                 if (!res.error) {
                     modalRef.current.handleClose();

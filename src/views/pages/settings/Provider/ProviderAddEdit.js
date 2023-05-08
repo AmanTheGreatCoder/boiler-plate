@@ -46,7 +46,7 @@ const ProviderAddEdit = forwardRef(({ getList, rowsPerPage, editData, setSearch,
       onSubmit={async (values) => {
         const trimmedValues = trimValues(values)
         const res = editData ? await apiManager.patch(`provider/update/${initialValues._id}`, trimmedValues) : await apiManager.post('provider/create', trimmedValues);
-        console.log({ res })
+         
         if (!res.error) {
           modalRef.current.handleClose();
           getList(rowsPerPage)
@@ -56,7 +56,6 @@ const ProviderAddEdit = forwardRef(({ getList, rowsPerPage, editData, setSearch,
       }}>
       {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values, resetForm, submitForm, setFieldValue }) => (
         <SimpleModal title={MODULE_NAME} submitForm={submitForm} resetForm={resetForm} ref={modalRef} errors={errors} handleSubmit={handleSubmit} >
-          {console.log({inboundIP:values.inboundIP})}
           <ReusableValidation varName="name" fieldName={"Provider"} required={true} />
           { (
             <Fragment>

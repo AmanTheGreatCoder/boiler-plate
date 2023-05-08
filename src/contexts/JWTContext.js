@@ -126,7 +126,7 @@ export const JWTProvider = ({ children }) => {
         dispatch({ type: LOGOUT });
     };
 
-    const resetPassword = (email) => console.log(email);
+    const resetPassword = (email) =>  
 
     const updateProfile = () => {};
 

@@ -34,7 +34,7 @@ const AssignNumberModal = forwardRef(({ getList, rowsPerPage, editData, setSearc
         const { phoneNumber, isActive } = values;
         const trimmedValues = trimValues({ countryId, cityId, phoneNumber, providerId, countryCode, isActive })
         const res = editData ? await apiManager.patch(`phone/update/${initialValues._id}`, trimmedValues) : await apiManager.post('phone/create', trimmedValues);
-        console.log({ res })
+         
         if (!res.error) {
           assignModalRef.current.handleClose();
           getList(rowsPerPage)

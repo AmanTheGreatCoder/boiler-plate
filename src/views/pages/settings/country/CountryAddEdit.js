@@ -45,12 +45,12 @@ const CountryAddEdit = forwardRef(({ getList, rowsPerPage, editData, setSearch, 
     initialValues._id = editData._id
   }
   // useEffect(() => {
-  //   console.log('editdata outside if')
+  //    
   //   if(editData){
-  //     console.log('editData', editData)
+  //      
   //     setInitialValues({...editData})
   //   }
-  //   console.log('editdata initialvalues',initialValues)
+  //    
   // }, [editData])
 
   return (

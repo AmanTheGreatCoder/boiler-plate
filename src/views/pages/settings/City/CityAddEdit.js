@@ -27,7 +27,7 @@ const CityAddEdit = forwardRef(({ getList, rowsPerPage, editData, setSearch, cle
         const { _id: countryId } = values.SelectValue;
         const { cityName, isActive } = values;
         const trimmedValues = trimValues({ countryId, cityName, isActive })
-        console.log('SelectValue', values.SelectValue)
+         
         const res = editData ? await apiManager.patch(`city/update/${initialValues._id}`, trimmedValues) : await apiManager.post('city/create', trimmedValues)
         if (!res.error) {
           modalRef.current.handleClose();

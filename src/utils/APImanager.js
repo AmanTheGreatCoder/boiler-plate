@@ -85,10 +85,6 @@ export default class APIManager {
     if (response.status === 401) {
       window.location.href = '/login';
     }
-    console.log({
-      data,
-      response
-    }, 'responsessss')
     if (data?.message) {
       if (!response.ok) {
         dispatch(
