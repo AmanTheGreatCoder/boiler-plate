@@ -1,11 +1,11 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 // material-ui
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, LinearProgress } from '@mui/material';
 import { Switch } from '@mui/material'
 
 // project imports
-import ProviderAddEdit from './ProviderAddEdit';
+import ProviderAddEdit from './RateListAddEdit';
 import withPagination from 'higher order components/withPagination/withPagination';
 import confirm from 'views/forms/plugins/Confirm/confirm'
 import APIManager from 'utils/APImanager'
@@ -14,24 +14,35 @@ import TableHeader from 'components/TableHeader/TableHeader';
 import ActionButtons from 'components/ActionButtons/ActionButtons';
 import { MODULE_NAME } from './Values'
 import { Button } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const apiManager = new APIManager();
 
 
 
 function PhoneNumber({ list, setList, otherData, rowsPerPage, getList, searchSection, setSearch, filtered, clearSearchField, loading, emptyData, children, setQuery }) {
+  const navigate = useNavigate();
+  const params = useParams();
+  useEffect(() => {
+    console.log('params', params)
+    if(params && params.type && params.parentId){
+      setQuery({type: params.type, parentId: params.parentId})
+    } else {
+      navigate(-1);
+    }
+  }, [params])
+
   const modalRef = useRef(null)
-  const navigate = useNavigate()
   const columns = [
-    { id: 'name', label: 'Provider', style: { minWidth: 30 } },
-    { id: 'outboundDomain', label: 'Domain', style: { minWidth: 30 } },
-    { id: 'outboundProxy', label: 'Proxy', style: { minWidth: 30 } },
-    { id: 'outboundPort', label: 'Port', style: { minWidth: 30 } },
-    { id: 'outboundUserName', label: 'Name', style: { minWidth: 30 } },
-    { id: 'isActive', label: 'Active', style: { minWidth: 30, textAlign: 'center' } },
+    { id: 'dialCode', label: 'Dialcode', style: { minWidth: 30 }, prefix: '+' },
+    { id: 'rate', label: 'Rate', style: { minWidth: 30 }, prefix: '$ ' },
+    { id: 'initialPulse', label: 'Initial Pulse', style: { minWidth: 30 } },
+    { id: 'subsequentPulse', label: 'Subsequent Pulse', style: { minWidth: 30 } },
+    { id: 'connectionCharge', label: 'Connection Charge', style: { minWidth: 30 }, prefix: '$ ' },
+    // { id: 'isActive', label: 'Active', style: { minWidth: 30, textAlign: 'center' } },
     { id: 'actions', label: 'Actions', style: { minWidth: 70 }, align: 'right' },
   ];
+
   const [editData, setEditData] = useState("")
   const renderCell = (ele, e) => {
     if (ele.id === 'isActive') {
@@ -51,19 +62,13 @@ function PhoneNumber({ list, setList, otherData, rowsPerPage, getList, searchSec
     } else if (ele.id === 'actions') {
       return (
         <ActionButtons
-          rateListOnClick={()=>{
-            navigate(`/settings/rate-list/provider/${e._id}/${e.name}`, {
-                type: 'provider',
-                parentId: e._id
-            })
-          }}
           editOnClick={() => {
             modalRef.current.handleOpen();
             setEditData(e);
           }}
           deleteOnClick={() => {
             confirm(confirmMessage('delete')).then(async () => {
-              const res = await apiManager.delete(`phone/delete/${e._id}`, {
+              const res = await apiManager.delete(`rate-list/delete/${e._id}`, {
                 status: true
               })
               if (!res.error) {
@@ -77,12 +82,12 @@ function PhoneNumber({ list, setList, otherData, rowsPerPage, getList, searchSec
       return getValueFromObject(ele.id, e)
     }
     const value = e[ele.id] || ele.fallback;
-    return (value) || '-'
+    return value? ele.prefix? (ele.prefix + value) : (value) : '-'
   }
 
   return (
     <TableHeader
-      title={MODULE_NAME}
+      title={MODULE_NAME + ` ( ${params.providerName} )`}
       searchSection={searchSection}
       addOnClick={() => {
         modalRef.current.handleOpen();
@@ -128,4 +133,4 @@ function PhoneNumber({ list, setList, otherData, rowsPerPage, getList, searchSec
     </TableHeader>
   );
 }
-export default withPagination(PhoneNumber, 'provider/list', { imageRequired: true, title: MODULE_NAME });
+export default withPagination(PhoneNumber, 'rate-list/list', { title: MODULE_NAME, queryOnly: true });

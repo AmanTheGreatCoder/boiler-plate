@@ -22,8 +22,8 @@ const apiManager = new APIManager();
 const columns = [
   { id: "name", label: "Name", style: { minWidth: 30 } },
   // { id: 'interval', label: 'Interval', style: { minWidth: 100 } },
-  { id: "amount", label: "Amount", style: { minWidth: 30 } },
-  { id: "total_minutes", label: "Total Minutes", style: { minWidth: 30 } },
+  { id: "amount", label: "Amount", style: { minWidth: 30 }, prefix: '$ ' },
+  { id: "total_minutes", label: "Total Minutes", style: { minWidth: 30 }, prefix: '🕒 ' },
   {
     id: "isActive",
     label: "Active",
@@ -84,7 +84,8 @@ function Subscription(props) {
       );
     }
     const value = e[ele.id];
-    return value;
+    return value? ele.prefix? (ele.prefix + value) : (value) : '-'
+    // return value;
   };
 
   return (
