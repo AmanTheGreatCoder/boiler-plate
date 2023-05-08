@@ -18,7 +18,15 @@ const PhoneNumberAddEdit = forwardRef(({ getList, rowsPerPage, editData, setSear
     countryId: editData.countryId || '',
     cityId: editData.cityId || "",
     providerId: editData.providerId || "",
-    isActive: true
+    isActive: true,
+    capabilities: {
+      SMS: {
+        isCapable: false
+      },
+      Voice: {
+        isCapable: true
+      }
+    }
   }
   if (editData) {
     initialValues._id = editData._id
@@ -31,10 +39,10 @@ const PhoneNumberAddEdit = forwardRef(({ getList, rowsPerPage, editData, setSear
         const { _id: countryId, countryCode } = values.countryId;
         const { _id: cityId } = values.cityId;
         const { _id: providerId } = values.providerId;
-        const { phoneNumber, isActive } = values;
-        const trimmedValues = trimValues({ countryId, cityId, phoneNumber, providerId, countryCode, isActive })
+        const { phoneNumber, isActive, capabilities } = values;
+        const trimmedValues = trimValues({ countryId, cityId, phoneNumber, providerId, countryCode, isActive, capabilities })
         const res = editData ? await apiManager.patch(`phone/update/${initialValues._id}`, trimmedValues) : await apiManager.post('phone/create', trimmedValues);
-         
+
         if (!res.error) {
           modalRef.current.handleClose();
           getList(rowsPerPage)

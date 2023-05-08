@@ -184,15 +184,13 @@ const MainRoutes = {
             element: <Provider />
         },
         {
-<<<<<<< src/routes/MainRoutes.js
             path: '/settings/rate-list/:type/:parentId/:providerName',
             element: <RateList />
-        }
-=======
+        },
+        {
             path: '/settings/user',
             element: <User />
         },
->>>>>>> src/routes/MainRoutes.js
         // {
         //     path: '/widget/statistics',
         //     element: <WidgetStatistics />
