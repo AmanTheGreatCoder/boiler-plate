@@ -38,10 +38,7 @@ const CodeVerification = () => {
   const maskedNumber = maskPhoneNumber(detail.phoneNumber)
 
   useEffect(() => {
-<<<<<<< src/views/pages/authentication/authentication3/CodeVerification3.js
 
-=======
->>>>>>> src/views/pages/authentication/authentication3/CodeVerification3.js
     if (!detail.phoneNumber) {
       navigate('/login')
     }
@@ -68,18 +65,6 @@ const CodeVerification = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-<<<<<<< src/views/pages/authentication/authentication3/CodeVerification3.js
-
-    const res = await apiManager.post('auth/verify-otp', {
-      countryCode: detail.countryCode,
-      phoneNumber: detail.phoneNumber,
-      isRemember: detail.isRemember,
-      otp: parseInt(OTP)
-    })
-    if (!res.error) {
-      localStorage.setItem('token', res.data['access_token'])
-      navigate('/dashboard/default')
-=======
     if (validOtp()) {
       const res = await apiManager.post('auth/verify-otp', {
         countryCode: detail.countryCode,
@@ -91,7 +76,6 @@ const CodeVerification = () => {
         localStorage.setItem('token', res.data['access_token'])
         navigate('/dashboard/default')
       }
->>>>>>> src/views/pages/authentication/authentication3/CodeVerification3.js
     }
     else {
       setError(true);

@@ -83,7 +83,6 @@ function PhoneNumber({ list, setList, otherData, rowsPerPage, getList, searchSec
     else if (ele.id === 'providerId') {
       return e[ele.id].name;
     }
-    let value = e[ele.id] || ele.fallback;
     if(ele.fallback && !e[ele.id]){
       value = cloneElement(value,{
         onClick: ()=>{
@@ -92,7 +91,7 @@ function PhoneNumber({ list, setList, otherData, rowsPerPage, getList, searchSec
         }
       })
     }
-    
+
     const value = e[ele.id] || ele.fallback;
     return (value) || '-'
   }
