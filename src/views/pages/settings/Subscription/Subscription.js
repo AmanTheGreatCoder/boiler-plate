@@ -160,5 +160,6 @@ function Subscription(props) {
 }
 export default withPagination(Subscription, "subscription/list", {
   imageRequired: true,
-  query: { isDeleted: false }
+  query: { isDeleted: false },
+  title: MODULE_NAME
 });

@@ -1,1 +1,1 @@
-export const MODULE_NAME = "User"
+export const MODULE_NAME = "Users"

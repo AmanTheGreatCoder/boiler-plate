@@ -88,7 +88,7 @@ function User(props) {
     setQuery,
   } = props;
   const modalRef = useRef(null);
-  const filterRef = useRef(null); 
+  const filterRef = useRef(null);
   const [editData, setEditData] = useState("");
 
   const renderCell = (ele, e) => {
@@ -226,4 +226,5 @@ function User(props) {
 }
 export default withPagination(User, "user/list", {
   imageRequired: true,
+  title: MODULE_NAME
 });

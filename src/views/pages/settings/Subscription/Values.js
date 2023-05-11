@@ -1,4 +1,4 @@
-export const MODULE_NAME = 'Subscription';
+export const MODULE_NAME = 'Subscriptions';
 
 export const CURRENCY_JSON = {
     AED: {

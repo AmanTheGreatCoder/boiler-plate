@@ -28,7 +28,7 @@ const withPagination = (WrappedComponent, url, { ...otherParams }) => {
     })
 
     const handleChangePage = (event, newPage) => {
-      setPage(newPage);
+      setPage(newPage-1);
     };
 
     const handleClose = () => {

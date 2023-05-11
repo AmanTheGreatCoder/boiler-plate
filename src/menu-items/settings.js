@@ -2,7 +2,7 @@
 import { FormattedMessage } from 'react-intl';
 
 // assets
-import { IconDeviceAnalytics, IconCurrentLocation, IconBuildingBank, IconBrandCashapp, IconPhoneCall, IconPhone, IconPhonePlus, IconUserCircle } from '@tabler/icons';
+import { IconDeviceAnalytics, IconCurrentLocation, IconHeartHandshake, IconSettingsAutomation, IconBuildingBank, IconBrandCashapp, IconPhoneCall, IconPhone, IconPhonePlus, IconUserCircle, IconBrandStripe, IconMap2, IconMapPin } from '@tabler/icons';
 // import { IconBuildingCommunity } from '@tabler/icons-react';
 
 // constant
@@ -14,7 +14,12 @@ const icons = {
     IconPhoneCall,
     IconPhone,
     IconPhonePlus,
-    IconUserCircle
+    IconUserCircle,
+    IconMap2,
+    IconMapPin,
+    IconBrandStripe,
+    IconSettingsAutomation,
+    IconHeartHandshake
 };
 
 // ==============================|| DASHBOARD MENU ITEMS ||============================== //
@@ -37,7 +42,7 @@ const dashboard = {
             title: <FormattedMessage id="country" />,
             type: 'item',
             url: '/settings/country',
-            icon: icons.IconCurrentLocation,
+            icon: icons.IconMap2,
             breadcrumbs: false
         },
         {
@@ -45,7 +50,7 @@ const dashboard = {
             title: <FormattedMessage id="city" />,
             type: 'item',
             url: '/settings/city',
-            icon: icons.IconBuildingBank,
+            icon: icons.IconMapPin,
             breadcrumbs: false
         },
         {
@@ -53,7 +58,7 @@ const dashboard = {
             title: <FormattedMessage id="phone number" />,
             type: 'item',
             url: '/settings/phone-number',
-            icon: icons.IconPhoneCall,
+            icon: icons.IconPhone,
             breadcrumbs: false
         },
         {
@@ -61,7 +66,7 @@ const dashboard = {
             title: <FormattedMessage id="subscription" />,
             type: 'item',
             url: '/settings/subscription',
-            icon: icons.IconBrandCashapp,
+            icon: icons.IconBrandStripe,
             breadcrumbs: false
         },
         {
@@ -69,7 +74,7 @@ const dashboard = {
             title: <FormattedMessage id="system config" />,
             type: 'item',
             url: '/settings/system-config',
-            icon: icons.IconPhone,
+            icon: icons.IconSettingsAutomation,
             breadcrumbs: false
         },
         {
@@ -77,7 +82,7 @@ const dashboard = {
             title: <FormattedMessage id="provider" />,
             type: 'item',
             url: '/settings/provider',
-            icon: icons.IconPhonePlus,
+            icon: icons.IconHeartHandshake,
             breadcrumbs: false
         },
     ]
