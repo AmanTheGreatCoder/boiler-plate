@@ -19,7 +19,8 @@ export default function componentStyleOverrides(theme, borderRadius, outlinedFil
             },
             styleOverrides: {
                 root: {
-                    backgroundImage: 'none'
+                    backgroundImage: 'none',
+                    // borderColor:'transparent !important'
                 },
                 rounded: {
                     borderRadius: `${borderRadius}px`

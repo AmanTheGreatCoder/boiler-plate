@@ -14,6 +14,7 @@ import TableHeader from 'components/TableHeader/TableHeader';
 import ActionButtons from 'components/ActionButtons/ActionButtons';
 import { MODULE_NAME } from './Values'
 import ImportFile from 'components/ImportFile/ImportFile';
+import CityFilter from './CityFilter';
 
 const apiManager = new APIManager();
 
@@ -25,9 +26,10 @@ const columns = [
 ];
 
 
-function City({ list, setList, otherData, rowsPerPage, getList, searchSection, setSearch, clearSearchField, loading, emptyData, children }) {
+function City({ list, setList, filtered, otherData, rowsPerPage, getList, searchSection, setSearch, setQuery, clearSearchField, loading, emptyData, children }) {
   const modalRef = useRef(null)
   const importModalRef = useRef(null)
+  const filterRef = useRef(null)
   const [editData, setEditData] = useState("")
   const renderCell = (ele, e) => {
     if (ele.id === 'isActive') {
@@ -81,6 +83,10 @@ function City({ list, setList, otherData, rowsPerPage, getList, searchSection, s
       importOnClick={() => {
         importModalRef.current.handleOpen();
       }}
+      filtered={filtered}
+      filterOnClick={() => {
+        filterRef.current.handleOpen()
+      }}
     >
       {/* table */}
       {loading && <LinearProgress color="secondary" />}
@@ -116,6 +122,19 @@ function City({ list, setList, otherData, rowsPerPage, getList, searchSection, s
 
       <CityAddEdit clearSearchField={clearSearchField} setSearch={setSearch} editData={editData} getList={getList} rowsPerPage={rowsPerPage} ref={modalRef} />
       <ImportFile clearSearchField={clearSearchField} getList={getList} rowsPerPage={rowsPerPage} setSearch={setSearch} title={MODULE_NAME} url='city/import' ref={importModalRef} />
+      <CityFilter
+        onFilterChange={(values) => {
+          const { cityId, countryId } = values
+          filterRef.current.handleClose();
+          setQuery({ cityId: cityId?._id, countryId: countryId?._id })
+
+        }}
+        onClear={() => {
+          filterRef.current.handleClose()
+          setQuery(null)
+        }}
+        ref={filterRef}
+      />
       {children}
     </TableHeader>
   );

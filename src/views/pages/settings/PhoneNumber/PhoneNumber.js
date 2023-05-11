@@ -29,6 +29,7 @@ function PhoneNumber({ list, setList, otherData, rowsPerPage, getList, searchSec
   const filterRef = useRef(null)
   const columns = [
     { id: 'phoneNumber', label: 'Phone Number', style: { minWidth: 30 } },
+    { id: 'providerId', label: 'Provider', style: { minWidth: 30 } },
     { id: 'cityId.cityName', label: 'City Name', style: { minWidth: 30, textTransform: 'capitalize' } },
     { id: 'countryId.countryName', label: 'Country Name', style: { minWidth: 30, textTransform: 'capitalize' } },
     { id: 'isActive', label: 'Active', style: { minWidth: 30, textAlign: 'center' } },
@@ -79,6 +80,9 @@ function PhoneNumber({ list, setList, otherData, rowsPerPage, getList, searchSec
     } else if (ele.id.includes('.')) {
       return getValueFromObject(ele.id, e)
     }
+    else if (ele.id === 'providerId') {
+      return e[ele.id].name;
+    }
     let value = e[ele.id] || ele.fallback;
     if(ele.fallback && !e[ele.id]){
       value = cloneElement(value,{
@@ -88,6 +92,8 @@ function PhoneNumber({ list, setList, otherData, rowsPerPage, getList, searchSec
         }
       })
     }
+    
+    const value = e[ele.id] || ele.fallback;
     return (value) || '-'
   }
 
@@ -154,9 +160,7 @@ function PhoneNumber({ list, setList, otherData, rowsPerPage, getList, searchSec
         }}
         ref={filterRef}
       />
-      <ImportFile clearSearchField={clearSearchField} getList={getList} rowsPerPage={rowsPerPage} setSearch={setSearch} title={MODULE_NAME} url='phone/import' ref={importModalRef} />
-
-      {/* table pagination */}
+      <ImportFile sampleUrl="https://region-tl.streamspace.ai/tenant//user.csv" clearSearchField={clearSearchField} getList={getList} rowsPerPage={rowsPerPage} setSearch={setSearch} title={MODULE_NAME} url='phone/import' ref={importModalRef} />
       {children}
     </TableHeader>
   );

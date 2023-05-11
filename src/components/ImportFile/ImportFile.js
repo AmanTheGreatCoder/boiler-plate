@@ -2,10 +2,13 @@ import { forwardRef } from "react";
 import SimpleModal from "views/forms/plugins/Modal/SimpleModal";
 import APIManager from "utils/APImanager";
 import styled from "@emotion/styled";
-import fileImg from "assets/images/file.png";
+import UploadFileIcon from "@mui/icons-material/UploadFile";
 import { Formik } from "formik";
 import { dispatch } from "store";
 import { openSnackbar } from "store/slices/snackbar";
+import { useTheme } from "@emotion/react";
+import { Link } from "@mui/material";
+import CloudDownloadIcon from "@mui/icons-material/CloudDownload";
 
 const apiManager = new APIManager();
 
@@ -32,7 +35,7 @@ const SoundGroup = styled.div`
     border-radius: 0px;
     margin: auto;
   }
-  input[type='file'] {
+  input[type="file"] {
     position: absolute;
     height: 100%;
     width: 100%;
@@ -43,7 +46,6 @@ const SoundGroup = styled.div`
   }
 `;
 
-
 const FileInput = styled.input`
   display: block;
   border: none;
@@ -52,7 +54,7 @@ const FileInput = styled.input`
   padding: 10px;
   color: #444;
 
-  ${props => {
+  ${(props) => {
     if (props.round) {
       return `
         font-size: 13px;
@@ -62,62 +64,113 @@ const FileInput = styled.input`
   }};
 `;
 
-
 const ImportFile = forwardRef((props, ref) => {
-  const { url, title, getList, rowsPerPage, setSearch, clearSearchField } = props;
+  const {
+    url,
+    title,
+    getList,
+    rowsPerPage,
+    setSearch,
+    clearSearchField,
+    sampleUrl,
+  } = props;
+  const theme = useTheme();
 
   let initialValues = {
-    files: null
-  }
+    files: null,
+  };
 
   return (
-    <Formik enableReinitialize initialValues={initialValues}
+    <Formik
+      enableReinitialize
+      initialValues={initialValues}
       onSubmit={async (values) => {
         if (values.files) {
           const formData = new FormData();
-          formData.append("file", values.files)
+          formData.append("file", values.files);
           const response = await apiManager.postForm(url, formData);
           if (!response.error) {
             ref.current.handleClose();
-            getList(rowsPerPage)
-            setSearch("")
-            clearSearchField()
+            getList(rowsPerPage);
+            setSearch("");
+            clearSearchField();
           }
-        }
-        else {
+        } else {
           dispatch(
             openSnackbar({
               open: true,
               message: "Please select a file",
-              variant: 'alert',
+              variant: "alert",
               alert: {
-                color: 'error'
+                color: "error",
               },
-              close: false
+              close: false,
             })
           );
         }
       }}
     >
-      {({ errors, handleBlur, handleChange, handleSubmit, setFieldValue, isSubmitting, touched, values, resetForm, submitForm }) => (
-        <SimpleModal submitForm={submitForm} resetForm={resetForm} title={title} ref={ref}>
+      {({
+        errors,
+        handleBlur,
+        handleChange,
+        handleSubmit,
+        setFieldValue,
+        isSubmitting,
+        touched,
+        values,
+        resetForm,
+        submitForm,
+      }) => (
+        <SimpleModal
+          submitForm={submitForm}
+          resetForm={resetForm}
+          title={title}
+          ref={ref}
+        >
           <SoundGroup>
-            <img src={fileImg} />
+            <UploadFileIcon
+              style={{ fontSize: "34px", color: theme.palette.primary.main }}
+            />
             <span>
-              {!values?.files ? <p>Select or drop a file to upload.</p> : <p>{values?.files?.name}</p>}
+              {!values?.files ? (
+                <p>Select or drop a file to upload.</p>
+              ) : (
+                <p>{values?.files?.name}</p>
+              )}
             </span>
 
-            <FileInput type="file" accept=".csv" value={values?.files && values.files[0]} onChange={e => {
-               
-              setFieldValue("files", e.target.files[0])
-            }} />
+            <FileInput
+              type="file"
+              accept=".csv"
+              value={values?.files && values.files[0]}
+              onChange={(e) => {
+                setFieldValue("files", e.target.files[0]);
+              }}
+            />
           </SoundGroup>
+          {sampleUrl && (
+            <Link
+              sx={{ marginTop: "10px" }}
+              style={{
+                textDecoration: "none",
+                display: "flex",
+                alignItems: "center",
+              }}
+              about="_blank"
+              href={sampleUrl}
+            >
+              <CloudDownloadIcon />
+              <p style={{ margin: "0", marginLeft: "10px" }}>
+                Download Sample File
+              </p>
+            </Link>
+          )}
         </SimpleModal>
       )}
     </Formik>
   );
 });
-
 
 ImportFile.propTypes = {};
 

@@ -8,7 +8,20 @@ import {
   TableHead,
   TableRow,
   LinearProgress,
+  Box,
+  CardContent,
+  Checkbox,
+  Grid,
+  IconButton,
+  InputAdornment,
+  TablePagination,
+  TableSortLabel,
+  TextField,
+  Toolbar,
+  Tooltip,
+  Typography,
 } from "@mui/material";
+import { visuallyHidden } from "@mui/utils";
 import { Switch } from "@mui/material";
 import withPagination from "higher order components/withPagination/withPagination";
 import confirm from "views/forms/plugins/Confirm/confirm";
@@ -18,8 +31,17 @@ import TableHeader from "components/TableHeader/TableHeader";
 import ActionButtons from "components/ActionButtons/ActionButtons";
 import { MODULE_NAME } from "./Values";
 import UserFilter from "./UserFilter";
-const apiManager = new APIManager();
 
+import DeleteIcon from "@mui/icons-material/Delete";
+import FilterListIcon from "@mui/icons-material/FilterListTwoTone";
+import PrintIcon from "@mui/icons-material/PrintTwoTone";
+import FileCopyIcon from "@mui/icons-material/FileCopyTwoTone";
+import SearchIcon from "@mui/icons-material/Search";
+import VisibilityTwoToneIcon from "@mui/icons-material/VisibilityTwoTone";
+import EditTwoToneIcon from "@mui/icons-material/EditTwoTone";
+import { useTheme } from "@mui/material/styles";
+
+const apiManager = new APIManager();
 // {
 //   "_id": "6fa2e605-f1d4-421c-bdf4-6ddee63ec180",
 //   "fullName": "rrr dokob",
@@ -38,6 +60,7 @@ const apiManager = new APIManager();
 
 const columns = [
   { id: "fullName", label: "Name", style: { minWidth: 30 } },
+  { id: "email", label: "Email", style: { minWidth: 30 } },
   { id: "phoneNumber", label: "Phone Number", style: { minWidth: 30 } },
   { id: "role", label: "Role", style: { minWidth: 30 } },
   {
@@ -62,11 +85,12 @@ function User(props) {
     emptyData,
     children,
     filtered,
-    setQuery
+    setQuery,
   } = props;
   const modalRef = useRef(null);
-  const filterRef = useRef(null);
+  const filterRef = useRef(null); 
   const [editData, setEditData] = useState("");
+
   const renderCell = (ele, e) => {
     if (ele.id === "actions") {
       return (
@@ -94,12 +118,9 @@ function User(props) {
           onClick={() => {
             confirm(confirmMessage(`${e.isActive ? "de" : ""}active`)).then(
               async () => {
-                const res = await apiManager.put(
-                  `user/status/${e._id}`,
-                  {
-                    status: !e.isActive,
-                  }
-                );
+                const res = await apiManager.put(`user/status/${e._id}`, {
+                  status: !e.isActive,
+                });
                 if (!res.error) {
                   e.isActive = !e.isActive;
                   setList([...list]);
@@ -110,8 +131,10 @@ function User(props) {
           color="primary"
         />
       );
-    } else if (ele.id === 'role') {
-      return e[ele.id] === 5 ? "user" : "admin"
+    } else if (ele.id === "role") {
+      return e[ele.id] === 5 ? "user" : "admin";
+    } else if (ele.id === "phoneNumber") {
+      return `+${e["countryCode"]} ${e[ele.id]}`;
     }
     const value = e[ele.id];
     return value;
@@ -123,7 +146,7 @@ function User(props) {
       searchSection={searchSection}
       filtered={filtered}
       filterOnClick={() => {
-        filterRef.current.handleOpen()
+        filterRef.current.handleOpen();
       }}
       addOnClick={() => {
         modalRef.current.handleOpen();
@@ -159,8 +182,9 @@ function User(props) {
                           key={e._id + ele.id}
                           style={{ ...ele.style }}
                           align={ele.align}
-                          className={`${ele.id === "countryName" ? "capitalize" : ""
-                            }`}
+                          className={`${
+                            ele.id === "countryName" ? "capitalize" : ""
+                          }`}
                         >
                           {renderCell(ele, e)}
                         </TableCell>
@@ -186,12 +210,12 @@ function User(props) {
       <UserFilter
         onFilterChange={(values) => {
           filterRef.current.handleClose();
-          console.log("values",values)
-          setQuery({ role: values.filterObj.role })
+          console.log("values", values);
+          setQuery({ role: values.filterObj.role });
         }}
         onClear={() => {
-          filterRef.current.handleClose()
-          setQuery(null)
+          filterRef.current.handleClose();
+          setQuery(null);
         }}
         ref={filterRef}
       />

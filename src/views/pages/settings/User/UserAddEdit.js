@@ -1,6 +1,6 @@
 import ReusableValidation from "components/ReusableValidation/ReusableValidation";
 import { Formik } from "formik";
-import { Fragment, forwardRef, useState } from "react";
+import { Fragment, forwardRef, useEffect, useState } from "react";
 import APIManager from "utils/APImanager";
 import SimpleModal from "views/forms/plugins/Modal/SimpleModal";
 import { trimValues } from "utils/Helper";
@@ -39,7 +39,7 @@ const UserAddEdit = forwardRef(
           console.log("trimmed values", trimmedValues);
           trimmedValues.countryCode = trimmedValues.countryCode.countryCode;
           const res = (await editData)
-            ? apiManager.post("user/edit", trimmedValues)
+            ? apiManager.post(`user/update/${values._id}`, trimmedValues)
             : apiManager.post(`auth/admin-register`, trimmedValues);
           if (!res.error) {
             modalRef.current.handleClose();

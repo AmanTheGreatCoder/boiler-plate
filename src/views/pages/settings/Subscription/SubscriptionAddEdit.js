@@ -35,7 +35,7 @@ const SubscriptionAddEdit = forwardRef(
       isActive: editData?.isActive || false,
       isDeleted: editData?.isDeleted || false,
       isLimited: editData?.isLimited || false,
-      benefits: editData.benefits || [],
+      benefits: editData.benefits || [""],
       defaultSelected: editData?.defaultSelected || false,
       isPopular: editData?.isPopular || false,
       recurring: editData?.recurring || false,

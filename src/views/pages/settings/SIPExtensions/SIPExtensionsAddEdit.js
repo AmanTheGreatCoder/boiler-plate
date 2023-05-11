@@ -12,19 +12,23 @@ import { Layout } from 'components/Layout/Layout';
 
 const apiManager = new APIManager();
 
-const SIPExtensionsAddEdit = forwardRef(({ getList, rowsPerPage, editData, setSearch, clearSearchField }, modalRef) => {
+const SIPExtensionsAddEdit = forwardRef(
+  (
+    { getList, rowsPerPage, editData, setSearch, clearSearchField },
+    modalRef
+  ) => {
     let initialValues = {
-        sipDomain: editData.sipDomain || "",
-        proxyServerIp: editData.proxyServerIp || "",
-        proxyServerPort: editData.proxyServerPort || "",
-        dnsServer: editData.dnsServer || "",
-        mediaType: editData.mediaType || "",
-        registerServer: editData.registerServer || "",
-        sipTimeout: editData.sipTimeout || "",
-        sipTransport: editData.sipTransport || "",
-    }
+      sipDomain: editData.sipDomain || "",
+      proxyServerIp: editData.proxyServerIp || "",
+      proxyServerPort: editData.proxyServerPort || "",
+      dnsServer: editData.dnsServer || "",
+      mediaType: editData.mediaType || "",
+      registerServer: editData.registerServer || "",
+      sipTimeout: editData.sipTimeout || "",
+      sipTransport: editData.sipTransport || "",
+    };
     if (editData) {
-        initialValues._id = editData._id
+      initialValues._id = editData._id;
     }
 
     return (
@@ -90,4 +94,4 @@ const SIPExtensionsAddEdit = forwardRef(({ getList, rowsPerPage, editData, setSe
     )
 })
 
-export default SIPExtensionsAddEdit
+export default SIPExtensionsAddEdit;

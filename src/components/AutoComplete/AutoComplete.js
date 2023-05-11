@@ -9,7 +9,7 @@ import { addDefaultSrc } from 'utils/Helper'
 
 const apiManager = new APIManager();
 
-function AutoComplete({ placeholder, url, customOptions, showCustomOptions, optionRow, valueToShowInField, fieldName, errorName, showFlag, query, onChange, multiple, freeSolo, required }) {
+function AutoComplete({ placeholder, url, customOptions, showCustomOptions = false, optionRow, valueToShowInField, fieldName, errorName, showFlag, query, onChange, multiple, freeSolo, required }) {
   const [options, setOptions] = useState([]);
   const [formValue, setFormValue] = useState('')
   const [imageUrl, setImageUrl] = useState('')
@@ -51,10 +51,6 @@ function AutoComplete({ placeholder, url, customOptions, showCustomOptions, opti
       fetchData(formValue);
     }
   }, [])
-
-  useEffect(() => {
-    console.log("options", options)
-  }, [options])
 
   const getOptionRow = (option) => {
 

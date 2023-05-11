@@ -23,14 +23,14 @@ const NumberStyle = styled.div`
   
 `
 
-function NumberWithCountryCode({ fieldName }) {
+function NumberWithCountryCode({ fieldName, onlyCountries }) {
   const theme = useTheme()
   const [field, meta, helpers] = useField({
     name: fieldName,
     validate: (newValue) => {
       let error = null;
-       
-      if (newValue.phoneNumber && !phoneRegExp.test(newValue.phoneNumber)) {
+
+      if (newValue?.phoneNumber && !phoneRegExp.test(newValue.phoneNumber)) {
         error = "Phone number is not valid"
       }
       return error;
@@ -57,6 +57,7 @@ function NumberWithCountryCode({ fieldName }) {
         id="phone-input"
         label="Phone number"
         defaultCountry={'in'}
+        onlyCountries={onlyCountries}
         onChange={(phone, others) => {
           phoneNumber = removeFirstSubstring(phone, others.dialCode)
           simplePhoneNumber = simplifyString(phoneNumber)

@@ -39,16 +39,17 @@ export default function ThemeCustomization({ children }) {
             customShadows: themeCustomShadows
         }),
         [rtlLayout, theme, themeCustomShadows, themeTypography]
-        );
+    );
 
-        const themes = createTheme(themeOptions);
-        themes.components = useMemo(
-            () => componentStyleOverrides(themes, borderRadius, outlinedFilled),
-            [themes, borderRadius, outlinedFilled]
-            );
+    const themes = createTheme(themeOptions);
+    themes.components = useMemo(
+        () => componentStyleOverrides(themes, borderRadius, outlinedFilled),
+        [themes, borderRadius, outlinedFilled]
+    );
 
     return (
         <StyledEngineProvider injectFirst>
+            {console.log("Themessss", themes)}
             <ThemeProvider theme={themes}>
                 <CssBaseline />
                 {children}

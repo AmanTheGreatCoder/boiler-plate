@@ -17,37 +17,61 @@ import { Layout } from 'components/Layout/Layout';
 
 const apiManager = new APIManager();
 
-const ProviderAddEdit = forwardRef(({ getList, rowsPerPage, editData, setSearch, clearSearchField }, modalRef) => {
+const ProviderAddEdit = forwardRef(
+  (
+    { getList, rowsPerPage, editData, setSearch, clearSearchField },
+    modalRef
+  ) => {
+    console.log({ editDataCheck: editData });
 
-  console.log({editDataCheck:editData})
+    let initialValues = {
+      name: editData.name || "",
+      outboundDomain: editData.outboundDomain || "",
+      outboundProxy: editData.outboundProxy || "",
+      outboundPort: editData.outboundPort || "",
+      outboundUserName: editData.outboundUserName || "",
+      isActive: true,
+      isInbound: editData.isInbound || false,
+      isOutBound: editData.isOutBound || false,
+      outboundPrefix: editData.outboundPrefix || "",
+      outboundPassword: editData.outboundPassword || "",
+      initialPulse: editData.initialPulse || "",
+      subsequentPulse: editData.subsequentPulse || "",
+      connectionCharge: editData.connectionCharge || "",
+      defaultRate: editData.defaultRate || "",
+      isBilled: editData.isBilled || false,
+      outboundRegister: editData.outboundRegister || false,
+      inboundIP: editData.inboundIp || [
+        {
+          ip: "",
+          port: "",
+        },
+      ],
+    };
+    if (editData) {
+      initialValues._id = editData._id;
+    }
 
-  let initialValues = {
-    name: editData.name || "",
-    outboundDomain: editData.outboundDomain || "",
-    outboundProxy: editData.outboundProxy || "",
-    outboundPort: editData.outboundPort || "",
-    outboundUserName: editData.outboundUserName || "",
-    isActive: true,
-    isInbound: editData.isInbound || false,
-    isOutBound: editData.isOutBound || false,
-    outboundPrefix: editData.outboundPrefix || "",
-    outboundPassword: editData.outboundPassword || "",
-    initialPulse: editData.initialPulse || "",
-    subsequentPulse: editData.subsequentPulse || "",
-    connectionCharge: editData.connectionCharge || "",
-    defaultRate: editData.defaultRate || "",
-    isBilled: editData.isBilled || false,
-    outboundRegister: editData.outboundRegister || false,
-    inboundIP: editData.inboundIp || [
-      {
-        ip: "",
-        port: ""
-      },
-    ],
-  }
-  if (editData) {
-    initialValues._id = editData._id
-  }
+    return (
+      <Formik
+        enableReinitialize
+        initialValues={initialValues}
+        onSubmit={async (values) => {
+          const trimmedValues = trimValues(values);
+          trimmedValues.initialPulse = parseInt(trimmedValues.initialPulse);
+          trimmedValues.subsequentPulse = parseInt(
+            trimmedValues.subsequentPulse
+          );
+          trimmedValues.connectionCharge = parseInt(
+            trimmedValues.connectionCharge
+          );
+          trimmedValues.defaultRate = parseInt(trimmedValues.defaultRate);
+          const res = editData
+            ? await apiManager.patch(
+                `provider/update/${initialValues._id}`,
+                trimmedValues
+              )
+            : await apiManager.post("provider/create", trimmedValues);
 
   return (
     <Formik enableReinitialize initialValues={initialValues}
@@ -110,8 +134,8 @@ const ProviderAddEdit = forwardRef(({ getList, rowsPerPage, editData, setSearch,
                                 })
                               );
                             }
-                            }} variant="contained">
-                            <RemoveCircleOutlineIcon />
+                          >
+                            Add
                           </Button>
                         </Grid>
                       </Grid>
@@ -155,11 +179,42 @@ const ProviderAddEdit = forwardRef(({ getList, rowsPerPage, editData, setSearch,
                 />
               </Fragment>
             )}
-          </div>
-        </SimpleModal>
-      )}
-    </Formik>
-  )
-})
+            <div>
+              <ReusableSwitch varName="isBilled" fieldName={"Billed"} />
+              {values.isBilled && (
+                <Fragment>
+                  <ReusableValidation
+                    control="isNumber"
+                    varName="initialPulse"
+                    fieldName="Initial Pulse"
+                    required={true}
+                  />
+                  <ReusableValidation
+                    control="isNumber"
+                    varName="subsequentPulse"
+                    fieldName="Subsequent Pulse"
+                    required={true}
+                  />
+                  <ReusableValidation
+                    control="isNumber"
+                    varName="connectionCharge"
+                    fieldName="Connection Charge"
+                    required={true}
+                  />
+                  <ReusableValidation
+                    control="isNumber"
+                    varName="defaultRate"
+                    fieldName="Default Rate"
+                    required={true}
+                  />
+                </Fragment>
+              )}
+            </div>
+          </SimpleModal>
+        )}
+      </Formik>
+    );
+  }
+);
 
-export default ProviderAddEdit
+export default ProviderAddEdit;
