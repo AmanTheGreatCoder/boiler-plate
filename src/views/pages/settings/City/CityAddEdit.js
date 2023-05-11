@@ -8,6 +8,7 @@ import * as Yup from 'yup'
 import { trimValues } from 'utils/Helper'
 import { MODULE_NAME } from './Values'
 import AutoComplete from 'components/AutoComplete/AutoComplete';
+import { Layout } from 'components/Layout/Layout';
 
 const apiManager = new APIManager();
 
@@ -27,7 +28,7 @@ const CityAddEdit = forwardRef(({ getList, rowsPerPage, editData, setSearch, cle
         const { _id: countryId } = values.SelectValue;
         const { cityName, isActive } = values;
         const trimmedValues = trimValues({ countryId, cityName, isActive })
-         
+
         const res = editData ? await apiManager.patch(`city/update/${initialValues._id}`, trimmedValues) : await apiManager.post('city/create', trimmedValues)
         if (!res.error) {
           modalRef.current.handleClose();
@@ -38,20 +39,26 @@ const CityAddEdit = forwardRef(({ getList, rowsPerPage, editData, setSearch, cle
       }}>
       {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values, resetForm, submitForm }) => (
         <SimpleModal title={MODULE_NAME} submitForm={submitForm} resetForm={resetForm} ref={modalRef} errors={errors} handleSubmit={handleSubmit} >
-          <ReusableValidation
-            varName="cityName"
-            fieldName={"City Name"}
-            required={true}
-          />
-          <AutoComplete
-            placeholder="Choose a country"
-            url="country/list"
-            fieldName="SelectValue"
-            errorName={"Country"}
-            optionRow={["countryName", "isoCountry", { countryCode: true, field: "countryCode" }]}
-            showFlag={true}
-            valueToShowInField="countryName"
-            required={true}
+          <Layout
+          itemsInRow={2}
+          components={[
+            <ReusableValidation
+              varName="cityName"
+              fieldName={"City Name"}
+              required={true}
+            />,
+            <AutoComplete
+              placeholder="Choose a country"
+              url="country/list"
+              fieldName="SelectValue"
+              errorName={"Country"}
+              optionRow={["countryName", "isoCountry", { countryCode: true, field: "countryCode" }]}
+              showFlag={true}
+              valueToShowInField="countryName"
+              required={true}
+            />
+
+          ]}
           />
         </SimpleModal>
       )}

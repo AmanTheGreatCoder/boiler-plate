@@ -124,14 +124,14 @@ const SearchSection = forwardRef(({ getValue },ref) => {
 
     const verify = useCallback(
         debounce(value => {
-             
+
           getValue(value)
         }, 1000),
         []
       );
 
     useEffect(() => {
-             
+
             verify(value)
     }, [value])
 
@@ -178,6 +178,7 @@ const SearchSection = forwardRef(({ getValue },ref) => {
             </Box>
             <Box sx={{ display: { xs: 'none', md: 'block' } }}>
                 <OutlineInputStyle
+                    size='small'
                     id="input-search-header"
                     value={value}
                     onChange={(e) => setValue(e.target.value)}

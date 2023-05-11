@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { cloneElement, useRef, useState } from 'react';
 
 // material-ui
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, LinearProgress } from '@mui/material';
@@ -32,13 +32,13 @@ function PhoneNumber({ list, setList, otherData, rowsPerPage, getList, searchSec
     { id: 'cityId.cityName', label: 'City Name', style: { minWidth: 30, textTransform: 'capitalize' } },
     { id: 'countryId.countryName', label: 'Country Name', style: { minWidth: 30, textTransform: 'capitalize' } },
     { id: 'isActive', label: 'Active', style: { minWidth: 30, textAlign: 'center' } },
-    // {
-    //   id: 'assignTo', label: 'Assigned To', style: { minWidth: 30, textAlign: 'center' }, fallback: (
-    //     <Button size='small' variant="contained" onClick={() => { assignModalRef.current.handleOpen() }}>
-    //       Assign
-    //     </Button>
-    //   )
-    // },
+    {
+      id: 'assignedTo', label: 'Assigned To', style: { minWidth: 30, textAlign: 'center' }, fallback: (
+        <Button size='small' variant="contained">
+          Assign
+        </Button>
+      )
+    },
     { id: 'actions', label: 'Actions', style: { minWidth: 70 }, align: 'right' },
   ];
   const [editData, setEditData] = useState("")
@@ -79,7 +79,15 @@ function PhoneNumber({ list, setList, otherData, rowsPerPage, getList, searchSec
     } else if (ele.id.includes('.')) {
       return getValueFromObject(ele.id, e)
     }
-    const value = e[ele.id] || ele.fallback;
+    let value = e[ele.id] || ele.fallback;
+    if(ele.fallback && !e[ele.id]){
+      value = cloneElement(value,{
+        onClick: ()=>{
+          assignModalRef.current.handleOpen()
+          setEditData(e)
+        }
+      })
+    }
     return (value) || '-'
   }
 
@@ -132,13 +140,13 @@ function PhoneNumber({ list, setList, otherData, rowsPerPage, getList, searchSec
       </TableContainer>
 
       <PhoneNumberAddEdit clearSearchField={clearSearchField} setSearch={setSearch} editData={editData} getList={getList} rowsPerPage={rowsPerPage} ref={modalRef} />
-      <AssignNumberModal ref={assignModalRef} />
+      <AssignNumberModal ref={assignModalRef} editData={editData} getList={getList} clearSearchField={clearSearchField} setSearch={setSearch} rowsPerPage={rowsPerPage} />
       <PhoneFilter
         onFilterChange={(values) => {
           const { cityId, countryId } = values
           filterRef.current.handleClose();
           setQuery({ cityId: cityId?._id, countryId: countryId?._id })
-           
+
         }}
         onClear={() => {
           filterRef.current.handleClose()

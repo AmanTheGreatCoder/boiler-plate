@@ -35,7 +35,7 @@ const CodeVerification = () => {
   const { detail } = useContext(PhoneNumberContext);
   const maskedNumber = maskPhoneNumber(detail.phoneNumber)
   useEffect(() => {
-     
+
     if (!detail.phoneNumber) {
       navigate('/login')
     }
@@ -43,7 +43,7 @@ const CodeVerification = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-     
+
     const res = await apiManager.post('auth/verify-otp', {
       countryCode: detail.countryCode,
       phoneNumber: detail.phoneNumber,
@@ -178,4 +178,4 @@ const CodeVerification = () => {
   );
 };
 
-export default withTitle(CodeVerification, 'OTP');
+export default withTitle(CodeVerification, 'Phone Number Verification');

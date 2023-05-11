@@ -11,9 +11,9 @@ import MuiPhoneNumber from 'material-ui-phone-number';
 import { simplifyString, removeFirstSubstring } from 'utils/Helper'
 import { useTheme } from '@mui/material/styles';
 import { useField } from 'formik';
-import { countryCodeRegex, phoneRegExp, onlyNumber, isoCountryRegex, domainRegex, ipRegex , isEmail } from 'utils/Regex';
+import { countryCodeRegex, phoneRegExp, onlyNumber, isoCountryRegex, domainRegex, ipRegex , isEmail, minMaxRegex } from 'utils/Regex';
 
-function ReusableValidation({ fieldName, disabled, required, control, fieldValue, isSubmitting, varName, type, InputProps }) {
+function ReusableValidation({ fieldName, disabled, required, control, fieldValue, isSubmitting, varName, type, InputProps, min, max }) {
   const theme = useTheme();
   const errorMessage = (fieldName) => {
     return `${fieldName} is not valid`
@@ -32,7 +32,15 @@ function ReusableValidation({ fieldName, disabled, required, control, fieldValue
           if (!isoCountryRegex.test(value)) error = errorMessage(fieldName)
           break;
         case "isNumber":
-          if (!onlyNumber.test(value)) error = errorMessage(fieldName)
+          console.log('validation coming here 2',min,max)
+          if (!onlyNumber.test(value)) {error = errorMessage(fieldName)}
+          if(!isNaN(min) && !isNaN(max) && !isNaN(value)){
+            if(parseInt(value)< min){
+              error = `${fieldName} must be greater than ${min}`
+            } else if(parseInt(value)> max){
+              error = `${fieldName} must be less than ${max}`
+            }
+          }
           break;
         case "isEmail":
           if (!isEmail.test(value)) error = errorMessage(fieldName)
@@ -48,7 +56,7 @@ function ReusableValidation({ fieldName, disabled, required, control, fieldValue
           break;
       }
     }
-     
+
     return error;
   }
   const [field, meta, helpers] = useField({
@@ -64,14 +72,14 @@ function ReusableValidation({ fieldName, disabled, required, control, fieldValue
   const hasError = Boolean(error) && touched;
 
   useEffect(() => {
-     
+
     if (fieldValue) {
       setValue(fieldValue);
     }
     // setTouched(false,true);
   }, []);
   // useEffect(() => {
-  //    
+  //
   //   if(isSubmitting){
   //     setTouched(true,true);
   //   }
@@ -89,7 +97,7 @@ function ReusableValidation({ fieldName, disabled, required, control, fieldValue
         name={name}
         onBlur={onBlur}
         onChange={(e) => {
-          if(control==='isNumber' && !onlyNumber.test(e.target.value)){
+          if(control==='isNumber' && (!onlyNumber.test(e.target.value) || e?.target?.value?.length >= 15)){
             if (e.target.value === ""){
               setValue("");
             }

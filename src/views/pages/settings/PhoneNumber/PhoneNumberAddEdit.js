@@ -8,6 +8,7 @@ import * as Yup from 'yup'
 import { trimValues } from 'utils/Helper'
 import { MODULE_NAME } from './Values'
 import AutoComplete from 'components/AutoComplete/AutoComplete';
+import { Layout } from 'components/Layout/Layout';
 
 const apiManager = new APIManager();
 
@@ -52,40 +53,31 @@ const PhoneNumberAddEdit = forwardRef(({ getList, rowsPerPage, editData, setSear
       }}>
       {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values, resetForm, submitForm, setFieldValue }) => (
         <SimpleModal title={MODULE_NAME} submitForm={submitForm} resetForm={resetForm} ref={modalRef} errors={errors} handleSubmit={handleSubmit} >
-          <ReusableValidation
-            varName="phoneNumber"
-            control="isNumber"
-            fieldName={"Phone Number"}
-            required={true}
-          />
-          <AutoComplete
-            placeholder="Choose a country"
-            url="country/list"
-            fieldName="countryId"
-            errorName={"Country"}
-            // onChange={}
-            required={true}
-            optionRow={["countryName", "isoCountry", { countryCode: true, field: "countryCode" }]}
-            showFlag={true}
-            valueToShowInField="countryName"
-            onChange={(value) => {
-              setFieldValue("cityId", "")
-            }}
-          />
-          {values.countryId && (
-            <AutoComplete
-              key={values.countryId._id}
-              placeholder="Choose a city"
-              url="city/list"
+          <Layout
+          itemsInRow={2}
+          components={[
+
+            <ReusableValidation
+              varName="phoneNumber"
+              control="isNumber"
+              fieldName={"Phone Number"}
               required={true}
-              fieldName="cityId"
-              query={{ countryId: values?.countryId?._id }}
-              errorName={"City"}
-              optionRow={["cityName"]}
-              valueToShowInField="cityName"
-            />
-          )}
-          <AutoComplete
+            />,
+            <AutoComplete
+              placeholder="Choose a country"
+              url="country/list"
+              fieldName="countryId"
+              errorName={"Country"}
+              // onChange={}
+              required={true}
+              optionRow={["countryName", "isoCountry", { countryCode: true, field: "countryCode" }]}
+              showFlag={true}
+              valueToShowInField="countryName"
+              onChange={(value) => {
+                setFieldValue("cityId", "")
+              }}
+            />,
+            <AutoComplete
             placeholder="Choose a provider"
             url="provider/list"
             fieldName="providerId"
@@ -94,6 +86,21 @@ const PhoneNumberAddEdit = forwardRef(({ getList, rowsPerPage, editData, setSear
             required={true}
             optionRow={["name"]}
             valueToShowInField="name"
+            />,
+            values.countryId && (
+              <AutoComplete
+                key={values.countryId._id}
+                placeholder="Choose a city"
+                url="city/list"
+                required={true}
+                fieldName="cityId"
+                query={{ countryId: values?.countryId?._id }}
+                errorName={"City"}
+                optionRow={["cityName"]}
+                valueToShowInField="cityName"
+              />
+            ),
+          ]}
           />
         </SimpleModal>
       )}

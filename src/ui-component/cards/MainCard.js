@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader, Divider, Typography } from '@mui/materia
 
 // constant
 const headerSX = {
+    padding: '16px',
     '& .MuiCardHeader-action': { mr: 0 }
 };
 

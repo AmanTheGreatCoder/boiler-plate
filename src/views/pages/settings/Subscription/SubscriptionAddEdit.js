@@ -13,6 +13,7 @@ import { dispatch } from "store";
 import { openSnackbar } from "store/slices/snackbar";
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import { Layout } from "components/Layout/Layout";
 
 const apiManager = new APIManager();
 
@@ -85,38 +86,43 @@ const SubscriptionAddEdit = forwardRef(
             errors={errors}
             handleSubmit={handleSubmit}
           >
-            <ReusableValidation
-              varName="name"
-              fieldName={"Name"}
-              required={true}
-            />
-            <ReusableValidation
-              varName="amount"
-              fieldName={"Amount"}
-              required={true}
-              disabled={disabled}
-              control={"isNumber"}
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <AttachMoneyIcon className='icon-size' />
-                  </InputAdornment>
-                ),
-              }}
-            />
-            <ReusableValidation
-              varName="totalMinutes"
-              fieldName={"Total Minutes"}
-              required={true}
-              disabled={disabled}
-              control={"isNumber"}
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <AccessTimeIcon className='icon-size' />
-                  </InputAdornment>
-                ),
-              }}
+            <Layout
+            itemsInRow={2}
+            components={[
+              <ReusableValidation
+                varName="name"
+                fieldName={"Name"}
+                required={true}
+              />,
+              <ReusableValidation
+                varName="amount"
+                fieldName={"Amount"}
+                required={true}
+                disabled={disabled}
+                control={"isNumber"}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <AttachMoneyIcon className='icon-size' />
+                    </InputAdornment>
+                  ),
+                }}
+              />,
+              <ReusableValidation
+                varName="totalMinutes"
+                fieldName={"Total Minutes"}
+                required={true}
+                disabled={disabled}
+                control={"isNumber"}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <AccessTimeIcon className='icon-size' />
+                    </InputAdornment>
+                  ),
+                }}
+              />,
+            ]}
             />
             <FieldArray name='benefits'>
               {({ push, remove }) => (

@@ -14,27 +14,21 @@ const apiManager = new APIManager();
 const AssignNumberModal = forwardRef(({ getList, rowsPerPage, editData, setSearch, clearSearchField }, assignModalRef) => {
 
   let initialValues = {
-    // phoneNumber: editData.phoneNumber || "",
-    // countryId: editData.countryId || '',
-    // cityId: editData.cityId || "",
-    // providerId: editData.providerId || "",
-    // isActive: true
+    user: '',
+    isAssigned: true
   }
   if (editData) {
     initialValues._id = editData._id
-    initialValues.countryId.countryCode = editData.countryCode
   }
 
   return (
     <Formik enableReinitialize initialValues={initialValues}
       onSubmit={async (values) => {
-        const { _id: countryId, countryCode } = values.countryId;
-        const { _id: cityId } = values.cityId;
-        const { _id: providerId } = values.providerId;
-        const { phoneNumber, isActive } = values;
-        const trimmedValues = trimValues({ countryId, cityId, phoneNumber, providerId, countryCode, isActive })
-        const res = editData ? await apiManager.patch(`phone/update/${initialValues._id}`, trimmedValues) : await apiManager.post('phone/create', trimmedValues);
-         
+        const trimmedValues = trimValues(values)
+        console.log({values})
+        trimmedValues.assignedTo = values.user._id;
+        const res = await apiManager.put(`phone/assign/${values._id}`,trimmedValues)
+
         if (!res.error) {
           assignModalRef.current.handleClose();
           getList(rowsPerPage)
@@ -46,17 +40,12 @@ const AssignNumberModal = forwardRef(({ getList, rowsPerPage, editData, setSearc
         <SimpleModal title={MODULE_NAME} submitForm={submitForm} resetForm={resetForm} ref={assignModalRef} errors={errors} handleSubmit={handleSubmit} >
           <AutoComplete
             placeholder="Choose a user"
-            url="country/list"
-            fieldName="countryId"
-            errorName={"Country"}
+            url="user/list"
+            fieldName="user"
+            errorName={"User"}
             required={true}
-            // onChange={}
-            optionRow={["countryName", "isoCountry", { countryCode: true, field: "countryCode" }]}
-            showFlag={true}
-            valueToShowInField="countryName"
-            onChange={(value) => {
-              setFieldValue("cityId", "")
-            }}
+            optionRow={["fullName"]}
+            valueToShowInField="fullName"
           />
         </SimpleModal>
       )}

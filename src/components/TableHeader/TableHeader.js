@@ -12,12 +12,12 @@ function TableHeader({children, title, searchSection, addOnClick, filterOnClick,
       secondary={
         <div style={{ display: "flex", alignItems: "center" }}>
           {searchSection}
-          {filterOnClick && <Button size='large' sx={{ ml: 3 }} variant={filtered ? 'contained' : 'outlined'} startIcon={<TuneIcon />} onClick={() => filterOnClick()}>
+          {filterOnClick && <Button size='medium' sx={{ ml: 3 }} variant={filtered ? 'contained' : 'outlined'} startIcon={<TuneIcon />} onClick={() => filterOnClick()}>
             Filter
           </Button>}
           {addOnClick && (
             <Button
-              size="large"
+              size="medium"
               sx={{ ml: 3 }}
               variant="contained"
               startIcon={<AddIcon />}
@@ -28,7 +28,7 @@ function TableHeader({children, title, searchSection, addOnClick, filterOnClick,
           )}
           {importOnClick && (
             <Button
-              size="large"
+              size="medium"
               sx={{ ml: 3 }}
               variant="contained"
               startIcon={<AddIcon />}

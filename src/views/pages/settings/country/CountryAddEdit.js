@@ -7,6 +7,7 @@ import { FormControl, FormControlLabel, FormGroup, Switch } from '@mui/material'
 import * as Yup from 'yup'
 import { trimValues } from 'utils/Helper'
 import { MODULE_NAME } from './Values';
+import { Layout } from 'components/Layout/Layout';
 
 const apiManager = new APIManager();
 
@@ -45,12 +46,12 @@ const CountryAddEdit = forwardRef(({ getList, rowsPerPage, editData, setSearch, 
     initialValues._id = editData._id
   }
   // useEffect(() => {
-  //    
+  //
   //   if(editData){
-  //      
+  //
   //     setInitialValues({...editData})
   //   }
-  //    
+  //
   // }, [editData])
 
   return (
@@ -67,25 +68,31 @@ const CountryAddEdit = forwardRef(({ getList, rowsPerPage, editData, setSearch, 
       }}>
       {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values, resetForm, submitForm }) => (
         <SimpleModal title={MODULE_NAME} submitForm={submitForm} resetForm={resetForm} ref={modalRef} errors={errors} handleSubmit={handleSubmit} >
-          <ReusableValidation
-            varName="countryName"
-            fieldName={"Country Name"}
-            required={true}
-          // isSubmitting={isSubmitting}
-          />
-          <ReusableValidation
-            varName="countryCode"
-            fieldName={"Country Code"}
-            required={true}
-            control="countryCode"
-          // isSubmitting={isSubmitting}
-          />
-          <ReusableValidation
-            varName="isoCountry"
-            fieldName={"ISO Country"}
-            required={true}
-            control="isoCountry"
-          // isSubmitting={isSubmitting}
+          <Layout
+          itemsInRow={2}
+          components={[
+            <ReusableValidation
+              varName="countryName"
+              fieldName={"Country Name"}
+              required={true}
+            // isSubmitting={isSubmitting}
+            />,
+            <ReusableValidation
+              varName="countryCode"
+              fieldName={"Country Code"}
+              required={true}
+              control="countryCode"
+            // isSubmitting={isSubmitting}
+            />,
+            <ReusableValidation
+              varName="isoCountry"
+              fieldName={"ISO Country"}
+              required={true}
+              control="isoCountry"
+            // isSubmitting={isSubmitting}
+            />
+
+          ]}
           />
           {/* <ReusableValidation
             varName="flag"

@@ -20,7 +20,7 @@ const apiManager = new APIManager();
 
 const columns = [
   { id: 'countryName', label: 'Country Name', style: { minWidth: 30 } },
-  { id: 'countryCode', label: 'ISO\u00a0Code', style: { minWidth: 100 } },
+  { id: 'countryCode', label: 'ISO\u00a0Code', style: { minWidth: 100 }, prefix: "+" },
   { id: 'isActive', label: 'Active', style: { minWidth: 30 } },
   { id: 'flag', label: 'Flag', style: { minWidth: 30 }, },
   { id: 'actions', label: 'Actions', style: { minWidth: 70 }, align: 'right' },
@@ -72,7 +72,7 @@ function Country(props) {
       )
     }
     const value = e[ele.id];
-    return (value)
+    return value? ele.prefix? (ele.prefix + value) : (value) : '-'
   }
 
   return (

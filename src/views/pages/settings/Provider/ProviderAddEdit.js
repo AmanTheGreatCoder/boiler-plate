@@ -13,6 +13,7 @@ import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import AddIcon from '@mui/icons-material/Add';
 import { dispatch } from 'store';
 import { openSnackbar } from 'store/slices/snackbar';
+import { Layout } from 'components/Layout/Layout';
 
 const apiManager = new APIManager();
 
@@ -57,7 +58,7 @@ const ProviderAddEdit = forwardRef(({ getList, rowsPerPage, editData, setSearch,
         trimmedValues.connectionCharge = parseInt(trimmedValues.connectionCharge)
         trimmedValues.defaultRate = parseInt(trimmedValues.defaultRate)
         const res = editData ? await apiManager.patch(`provider/update/${initialValues._id}`, trimmedValues) : await apiManager.post('provider/create', trimmedValues);
-         
+
         if (!res.error) {
           modalRef.current.handleClose();
           getList(rowsPerPage)
@@ -125,23 +126,33 @@ const ProviderAddEdit = forwardRef(({ getList, rowsPerPage, editData, setSearch,
           {values.isInbound && <Divider sx={{ mt: 1 }} />}
           {values.isOutBound && (
             <Fragment>
-              <ReusableValidation varName="outboundDomain" control="isDomain" fieldName="Outbound Domain" required={true} />
-              <ReusableValidation varName="outboundProxy" control="isIP" fieldName="Outbound Proxy" required={true} />
-              <ReusableValidation varName="outboundPort" control="isPort" fieldName="Outbound Port" required={true} />
-              <ReusableValidation varName="outboundPrefix" fieldName="Outbound Prefix"/>
-              <ReusableValidation varName="outboundPassword" type="password" fieldName="Outbound Password" />
-              <ReusableValidation varName="outboundUserName" fieldName="Outbound Username" />
-              <ReusableSwitch varName="outboundRegister" fieldName={"Outbound Register"} />
+              <Layout
+              itemsInRow={2}
+              components={[
+                <ReusableValidation varName="outboundDomain" control="isDomain" fieldName="Outbound Domain" required={true} />,
+                <ReusableValidation varName="outboundProxy" control="isIP" fieldName="Outbound Proxy" required={true} />,
+                <ReusableValidation varName="outboundPort" control="isPort" fieldName="Outbound Port" required={true} />,
+                <ReusableValidation varName="outboundPrefix" fieldName="Outbound Prefix"/>,
+                <ReusableValidation varName="outboundPassword" type="password" fieldName="Outbound Password" />,
+                <ReusableValidation varName="outboundUserName" fieldName="Outbound Username" />,
+                <ReusableSwitch varName="outboundRegister" fieldName={"Outbound Register"} />,
+              ]}
+              />
             </Fragment>
           )}
           <div>
             <ReusableSwitch varName="isBilled" fieldName={"Billed"} />
             {values.isBilled && (
               <Fragment>
-                <ReusableValidation control="isNumber" varName="initialPulse" fieldName="Initial Pulse" required={true} />
-                <ReusableValidation control="isNumber" varName="subsequentPulse" fieldName="Subsequent Pulse" required={true} />
-                <ReusableValidation control="isNumber" varName="connectionCharge" fieldName="Connection Charge" required={true} />
-                <ReusableValidation control="isNumber" varName="defaultRate" fieldName="Default Rate" required={true} />
+                <Layout
+                itemsInRow={2}
+                components={[
+                  <ReusableValidation control="isNumber" varName="initialPulse" fieldName="Initial Pulse" required={true} />,
+                  <ReusableValidation control="isNumber" varName="subsequentPulse" fieldName="Subsequent Pulse" required={true} />,
+                  <ReusableValidation control="isNumber" varName="connectionCharge" fieldName="Connection Charge" required={true} />,
+                  <ReusableValidation control="isNumber" varName="defaultRate" fieldName="Default Rate" required={true} />,
+                ]}
+                />
               </Fragment>
             )}
           </div>
