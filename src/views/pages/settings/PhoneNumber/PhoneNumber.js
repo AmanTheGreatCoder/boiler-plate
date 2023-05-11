@@ -91,7 +91,7 @@ function PhoneNumber({ list, setList, otherData, rowsPerPage, getList, searchSec
         }
       })
     }
-    
+
     const value = e[ele.id] || ele.fallback;
     return (value) || '-'
   }

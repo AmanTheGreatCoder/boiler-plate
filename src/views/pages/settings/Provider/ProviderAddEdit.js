@@ -148,29 +148,34 @@ const ProviderAddEdit = forwardRef(
               <ReusableSwitch varName="isBilled" fieldName={"Billed"} />
               {values.isBilled && (
                 <Fragment>
-                  <ReusableValidation
-                    control="isNumber"
-                    varName="initialPulse"
-                    fieldName="Initial Pulse"
-                    required={true}
-                  />
-                  <ReusableValidation
-                    control="isNumber"
-                    varName="subsequentPulse"
-                    fieldName="Subsequent Pulse"
-                    required={true}
-                  />
-                  <ReusableValidation
-                    control="isNumber"
-                    varName="connectionCharge"
-                    fieldName="Connection Charge"
-                    required={true}
-                  />
-                  <ReusableValidation
-                    control="isNumber"
-                    varName="defaultRate"
-                    fieldName="Default Rate"
-                    required={true}
+                  <Layout
+                  itemsInRow={2}
+                  components={[
+                    <ReusableValidation
+                      control="isNumber"
+                      varName="initialPulse"
+                      fieldName="Initial Pulse"
+                      required={true}
+                    />,
+                    <ReusableValidation
+                      control="isNumber"
+                      varName="subsequentPulse"
+                      fieldName="Subsequent Pulse"
+                      required={true}
+                    />,
+                    <ReusableValidation
+                      control="isNumber"
+                      varName="connectionCharge"
+                      fieldName="Connection Charge"
+                      required={true}
+                    />,
+                    <ReusableValidation
+                      control="isNumber"
+                      varName="defaultRate"
+                      fieldName="Default Rate"
+                      required={true}
+                    />
+                  ]}
                   />
                 </Fragment>
               )}
