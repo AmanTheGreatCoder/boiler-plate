@@ -138,6 +138,7 @@ const SIPExtensions = Loadable(lazy(() => import('views/pages/settings/SIPExtens
 const PhoneNumber = Loadable(lazy(()=> import('views/pages/settings/PhoneNumber/PhoneNumber')))
 const Provider = Loadable(lazy(()=> import('views/pages/settings/Provider/Provider')))
 const RateList = Loadable(lazy(()=> import('views/pages/settings/RateList/RateList')))
+const Sample = Loadable(lazy(()=> import('views/pages/settings/Sample/Sample')))
 // sample page routing
 const SamplePage = Loadable(lazy(() => import('views/sample-page')));
 
@@ -190,6 +191,10 @@ const MainRoutes = {
         {
             path: '/settings/user',
             element: <User />
+        },
+        {
+            path: '/settings/sample',
+            element: <Sample />
         },
         // {
         //     path: '/widget/statistics',

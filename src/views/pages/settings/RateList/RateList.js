@@ -35,6 +35,7 @@ function PhoneNumber({ list, setList, otherData, rowsPerPage, getList, searchSec
   const modalRef = useRef(null)
   const columns = [
     { id: 'dialCode', label: 'Dialcode', style: { minWidth: 30 }, prefix: '+' },
+    { id: 'destination', label: 'Destination', style: { minWidth: 30 } },
     { id: 'rate', label: 'Rate', style: { minWidth: 30 }, prefix: '$ ' },
     { id: 'initialPulse', label: 'Initial Pulse', style: { minWidth: 30 } },
     { id: 'subsequentPulse', label: 'Subsequent Pulse', style: { minWidth: 30 } },
