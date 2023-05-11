@@ -12,14 +12,13 @@ import ReusableSwitch from 'components/ReusableSwitch.js/ReusableSwitch';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import AddIcon from '@mui/icons-material/Add';
 import { useParams } from 'react-router-dom';
+import { Layout } from 'components/Layout/Layout';
 
 const apiManager = new APIManager();
 
 const ProviderAddEdit = forwardRef(({ getList, rowsPerPage, editData, setSearch, clearSearchField }, modalRef) => {
 
   const params = useParams();
-
-  console.log({editDataCheck:editData})
 
   let initialValues = {
     dialCode: editData.dialCode || "",
@@ -47,7 +46,6 @@ const ProviderAddEdit = forwardRef(({ getList, rowsPerPage, editData, setSearch,
         trimmedValues.connectionCharge = parseInt(trimmedValues.connectionCharge)
         trimmedValues.defaultRate = parseInt(trimmedValues.defaultRate)
         const res = editData ? await apiManager.patch(`rate-list/update/${initialValues._id}`, trimmedValues) : await apiManager.post('rate-list/create', trimmedValues);
-        console.log({ res })
         if (!res.error) {
           modalRef.current.handleClose();
           getList(rowsPerPage)
@@ -57,12 +55,17 @@ const ProviderAddEdit = forwardRef(({ getList, rowsPerPage, editData, setSearch,
       }}>
       {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values, resetForm, submitForm, setFieldValue }) => (
         <SimpleModal title={MODULE_NAME} submitForm={submitForm} resetForm={resetForm} ref={modalRef} errors={errors} handleSubmit={handleSubmit} >
-          <ReusableValidation varName="dialCode" control="isNumber" fieldName="Dial Code" required={true} />
-          <ReusableValidation varName="Destination" fieldName="Destination" required={true} />
-          <ReusableValidation varName="rate" control="isNumber" fieldName="Rate" required={true} />
-          <ReusableValidation varName="initialPulse" control="isNumber" fieldName="Initial Pulse" required={true} />
-          <ReusableValidation varName="subsequentPulse" control="isNumber" fieldName="Subsequent Pulse" required={true} />
-          <ReusableValidation varName="connectionCharge" control="isNumber" fieldName="Connection Charge" required={true} />
+          <Layout
+          itemsInRow={2}
+          components={[
+            <ReusableValidation varName="dialCode" control="isNumber" fieldName="Dial Code" required={true} />,
+            <ReusableValidation varName="Destination" fieldName="Destination" required={true} />,
+            <ReusableValidation varName="rate" control="isNumber" fieldName="Rate" min={0} max={5000} required={true} />,
+            <ReusableValidation varName="initialPulse" control="isNumber" min={0} max={30} fieldName="Initial Pulse" required={true} />,
+            <ReusableValidation varName="subsequentPulse" control="isNumber" min={0} max={30} fieldName="Subsequent Pulse" required={true} />,
+            <ReusableValidation varName="connectionCharge" control="isNumber" min={0} max={5000} fieldName="Connection Charge" required={true} />
+          ]}
+          />
         </SimpleModal>
       )}
     </Formik>

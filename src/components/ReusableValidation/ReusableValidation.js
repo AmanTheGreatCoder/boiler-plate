@@ -6,32 +6,14 @@ import {
   InputLabel,
   OutlinedInput,
   TextField,
-} from "@mui/material";
-import MuiPhoneNumber from "material-ui-phone-number";
-import { simplifyString, removeFirstSubstring } from "utils/Helper";
-import { useTheme } from "@mui/material/styles";
-import { useField } from "formik";
-import {
-  countryCodeRegex,
-  phoneRegExp,
-  onlyNumber,
-  isoCountryRegex,
-  domainRegex,
-  ipRegex,
-  isEmail,
-} from "utils/Regex";
+} from '@mui/material';
+import MuiPhoneNumber from 'material-ui-phone-number';
+import { simplifyString, removeFirstSubstring } from 'utils/Helper'
+import { useTheme } from '@mui/material/styles';
+import { useField } from 'formik';
+import { countryCodeRegex, phoneRegExp, onlyNumber, isoCountryRegex, domainRegex, ipRegex , isEmail, minMaxRegex } from 'utils/Regex';
 
-function ReusableValidation({
-  fieldName,
-  disabled,
-  required,
-  control,
-  fieldValue,
-  isSubmitting,
-  varName,
-  type,
-  InputProps,
-}) {
+function ReusableValidation({ fieldName, disabled, required, control, fieldValue, isSubmitting, varName, type, InputProps, min, max }) {
   const theme = useTheme();
   const errorMessage = (fieldName) => {
     return `${fieldName} is not valid`;
@@ -49,7 +31,15 @@ function ReusableValidation({
           if (!isoCountryRegex.test(value)) error = errorMessage(fieldName);
           break;
         case "isNumber":
-          if (!onlyNumber.test(value)) error = errorMessage(fieldName);
+          console.log('validation coming here 2',min,max)
+          if (!onlyNumber.test(value)) {error = errorMessage(fieldName)}
+          if(!isNaN(min) && !isNaN(max) && !isNaN(value)){
+            if(parseInt(value)< min){
+              error = `${fieldName} must be greater than ${min}`
+            } else if(parseInt(value)> max){
+              error = `${fieldName} must be less than ${max}`
+            }
+          }
           break;
         case "isEmail":
           if (!isEmail.test(value)) error = errorMessage(fieldName);

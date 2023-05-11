@@ -7,7 +7,7 @@ import { trimValues } from "utils/Helper";
 import { MODULE_NAME } from "./Values";
 import { useTheme } from "@mui/material/styles";
 import AutoComplete from "components/AutoComplete/AutoComplete";
-import { NumberWithCountryCode } from "components";
+import { Layout } from "components/Layout/Layout";
 
 const apiManager = new APIManager();
 
@@ -17,14 +17,12 @@ const UserAddEdit = forwardRef(
     modalRef
   ) => {
     const disabled = editData ? true : false;
-    const [countries, setCountries] = useState([]);
 
     let initialValues = {
       fullName: editData.fullName || "",
       phoneNumber: editData.phoneNumber || "",
       countryCode: editData.countryCode || "",
       email: editData.email || "",
-      phoneNumberObj: null,
     };
 
     if (editData) {
@@ -70,40 +68,45 @@ const UserAddEdit = forwardRef(
             errors={errors}
             handleSubmit={handleSubmit}
           >
-            <ReusableValidation
-              varName="fullName"
-              fieldName={"Name"}
-              required={true}
-            />
-            {!editData && (
-              <Fragment>
+            <Layout
+              itemsInRow={2}
+              components={[
                 <ReusableValidation
-                  varName="phoneNumber"
-                  control="isNumber"
-                  fieldName={"Phone Number"}
+                  varName="fullName"
+                  fieldName={"Name"}
                   required={true}
-                />
-                <AutoComplete
-                  placeholder="Choose a country"
-                  url="country/list"
-                  fieldName="countryCode"
-                  errorName={"Country"}
+                />,
+                <ReusableValidation
+                  varName="email"
+                  fieldName={"Email"}
                   required={true}
-                  optionRow={[
-                    "countryName",
-                    "isoCountry",
-                    { countryCode: true, field: "countryCode" },
-                  ]}
-                  showFlag={true}
-                  valueToShowInField="countryName"
-                />
-              </Fragment>
-            )}
-            <ReusableValidation
-              varName="email"
-              fieldName={"Email"}
-              required={true}
-              control={"isEmail"}
+                  control={"isEmail"}
+                />,
+                !editData && (
+                  <ReusableValidation
+                    varName="phoneNumber"
+                    control="isNumber"
+                    fieldName={"Phone Number"}
+                    required={true}
+                  />
+                ),
+                !editData && (
+                  <AutoComplete
+                    placeholder="Choose a country"
+                    url="country/list"
+                    fieldName="countryCode"
+                    errorName={"Country"}
+                    required={true}
+                    optionRow={[
+                      "countryName",
+                      "isoCountry",
+                      { countryCode: true, field: "countryCode" },
+                    ]}
+                    showFlag={true}
+                    valueToShowInField="countryName"
+                  />
+                ),
+              ]}
             />
           </SimpleModal>
         )}

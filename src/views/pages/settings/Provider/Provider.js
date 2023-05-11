@@ -30,19 +30,20 @@ function PhoneNumber({ list, setList, otherData, rowsPerPage, getList, searchSec
     { id: 'outboundPort', label: 'Port', style: { minWidth: 30 } },
     { id: 'outboundUserName', label: 'Name', style: { minWidth: 30 } },
     { id: 'isActive', label: 'Active', style: { minWidth: 30, textAlign: 'center' } },
+    { id: 'outboundActiveGateway', label: 'Active Gateway', style: { minWidth: 30, textAlign: 'center' }, component: 'toggle', api: 'provider/active-gateway' },
     { id: 'actions', label: 'Actions', style: { minWidth: 70 }, align: 'right' },
   ];
   const [editData, setEditData] = useState("")
   const renderCell = (ele, e) => {
-    if (ele.id === 'isActive') {
+    if (ele.id === 'isActive' || ele.component === 'toggle') {
       return (
-        <Switch checked={e.isActive} onClick={() => {
-          confirm(confirmMessage(`${e.isActive ? 'de' : ''}active`)).then(async () => {
-            const res = await apiManager.put(`provider/status/${e._id}`, {
-              status: !e.isActive
+        <Switch checked={e[ele.id]} onClick={() => {
+          confirm(confirmMessage(`${e[ele.id] ? 'de' : ''}active`)).then(async () => {
+            const res = await apiManager.put(`${ele.api?ele.api:'provider/status'}/${e._id}`, {
+              status: !e[ele.id]
             })
             if (!res.error) {
-              e.isActive = !e.isActive
+              e[ele.id] = !e[ele.id]
               setList([...list])
             }
           })
@@ -63,7 +64,7 @@ function PhoneNumber({ list, setList, otherData, rowsPerPage, getList, searchSec
           }}
           deleteOnClick={() => {
             confirm(confirmMessage('delete')).then(async () => {
-              const res = await apiManager.delete(`phone/delete/${e._id}`, {
+              const res = await apiManager.delete(`provider/delete/${e._id}`, {
                 status: true
               })
               if (!res.error) {

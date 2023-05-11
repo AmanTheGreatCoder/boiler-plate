@@ -132,16 +132,21 @@ export default class APIManager {
   }
 
   async request(endpoint, method, body) {
-    const response = await fetch(`${this.baseURL}/${endpoint}`, {
-      method: method,
-      headers: {
-        'Content-Type': 'application/json',
-        'accept': '*/*',
-        'Authorization': `Bearer ${localStorage.getItem('token')}`
-      },
-      body: JSON.stringify(body)
-    });
-    const data = await response.json();
+    let response, data;
+    try{
+      response = await fetch(`${this.baseURL}/${endpoint}`, {
+        method: method,
+        headers: {
+          'Content-Type': 'application/json',
+          'accept': '*/*',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify(body)
+      });
+      data = await response.json();
+    } catch(e){
+      console.log(e)
+    }
     return this.sendResponse(data, response);
   }
 
