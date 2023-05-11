@@ -20,7 +20,7 @@ export default function componentStyleOverrides(theme, borderRadius, outlinedFil
             styleOverrides: {
                 root: {
                     backgroundImage: 'none',
-                    // borderColor:'transparent !important'
+                    borderColor:'transparent !important'
                 },
                 rounded: {
                     borderRadius: `${borderRadius}px`

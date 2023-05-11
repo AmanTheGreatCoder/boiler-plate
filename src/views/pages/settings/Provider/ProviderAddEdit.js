@@ -52,27 +52,6 @@ const ProviderAddEdit = forwardRef(
       initialValues._id = editData._id;
     }
 
-    return (
-      <Formik
-        enableReinitialize
-        initialValues={initialValues}
-        onSubmit={async (values) => {
-          const trimmedValues = trimValues(values);
-          trimmedValues.initialPulse = parseInt(trimmedValues.initialPulse);
-          trimmedValues.subsequentPulse = parseInt(
-            trimmedValues.subsequentPulse
-          );
-          trimmedValues.connectionCharge = parseInt(
-            trimmedValues.connectionCharge
-          );
-          trimmedValues.defaultRate = parseInt(trimmedValues.defaultRate);
-          const res = editData
-            ? await apiManager.patch(
-                `provider/update/${initialValues._id}`,
-                trimmedValues
-              )
-            : await apiManager.post("provider/create", trimmedValues);
-
   return (
     <Formik enableReinitialize initialValues={initialValues}
       onSubmit={async (values) => {
@@ -134,6 +113,7 @@ const ProviderAddEdit = forwardRef(
                                 })
                               );
                             }
+                          }}
                           >
                             Add
                           </Button>
@@ -164,21 +144,6 @@ const ProviderAddEdit = forwardRef(
               />
             </Fragment>
           )}
-          <div>
-            <ReusableSwitch varName="isBilled" fieldName={"Billed"} />
-            {values.isBilled && (
-              <Fragment>
-                <Layout
-                itemsInRow={2}
-                components={[
-                  <ReusableValidation control="isNumber" varName="initialPulse" fieldName="Initial Pulse" required={true} />,
-                  <ReusableValidation control="isNumber" varName="subsequentPulse" fieldName="Subsequent Pulse" required={true} />,
-                  <ReusableValidation control="isNumber" varName="connectionCharge" fieldName="Connection Charge" required={true} />,
-                  <ReusableValidation control="isNumber" varName="defaultRate" fieldName="Default Rate" required={true} />,
-                ]}
-                />
-              </Fragment>
-            )}
             <div>
               <ReusableSwitch varName="isBilled" fieldName={"Billed"} />
               {values.isBilled && (
