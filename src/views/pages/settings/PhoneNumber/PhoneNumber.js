@@ -28,19 +28,19 @@ function PhoneNumber({ list, setList, otherData, rowsPerPage, getList, searchSec
   const assignModalRef = useRef(null)
   const filterRef = useRef(null)
   const columns = [
-    { id: 'phoneNumber', label: 'Phone Number', style: { minWidth: 30 } },
-    { id: 'providerId', label: 'Provider', style: { minWidth: 30 } },
-    { id: 'cityId.cityName', label: 'City Name', style: { minWidth: 30, textTransform: 'capitalize' } },
-    { id: 'countryId.countryName', label: 'Country Name', style: { minWidth: 30, textTransform: 'capitalize' } },
-    { id: 'isActive', label: 'Active', style: { minWidth: 30, textAlign: 'center' } },
+    { id: 'phoneNumber', label: 'Phone Number', style: { minWidth: 30, maxWidth: 150 } },
+    { id: 'providerId.name', label: 'Provider', style: { minWidth: 30, maxWidth: 150 } },
+    { id: 'cityId.cityName', label: 'City Name', style: { minWidth: 30, textTransform: 'capitalize', maxWidth: 150 } },
+    { id: 'countryId.countryName', label: 'Country Name', style: { minWidth: 30, textTransform: 'capitalize', maxWidth: 150 } },
+    { id: 'isActive', label: 'Active', style: { minWidth: 30, textAlign: 'center', maxWidth: 150 } },
     {
-      id: 'assignedTo', label: 'Assigned To', style: { minWidth: 30, textAlign: 'center' }, fallback: (
+      id: 'assignedTo.fullName', label: 'Assigned To', style: { minWidth: 30, textAlign: 'center', maxWidth: 150 }, fallback: (
         <Button size='small' variant="contained">
           Assign
         </Button>
       )
     },
-    { id: 'actions', label: 'Actions', style: { minWidth: 70 }, align: 'right' },
+    { id: 'actions', label: 'Actions', style: { minWidth: 70, maxWidth: 150 }, align: 'right' },
   ];
   const [editData, setEditData] = useState("")
   const renderCell = (ele, e) => {
@@ -78,21 +78,19 @@ function PhoneNumber({ list, setList, otherData, rowsPerPage, getList, searchSec
         />
       )
     } else if (ele.id.includes('.')) {
-      return getValueFromObject(ele.id, e)
+      if(getValueFromObject(ele.id, e)){
+        return getValueFromObject(ele.id, e)
+      } else if(ele.fallback) {
+        return cloneElement(ele.fallback,{
+          onClick: ()=>{
+            assignModalRef.current.handleOpen()
+            setEditData(e)
+          }
+        })
+      }
     }
-    else if (ele.id === 'providerId') {
-      return e[ele.id].name;
-    }
-    if(ele.fallback && !e[ele.id]){
-      value = cloneElement(value,{
-        onClick: ()=>{
-          assignModalRef.current.handleOpen()
-          setEditData(e)
-        }
-      })
-    }
+    let value = e[ele.id] || ele.fallback;
 
-    const value = e[ele.id] || ele.fallback;
     return (value) || '-'
   }
 
@@ -150,7 +148,7 @@ function PhoneNumber({ list, setList, otherData, rowsPerPage, getList, searchSec
         onFilterChange={(values) => {
           const { cityId, countryId } = values
           filterRef.current.handleClose();
-          setQuery({ cityId: cityId?._id, countryId: countryId?._id })
+            setQuery({ cityId: cityId?._id || "", countryId: countryId?._id || "" })
 
         }}
         onClear={() => {

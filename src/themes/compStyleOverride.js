@@ -41,7 +41,7 @@ export default function componentStyleOverrides(theme, borderRadius, outlinedFil
         MuiCardContent: {
             styleOverrides: {
                 root: {
-                    padding: '24px'
+                    // padding: '24px'
                 }
             }
         },
@@ -290,6 +290,7 @@ export default function componentStyleOverrides(theme, borderRadius, outlinedFil
                 root: {
                     borderColor: mode === 'dark' ? theme.palette.text.primary + 15 : theme.palette.grey[200],
                     padding: '7px 16px',
+                    wordBreak: 'break-all',
                     '&.MuiTableCell-head': {
                         fontSize: '0.875rem',
                         color: theme.palette.grey[600],
@@ -303,6 +304,7 @@ export default function componentStyleOverrides(theme, borderRadius, outlinedFil
             styleOverrides: {
                 root: {
                     maxHeight: 'calc(100vh - 307px) !important'
+                    // maxHeight: 'calc(100vh - 278px)!important'
                 }
             }
         },

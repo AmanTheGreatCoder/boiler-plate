@@ -77,7 +77,8 @@ const ProviderAddEdit = forwardRef(
               <FieldArray name="inboundIP">
                 {({ push, remove }) => (
                   <Fragment>
-                    <div className='mt-10 flex-center-bt'>
+                    {/* <div className='mt-10 flex-center-bt'> */}
+                    <div className='flex-center-bt'>
                       <ReusableSwitch varName="isInbound" fieldName={"Inbound"}/>
                       {values.isInbound && <Button size="small" variant="contained" startIcon={<AddIcon />} onClick={() => push({
                         ip: "",
@@ -96,7 +97,7 @@ const ProviderAddEdit = forwardRef(
                           <ReusableValidation key={'ele' + index} varName={`inboundIP.${index}.port`} control="isPort" fieldName="Inbound Port" required={true} />
                         </Grid>
                         <Grid className='flex-end' item lg={2}>
-                          <Button onClick={()=>{
+                          <Button variant="contained" sx={{ mt: 2 }} onClick={()=>{
                             if(values.inboundIP.length >1){
                               remove(index)
                             }
@@ -115,7 +116,7 @@ const ProviderAddEdit = forwardRef(
                             }
                           }}
                           >
-                            Add
+                            <RemoveCircleOutlineIcon />
                           </Button>
                         </Grid>
                       </Grid>
@@ -127,7 +128,7 @@ const ProviderAddEdit = forwardRef(
             </Fragment>
           )}
           <ReusableSwitch varName="isOutBound" fieldName={"Outbound"} />
-          {values.isInbound && <Divider sx={{ mt: 1 }} />}
+          {/* {values.isInbound && <Divider sx={{ mt: 1 }} />} */}
           {values.isOutBound && (
             <Fragment>
               <Layout

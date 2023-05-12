@@ -34,6 +34,7 @@ const Body = forwardRef(
       title,
       showClearButton,
       resetForm,
+      size
     },
     ref
   ) => {
@@ -57,7 +58,7 @@ const Body = forwardRef(
           style={modalStyle}
           sx={{
             position: "absolute",
-            width: { xs: "90%", sm: "60%", lg: "50%", xl: "50%" },
+            width: size || { xs: "90%", sm: "60%", lg: "50%", xl: "50%" },
             // width: '70%',
             top: "50%",
             left: "50%",
@@ -129,6 +130,7 @@ const SimpleModal = forwardRef(
       showClearButton,
       resetOnClear,
       onClear,
+      size,
     },
     ref
   ) => {
@@ -158,6 +160,7 @@ const SimpleModal = forwardRef(
         >
           <Body
             title={title}
+            size={size}
             resetForm={resetForm}
             showClearButton={showClearButton}
             submitForm={submitForm}

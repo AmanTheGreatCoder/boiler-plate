@@ -59,16 +59,16 @@ const apiManager = new APIManager();
 // },
 
 const columns = [
-  { id: "fullName", label: "Name", style: { minWidth: 30 } },
-  { id: "email", label: "Email", style: { minWidth: 30 } },
-  { id: "phoneNumber", label: "Phone Number", style: { minWidth: 30 } },
-  { id: "role", label: "Role", style: { minWidth: 30 } },
+  { id: "fullName", label: "Name", style: { minWidth: 30, maxWidth: 150 } },
+  { id: "email", label: "Email", style: { minWidth: 30, maxWidth: 150 } },
+  { id: "phoneNumber", label: "Phone Number", style: { minWidth: 30, maxWidth: 150 } },
+  { id: "role", label: "Role", style: { minWidth: 30, maxWidth: 150 } },
   {
     id: "isActive",
     label: "Active",
-    style: { minWidth: 30, textAlign: "center" },
+    style: { minWidth: 30, maxWidth: 150, textAlign: "center" },
   },
-  { id: "actions", label: "Actions", style: { minWidth: 70 }, align: "right" },
+  { id: "actions", label: "Actions", style: { minWidth: 70, maxWidth: 150 }, align: "right" },
 ];
 
 function User(props) {
@@ -88,7 +88,7 @@ function User(props) {
     setQuery,
   } = props;
   const modalRef = useRef(null);
-  const filterRef = useRef(null); 
+  const filterRef = useRef(null);
   const [editData, setEditData] = useState("");
 
   const renderCell = (ele, e) => {
@@ -133,9 +133,10 @@ function User(props) {
       );
     } else if (ele.id === "role") {
       return e[ele.id] === 5 ? "user" : "admin";
-    } else if (ele.id === "phoneNumber") {
-      return `+${e["countryCode"]} ${e[ele.id]}`;
     }
+    // else if (ele.id === "phoneNumber") {
+    //   return `+${e["countryCode"]} ${e[ele.id]}`;
+    // }
     const value = e[ele.id];
     return value;
   };
@@ -211,7 +212,7 @@ function User(props) {
         onFilterChange={(values) => {
           filterRef.current.handleClose();
           console.log("values", values);
-          setQuery({ role: values.filterObj.role });
+          setQuery({ role: values?.filterObj?.role || "" });
         }}
         onClear={() => {
           filterRef.current.handleClose();
@@ -226,4 +227,5 @@ function User(props) {
 }
 export default withPagination(User, "user/list", {
   imageRequired: true,
+  title: MODULE_NAME
 });

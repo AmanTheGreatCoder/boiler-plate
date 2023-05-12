@@ -24,14 +24,14 @@ function PhoneNumber({ list, setList, otherData, rowsPerPage, getList, searchSec
   const modalRef = useRef(null)
   const navigate = useNavigate()
   const columns = [
-    { id: 'name', label: 'Provider', style: { minWidth: 30 } },
-    { id: 'outboundDomain', label: 'Domain', style: { minWidth: 30 } },
-    { id: 'outboundProxy', label: 'Proxy', style: { minWidth: 30 } },
-    { id: 'outboundPort', label: 'Port', style: { minWidth: 30 } },
-    { id: 'outboundUserName', label: 'Name', style: { minWidth: 30 } },
-    { id: 'isActive', label: 'Active', style: { minWidth: 30, textAlign: 'center' } },
-    { id: 'outboundActiveGateway', label: 'Active Gateway', style: { minWidth: 30, textAlign: 'center' }, component: 'toggle', api: 'provider/active-gateway' },
-    { id: 'actions', label: 'Actions', style: { minWidth: 70 }, align: 'right' },
+    { id: 'name', label: 'Provider', style: { minWidth: 30, maxWidth: 150 } },
+    { id: 'outboundDomain', label: 'Domain', style: { minWidth: 30, maxWidth: 150 } },
+    { id: 'outboundProxy', label: 'Proxy', style: { minWidth: 30, maxWidth: 150 } },
+    { id: 'outboundPort', label: 'Port', style: { minWidth: 30, maxWidth: 150 } },
+    { id: 'outboundUserName', label: 'Name', style: { minWidth: 30, maxWidth: 150 } },
+    { id: 'isActive', label: 'Active', style: { minWidth: 30, textAlign: 'center', maxWidth: 150 } },
+    { id: 'outboundActiveGateway', label: 'Active Gateway', style: { minWidth: 30, textAlign: 'center', maxWidth: 150 }, component: 'toggle', api: 'provider/active-gateway' },
+    { id: 'actions', label: 'Actions', style: { minWidth: 70, maxWidth: 150 }, align: 'right' },
   ];
   const [editData, setEditData] = useState("")
   const renderCell = (ele, e) => {
