@@ -88,7 +88,7 @@ const Error = () => {
                             <Grid container spacing={gridSpacing}>
                                 <Grid item xs={12}>
                                     <Typography variant="h1" component="div">
-                                        Something is wrong
+                                        Page not found
                                     </Typography>
                                 </Grid>
                                 <Grid item xs={12}>

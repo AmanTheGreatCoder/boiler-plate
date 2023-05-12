@@ -19,10 +19,10 @@ import CityFilter from './CityFilter';
 const apiManager = new APIManager();
 
 const columns = [
-  { id: 'cityName', label: 'City Name', style: { minWidth: 30, textTransform: 'capitalize' } },
-  { id: 'countryId.countryName', label: 'Country Name', style: { minWidth: 30, textTransform: 'capitalize' } },
-  { id: 'isActive', label: 'Active', style: { minWidth: 30 } },
-  { id: 'actions', label: 'Actions', style: { minWidth: 70 }, align: 'right' },
+  { id: 'cityName', label: 'City Name', style: { minWidth: 30, textTransform: 'capitalize', maxWidth: 150 } },
+  { id: 'countryId.countryName', label: 'Country Name', style: { minWidth: 30, textTransform: 'capitalize', maxWidth: 150 } },
+  { id: 'isActive', label: 'Active', style: { minWidth: 30, maxWidth: 150, textAlign: 'center' } },
+  { id: 'actions', label: 'Actions', style: { minWidth: 70, maxWidth: 150 }, align: 'right' },
 ];
 
 
@@ -126,7 +126,7 @@ function City({ list, setList, filtered, otherData, rowsPerPage, getList, search
         onFilterChange={(values) => {
           const { cityId, countryId } = values
           filterRef.current.handleClose();
-          setQuery({ cityId: cityId?._id, countryId: countryId?._id })
+          setQuery({ cityId: cityId?._id || "", countryId: countryId?._id || "" })
 
         }}
         onClear={() => {

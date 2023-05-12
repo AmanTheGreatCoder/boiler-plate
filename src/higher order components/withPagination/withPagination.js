@@ -79,7 +79,7 @@ const withPagination = (WrappedComponent, url, { ...otherParams }) => {
       getList(rowsPerPage, page, search);
     }, [rowsPerPage, search, page, query])
     useEffect(() => {
-      document.title = otherParams.title || WrappedComponent.name
+      document.title = (otherParams.title || WrappedComponent.name) + ' - Azhai'
     }, [])
 
     return (
@@ -133,7 +133,7 @@ const withPagination = (WrappedComponent, url, { ...otherParams }) => {
               <MenuItem onClick={handleCloseWithRow} value={20}> 20 Rows</MenuItem>
               <MenuItem onClick={handleCloseWithRow} value={30}> 30 Rows </MenuItem>
           </Menu>
-          <Pagination count={Math.floor(count/rowsPerPage) || 1} color="primary" onChange={handleChangePage} siblingCount={1} />
+          <Pagination count={Math.ceil(count/rowsPerPage) || 1} page={page+1} color="primary" onChange={handleChangePage} siblingCount={1} />
           </Grid>
         // <TablePagination
         //   rowsPerPageOptions={[10, 25, 100]}

@@ -1,6 +1,6 @@
 import ReusableValidation from "components/ReusableValidation/ReusableValidation";
 import { FieldArray, Formik } from "formik";
-import { Fragment, forwardRef, useState } from "react";
+import { Fragment, forwardRef, useEffect, useMemo, useRef, useState } from "react";
 import APIManager from "utils/APImanager";
 import SimpleModal from "views/forms/plugins/Modal/SimpleModal";
 import { trimValues } from "utils/Helper";
@@ -14,6 +14,7 @@ import { openSnackbar } from "store/slices/snackbar";
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import { Layout } from "components/Layout/Layout";
+import { debounce } from "lodash";
 
 const apiManager = new APIManager();
 
@@ -22,9 +23,27 @@ const SubscriptionAddEdit = forwardRef(
     { getList, rowsPerPage, editData, setSearch, clearSearchField },
     modalRef
   ) => {
+    const formik = useRef();
     const theme = useTheme();
     const [tagValue, setTagValue] = useState("");
     const disabled = editData ? true : false;
+
+    const debouncedValidate = useMemo(
+      () => debounce(() => {
+        console.log('aman mc')
+        return formik.current?.validateForm
+      }, 1000),
+      [formik]
+    );
+
+    useEffect(() => {
+      console.log("calling deboucedValidate");
+      debouncedValidate(formik.current?.values);
+    }, [formik.current?.values, debouncedValidate]);
+
+    useEffect(() => {
+      console.log({valuesss: formik?.current?.values})
+    })
 
 
     let initialValues = {
@@ -50,6 +69,9 @@ const SubscriptionAddEdit = forwardRef(
 
     return (
       <Formik
+        innerRef={formik}
+        validateOnMount={true}
+        validateOnChange={false}
         enableReinitialize
         initialValues={initialValues}
         onSubmit={async (values) => {

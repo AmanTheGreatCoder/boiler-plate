@@ -3,6 +3,10 @@ import { Button } from '@mui/material';
 import MainCard from 'ui-component/cards/MainCard';
 import AddIcon from '@mui/icons-material/Add';
 import TuneIcon from '@mui/icons-material/Tune';
+import SaveAltIcon from '@mui/icons-material/SaveAlt';
+import FileDownloadIcon from '@mui/icons-material/FileDownload';
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import FileUploadIcon from '@mui/icons-material/FileUpload';
 
 function TableHeader({children, title, searchSection, addOnClick, filterOnClick,importOnClick, filtered}) {
   return (
@@ -31,7 +35,7 @@ function TableHeader({children, title, searchSection, addOnClick, filterOnClick,
               size="medium"
               sx={{ ml: 3 }}
               variant="contained"
-              startIcon={<AddIcon />}
+              startIcon={<FileUploadIcon />}
               onClick={() => importOnClick()}
             >
               Import

@@ -2,7 +2,7 @@
 import { FormattedMessage } from 'react-intl';
 
 // assets
-import { IconDeviceAnalytics, IconCurrentLocation, IconHeartHandshake, IconSettingsAutomation, IconBuildingBank, IconBrandCashapp, IconPhoneCall, IconPhone, IconPhonePlus, IconUserCircle, IconBrandStripe, IconMap2, IconMapPin } from '@tabler/icons';
+import { IconDeviceAnalytics, IconCurrentLocation, IconHeartHandshake, IconSettings, IconSettingsAutomation, IconBuildingBank, IconBrandCashapp, IconPhoneCall, IconPhone, IconPhonePlus, IconUserCircle, IconBrandStripe, IconMap2, IconMapPin } from '@tabler/icons';
 // import { IconBuildingCommunity } from '@tabler/icons-react';
 
 // constant
@@ -19,7 +19,8 @@ const icons = {
     IconMapPin,
     IconBrandStripe,
     IconSettingsAutomation,
-    IconHeartHandshake
+    IconHeartHandshake,
+    IconSettings
 };
 
 // ==============================|| DASHBOARD MENU ITEMS ||============================== //
@@ -74,7 +75,7 @@ const dashboard = {
             title: <FormattedMessage id="system config" />,
             type: 'item',
             url: '/settings/system-config',
-            icon: icons.IconSettingsAutomation,
+            icon: icons.IconSettings,
             breadcrumbs: false
         },
         {

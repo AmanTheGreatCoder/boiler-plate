@@ -19,11 +19,11 @@ import ImportFile from 'components/ImportFile/ImportFile';
 const apiManager = new APIManager();
 
 const columns = [
-  { id: 'countryName', label: 'Country Name', style: { minWidth: 30 } },
-  { id: 'countryCode', label: 'ISO\u00a0Code', style: { minWidth: 100 }, prefix: "+" },
-  { id: 'isActive', label: 'Active', style: { minWidth: 30 } },
-  { id: 'flag', label: 'Flag', style: { minWidth: 30 }, },
-  { id: 'actions', label: 'Actions', style: { minWidth: 70 }, align: 'right' },
+  { id: 'countryName', label: 'Country Name', style: { minWidth: 30, maxWidth: 150 } },
+  { id: 'countryCode', label: 'Dial Code', style: { minWidth: 100, maxWidth: 150 }, prefix: "+" },
+  { id: 'isActive', label: 'Active', style: { minWidth: 30, maxWidth: 150, textAlign: 'center' } },
+  { id: 'flag', label: 'Flag', style: { minWidth: 30, maxWidth: 150 }, },
+  { id: 'actions', label: 'Actions', style: { minWidth: 70, maxWidth: 150 }, align: 'right' },
 ];
 
 
@@ -108,7 +108,7 @@ function Country(props) {
                 <TableRow key={e._id}>
                   {columns.map(ele => {
                     return (
-                      <TableCell key={e._id + ele.id} align={ele.align} className={`${ele.id === 'countryName' ? 'capitalize' : ''}`}>
+                      <TableCell key={e._id + ele.id} align={ele.align} style={{ ...ele.style }} className={`${ele.id === 'countryName' ? 'capitalize' : ''}`}>
                         {renderCell(ele, e)}
                       </TableCell>
                     )

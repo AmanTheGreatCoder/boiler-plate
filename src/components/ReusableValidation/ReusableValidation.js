@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, memo } from "react";
 import styled from "@emotion/styled";
 import {
   FormControl,
@@ -13,7 +13,7 @@ import { useTheme } from '@mui/material/styles';
 import { useField } from 'formik';
 import { countryCodeRegex, phoneRegExp, onlyNumber, isoCountryRegex, domainRegex, ipRegex , isEmail, minMaxRegex } from 'utils/Regex';
 
-function ReusableValidation({ fieldName, disabled, required, control, fieldValue, isSubmitting, varName, type, InputProps, min, max }) {
+const ReusableValidation = memo(({ fieldName, disabled, required, control, fieldValue, isSubmitting, varName, type, InputProps, min, max }) => {
   const theme = useTheme();
   const errorMessage = (fieldName) => {
     return `${fieldName} is not valid`;
@@ -124,6 +124,6 @@ function ReusableValidation({ fieldName, disabled, required, control, fieldValue
       )}
     </FormControl>
   );
-}
+})
 
 export default ReusableValidation;

@@ -1,4 +1,4 @@
-import { Autocomplete } from '@mui/material'
+import { Autocomplete, FormControl } from '@mui/material'
 import { TextField } from '@mui/material';
 import React, { useCallback, useEffect, useState } from 'react'
 import APIManager from 'utils/APImanager';
@@ -13,9 +13,15 @@ function AutoComplete({ placeholder, url, customOptions, showCustomOptions = fal
   const [options, setOptions] = useState([]);
   const [formValue, setFormValue] = useState('')
   const [imageUrl, setImageUrl] = useState('')
+  const [page, setPage] = useState(1);
 
-  const fetchData = async (value) => {
-    let queryString = `${url}?limit=20&pageNo=1&search=${value ? value : ''}`
+  const loadMoreResults = () => {
+    fetchData(formValue, page+1)
+    setPage(page+1)
+  }
+
+  const fetchData = async (value, page= 1) => {
+    let queryString = `${url}?limit=20&pageNo=${page}&search=${value ? value : ''}`
     if (query) {
       Object.keys(query).map(e => {
         if (query[e]) {
@@ -28,7 +34,7 @@ function AutoComplete({ placeholder, url, customOptions, showCustomOptions = fal
       if (showFlag) {
         setImageUrl(res.data.imageUrl)
       }
-      setOptions(res.data.data)
+      setOptions([...options,...res.data.data])
     }
   }
 
@@ -87,8 +93,11 @@ function AutoComplete({ placeholder, url, customOptions, showCustomOptions = fal
   const hasError = Boolean(error) && touched;
 
   return (
+    <FormControl fullWidth
+    >
     <Autocomplete
       multiple={multiple}
+      fullWidth
       freeSolo={freeSolo}
       id="country-select-demo"
       options={!showCustomOptions ? options : customOptions}
@@ -97,7 +106,7 @@ function AutoComplete({ placeholder, url, customOptions, showCustomOptions = fal
       getOptionLabel={(option) => valueToShowInField ? option[valueToShowInField] : option}
       // isOptionEqualToValue={(option, value) => option.id === value.id}
       renderOption={(props, option) => (
-        optionRow && (<li {...props} style={{ fontSize: 15 }}>
+        optionRow && (<li {...props} key={option._id || option.id} style={{ fontSize: 15 }}>
           {getOptionRow(option)}
         </li>)
       )}
@@ -113,9 +122,19 @@ function AutoComplete({ placeholder, url, customOptions, showCustomOptions = fal
 
         onChange && onChange(value)
       }}
+      ListboxProps={{
+        onScroll: (event) => {
+          const listboxNode = event.currentTarget;
+          if (listboxNode.scrollTop + listboxNode.clientHeight === listboxNode.scrollHeight) {
+            loadMoreResults()
+            // console.log('scrolled to the bottom!')
+          }
+        }
+      }}
       renderInput={(params) => {
 
         return <TextField
+          fullWidth
           autoComplete='off'
           error={hasError}
           onBlur={onBlur}
@@ -133,6 +152,7 @@ function AutoComplete({ placeholder, url, customOptions, showCustomOptions = fal
         />
       }}
     />
+    </FormControl>
   )
 }
 export default AutoComplete

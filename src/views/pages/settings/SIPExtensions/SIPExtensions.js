@@ -17,11 +17,11 @@ import { MODULE_NAME } from './Values'
 const apiManager = new APIManager();
 
 const columns = [
-  { id: 'sipDomain', label: 'Domain', style: { minWidth: 30 } },
-  { id: 'proxyServerIp', label: 'IP', style: { minWidth: 30 } },
-  { id: 'proxyServerPort', label: 'Port', style: { minWidth: 30 } },
-  { id: 'sipTransport', label: 'Transport', style: { minWidth: 30 } },
-  { id: 'actions', label: 'Actions', style: { minWidth: 70 }, align: 'right' },
+  { id: 'sipDomain', label: 'Domain', style: { minWidth: 30, maxWidth: 150 } },
+  { id: 'proxyServerIp', label: 'IP', style: { minWidth: 30 , maxWidth: 150} },
+  { id: 'proxyServerPort', label: 'Port', style: { minWidth: 30 , maxWidth: 150} },
+  { id: 'sipTransport', label: 'Transport', style: { minWidth: 30 , maxWidth: 150} },
+  { id: 'actions', label: 'Actions', style: { minWidth: 70, maxWidth: 150 }, align: 'right' },
 ];
 
 
