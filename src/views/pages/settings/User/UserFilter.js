@@ -23,7 +23,7 @@ const UserFilter = forwardRef(({ getList, rowsPerPage, editData, setSearch, clea
                 onFilterChange(values)
             }}>
             {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values, resetForm, submitForm, setFieldValue }) => (
-                <SimpleModal size={{ xs: "80%", sm: "50%", md: '40%', lg: "35%", xl: "30%" }} showClearButton={true} resetOnClear={true} title={MODULE_NAME} onClear={onClear} submitForm={submitForm} resetForm={resetForm} ref={modalRef} errors={errors} handleSubmit={handleSubmit} >
+                <SimpleModal size={{ xs: "80%", sm: "50%", md: '40%', lg: "35%", xl: "30%" }} showClearButton={ values.filterObj?true:false} resetOnClear={true} title={MODULE_NAME} onClear={onClear} submitForm={submitForm} resetForm={resetForm} ref={modalRef} errors={errors} handleSubmit={handleSubmit} >
                     <AutoComplete
                         placeholder="Access Level"
                         customOptions={[{ name: "Admin", role: 2 }, { name: "User", role: 5 }]}

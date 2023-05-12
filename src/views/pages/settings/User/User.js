@@ -8,20 +8,7 @@ import {
   TableHead,
   TableRow,
   LinearProgress,
-  Box,
-  CardContent,
-  Checkbox,
-  Grid,
-  IconButton,
-  InputAdornment,
-  TablePagination,
-  TableSortLabel,
-  TextField,
-  Toolbar,
-  Tooltip,
-  Typography,
 } from "@mui/material";
-import { visuallyHidden } from "@mui/utils";
 import { Switch } from "@mui/material";
 import withPagination from "higher order components/withPagination/withPagination";
 import confirm from "views/forms/plugins/Confirm/confirm";
@@ -31,32 +18,10 @@ import TableHeader from "components/TableHeader/TableHeader";
 import ActionButtons from "components/ActionButtons/ActionButtons";
 import { MODULE_NAME } from "./Values";
 import UserFilter from "./UserFilter";
-
-import DeleteIcon from "@mui/icons-material/Delete";
-import FilterListIcon from "@mui/icons-material/FilterListTwoTone";
-import PrintIcon from "@mui/icons-material/PrintTwoTone";
-import FileCopyIcon from "@mui/icons-material/FileCopyTwoTone";
-import SearchIcon from "@mui/icons-material/Search";
-import VisibilityTwoToneIcon from "@mui/icons-material/VisibilityTwoTone";
-import EditTwoToneIcon from "@mui/icons-material/EditTwoTone";
-import { useTheme } from "@mui/material/styles";
+import { EnhancedTableHead } from "components/EnhancedTableHead/EnhancedTableHead";
+import { useEffect } from "react";
 
 const apiManager = new APIManager();
-// {
-//   "_id": "6fa2e605-f1d4-421c-bdf4-6ddee63ec180",
-//   "fullName": "rrr dokob",
-//   "email": "rrrdokob@gmail.com",
-//   "phoneNumber": "9988998899",
-//   "countryCode": "91",
-//   "isVerified": true,
-//   "allocatedPhone": [],
-//   "role": 5,
-//   "isActive": true,
-//   "isDeleted": false,
-//   "online": false,
-//   "createdAt": "2023-05-04T07:23:12.276Z",
-//   "updatedAt": "2023-05-04T07:23:12.276Z"
-// },
 
 const columns = [
   { id: "fullName", label: "Name", style: { minWidth: 30, maxWidth: 150 } },
@@ -132,7 +97,9 @@ function User(props) {
         />
       );
     } else if (ele.id === "role") {
-      return e[ele.id] === 5 ? "user" : "admin";
+      return e[ele.id] === 5 ? "User" : "Admin";
+    } else if (ele.id === "phoneNumber") {
+      return `+${e["countryCode"]} ${e[ele.id]}`;
     }
     // else if (ele.id === "phoneNumber") {
     //   return `+${e["countryCode"]} ${e[ele.id]}`;
@@ -140,6 +107,46 @@ function User(props) {
     const value = e[ele.id];
     return value;
   };
+
+  const [data, setData] = useState(list);
+  const [order, setOrder] = useState("asc");
+  const [orderBy, setOrderBy] = useState("name");
+
+  useEffect(() => {
+    setData(list);
+  }, [list]);
+
+  const onRequestSort = (event, property) => {
+    const isAsc = orderBy === property && order === "asc";
+    setOrder(isAsc ? "desc" : "asc");
+    setOrderBy(property);
+  };
+
+  function descendingComparator(a, b, orderBy) {
+    if (b[orderBy] < a[orderBy]) {
+      return -1;
+    }
+    if (b[orderBy] > a[orderBy]) {
+      return 1;
+    }
+    return 0;
+  }
+
+  const getComparator = (order, orderBy) =>
+    order === "desc"
+      ? (a, b) => descendingComparator(a, b, orderBy)
+      : (a, b) => -descendingComparator(a, b, orderBy);
+
+  function stableSort(array, comparator) {
+    const stabilizedThis = array.map((el, index) => [el, index]);
+    stabilizedThis.sort((a, b) => {
+      const order = comparator(a[0], b[0]);
+      if (order !== 0) return order;
+      return a[1] - b[1];
+    });
+
+    return stabilizedThis.map((el) => el[0]);
+  }
 
   return (
     <TableHeader
@@ -158,23 +165,19 @@ function User(props) {
       <TableContainer>
         {emptyData}
         {!emptyData && (
-          <Table stickyHeader aria-label="sticky table">
-            <TableHead>
-              <TableRow>
-                {columns.map((column) => (
-                  <TableCell
-                    sx={{ py: 3 }}
-                    key={column.id}
-                    align={column.align}
-                    style={{ ...column.style }}
-                  >
-                    {column.label}
-                  </TableCell>
-                ))}
-              </TableRow>
-            </TableHead>
+          <Table
+            sx={{ minWidth: 750 }}
+            stickyHeader
+            aria-labelledby="tableTitle"
+          >
+            <EnhancedTableHead
+              columns={columns}
+              order={order}
+              orderBy={orderBy}
+              onRequestSort={onRequestSort}
+            />
             <TableBody>
-              {list.map((e) => {
+              {stableSort(data, getComparator(order, orderBy)).map((e) => {
                 return (
                   <TableRow key={e._id}>
                     {columns.map((ele) => {

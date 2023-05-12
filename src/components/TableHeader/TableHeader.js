@@ -8,7 +8,16 @@ import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 
-function TableHeader({children, title, searchSection, addOnClick, filterOnClick,importOnClick, filtered}) {
+function TableHeader({
+  children,
+  title,
+  searchSection,
+  addOnClick,
+  filterOnClick,
+  importOnClick,
+  filtered,
+  pagination,
+}) {
   return (
     <MainCard
       content={false}
@@ -45,6 +54,7 @@ function TableHeader({children, title, searchSection, addOnClick, filterOnClick,
       }
     >
       {children}
+      {pagination}
     </MainCard>
   );
 }

@@ -157,7 +157,7 @@ function PhoneNumber({ list, setList, otherData, rowsPerPage, getList, searchSec
         }}
         ref={filterRef}
       />
-      <ImportFile sampleUrl="https://region-tl.streamspace.ai/tenant//user.csv" clearSearchField={clearSearchField} getList={getList} rowsPerPage={rowsPerPage} setSearch={setSearch} title={MODULE_NAME} url='phone/import' ref={importModalRef} />
+      <ImportFile sampleUrl={'https://mobile-api2.alpha-dev.streamspace.ai/sample/sample_import_phone.csv'} clearSearchField={clearSearchField} getList={getList} rowsPerPage={rowsPerPage} setSearch={setSearch} title={MODULE_NAME} url='phone/import' ref={importModalRef} />
       {children}
     </TableHeader>
   );
