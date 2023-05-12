@@ -121,7 +121,7 @@ function City({ list, setList, filtered, otherData, rowsPerPage, getList, search
       </TableContainer>
 
       <CityAddEdit clearSearchField={clearSearchField} setSearch={setSearch} editData={editData} getList={getList} rowsPerPage={rowsPerPage} ref={modalRef} />
-      <ImportFile clearSearchField={clearSearchField} getList={getList} rowsPerPage={rowsPerPage} setSearch={setSearch} title={MODULE_NAME} url='city/import' ref={importModalRef} />
+      <ImportFile sampleUrl={'https://mobile-api2.alpha-dev.streamspace.ai/sample/sample_import_city.csv'} clearSearchField={clearSearchField} getList={getList} rowsPerPage={rowsPerPage} setSearch={setSearch} title={MODULE_NAME} url='city/import' ref={importModalRef} />
       <CityFilter
         onFilterChange={(values) => {
           const { cityId, countryId } = values

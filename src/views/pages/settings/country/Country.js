@@ -121,7 +121,7 @@ function Country(props) {
       </TableContainer>
 
       <CountryAddEdit clearSearchField={clearSearchField} setSearch={setSearch} editData={editData} getList={getList} rowsPerPage={rowsPerPage} ref={modalRef} />
-      <ImportFile clearSearchField={clearSearchField} getList={getList} rowsPerPage={rowsPerPage} setSearch={setSearch} title={MODULE_NAME} url='country/import' ref={importModalRef} />
+      <ImportFile sampleUrl={'https://mobile-api2.alpha-dev.streamspace.ai/sample/sample_import_country.csv'} clearSearchField={clearSearchField} getList={getList} rowsPerPage={rowsPerPage} setSearch={setSearch} title={MODULE_NAME} url='country/import' ref={importModalRef} />
 
       {children}
 

@@ -23,7 +23,7 @@ const PhoneFilter = forwardRef(({ getList, rowsPerPage, editData, setSearch, cle
         onFilterChange(values)
       }}>
       {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values, resetForm, submitForm, setFieldValue }) => (
-        <SimpleModal showClearButton={true} resetOnClear={true} title={MODULE_NAME} onClear={onClear} submitForm={submitForm} resetForm={resetForm} ref={modalRef} errors={errors} handleSubmit={handleSubmit} >
+        <SimpleModal showClearButton={(values.countryId || values.cityId) ?true:false} resetOnClear={true} title={MODULE_NAME} onClear={onClear} submitForm={submitForm} resetForm={resetForm} ref={modalRef} errors={errors} handleSubmit={handleSubmit} >
           <AutoComplete
             placeholder="Choose a country"
             url="country/list"

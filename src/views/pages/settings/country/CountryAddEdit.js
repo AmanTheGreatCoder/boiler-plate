@@ -3,11 +3,12 @@ import { Formik } from 'formik';
 import React, { forwardRef, useEffect, useState } from 'react'
 import APIManager from 'utils/APImanager';
 import SimpleModal from 'views/forms/plugins/Modal/SimpleModal';
-import { FormControl, FormControlLabel, FormGroup, Switch } from '@mui/material';
+import { FormControl, FormControlLabel, FormGroup, InputAdornment, Switch } from '@mui/material';
 import * as Yup from 'yup'
 import { trimValues } from 'utils/Helper'
 import { MODULE_NAME } from './Values';
 import { Layout } from 'components/Layout/Layout';
+import AddIcon from '@mui/icons-material/Add';
 
 const apiManager = new APIManager();
 
@@ -82,6 +83,14 @@ const CountryAddEdit = forwardRef(({ getList, rowsPerPage, editData, setSearch, 
               fieldName={"Country Code"}
               required={true}
               control="countryCode"
+              InputProps={{
+                startAdornment: (
+                    <InputAdornment position="start">
+                        {/* <AttachmentRoundedIcon fontSize="small" /> */}
+                        <AddIcon fontSize="1.2rem"/>
+                    </InputAdornment>
+                )
+            }}
             // isSubmitting={isSubmitting}
             />,
             <ReusableValidation

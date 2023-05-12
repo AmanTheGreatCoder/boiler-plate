@@ -8,6 +8,7 @@ import { MODULE_NAME } from "./Values";
 import { useTheme } from "@mui/material/styles";
 import AutoComplete from "components/AutoComplete/AutoComplete";
 import { Layout } from "components/Layout/Layout";
+import { InputAdornment } from "@mui/material";
 
 const apiManager = new APIManager();
 
@@ -21,9 +22,13 @@ const UserAddEdit = forwardRef(
     let initialValues = {
       fullName: editData.fullName || "",
       phoneNumber: editData.phoneNumber || "",
-      countryCode: editData.countryCode || "",
+      countryCode: { countryCode: editData.countryCode || "" },
       email: editData.email || "",
     };
+
+    useEffect(() => {
+      console.log("initalvalues", initialValues, editData);
+    }, [editData]);
 
     if (editData) {
       initialValues._id = editData._id;
@@ -82,30 +87,28 @@ const UserAddEdit = forwardRef(
                   required={true}
                   control={"isEmail"}
                 />,
-                !editData && (
-                  <ReusableValidation
-                    varName="phoneNumber"
-                    control="isNumber"
-                    fieldName={"Phone Number"}
-                    required={true}
-                  />
-                ),
-                !editData && (
-                  <AutoComplete
-                    placeholder="Choose a country"
-                    url="country/list"
-                    fieldName="countryCode"
-                    errorName={"Country"}
-                    required={true}
-                    optionRow={[
-                      "countryName",
-                      "isoCountry",
-                      { countryCode: true, field: "countryCode" },
-                    ]}
-                    showFlag={true}
-                    valueToShowInField="countryName"
-                  />
-                ),
+                <AutoComplete
+                  disabled={disabled}
+                  placeholder="Choose a country code"
+                  url="country/list"
+                  fieldName="countryCode"
+                  errorName={"Country"}
+                  required={true}
+                  optionRow={[
+                    "countryName",
+                    "isoCountry",
+                    { countryCode: true, field: "countryCode" },
+                  ]}
+                  showFlag={true}
+                  valueToShowInField="countryCode"
+                />,
+                <ReusableValidation
+                  disabled={disabled}
+                  varName="phoneNumber"
+                  control="isNumber"
+                  fieldName={"Phone Number"}
+                  required={true}
+                />,
               ]}
             />
           </SimpleModal>

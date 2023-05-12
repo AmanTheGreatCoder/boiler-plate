@@ -9,7 +9,7 @@ import { addDefaultSrc } from 'utils/Helper'
 
 const apiManager = new APIManager();
 
-function AutoComplete({ placeholder, url, customOptions, showCustomOptions = false, optionRow, valueToShowInField, fieldName, errorName, showFlag, query, onChange, multiple, freeSolo, required }) {
+function AutoComplete({ placeholder, url, customOptions, showCustomOptions = false, optionRow, valueToShowInField, fieldName, errorName, disabled, showFlag, query, onChange, multiple, freeSolo, required }) {
   const [options, setOptions] = useState([]);
   const [formValue, setFormValue] = useState('')
   const [imageUrl, setImageUrl] = useState('')
@@ -93,6 +93,7 @@ function AutoComplete({ placeholder, url, customOptions, showCustomOptions = fal
       id="country-select-demo"
       options={!showCustomOptions ? options : customOptions}
       name={name}
+      disabled={disabled}
       autoHighlight
       getOptionLabel={(option) => valueToShowInField ? option[valueToShowInField] : option}
       // isOptionEqualToValue={(option, value) => option.id === value.id}
@@ -117,6 +118,7 @@ function AutoComplete({ placeholder, url, customOptions, showCustomOptions = fal
 
         return <TextField
           autoComplete='off'
+          disabled={disabled}
           error={hasError}
           onBlur={onBlur}
           helperText={hasError && error}
