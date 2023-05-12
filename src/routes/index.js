@@ -8,6 +8,7 @@ import AuthenticationRoutes from './AuthenticationRoutes';
 import Loadable from 'ui-component/Loadable';
 
 const PagesLanding = Loadable(lazy(() => import('views/pages/landing')));
+const MaintenanceError = Loadable(lazy(() => import('views/pages/maintenance/Error')));
 
 // ==============================|| ROUTING RENDER ||============================== //
 
@@ -17,6 +18,7 @@ export default function ThemeRoutes() {
         { path: '/', element: <Navigate to="/login" /> },
         AuthenticationRoutes,
         LoginRoutes,
-        MainRoutes
+        MainRoutes,
+        { path: '*', element: <MaintenanceError />}
     ]);
 }

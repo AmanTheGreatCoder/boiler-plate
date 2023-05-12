@@ -24,22 +24,16 @@ import { useEffect } from "react";
 const apiManager = new APIManager();
 
 const columns = [
-  { id: "fullName", label: "Name", style: { minWidth: 30 } },
-  { id: "email", label: "Email", style: { minWidth: 30 } },
-  { id: "phoneNumber", label: "Phone Number", style: { minWidth: 30 } },
-  { id: "role", label: "Role", style: { minWidth: 30 } },
+  { id: "fullName", label: "Name", style: { minWidth: 30, maxWidth: 150 } },
+  { id: "email", label: "Email", style: { minWidth: 30, maxWidth: 150 } },
+  { id: "phoneNumber", label: "Phone Number", style: { minWidth: 30, maxWidth: 150 } },
+  { id: "role", label: "Role", style: { minWidth: 30, maxWidth: 150 } },
   {
     id: "isActive",
     label: "Active",
-    style: { minWidth: 30, textAlign: "center" },
-    headStyle: { textAlign: "right" },
+    style: { minWidth: 30, maxWidth: 150, textAlign: "center" },
   },
-  {
-    id: "actions",
-    name: "Actions",
-    style: { minWidth: 70, textAlign: "left" },
-    headStyle: { textAlign: "left" },
-  },
+  { id: "actions", label: "Actions", style: { minWidth: 70, maxWidth: 150 }, align: "right" },
 ];
 
 function User(props) {
@@ -107,6 +101,9 @@ function User(props) {
     } else if (ele.id === "phoneNumber") {
       return `+${e["countryCode"]} ${e[ele.id]}`;
     }
+    // else if (ele.id === "phoneNumber") {
+    //   return `+${e["countryCode"]} ${e[ele.id]}`;
+    // }
     const value = e[ele.id];
     return value;
   };
@@ -218,7 +215,7 @@ function User(props) {
         onFilterChange={(values) => {
           filterRef.current.handleClose();
           console.log("values", values);
-          setQuery({ role: values.filterObj.role });
+          setQuery({ role: values?.filterObj?.role || "" });
         }}
         onClear={() => {
           filterRef.current.handleClose();
@@ -233,4 +230,5 @@ function User(props) {
 }
 export default withPagination(User, "user/list", {
   imageRequired: true,
+  title: MODULE_NAME
 });

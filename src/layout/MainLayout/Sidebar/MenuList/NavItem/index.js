@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { forwardRef, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
@@ -18,6 +18,7 @@ import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 
 const NavItem = ({ item, level }) => {
     const theme = useTheme();
+    const location = useLocation();
     const matchesSM = useMediaQuery(theme.breakpoints.down('lg'));
 
     const { borderRadius } = useConfig();
@@ -62,7 +63,7 @@ const NavItem = ({ item, level }) => {
             dispatch(activeItem([item.id]));
         }
         // eslint-disable-next-line
-    }, []);
+    }, [location]);
 
     return (
         <ListItemButton

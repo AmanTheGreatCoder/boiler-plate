@@ -34,6 +34,14 @@ input:-webkit-autofill:active {
   justify-content: space-between;
 }
 
+.d-flex{
+  display: flex;
+}
+
+.align-items-center{
+  align-items: center;
+}
+
 .icon-size{
   font-size: 1.2rem;
 }

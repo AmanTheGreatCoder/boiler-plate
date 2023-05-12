@@ -43,9 +43,9 @@ const UserAddEdit = forwardRef(
           const trimmedValues = trimValues({ ...values });
           console.log("trimmed values", trimmedValues);
           trimmedValues.countryCode = trimmedValues.countryCode.countryCode;
-          const res = (await editData)
-            ? apiManager.post(`user/update/${values._id}`, trimmedValues)
-            : apiManager.post(`auth/admin-register`, trimmedValues);
+          const res = ( editData)
+            ? await apiManager.patch(`user/update/${values._id}`, trimmedValues)
+            : await apiManager.post(`auth/admin-register`, trimmedValues);
           if (!res.error) {
             modalRef.current.handleClose();
             getList(rowsPerPage);

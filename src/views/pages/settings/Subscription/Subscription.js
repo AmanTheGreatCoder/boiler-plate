@@ -8,6 +8,7 @@ import {
   TableRow,
   LinearProgress,
 } from "@mui/material";
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import { Switch } from "@mui/material";
 import withPagination from "higher order components/withPagination/withPagination";
 import confirm from "views/forms/plugins/Confirm/confirm";
@@ -20,16 +21,16 @@ import { MODULE_NAME } from "./Values";
 const apiManager = new APIManager();
 
 const columns = [
-  { id: "name", label: "Name", style: { minWidth: 30 } },
+  { id: "name", label: "Name", style: { minWidth: 30, maxWidth: 150 } },
   // { id: 'interval', label: 'Interval', style: { minWidth: 100 } },
-  { id: "amount", label: "Amount", style: { minWidth: 30 }, prefix: '$ ' },
-  { id: "total_minutes", label: "Total Minutes", style: { minWidth: 30 }, prefix: '🕒 ' },
+  { id: "amount", label: "Amount", style: { minWidth: 30 , maxWidth: 150}, prefix: '$ ' },
+  { id: "total_minutes", label: "Total Minutes", style: { minWidth: 30, maxWidth: 150 }, prefix: [<AccessTimeIcon sx={{ fontSize: '18px', mr: 0.5}} />] },
   {
     id: "isActive",
     label: "Active",
-    style: { minWidth: 30, textAlign: "center" },
+    style: { minWidth: 30, textAlign: "center", maxWidth: 150 },
   },
-  { id: "actions", label: "Actions", style: { minWidth: 70 }, align: "right" },
+  { id: "actions", label: "Actions", style: { minWidth: 70, maxWidth: 150 }, align: "right" },
 ];
 
 function Subscription(props) {
@@ -86,7 +87,12 @@ function Subscription(props) {
       );
     }
     const value = e[ele.id];
-    return value? ele.prefix? (ele.prefix + value) : (value) : '-'
+    return value? ele.prefix? (
+      <div className="d-flex align-items-center">
+        {ele.prefix}
+        {value}
+      </div>
+      ) : (value) : '-'
     // return value;
   };
 
@@ -160,5 +166,6 @@ function Subscription(props) {
 }
 export default withPagination(Subscription, "subscription/list", {
   imageRequired: true,
-  query: { isDeleted: false }
+  query: { isDeleted: false },
+  title: MODULE_NAME
 });
