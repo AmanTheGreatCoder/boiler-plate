@@ -83,7 +83,7 @@ export default class APIManager {
 
   sendResponse(data, response) {
     if (response.status === 401) {
-      window.location.href = '/login';
+      window.location.href = "/login";
     }
     if (data?.message) {
       if (!response.ok) {
@@ -91,11 +91,11 @@ export default class APIManager {
           openSnackbar({
             open: true,
             message: data.message,
-            variant: 'alert',
+            variant: "alert",
             alert: {
-              color: 'error'
+              color: "error",
             },
-            close: false
+            close: false,
           })
         );
       } else if (response.ok) {
@@ -103,18 +103,18 @@ export default class APIManager {
           openSnackbar({
             open: true,
             message: data.message,
-            variant: 'alert',
+            variant: "alert",
             alert: {
-              color: 'success'
+              color: "success",
             },
-            close: false
+            close: false,
           })
         );
       }
     }
     return {
       data: data,
-      error: !response.ok
+      error: !response.ok,
     };
   }
 
@@ -122,56 +122,55 @@ export default class APIManager {
     const response = await fetch(`${this.baseURL}/${endpoint}`, {
       method: method,
       headers: {
-        'accept': '*/*',
-        'Authorization': `Bearer ${localStorage.getItem('token')}`
+        accept: "*/*",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
       body: body,
-    })
+    });
     const data = await response.json();
     return this.sendResponse(data, response);
   }
 
   async request(endpoint, method, body) {
     let response, data;
-    try{
+    try {
       response = await fetch(`${this.baseURL}/${endpoint}`, {
         method: method,
         headers: {
-          'Content-Type': 'application/json',
-          'accept': '*/*',
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
+          "Content-Type": "application/json",
+          accept: "*/*",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-        body: JSON.stringify(body)
+        body: JSON.stringify(body),
       });
       data = await response.json();
-    } catch(e){
-      console.log(e)
+    } catch (e) {
+      console.log(e);
     }
     return this.sendResponse(data, response);
   }
 
   async get(endpoint) {
-    return await this.request(endpoint, 'GET');
+    return await this.request(endpoint, "GET");
   }
 
   async post(endpoint, body) {
-    return await this.request(endpoint, 'POST', body);
+    return await this.request(endpoint, "POST", body);
   }
 
   async postForm(endpoint, body) {
-    return await this.requestForm(endpoint, 'POST', body)
+    return await this.requestForm(endpoint, "POST", body);
   }
 
   async put(endpoint, body) {
-    return await this.request(endpoint, 'PUT', body);
+    return await this.request(endpoint, "PUT", body);
   }
 
   async patch(endpoint, body) {
-    return await this.request(endpoint, 'PATCH', body);
+    return await this.request(endpoint, "PATCH", body);
   }
 
   async delete(endpoint, body) {
-    return await this.request(endpoint, 'DELETE', body);
+    return await this.request(endpoint, "DELETE", body);
   }
 }
-

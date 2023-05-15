@@ -34,7 +34,7 @@ const Body = forwardRef(
       title,
       showClearButton,
       resetForm,
-      size
+      size,
     },
     ref
   ) => {

@@ -43,7 +43,7 @@ const UserAddEdit = forwardRef(
           const trimmedValues = trimValues({ ...values });
           console.log("trimmed values", trimmedValues);
           trimmedValues.countryCode = trimmedValues.countryCode.countryCode;
-          const res = ( editData)
+          const res = editData
             ? await apiManager.patch(`user/update/${values._id}`, trimmedValues)
             : await apiManager.post(`auth/admin-register`, trimmedValues);
           if (!res.error) {

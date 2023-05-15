@@ -1,10 +1,10 @@
-import PropTypes from 'prop-types';
-import React, { useContext } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import PropTypes from "prop-types";
+import React, { useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 // material-ui
-import { useTheme } from '@mui/material/styles';
-import styled from '@emotion/styled';
+import { useTheme } from "@mui/material/styles";
+import styled from "@emotion/styled";
 import {
   Box,
   Button,
@@ -16,26 +16,25 @@ import {
   OutlinedInput,
   Stack,
   Typography,
-  TextField
-} from '@mui/material';
+  TextField,
+} from "@mui/material";
 // import { Box } from "@material-ui/core";
 
-
 // third party
-import * as Yup from 'yup';
-import { Formik } from 'formik';
+import * as Yup from "yup";
+import { Formik } from "formik";
 // import PhoneInput from 'react-phone-input-2'
 // import 'react-phone-input-2/lib/material.css'
-import MuiPhoneNumber from 'material-ui-phone-number';
+import MuiPhoneNumber from "material-ui-phone-number";
 
 // project imports
-import AnimateButton from 'ui-component/extended/AnimateButton';
-import { countryCodeRegex, phoneRegExp } from 'utils/Regex';
-import APImanager from 'utils/APImanager';
-import { NumberWithCountryCode } from 'components'
-import { PhoneNumberContext } from 'contexts/PhoneNumberContext';
-import { dispatch } from 'store';
-import { openSnackbar } from 'store/slices/snackbar';
+import AnimateButton from "ui-component/extended/AnimateButton";
+import { countryCodeRegex, phoneRegExp } from "utils/Regex";
+import APImanager from "utils/APImanager";
+import { NumberWithCountryCode } from "components";
+import { PhoneNumberContext } from "contexts/PhoneNumberContext";
+import { dispatch } from "store";
+import { openSnackbar } from "store/slices/snackbar";
 
 const apiManager = new APImanager();
 
@@ -44,36 +43,51 @@ const Login = ({ loginProp, ...others }) => {
   const navigate = useNavigate();
   const { detail, setDetail } = useContext(PhoneNumberContext);
 
-
   return (
     <Formik
       initialValues={{
-        phoneDetailObj: '',
-        checked: true
+        phoneDetailObj: "",
+        checked: true,
       }}
       onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
         try {
-          const res = await apiManager.post('auth/admin-login', {
+          const res = await apiManager.post("auth/admin-login", {
             countryCode: values.phoneDetailObj.dialCode,
-            phoneNumber: values.phoneDetailObj.phoneNumber
-          })
+            phoneNumber: values.phoneDetailObj.phoneNumber,
+          });
           if (!res.error) {
-            setDetail({ countryCode: values.phoneDetailObj.dialCode, phoneNumber: values.phoneDetailObj.phoneNumber, isRemember: values.checked });
-            navigate('/otp-screen')
-             
+            setDetail({
+              countryCode: values.phoneDetailObj.dialCode,
+              phoneNumber: values.phoneDetailObj.phoneNumber,
+              isRemember: values.checked,
+            });
+            navigate("/otp-screen");
           }
         } catch (e) {
-          console.error(e)
+          console.error(e);
         }
-      }
-      }
+      }}
     >
-      {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values, setFieldValue }) => (
+      {({
+        errors,
+        handleBlur,
+        handleChange,
+        handleSubmit,
+        isSubmitting,
+        touched,
+        values,
+        setFieldValue,
+      }) => (
         <form noValidate onSubmit={handleSubmit} {...others}>
           <FormControl fullWidth sx={{ ...theme.typography.customInput }}>
             <NumberWithCountryCode fieldName="phoneDetailObj" />
           </FormControl>
-          <Stack direction="row" alignItems="center" justifyContent="space-between" spacing={1}>
+          <Stack
+            direction="row"
+            alignItems="center"
+            justifyContent="space-between"
+            spacing={1}
+          >
             <FormControlLabel
               control={
                 <Checkbox
@@ -122,7 +136,7 @@ const Login = ({ loginProp, ...others }) => {
 };
 
 Login.propTypes = {
-  loginProp: PropTypes.number
+  loginProp: PropTypes.number,
 };
 
 export default Login;

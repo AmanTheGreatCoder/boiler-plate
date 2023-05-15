@@ -19,35 +19,35 @@ input:-webkit-autofill:active {
   -webkit-box-shadow: 0 0 0 30px white inset !important;
 }
 
-.mt-10{
+.mt-10 {
   margin: 10px 0;
 }
 
-.flex-end{
+.flex-end {
   display: flex;
   justify-content: flex-end;
 }
 
-.flex-center-bt{
+.flex-center-bt {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.d-flex{
+.d-flex {
   display: flex;
 }
 
-.align-items-center{
+.align-items-center {
   align-items: center;
 }
 
-.icon-size{
+.icon-size {
   font-size: 1.2rem;
 }
-.padding-20{
+.padding-20 {
   padding: 20px;
 }
-.border-top-grey{
+.border-top-grey {
   border-top: 1px solid #eeeeee;
 }

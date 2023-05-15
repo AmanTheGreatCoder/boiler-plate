@@ -1,24 +1,31 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from "react-router-dom";
 
 // material-ui
-import { useTheme } from '@mui/material/styles';
-import { Button, Divider, Grid, Stack, Typography, useMediaQuery } from '@mui/material';
+import { useTheme } from "@mui/material/styles";
+import {
+  Button,
+  Divider,
+  Grid,
+  Stack,
+  Typography,
+  useMediaQuery,
+} from "@mui/material";
 
 // project imports
-import AuthWrapper1 from '../AuthWrapper1';
-import AuthCardWrapper from '../AuthCardWrapper';
-import Logo from 'ui-component/Logo';
-import AnimateButton from 'ui-component/extended/AnimateButton';
-import AuthCodeVerification from '../auth-forms/AuthCodeVerification';
-import AuthFooter from 'ui-component/cards/AuthFooter';
-import { useContext, useEffect, useLayoutEffect, useState } from 'react';
-import { PhoneNumberContext } from 'contexts/PhoneNumberContext';
-import { maskPhoneNumber } from 'utils/Helper';
-import APIManager from 'utils/APImanager';
-import { AzhaiAuthContext } from 'contexts/AzhaiAuthContext';
-import withTitle from 'higher order components/withTitle';
-import { dispatch } from 'store';
-import { openSnackbar } from 'store/slices/snackbar';
+import AuthWrapper1 from "../AuthWrapper1";
+import AuthCardWrapper from "../AuthCardWrapper";
+import Logo from "ui-component/Logo";
+import AnimateButton from "ui-component/extended/AnimateButton";
+import AuthCodeVerification from "../auth-forms/AuthCodeVerification";
+import AuthFooter from "ui-component/cards/AuthFooter";
+import { useContext, useEffect, useLayoutEffect, useState } from "react";
+import { PhoneNumberContext } from "contexts/PhoneNumberContext";
+import { maskPhoneNumber } from "utils/Helper";
+import APIManager from "utils/APImanager";
+import { AzhaiAuthContext } from "contexts/AzhaiAuthContext";
+import withTitle from "higher order components/withTitle";
+import { dispatch } from "store";
+import { openSnackbar } from "store/slices/snackbar";
 
 // assets
 
@@ -29,59 +36,56 @@ const apiManager = new APIManager();
 const CodeVerification = () => {
   const theme = useTheme();
   const [disabled, setDisabled] = useState(false);
-  const [OTP, setOTP] = useState('')
+  const [OTP, setOTP] = useState("");
   const [time, setTime] = useState(60);
   const [error, setError] = useState(false);
-  const matchDownSM = useMediaQuery(theme.breakpoints.down('md'));
+  const matchDownSM = useMediaQuery(theme.breakpoints.down("md"));
   const navigate = useNavigate();
   const { detail } = useContext(PhoneNumberContext);
-  const maskedNumber = maskPhoneNumber(detail.phoneNumber)
+  const maskedNumber = maskPhoneNumber(detail.phoneNumber);
 
   useEffect(() => {
-
     if (!detail.phoneNumber) {
-      navigate('/login')
+      navigate("/login");
     }
-  }, [detail])
+  }, [detail]);
 
   const validOtp = () => {
-    console.log("otp ", OTP)
+    console.log("otp ", OTP);
     if (OTP.length < 6) {
       dispatch(
         openSnackbar({
           open: true,
           message: "Please enter valid otp",
-          variant: 'alert',
+          variant: "alert",
           alert: {
-            color: 'error'
+            color: "error",
           },
-          close: false
+          close: false,
         })
       );
       return false;
     }
     return true;
-  }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (validOtp()) {
-      const res = await apiManager.post('auth/verify-otp', {
+      const res = await apiManager.post("auth/verify-otp", {
         countryCode: detail.countryCode,
         phoneNumber: detail.phoneNumber,
         isRemember: detail.isRemember,
-        otp: parseInt(OTP)
-      })
+        otp: parseInt(OTP),
+      });
       if (!res.error) {
-        localStorage.setItem('token', res.data['access_token'])
-        navigate('/dashboard/default')
+        localStorage.setItem("token", res.data["access_token"]);
+        navigate("/dashboard/default");
       }
-    }
-    else {
+    } else {
       setError(true);
     }
-  }
-
+  };
 
   useEffect(() => {
     let timerId;
@@ -104,12 +108,27 @@ const CodeVerification = () => {
   return (
     <AuthWrapper1>
       <form onSubmit={handleSubmit}>
-        <Grid container direction="column" justifyContent="flex-end" sx={{ minHeight: '100vh' }}>
+        <Grid
+          container
+          direction="column"
+          justifyContent="flex-end"
+          sx={{ minHeight: "100vh" }}
+        >
           <Grid item xs={12}>
-            <Grid container justifyContent="center" alignItems="center" sx={{ minHeight: 'calc(100vh - 68px)' }}>
+            <Grid
+              container
+              justifyContent="center"
+              alignItems="center"
+              sx={{ minHeight: "calc(100vh - 68px)" }}
+            >
               <Grid item sx={{ m: { xs: 1, sm: 3 }, mb: 0 }}>
                 <AuthCardWrapper>
-                  <Grid container spacing={2} alignItems="center" justifyContent="center">
+                  <Grid
+                    container
+                    spacing={2}
+                    alignItems="center"
+                    justifyContent="center"
+                  >
                     <Grid item sx={{ mb: 3 }}>
                       <Link to="#">
                         <Logo />
@@ -118,16 +137,20 @@ const CodeVerification = () => {
                     <Grid item xs={12}>
                       <Grid
                         container
-                        direction={matchDownSM ? 'column-reverse' : 'row'}
+                        direction={matchDownSM ? "column-reverse" : "row"}
                         alignItems="center"
                         justifyContent="center"
                       >
                         <Grid item>
-                          <Stack alignItems="center" justifyContent="center" spacing={1}>
+                          <Stack
+                            alignItems="center"
+                            justifyContent="center"
+                            spacing={1}
+                          >
                             <Typography
                               color={theme.palette.secondary.main}
                               gutterBottom
-                              variant={matchDownSM ? 'h3' : 'h2'}
+                              variant={matchDownSM ? "h3" : "h2"}
                             >
                               Enter Verification Code
                             </Typography>
@@ -137,46 +160,68 @@ const CodeVerification = () => {
                             <Typography
                               variant="caption"
                               fontSize="0.875rem"
-                              textAlign={matchDownSM ? 'center' : 'inherit'}
+                              textAlign={matchDownSM ? "center" : "inherit"}
                             >
-                              We've send you code on +{detail.countryCode} {maskedNumber}
+                              We've send you code on +{detail.countryCode}{" "}
+                              {maskedNumber}
                             </Typography>
                           </Stack>
                         </Grid>
                       </Grid>
                     </Grid>
                     <Grid item xs={12}>
-                      <AuthCodeVerification error={error} onChange={otp => setOTP(otp)} />
+                      <AuthCodeVerification
+                        error={error}
+                        onChange={(otp) => setOTP(otp)}
+                      />
                     </Grid>
                     <Grid item xs={12}>
                       <Divider />
                     </Grid>
-                    <Grid style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }} item xs={12}>
+                    <Grid
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                      }}
+                      item
+                      xs={12}
+                    >
                       <Grid>
                         <Typography
                           variant="subtitle1"
-                          sx={{ textDecoration: 'none' }}
-                          textAlign={matchDownSM ? 'center' : 'inherit'}
+                          sx={{ textDecoration: "none" }}
+                          textAlign={matchDownSM ? "center" : "inherit"}
                         >
-                          {disabled ? `Time Remaining: 0:${time}` : 'Did not receive the OTP?'}
+                          {disabled
+                            ? `Time Remaining: 0:${time}`
+                            : "Did not receive the OTP?"}
                         </Typography>
                       </Grid>
-                      <Grid >
+                      <Grid>
                         <Typography
                           variant="subtitle1"
-                          sx={{ color: disabled ? theme.palette.grey[500] : theme.palette.primary.main, cursor: disabled ? "not-allowed" : "pointer" }}
+                          sx={{
+                            color: disabled
+                              ? theme.palette.grey[500]
+                              : theme.palette.primary.main,
+                            cursor: disabled ? "not-allowed" : "pointer",
+                          }}
                           style={{ textDecoration: "underline" }}
-                          textAlign={matchDownSM ? 'center' : 'inherit'}
+                          textAlign={matchDownSM ? "center" : "inherit"}
                           onClick={async () => {
                             if (!disabled) {
                               try {
-                                const res = await apiManager.post('auth/admin-login', {
-                                  countryCode: detail.countryCode,
-                                  phoneNumber: detail.phoneNumber
-                                })
-                                setDisabled(true)
+                                const res = await apiManager.post(
+                                  "auth/admin-login",
+                                  {
+                                    countryCode: detail.countryCode,
+                                    phoneNumber: detail.phoneNumber,
+                                  }
+                                );
+                                setDisabled(true);
                               } catch (e) {
-                                console.error(e)
+                                console.error(e);
                               }
                             }
                           }}
@@ -224,4 +269,4 @@ const CodeVerification = () => {
   );
 };
 
-export default withTitle(CodeVerification, 'Phone Number Verification');
+export default withTitle(CodeVerification, "Phone Number Verification");

@@ -1,1 +1,1 @@
-export const MODULE_NAME = "Cities"
+export const MODULE_NAME = "Cities";

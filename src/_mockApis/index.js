@@ -1,15 +1,15 @@
 // auth
-import './account';
+import "./account";
 
 // user activity
-import './user-profile';
+import "./user-profile";
 
 // app pages
-import './mail';
-import './calendar';
-import './chat';
-import './e-commerce';
-import './customer';
-import './contact';
-import './cart';
-import './kanban';
+import "./mail";
+import "./calendar";
+import "./chat";
+import "./e-commerce";
+import "./customer";
+import "./contact";
+import "./cart";
+import "./kanban";

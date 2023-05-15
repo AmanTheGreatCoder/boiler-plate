@@ -1,12 +1,12 @@
-import PropTypes from 'prop-types';
-import { useEffect, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import PropTypes from "prop-types";
+import { useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 
 // project imports
-import useAuth from 'hooks/useAuth';
-import { DASHBOARD_PATH } from 'config';
-import { AzhaiAuthContext } from 'contexts/AzhaiAuthContext';
-import APIManager from 'utils/APImanager';
+import useAuth from "hooks/useAuth";
+import { DASHBOARD_PATH } from "config";
+import { AzhaiAuthContext } from "contexts/AzhaiAuthContext";
+import APIManager from "utils/APImanager";
 
 // ==============================|| GUEST GUARD ||============================== //
 const apiManager = new APIManager();
@@ -17,32 +17,31 @@ const apiManager = new APIManager();
  */
 
 const GuestGuard = ({ children }) => {
-    const { isLoggedIn } = useAuth();
-    const { auth } = useContext(AzhaiAuthContext)
-    const navigate = useNavigate();
+  const { isLoggedIn } = useAuth();
+  const { auth } = useContext(AzhaiAuthContext);
+  const navigate = useNavigate();
 
-    useEffect(async () => {
-        if(localStorage.getItem('token')){
-            const result = await apiManager.get('auth/profile')
-            //  
-            if(!result.error){
-                navigate('/dashboard/default', { replace: true });
-            } else {
-                localStorage.removeItem('token')
-            }
-        }
+  useEffect(async () => {
+    if (localStorage.getItem("token")) {
+      const result = await apiManager.get("auth/profile");
+      //
+      if (!result.error) {
+        navigate("/dashboard/default", { replace: true });
+      } else {
+        localStorage.removeItem("token");
+      }
+    }
 
+    // if (isLoggedIn) {
+    //     navigate(DASHBOARD_PATH, { replace: true });
+    // }
+  }, [isLoggedIn, navigate]);
 
-        // if (isLoggedIn) {
-        //     navigate(DASHBOARD_PATH, { replace: true });
-        // }
-    }, [isLoggedIn, navigate]);
-
-    return children;
+  return children;
 };
 
 GuestGuard.propTypes = {
-    children: PropTypes.node
+  children: PropTypes.node,
 };
 
 export default GuestGuard;

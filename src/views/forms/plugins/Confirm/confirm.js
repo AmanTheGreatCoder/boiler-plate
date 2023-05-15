@@ -1,9 +1,8 @@
-import createConfirmation from './createConfirmation';
+import createConfirmation from "./createConfirmation";
 
 // create confirm function
 const confirm = createConfirmation();
 
-export default function(confirmation, options = {}) {
-   
+export default function (confirmation, options = {}) {
   return confirm({ confirmation, options });
 }

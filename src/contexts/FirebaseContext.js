@@ -1,28 +1,28 @@
-import PropTypes from 'prop-types';
-import { createContext, useEffect, useReducer } from 'react';
+import PropTypes from "prop-types";
+import { createContext, useEffect, useReducer } from "react";
 
 // third-party
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/auth';
+import firebase from "firebase/compat/app";
+import "firebase/compat/auth";
 
 // action - state management
-import { LOGIN, LOGOUT } from 'store/actions';
-import accountReducer from 'store/accountReducer';
+import { LOGIN, LOGOUT } from "store/actions";
+import accountReducer from "store/accountReducer";
 
 // project imports
-import Loader from 'ui-component/Loader';
-import { FIREBASE_API } from 'config';
+import Loader from "ui-component/Loader";
+import { FIREBASE_API } from "config";
 
 // firebase initialize
 if (!firebase.apps.length) {
-    firebase.initializeApp(FIREBASE_API);
+  firebase.initializeApp(FIREBASE_API);
 }
 
 // const
 const initialState = {
-    isLoggedIn: false,
-    isInitialized: false,
-    user: null
+  isLoggedIn: false,
+  isInitialized: false,
+  user: null,
 };
 
 // ==============================|| FIREBASE CONTEXT & PROVIDER ||============================== //
@@ -30,74 +30,76 @@ const initialState = {
 const FirebaseContext = createContext(null);
 
 export const FirebaseProvider = ({ children }) => {
-    const [state, dispatch] = useReducer(accountReducer, initialState);
+  const [state, dispatch] = useReducer(accountReducer, initialState);
 
-    useEffect(
-        () =>
-            firebase.auth().onAuthStateChanged((user) => {
-                if (user) {
-                    dispatch({
-                        type: LOGIN,
-                        payload: {
-                            isLoggedIn: true,
-                            user: {
-                                id: user.uid,
-                                email: user.email,
-                                name: user.displayName || 'John Doe'
-                            }
-                        }
-                    });
-                } else {
-                    dispatch({
-                        type: LOGOUT
-                    });
-                }
-            }),
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        [dispatch]
-    );
+  useEffect(
+    () =>
+      firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+          dispatch({
+            type: LOGIN,
+            payload: {
+              isLoggedIn: true,
+              user: {
+                id: user.uid,
+                email: user.email,
+                name: user.displayName || "John Doe",
+              },
+            },
+          });
+        } else {
+          dispatch({
+            type: LOGOUT,
+          });
+        }
+      }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [dispatch]
+  );
 
-    const firebaseEmailPasswordSignIn = (email, password) => firebase.auth().signInWithEmailAndPassword(email, password);
+  const firebaseEmailPasswordSignIn = (email, password) =>
+    firebase.auth().signInWithEmailAndPassword(email, password);
 
-    const firebaseGoogleSignIn = () => {
-        const provider = new firebase.auth.GoogleAuthProvider();
+  const firebaseGoogleSignIn = () => {
+    const provider = new firebase.auth.GoogleAuthProvider();
 
-        return firebase.auth().signInWithPopup(provider);
-    };
+    return firebase.auth().signInWithPopup(provider);
+  };
 
-    const firebaseRegister = async (email, password) => firebase.auth().createUserWithEmailAndPassword(email, password);
+  const firebaseRegister = async (email, password) =>
+    firebase.auth().createUserWithEmailAndPassword(email, password);
 
-    const logout = () => firebase.auth().signOut();
+  const logout = () => firebase.auth().signOut();
 
-    const resetPassword = async (email) => {
-        await firebase.auth().sendPasswordResetEmail(email);
-    };
+  const resetPassword = async (email) => {
+    await firebase.auth().sendPasswordResetEmail(email);
+  };
 
-    const updateProfile = () => {};
-    if (state.isInitialized !== undefined && !state.isInitialized) {
-        return <Loader />;
-    }
+  const updateProfile = () => {};
+  if (state.isInitialized !== undefined && !state.isInitialized) {
+    return <Loader />;
+  }
 
-    return (
-        <FirebaseContext.Provider
-            value={{
-                ...state,
-                firebaseRegister,
-                firebaseEmailPasswordSignIn,
-                login: () => {},
-                firebaseGoogleSignIn,
-                logout,
-                resetPassword,
-                updateProfile
-            }}
-        >
-            {children}
-        </FirebaseContext.Provider>
-    );
+  return (
+    <FirebaseContext.Provider
+      value={{
+        ...state,
+        firebaseRegister,
+        firebaseEmailPasswordSignIn,
+        login: () => {},
+        firebaseGoogleSignIn,
+        logout,
+        resetPassword,
+        updateProfile,
+      }}
+    >
+      {children}
+    </FirebaseContext.Provider>
+  );
 };
 
 FirebaseProvider.propTypes = {
-    children: PropTypes.node
+  children: PropTypes.node,
 };
 
 export default FirebaseContext;

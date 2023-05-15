@@ -1,1 +1,1 @@
-export const MODULE_NAME = "Phone Numbers"
+export const MODULE_NAME = "Phone Numbers";

@@ -1,21 +1,21 @@
-import React, { forwardRef } from 'react';
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
+import React, { forwardRef } from "react";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
 
-const AlertDialog = forwardRef(({title, content, onAgree}, ref) => {
+const AlertDialog = forwardRef(({ title, content, onAgree }, ref) => {
   const [open, setOpen] = React.useState(false);
   useImperativeHandle(ref, () => ({
     handleOpen() {
-        setOpen(true);
+      setOpen(true);
     },
     handleClose() {
-        setOpen(false);
-    }
-}));
+      setOpen(false);
+    },
+  }));
 
   return (
     <div>
@@ -30,21 +30,24 @@ const AlertDialog = forwardRef(({title, content, onAgree}, ref) => {
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Let Google help apps determine location. This means sending anonymous
-            location data to Google, even when no apps are running.
+            Let Google help apps determine location. This means sending
+            anonymous location data to Google, even when no apps are running.
           </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Disagree</Button>
-          <Button onClick={()=> {
-            handleClose()
-            onAgree()
-          }} autoFocus>
+          <Button
+            onClick={() => {
+              handleClose();
+              onAgree();
+            }}
+            autoFocus
+          >
             Agree
           </Button>
         </DialogActions>
       </Dialog>
     </div>
   );
-})
+});
 export default AlertDialog;
