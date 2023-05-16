@@ -1,16 +1,7 @@
-import ReusableValidation from "components/ReusableValidation/ReusableValidation";
 import { Formik } from "formik";
-import React, { forwardRef, useEffect, useState } from "react";
+import { forwardRef, useEffect } from "react";
 import APIManager from "utils/APImanager";
 import SimpleModal from "views/forms/plugins/Modal/SimpleModal";
-import {
-  FormControl,
-  FormControlLabel,
-  FormGroup,
-  Switch,
-} from "@mui/material";
-import * as Yup from "yup";
-import { trimValues } from "utils/Helper";
 import { MODULE_NAME } from "./Values";
 import AutoComplete from "components/AutoComplete/AutoComplete";
 
@@ -32,11 +23,18 @@ const CityFilter = forwardRef(
     let initialValues = {
       countryId: "",
     };
+
+    useEffect(() => {
+      console.log("initial Values", initialValues);
+    }, [initialValues]);
+
     return (
       <Formik
         enableReinitialize
         initialValues={initialValues}
         onSubmit={async (values) => {
+          console.log("values", values);
+          initialValues.countryId = values.countryId;
           onFilterChange(values);
         }}
       >
@@ -66,6 +64,7 @@ const CityFilter = forwardRef(
           >
             <AutoComplete
               placeholder="Choose a country"
+              disableClear={true}
               url="country/list"
               fieldName="countryId"
               errorName={"Country"}

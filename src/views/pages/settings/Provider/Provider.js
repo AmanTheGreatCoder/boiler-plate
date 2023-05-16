@@ -6,26 +6,22 @@ import { MODULE_NAME } from "./Values";
 import EnhancedTable from "components/EnhancedTable";
 
 const columns = [
-  { id: "name", label: "Provider", style: { minWidth: 30, maxWidth: 150 } },
+  { id: "name", label: "Provider" },
   {
     id: "outboundDomain",
     label: "Domain",
-    style: { minWidth: 30, maxWidth: 150 },
   },
   {
     id: "outboundProxy",
     label: "Proxy",
-    style: { minWidth: 30, maxWidth: 150 },
   },
   {
     id: "outboundPort",
     label: "Port",
-    style: { minWidth: 30, maxWidth: 150 },
   },
   {
     id: "outboundUserName",
     label: "Name",
-    style: { minWidth: 30, maxWidth: 150 },
   },
   {
     id: "isActive",
@@ -33,15 +29,13 @@ const columns = [
   },
   {
     id: "outboundActiveGateway",
-    label: "Active Gateway",
+    label: "Gateway",
     component: "toggle",
     endpoint: "active-gateway",
-    align: "center",
   },
   {
     id: "actions",
     name: "Actions",
-    align: "center",
   },
 ];
 

@@ -31,7 +31,6 @@ export default function componentStyleOverrides(
       styleOverrides: {
         root: {
           backgroundImage: "none",
-          borderColor: "transparent !important",
         },
         rounded: {
           borderRadius: `${borderRadius}px`,
@@ -42,7 +41,9 @@ export default function componentStyleOverrides(
       styleOverrides: {
         root: {
           color: theme.palette.text.dark,
-          padding: "24px",
+          "& .MuiCardHeader-action": {
+            marginRight: "0",
+          },
         },
         title: {
           fontSize: "1.125rem",

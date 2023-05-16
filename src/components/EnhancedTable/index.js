@@ -67,6 +67,9 @@ function EnhancedTable(props) {
   };
 
   function descendingComparator(a, b, orderBy) {
+    console.log({ a });
+    console.log({ b });
+    console.log({ orderBy });
     if (b[orderBy] < a[orderBy]) {
       return -1;
     }
@@ -88,7 +91,9 @@ function EnhancedTable(props) {
       if (order !== 0) return order;
       return a[1] - b[1];
     });
-    return stabilizedThis.map((el) => el[0]);
+    const newArr = stabilizedThis.map((el) => el[0]);
+    console.log("stablized this", newArr);
+    return newArr;
   }
 
   const RenderTableBody = () => {
@@ -101,7 +106,7 @@ function EnhancedTable(props) {
                 return (
                   <TableCell
                     key={e._id + ele.id}
-                    style={renderBodyStyle(ele.id)}
+                    style={renderStyle(ele.id, "body")}
                     align={ele.align}
                     className={`${
                       ele.id === "countryName" || ele.id === "cityName"
@@ -120,35 +125,24 @@ function EnhancedTable(props) {
     );
   };
 
-  const renderBodyStyle = (id) => {
+  const renderStyle = (id, type) => {
+    let extraStyle;
     if (id === "actions") {
-      return {
-        minWidth: 70,
-        maxWidth: 150,
+      extraStyle = {
         textAlign: "center",
       };
-    } else if (id === "outboundActiveGateway") {
-      return {
-        paddingRight: 45,
-      };
+    } else if (id === "isActive") {
+      if (type === "head") {
+        extraStyle = {
+          paddingLeft: 25,
+        };
+      }
     }
     return {
       minWidth: 30,
       maxWidth: 150,
+      ...extraStyle,
     };
-  };
-
-  const renderHeadStyle = (id) => {
-    if (id === "isActive") {
-      return {
-        paddingLeft: 25,
-      };
-    } else if (id === "actions") {
-      return {
-        textAlign: "center",
-      };
-    }
-    return;
   };
 
   const RenderTableHead = () => {
@@ -158,9 +152,9 @@ function EnhancedTable(props) {
           {columns?.map((item) => (
             <TableCell
               key={item.id}
-              style={renderHeadStyle(item.id)}
+              style={renderStyle(item.id, "head")}
               align={item.align}
-              sx={{ py: 3 }}
+              sx={{ py: 2 }}
               padding={item.disablePadding ? "none" : "normal"}
               sortDirection={orderBy === item.id ? order : false}
             >
@@ -202,6 +196,31 @@ function EnhancedTable(props) {
     importRef.current.handleOpen();
   };
 
+  const renderSwitch = (ele, e) => {
+    return (
+      <Switch
+        checked={e[ele.id]}
+        onClick={() => {
+          confirm(confirmMessage(`${e[ele.id] ? "de" : ""}active`)).then(
+            async () => {
+              const res = await apiManager.put(
+                `${urlPrefix}/${ele.endpoint ? ele.endpoint : "status"}/${
+                  e._id
+                }`,
+                { status: !e[ele.id] }
+              );
+              if (!res.error) {
+                e[ele.id] = !e[ele.id];
+                setList([...list]);
+              }
+            }
+          );
+        }}
+        color="primary"
+      />
+    );
+  };
+
   const renderCell = (ele, e) => {
     if (ele.id === "actions") {
       return (
@@ -239,49 +258,10 @@ function EnhancedTable(props) {
           }
         />
       );
-    } else if (ele.id === "isActive" || ele.component === "toggle") {
-      return (
-        <Switch
-          checked={e[ele.id]}
-          onClick={() => {
-            confirm(confirmMessage(`${e[ele.id] ? "de" : ""}active`)).then(
-              async () => {
-                const res = await apiManager.put(
-                  `${urlPrefix}/${ele.endpoint ? ele.endpoint : "status"}/${
-                    e._id
-                  }`,
-                  { status: !e[ele.id] }
-                );
-                if (!res.error) {
-                  e[ele.id] = !e[ele.id];
-                  setList([...list]);
-                }
-              }
-            );
-          }}
-          color="primary"
-        />
-        // <Switch
-        //   checked={e.isActive}
-        //   onClick={() => {
-        //     confirm(confirmMessage(`${e.isActive ? "de" : ""}active`)).then(
-        //       async () => {
-        //         const res = await apiManager.put(
-        //           `${urlPrefix}/status/${e._id}`,
-        //           {
-        //             status: !e.isActive,
-        //           }
-        //         );
-        //         if (!res.error) {
-        //           e.isActive = !e.isActive;
-        //           setList([...list]);
-        //         }
-        //       }
-        //     );
-        //   }}
-        //   color="primary"
-        // />
-      );
+    } else if (ele.id === "outboundActiveGateway") {
+      return e.isOutBound ? renderSwitch(ele, e) : null;
+    } else if (ele.id === "isActive") {
+      return renderSwitch(ele, e);
     } else if (ele.id === "role") {
       return e[ele.id] === 5 ? "User" : "Admin";
     } else if (ele.id === "phoneNumber") {
@@ -368,10 +348,10 @@ function EnhancedTable(props) {
       }
     >
       {loading && <LinearProgress color="secondary" />}
-      <TableContainer>
+      <TableContainer className="table-container">
         {emptyData}
         {!emptyData && (
-          <Table sx={{ minWidth: 750 }} stickyHeader>
+          <Table sx={{ minWidth: 750 }} stickyHeader className="table">
             <RenderTableHead />
             <RenderTableBody />
           </Table>

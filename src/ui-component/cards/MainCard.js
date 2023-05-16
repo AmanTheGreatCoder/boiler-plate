@@ -1,7 +1,5 @@
 import PropTypes from "prop-types";
 import React from "react";
-
-// material-ui
 import { useTheme } from "@mui/material/styles";
 import {
   Card,
@@ -11,18 +9,9 @@ import {
   Typography,
 } from "@mui/material";
 
-// constant
-const headerSX = {
-  padding: "16px",
-  "& .MuiCardHeader-action": { mr: 0 },
-};
-
-// ==============================|| CUSTOM MAIN CARD ||============================== //
-
 const MainCard = React.forwardRef(
   (
     {
-      border = true,
       boxShadow,
       children,
       content = true,
@@ -39,12 +28,14 @@ const MainCard = React.forwardRef(
   ) => {
     const theme = useTheme();
 
+    console.log({ sx });
     return (
       <Card
+        className="card-main-card"
         ref={ref}
         {...others}
         sx={{
-          border: border ? "1px solid" : "none",
+          border: "none",
           borderColor:
             theme.palette.mode === "dark"
               ? theme.palette.background.default
@@ -61,12 +52,9 @@ const MainCard = React.forwardRef(
         }}
       >
         {/* card header and action */}
-        {!darkTitle && title && (
-          <CardHeader sx={headerSX} title={title} action={secondary} />
-        )}
+        {!darkTitle && title && <CardHeader title={title} action={secondary} />}
         {darkTitle && title && (
           <CardHeader
-            sx={headerSX}
             title={<Typography variant="h3">{title}</Typography>}
             action={secondary}
           />

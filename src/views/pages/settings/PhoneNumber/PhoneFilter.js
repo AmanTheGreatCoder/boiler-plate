@@ -70,6 +70,7 @@ const PhoneFilter = forwardRef(
               components={[
                 <AutoComplete
                   placeholder="Choose a country"
+                  disableClear={true}
                   url="country/list"
                   fieldName="countryId"
                   errorName={"Country"}
@@ -88,6 +89,7 @@ const PhoneFilter = forwardRef(
                 <AutoComplete
                   key={values?.countryId?._id}
                   placeholder="Choose a city"
+                  disableClear={true}
                   url="city/listAll"
                   fieldName="cityId"
                   query={{ countryId: values?.countryId?._id }}

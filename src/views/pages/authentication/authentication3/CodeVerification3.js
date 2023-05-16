@@ -51,12 +51,11 @@ const CodeVerification = () => {
   }, [detail]);
 
   const validOtp = () => {
-    console.log("otp ", OTP);
     if (OTP.length < 6) {
       dispatch(
         openSnackbar({
           open: true,
-          message: "Please enter valid otp",
+          message: "Please enter otp",
           variant: "alert",
           alert: {
             color: "error",

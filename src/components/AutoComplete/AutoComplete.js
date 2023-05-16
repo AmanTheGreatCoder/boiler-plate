@@ -14,6 +14,7 @@ function AutoComplete({
   url,
   customOptions,
   showCustomOptions = false,
+  disableClear = false,
   optionRow,
   valueToShowInField,
   fieldName,
@@ -69,10 +70,14 @@ function AutoComplete({
     }
   }, [formValue]);
 
-  useEffect(async () => {
+  const fetching = async () => {
     if (url) {
       fetchData(formValue);
     }
+  };
+
+  useEffect(() => {
+    fetching();
   }, []);
 
   const getOptionRow = (option) => {
@@ -119,10 +124,19 @@ function AutoComplete({
   const { setValue, setTouched, setError } = helpers;
   const hasError = Boolean(error) && touched;
 
+  useEffect(() => {
+    console.log("form value", formValue);
+  }, [formValue]);
+
+  useEffect(() => {
+    console.log("values filed", value);
+  }, [value]);
+
   return (
     <FormControl fullWidth>
       <Autocomplete
         multiple={multiple}
+        disableClearable={disableClear}
         fullWidth
         freeSolo={freeSolo}
         id="country-select-demo"

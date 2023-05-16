@@ -51,6 +51,20 @@ const Login = ({ loginProp, ...others }) => {
       }}
       onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
         try {
+          if (!values.phoneDetailObj.phoneNumber) {
+            dispatch(
+              openSnackbar({
+                open: true,
+                message: "Please enter phone number",
+                variant: "alert",
+                alert: {
+                  color: "error",
+                },
+                close: false,
+              })
+            );
+            return;
+          }
           const res = await apiManager.post("auth/admin-login", {
             countryCode: values.phoneDetailObj.dialCode,
             phoneNumber: values.phoneDetailObj.phoneNumber,

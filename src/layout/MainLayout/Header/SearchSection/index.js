@@ -229,9 +229,10 @@ const SearchSection = forwardRef(({ getValue }, ref) => {
           )}
         </PopupState>
       </Box>
-      <Box sx={{ display: { xs: "none", md: "block" } }}>
+      <Box className="search-box" sx={{ display: { xs: "none", md: "block" } }}>
         <OutlineInputStyle
           size="small"
+          sx={{ width: "100%", margin: "0" }}
           id="input-search-header"
           value={value}
           onChange={(e) => setValue(e.target.value)}

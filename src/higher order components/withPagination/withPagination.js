@@ -120,7 +120,9 @@ const withPagination = (WrappedComponent, url, { ...otherParams }) => {
           <Grid
             container
             justifyContent={"space-between"}
-            className="padding-20 border-top-grey"
+            sx={{ py: 2 }}
+            alignItems={"center"}
+            className="border-top-grey"
           >
             <Button
               variant="text"

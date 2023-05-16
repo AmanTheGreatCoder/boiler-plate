@@ -66,6 +66,7 @@ const UserFilter = forwardRef(
           >
             <AutoComplete
               placeholder="Access Level"
+              disableClear={true}
               customOptions={[
                 { name: "Admin", role: 2 },
                 { name: "User", role: 5 },

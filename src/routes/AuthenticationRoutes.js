@@ -93,7 +93,7 @@ const MaintenanceComingSoon2 = Loadable(
   lazy(() => import("views/pages/maintenance/ComingSoon/ComingSoon2"))
 );
 const MaintenanceUnderConstruction = Loadable(
-  lazy(() => import("views/pages/maintenance/UnderConstruction"))
+  lazy(() => import("views/pages/maintenance/UnderMaintenance"))
 );
 
 // landing & contact-us routing

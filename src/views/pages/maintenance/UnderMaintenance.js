@@ -18,6 +18,7 @@ import { gridSpacing } from "store/constant";
 
 // assets
 import HomeTwoToneIcon from "@mui/icons-material/HomeTwoTone";
+import ReplayIcon from '@mui/icons-material/Replay'
 
 import image from "assets/images/maintenance/img-build.svg";
 import imageBackground from "assets/images/maintenance/img-bg-grid.svg";
@@ -89,13 +90,13 @@ const UnderConstruction = () => {
               <Grid container spacing={gridSpacing}>
                 <Grid item xs={12}>
                   <Typography variant="h1" component="div">
-                    Under Construction
+                    We'll be back soon!
                   </Typography>
                 </Grid>
                 <Grid item xs={12}>
                   <Typography variant="body2">
-                    This site is on under construction!! Please check after some
-                    time
+                    We're very sorry for the inconvenience but we're performing
+                    maintenance.Please check back soon...
                   </Typography>
                 </Grid>
                 <Grid item xs={12}>
@@ -104,10 +105,10 @@ const UnderConstruction = () => {
                       variant="contained"
                       size="large"
                       component={Link}
-                      to={DASHBOARD_PATH}
+                      to="/"
                     >
-                      <HomeTwoToneIcon sx={{ fontSize: "1.3rem", mr: 0.75 }} />{" "}
-                      Home
+                      <ReplayIcon sx={{ fontSize: "1.3rem", mr: 0.75 }} />
+                      RETRY
                     </Button>
                   </AnimateButton>
                 </Grid>

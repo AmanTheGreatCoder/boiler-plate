@@ -89,7 +89,7 @@ function City({
           const { cityId, countryId } = values;
           filterRef.current.handleClose();
           setQuery({
-            cityId: cityId?._id || "",
+            // cityId: cityId?._id || "",
             countryId: countryId?._id || "",
           });
         }}

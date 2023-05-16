@@ -82,6 +82,9 @@ export default class APIManager {
   }
 
   sendResponse(data, response) {
+    if (!response) {
+      window.location.href = "/maintenance";
+    }
     if (response.status === 401) {
       window.location.href = "/login";
     }
