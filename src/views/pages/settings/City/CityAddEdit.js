@@ -80,6 +80,7 @@ const CityAddEdit = forwardRef(
                   varName="cityName"
                   fieldName={"City Name"}
                   required={true}
+                  maxLength={100}
                 />,
                 <AutoComplete
                   placeholder="Choose a country"

@@ -26,10 +26,7 @@ import CustomAlert from "components/CustomAlert";
 const apiManager = new APIManager();
 
 const SubscriptionAddEdit = forwardRef(
-  (
-    { getList, rowsPerPage, editData, setSearch, clearSearchField },
-    modalRef
-  ) => {
+  ({ getList, rowsPerPage, editData, setSearch, clearSearchField }, ref) => {
     const formik = useRef();
     const theme = useTheme();
     const [tagValue, setTagValue] = useState("");
@@ -38,20 +35,16 @@ const SubscriptionAddEdit = forwardRef(
     const debouncedValidate = useMemo(
       () =>
         debounce(() => {
-          console.log("aman mc");
           return formik.current?.validateForm;
         }, 1000),
       [formik]
     );
 
     useEffect(() => {
-      console.log("calling deboucedValidate");
       debouncedValidate(formik.current?.values);
     }, [formik.current?.values, debouncedValidate]);
 
-    useEffect(() => {
-      console.log({ valuesss: formik?.current?.values });
-    });
+    useEffect(() => {});
 
     let initialValues = {
       name: editData.name || "",
@@ -81,17 +74,16 @@ const SubscriptionAddEdit = forwardRef(
         initialValues={initialValues}
         onSubmit={async (values) => {
           const trimmedValues = trimValues({ ...values });
-
           trimmedValues.amount = parseInt(trimmedValues.amount);
           trimmedValues.totalMinutes = parseInt(trimmedValues.totalMinutes);
-          const res = (await editData)
-            ? apiManager.patch(
+          const res = editData
+            ? await apiManager.patch(
                 `subscription/update/${initialValues._id}`,
                 trimmedValues
               )
-            : apiManager.post(`subscription/create`, trimmedValues);
+            : await apiManager.post(`subscription/create`, trimmedValues);
           if (!res.error) {
-            modalRef.current.handleClose();
+            ref.current.handleClose();
             getList(rowsPerPage);
             setSearch("");
             clearSearchField();
@@ -113,7 +105,7 @@ const SubscriptionAddEdit = forwardRef(
             title={MODULE_NAME}
             submitForm={submitForm}
             resetForm={resetForm}
-            ref={modalRef}
+            ref={ref}
             errors={errors}
             handleSubmit={handleSubmit}
           >
@@ -130,6 +122,8 @@ const SubscriptionAddEdit = forwardRef(
                   fieldName={"Amount"}
                   required={true}
                   disabled={disabled}
+                  min={1}
+                  max={1000}
                   control={"isNumber"}
                   InputProps={{
                     startAdornment: (
@@ -142,6 +136,7 @@ const SubscriptionAddEdit = forwardRef(
                 <ReusableValidation
                   varName="totalMinutes"
                   fieldName={"Total Minutes"}
+                  min={1}
                   required={true}
                   disabled={disabled}
                   control={"isNumber"}

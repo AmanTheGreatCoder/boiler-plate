@@ -7,7 +7,7 @@ import noData from "assets/images/no-data.svg";
 import { useTheme } from "@mui/material/styles";
 import "./withPagination.css";
 import EnhancedTable from "components/EnhancedTable";
-import { simplifyString } from "utils/Helper";
+import { removePlusStr, simplifyString } from "utils/Helper";
 
 const apiManager = new APIManager();
 
@@ -51,7 +51,7 @@ const withPagination = (WrappedComponent, url, { ...otherParams }) => {
       setLoading(true);
       let queryString = `${url}?limit=${rowsPerPage}&pageNo=${
         page + 1
-      }&search=${search}`;
+      }&search=${search?.toString().trim()}`;
       console.log({ query });
       if (query) {
         Object.keys(query).map((e) => {
@@ -77,7 +77,7 @@ const withPagination = (WrappedComponent, url, { ...otherParams }) => {
     };
 
     useEffect(() => {
-      setSearch(simplifyString(search));
+      setSearch(removePlusStr(search));
       if (!search.includes("+")) {
         getList(rowsPerPage, page, search);
       }

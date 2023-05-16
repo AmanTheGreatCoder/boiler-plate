@@ -2,8 +2,12 @@ import { onlyNumber } from "./Regex";
 import Flag from "assets/images/flag.svg";
 export const simplifyString = (value) => {
   // remove parentheses, commas, hyphens, and spaces from a string
-  const cleanedStr = value.replace(/[\s()+-]+/g, "");
+  const cleanedStr = value.replace(/[\s()-]+/g, "");
   return cleanedStr;
+};
+
+export const removePlusStr = (value) => {
+  return value.replace(/\+/g, "");
 };
 
 export const removeFirstSubstring = (str, substring) => {

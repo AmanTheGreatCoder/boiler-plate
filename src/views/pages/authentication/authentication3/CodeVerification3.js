@@ -1,9 +1,6 @@
-import { Link, useNavigate } from "react-router-dom";
-
-// material-ui
+import { useNavigate } from "react-router-dom";
 import { useTheme } from "@mui/material/styles";
 import {
-  Button,
   Divider,
   Grid,
   IconButton,
@@ -14,24 +11,15 @@ import {
 import AuthWrapper1 from "../AuthWrapper1";
 import AuthCardWrapper from "../AuthCardWrapper";
 import Logo from "ui-component/Logo";
-import AnimateButton from "ui-component/extended/AnimateButton";
 import AuthCodeVerification from "../auth-forms/AuthCodeVerification";
 import AuthFooter from "ui-component/cards/AuthFooter";
-import { useContext, useEffect, useLayoutEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { PhoneNumberContext } from "contexts/PhoneNumberContext";
 import { maskPhoneNumber } from "utils/Helper";
 import APIManager from "utils/APImanager";
-import { AzhaiAuthContext } from "contexts/AzhaiAuthContext";
 import withTitle from "higher order components/withTitle";
-import { dispatch } from "store";
 import CustomAlert from "components/CustomAlert";
-import {
-  ArrowBackIos,
-  ArrowBackIosNew,
-  ArrowBackIosNewOutlined,
-  EditTwoTone,
-  KeyboardBackspaceTwoTone,
-} from "@mui/icons-material";
+import { KeyboardBackspaceTwoTone } from "@mui/icons-material";
 
 const apiManager = new APIManager();
 
@@ -130,18 +118,18 @@ const CodeVerification = () => {
                       item
                       sx={{ mb: 3 }}
                     >
-                        <IconButton
-                          sx={{
-                            position: "absolute",
-                            left: 0,
-                            marginLeft: "12px",
-                          }}
-                          onClick={() => navigate("/")}
-                          color="secondary"
-                          size="medium"
-                        >
-                          <KeyboardBackspaceTwoTone />
-                        </IconButton>
+                      <IconButton
+                        sx={{
+                          position: "absolute",
+                          left: 0,
+                          marginLeft: "12px",
+                        }}
+                        onClick={() => navigate("/")}
+                        color="secondary"
+                        size="medium"
+                      >
+                        <KeyboardBackspaceTwoTone />
+                      </IconButton>
                       <Logo />
                     </Grid>
                     <Grid item xs={12}>
@@ -204,7 +192,9 @@ const CodeVerification = () => {
                           textAlign={matchDownSM ? "center" : "inherit"}
                         >
                           {disabled
-                            ? `Time Remaining: 0:${time}`
+                            ? `Time Remaining: 0:${
+                                time.toString().length === 1 ? `0${time}` : time
+                              }`
                             : "Did not receive the OTP?"}
                         </Typography>
                       </Grid>

@@ -35,6 +35,7 @@ const ReusableValidation = memo(
     InputProps,
     min,
     max,
+    maxLength,
   }) => {
     const theme = useTheme();
     const errorMessage = (fieldName) => {
@@ -57,11 +58,15 @@ const ReusableValidation = memo(
             if (!onlyNumber.test(value)) {
               error = errorMessage(fieldName);
             }
-            if (!isNaN(min) && !isNaN(max) && !isNaN(value)) {
-              if (parseInt(value) < min) {
-                error = `${fieldName} must be greater than ${min}`;
-              } else if (parseInt(value) > max) {
-                error = `${fieldName} must be less than ${max}`;
+            if (!isNaN(value)) {
+              if (!isNaN(min)) {
+                if (parseInt(value) < min) {
+                  error = `${fieldName} must be greater than ${min}`;
+                }
+              } else if (!isNaN(max)) {
+                if (parseInt(value) > max) {
+                  error = `${fieldName} must be less than ${max}`;
+                }
               }
             }
             break;
@@ -139,6 +144,7 @@ const ReusableValidation = memo(
             }
             setValue(e.target.value);
           }}
+          inputProps={{ maxLength }}
           InputProps={{ ...InputProps }}
         />
         {hasError && (

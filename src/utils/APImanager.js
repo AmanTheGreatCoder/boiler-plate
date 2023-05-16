@@ -5,6 +5,14 @@ export default class APIManager {
     this.baseURL = "https://mobile-api2.alpha-dev.streamspace.ai";
   }
 
+  checkInternet() {
+    if (!window.navigator.onLine) {
+      CustomAlert({ message: "Please connect to internet", color: "error" });
+      return false;
+    }
+    return true;
+  }
+
   sendResponse(data, response) {
     if (!response) {
       window.location.href = "/maintenance";
@@ -32,35 +40,41 @@ export default class APIManager {
   }
 
   async requestForm(endpoint, method, body) {
-    const response = await fetch(`${this.baseURL}/${endpoint}`, {
-      method: method,
-      headers: {
-        accept: "*/*",
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-      body: body,
-    });
-    const data = await response.json();
-    return this.sendResponse(data, response);
-  }
-
-  async request(endpoint, method, body) {
-    let response, data;
-    try {
-      response = await fetch(`${this.baseURL}/${endpoint}`, {
+    if (this.checkInternet()) {
+      const response = await fetch(`${this.baseURL}/${endpoint}`, {
         method: method,
         headers: {
-          "Content-Type": "application/json",
           accept: "*/*",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-        body: JSON.stringify(body),
+        body: body,
       });
-      data = await response.json();
-    } catch (e) {
-      console.log(e);
+      const data = await response.json();
+      return this.sendResponse(data, response);
     }
-    return this.sendResponse(data, response);
+    return;
+  }
+
+  async request(endpoint, method, body) {
+    if (this.checkInternet()) {
+      let response, data;
+      try {
+        response = await fetch(`${this.baseURL}/${endpoint}`, {
+          method: method,
+          headers: {
+            "Content-Type": "application/json",
+            accept: "*/*",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          body: JSON.stringify(body),
+        });
+        data = await response.json();
+      } catch (e) {
+        console.log(e);
+      }
+      return this.sendResponse(data, response);
+    }
+    return;
   }
 
   async get(endpoint) {
