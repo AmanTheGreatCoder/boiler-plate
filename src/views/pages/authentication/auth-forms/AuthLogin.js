@@ -34,7 +34,7 @@ import APImanager from "utils/APImanager";
 import { NumberWithCountryCode } from "components";
 import { PhoneNumberContext } from "contexts/PhoneNumberContext";
 import { dispatch } from "store";
-import { openSnackbar } from "store/slices/snackbar";
+import CustomAlert from "components/CustomAlert";
 
 const apiManager = new APImanager();
 
@@ -52,17 +52,10 @@ const Login = ({ loginProp, ...others }) => {
       onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
         try {
           if (!values.phoneDetailObj.phoneNumber) {
-            dispatch(
-              openSnackbar({
-                open: true,
-                message: "Please enter phone number",
-                variant: "alert",
-                alert: {
-                  color: "error",
-                },
-                close: false,
-              })
-            );
+            CustomAlert ({
+              message: "Please enter phone number",
+              color: "error",
+            });
             return;
           }
           const res = await apiManager.post("auth/admin-login", {

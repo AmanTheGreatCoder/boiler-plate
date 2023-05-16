@@ -6,12 +6,11 @@ import {
   Button,
   Divider,
   Grid,
+  IconButton,
   Stack,
   Typography,
   useMediaQuery,
 } from "@mui/material";
-
-// project imports
 import AuthWrapper1 from "../AuthWrapper1";
 import AuthCardWrapper from "../AuthCardWrapper";
 import Logo from "ui-component/Logo";
@@ -25,11 +24,14 @@ import APIManager from "utils/APImanager";
 import { AzhaiAuthContext } from "contexts/AzhaiAuthContext";
 import withTitle from "higher order components/withTitle";
 import { dispatch } from "store";
-import { openSnackbar } from "store/slices/snackbar";
-
-// assets
-
-// ===========================|| AUTH3 - CODE VERIFICATION ||=========================== //
+import CustomAlert from "components/CustomAlert";
+import {
+  ArrowBackIos,
+  ArrowBackIosNew,
+  ArrowBackIosNewOutlined,
+  EditTwoTone,
+  KeyboardBackspaceTwoTone,
+} from "@mui/icons-material";
 
 const apiManager = new APIManager();
 
@@ -52,17 +54,10 @@ const CodeVerification = () => {
 
   const validOtp = () => {
     if (OTP.length < 6) {
-      dispatch(
-        openSnackbar({
-          open: true,
-          message: "Please enter otp",
-          variant: "alert",
-          alert: {
-            color: "error",
-          },
-          close: false,
-        })
-      );
+      CustomAlert({
+        message: "Please enter otp",
+        color: "error",
+      });
       return false;
     }
     return true;
@@ -127,11 +122,27 @@ const CodeVerification = () => {
                     spacing={2}
                     alignItems="center"
                     justifyContent="center"
+                    position={"relative"}
                   >
-                    <Grid item sx={{ mb: 3 }}>
-                      <Link to="#">
-                        <Logo />
-                      </Link>
+                    <Grid
+                      display={"flex"}
+                      alignItems={"center"}
+                      item
+                      sx={{ mb: 3 }}
+                    >
+                        <IconButton
+                          sx={{
+                            position: "absolute",
+                            left: 0,
+                            marginLeft: "12px",
+                          }}
+                          onClick={() => navigate("/")}
+                          color="secondary"
+                          size="medium"
+                        >
+                          <KeyboardBackspaceTwoTone />
+                        </IconButton>
+                      <Logo />
                     </Grid>
                     <Grid item xs={12}>
                       <Grid

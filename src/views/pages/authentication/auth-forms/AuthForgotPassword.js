@@ -19,14 +19,13 @@ import { Formik } from "formik";
 import AnimateButton from "ui-component/extended/AnimateButton";
 import useAuth from "hooks/useAuth";
 import useScriptRef from "hooks/useScriptRef";
-import { openSnackbar } from "store/slices/snackbar";
+import CustomAlert from "components/CustomAlert";
 
 // ========================|| FIREBASE - FORGOT PASSWORD ||======================== //
 
 const AuthForgotPassword = ({ ...others }) => {
   const theme = useTheme();
   const scriptedRef = useScriptRef();
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const { resetPassword } = useAuth();
@@ -47,21 +46,13 @@ const AuthForgotPassword = ({ ...others }) => {
       onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
         try {
           await resetPassword(values.email);
-
           if (scriptedRef.current) {
             setStatus({ success: true });
             setSubmitting(false);
-            dispatch(
-              openSnackbar({
-                open: true,
-                message: "Check mail for reset password link",
-                variant: "alert",
-                alert: {
-                  color: "success",
-                },
-                close: false,
-              })
-            );
+            CustomAlert({
+              message: "Check mail for reset password link",
+              color: "success",
+            });
             setTimeout(() => {
               navigate("/login", { replace: true });
             }, 1500);

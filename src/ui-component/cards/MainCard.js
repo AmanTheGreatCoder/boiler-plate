@@ -28,7 +28,6 @@ const MainCard = React.forwardRef(
   ) => {
     const theme = useTheme();
 
-    console.log({ sx });
     return (
       <Card
         className="card-main-card"

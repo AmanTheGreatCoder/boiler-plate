@@ -7,6 +7,7 @@ import noData from "assets/images/no-data.svg";
 import { useTheme } from "@mui/material/styles";
 import "./withPagination.css";
 import EnhancedTable from "components/EnhancedTable";
+import { simplifyString } from "utils/Helper";
 
 const apiManager = new APIManager();
 
@@ -76,8 +77,15 @@ const withPagination = (WrappedComponent, url, { ...otherParams }) => {
     };
 
     useEffect(() => {
+      setSearch(simplifyString(search));
+      if (!search.includes("+")) {
+        getList(rowsPerPage, page, search);
+      }
+    }, [search]);
+
+    useEffect(() => {
       getList(rowsPerPage, page, search);
-    }, [rowsPerPage, search, page, query]);
+    }, [rowsPerPage, page, query]);
 
     useEffect(() => {
       document.title =

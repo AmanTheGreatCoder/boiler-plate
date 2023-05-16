@@ -48,17 +48,25 @@ function EnhancedTable(props) {
   } = props;
   const [data, setData] = useState(list);
   const [order, setOrder] = useState("asc");
-  const [orderBy, setOrderBy] = useState("name");
+  const [orderBy, setOrderBy] = useState("");
   const theme = useTheme();
   const navigate = useNavigate();
-
-  const createSortHandler = (property) => (event) => {
-    onRequestSort(event, property);
-  };
 
   useEffect(() => {
     setData(list);
   }, [list]);
+
+  function getProperty(obj, property) {
+    const properties = property.split(".");
+    let value = obj;
+    for (let prop of properties) {
+      value = value[prop];
+    }
+    return value;
+  }
+  const createSortHandler = (property) => (event) => {
+    onRequestSort(event, property);
+  };
 
   const onRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -67,13 +75,10 @@ function EnhancedTable(props) {
   };
 
   function descendingComparator(a, b, orderBy) {
-    console.log({ a });
-    console.log({ b });
-    console.log({ orderBy });
-    if (b[orderBy] < a[orderBy]) {
+    if (getProperty(b, orderBy) < getProperty(a, orderBy)) {
       return -1;
     }
-    if (b[orderBy] > a[orderBy]) {
+    if (getProperty(b, orderBy) > getProperty(a, orderBy)) {
       return 1;
     }
     return 0;
@@ -92,7 +97,7 @@ function EnhancedTable(props) {
       return a[1] - b[1];
     });
     const newArr = stabilizedThis.map((el) => el[0]);
-    console.log("stablized this", newArr);
+
     return newArr;
   }
 

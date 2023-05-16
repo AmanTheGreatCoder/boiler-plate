@@ -10,8 +10,8 @@ import ReusableSwitch from "components/ReusableSwitch.js/ReusableSwitch";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import AddIcon from "@mui/icons-material/Add";
 import { dispatch } from "store";
-import { openSnackbar } from "store/slices/snackbar";
 import { Layout } from "components/Layout/Layout";
+import CustomAlert from "components/CustomAlert";
 
 const apiManager = new APIManager();
 
@@ -58,17 +58,10 @@ const ProviderAddEdit = forwardRef(
           console.log("values", values);
           console.log("values port", values.inboundIP.port);
           if (!values.inboundIP[0].port && !values.outboundPort) {
-            dispatch(
-              openSnackbar({
-                open: true,
-                message: "Please enter either inbound or outbound",
-                variant: "alert",
-                alert: {
-                  color: "error",
-                },
-                close: false,
-              })
-            );
+            CustomAlert({
+              message: "Please enter either inbound or outbound",
+              color: "error",
+            });
             return;
           }
           const trimmedValues = trimValues(values);
@@ -182,18 +175,11 @@ const ProviderAddEdit = forwardRef(
                                   if (values.inboundIP.length > 1) {
                                     remove(index);
                                   } else {
-                                    dispatch(
-                                      openSnackbar({
-                                        open: true,
-                                        message:
-                                          "Atleast one inbound is required",
-                                        variant: "alert",
-                                        alert: {
-                                          color: "error",
-                                        },
-                                        close: false,
-                                      })
-                                    );
+                                    CustomAlert({
+                                      message:
+                                        "Atleast one inbound is required",
+                                      color: "error",
+                                    });
                                   }
                                 }}
                               >

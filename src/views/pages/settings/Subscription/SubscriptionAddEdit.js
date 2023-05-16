@@ -17,11 +17,11 @@ import { Button, Grid, InputAdornment } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import { dispatch } from "store";
-import { openSnackbar } from "store/slices/snackbar";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import { Layout } from "components/Layout/Layout";
 import { debounce } from "lodash";
+import CustomAlert from "components/CustomAlert";
 
 const apiManager = new APIManager();
 
@@ -191,17 +191,10 @@ const SubscriptionAddEdit = forwardRef(
                               if (values.benefits.length > 1) {
                                 remove(index);
                               } else {
-                                dispatch(
-                                  openSnackbar({
-                                    open: true,
-                                    message: "Atleast one benefit is required",
-                                    variant: "alert",
-                                    alert: {
-                                      color: "error",
-                                    },
-                                    close: false,
-                                  })
-                                );
+                                CustomAlert({
+                                  message: "Atleast one benefit is required",
+                                  color: "error",
+                                });
                               }
                             }}
                             variant="contained"

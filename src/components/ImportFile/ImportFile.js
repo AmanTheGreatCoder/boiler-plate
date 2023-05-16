@@ -4,11 +4,10 @@ import APIManager from "utils/APImanager";
 import styled from "@emotion/styled";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
 import { Formik } from "formik";
-import { dispatch } from "store";
-import { openSnackbar } from "store/slices/snackbar";
 import { useTheme } from "@emotion/react";
 import { Link } from "@mui/material";
 import CloudDownloadIcon from "@mui/icons-material/CloudDownload";
+import CustomAlert from "components/CustomAlert";
 
 const apiManager = new APIManager();
 
@@ -96,17 +95,10 @@ const ImportFile = forwardRef((props, ref) => {
             clearSearchField();
           }
         } else {
-          dispatch(
-            openSnackbar({
-              open: true,
-              message: "Please select a file",
-              variant: "alert",
-              alert: {
-                color: "error",
-              },
-              close: false,
-            })
-          );
+          CustomAlert({
+            message: "Please select a file",
+            color: "error",
+          });
         }
       }}
     >

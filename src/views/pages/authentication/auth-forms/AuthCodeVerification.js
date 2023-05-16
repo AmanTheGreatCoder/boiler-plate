@@ -20,6 +20,7 @@ const AuthCodeVerification = ({ onChange, error }) => {
     <Grid container spacing={3}>
       <Grid item xs={12}>
         <OtpInput
+          isInputNum={true}
           shouldAutoFocus={true}
           value={otp}
           onChange={(otpNumber) => {
