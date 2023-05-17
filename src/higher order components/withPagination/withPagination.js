@@ -48,11 +48,12 @@ const withPagination = (WrappedComponent, url, { ...otherParams }) => {
     };
 
     const getList = async () => {
+      console.log("get list called search and query", search, query);
       setLoading(true);
       let queryString = `${url}?limit=${rowsPerPage}&pageNo=${
         page + 1
       }&search=${search?.toString().trim()}`;
-      console.log({ query });
+
       if (query) {
         Object.keys(query).map((e) => {
           if (e) {
@@ -75,17 +76,9 @@ const withPagination = (WrappedComponent, url, { ...otherParams }) => {
         }
       }
     };
-
     useEffect(() => {
-      setSearch(removePlusStr(search));
-      if (!search.includes("+")) {
-        getList(rowsPerPage, page, search);
-      }
-    }, [search]);
-
-    useEffect(() => {
-      getList(rowsPerPage, page, search);
-    }, [rowsPerPage, page, query]);
+      getList();
+    }, [rowsPerPage, page, query, search]);
 
     useEffect(() => {
       document.title =
@@ -113,7 +106,11 @@ const withPagination = (WrappedComponent, url, { ...otherParams }) => {
           <SearchSection
             ref={searchRef}
             getValue={(e) => {
-              setSearch(e);
+              if (e.includes("+")) {
+                setSearch(removePlusStr(e));
+              } else {
+                setSearch(e);
+              }
               setPage(0);
             }}
           />
@@ -169,7 +166,7 @@ const withPagination = (WrappedComponent, url, { ...otherParams }) => {
               </MenuItem>
             </Menu>
             <Pagination
-              count={Math.floor(count / rowsPerPage) || 1}
+              count={Math.ceil(count / rowsPerPage)}
               color="primary"
               onChange={handleChangePage}
               siblingCount={1}

@@ -1,12 +1,12 @@
 import PropTypes from "prop-types";
-import { memo, useMemo } from "react";
+import { Fragment, memo, useMemo } from "react";
 
 // material-ui
 import { useTheme } from "@mui/material/styles";
 import { Box, Drawer, Stack, useMediaQuery } from "@mui/material";
+import PerfectScrollbar from "react-perfect-scrollbar";
 
 // third-party
-import PerfectScrollbar from "react-perfect-scrollbar";
 
 // project imports
 import MenuList from "./MenuList";
@@ -39,8 +39,15 @@ const Sidebar = ({ window }) => {
 
   const drawer = useMemo(
     () => (
-      <PerfectScrollbar
-        component="div"
+      // <PerfectScrollbar
+      //   component="div"
+      //   style={{
+      //     height: !matchUpMd ? "calc(100vh - 56px)" : "calc(100vh - 88px)",
+      //     paddingLeft: "16px",
+      //     paddingRight: "16px",
+      //   }}
+      // >
+      <div
         style={{
           height: !matchUpMd ? "calc(100vh - 56px)" : "calc(100vh - 88px)",
           paddingLeft: "16px",
@@ -58,7 +65,8 @@ const Sidebar = ({ window }) => {
             sx={{ cursor: "pointer" }}
           />
         </Stack>
-      </PerfectScrollbar>
+        {/* </PerfectScrollbar> */}
+      </div>
     ),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [matchUpMd]

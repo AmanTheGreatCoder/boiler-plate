@@ -14,6 +14,8 @@ import { trimValues } from "utils/Helper";
 import { MODULE_NAME } from "./Values";
 import AutoComplete from "components/AutoComplete/AutoComplete";
 import { Layout } from "components/Layout/Layout";
+import { NumberWithCountryCode } from "components";
+import CustomNumberWithCountry from "components/CustomNumberWithCountry";
 
 const apiManager = new APIManager();
 
@@ -98,18 +100,17 @@ const PhoneNumberAddEdit = forwardRef(
             <Layout
               itemsInRow={2}
               components={[
-                <ReusableValidation
-                  varName="phoneNumber"
-                  control="isNumber"
-                  fieldName={"Phone Number"}
-                  required={true}
-                />,
+                // <ReusableValidation
+                //   varName="phoneNumber"
+                //   control="isNumber"
+                //   fieldName={"Phone Number"}
+                //   required={true}
+                // />,
                 <AutoComplete
                   placeholder="Choose a country"
                   url="country/list"
                   fieldName="countryId"
                   errorName={"Country"}
-                  // onChange={}
                   required={true}
                   optionRow={[
                     "countryName",
@@ -122,6 +123,7 @@ const PhoneNumberAddEdit = forwardRef(
                     setFieldValue("cityId", "");
                   }}
                 />,
+                <CustomNumberWithCountry/>,
                 <AutoComplete
                   placeholder="Choose a provider"
                   url="provider/list"

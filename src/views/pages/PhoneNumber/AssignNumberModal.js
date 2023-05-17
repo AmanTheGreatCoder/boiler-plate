@@ -63,7 +63,7 @@ const AssignNumberModal = forwardRef(
           setFieldValue,
         }) => (
           <SimpleModal
-            title={MODULE_NAME}
+            title={'Assign To'}
             submitForm={submitForm}
             resetForm={resetForm}
             ref={assignModalRef}

@@ -46,6 +46,7 @@ const UserAddEdit = forwardRef(
           const res = editData
             ? await apiManager.patch(`user/update/${values._id}`, trimmedValues)
             : await apiManager.post(`auth/admin-register`, trimmedValues);
+          console.log("res in user add edit", res);
           if (!res.error) {
             modalRef.current.handleClose();
             getList(rowsPerPage);

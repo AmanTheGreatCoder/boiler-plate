@@ -1,27 +1,33 @@
 import { useRef, useState } from "react";
-import CountryAddEdit from "./CountryAddEdit";
+
+// material-ui
+
+// project imports
+import CityAddEdit from "./CityAddEdit";
 import withPagination from "higher order components/withPagination/withPagination";
+import APIManager from "utils/APImanager";
 import { MODULE_NAME } from "./Values";
 import ImportFile from "components/ImportFile/ImportFile";
+import CityFilter from "./CityFilter";
 import EnhancedTable from "components/EnhancedTable";
+
+const apiManager = new APIManager();
 
 const columns = [
   {
-    id: "countryName",
-    label: "Country Name",
-    style: { minWidth: 30, maxWidth: 150 },
+    id: "cityName",
+    label: "City Name",
+    style: { minWidth: 30, textTransform: "capitalize", maxWidth: 150 },
   },
   {
-    id: "countryCode",
-    label: "Dial Code",
-    style: { minWidth: 100, maxWidth: 150 },
-    prefix: "+",
+    id: "countryId.countryName",
+    label: "Country Name",
+    style: { minWidth: 30, textTransform: "capitalize", maxWidth: 150 },
   },
   {
     id: "isActive",
     label: "Active",
   },
-  { id: "flag", label: "Flag", style: { minWidth: 30, maxWidth: 150 } },
   {
     id: "actions",
     name: "Actions",
@@ -30,33 +36,34 @@ const columns = [
   },
 ];
 
-function Country(props) {
-  const {
-    rowsPerPage,
-    getList,
-    setSearch,
-    clearSearchField,
-    children,
-    ...otherProps
-  } = props;
+function City({
+  rowsPerPage,
+  getList,
+  setSearch,
+  setQuery,
+  clearSearchField,
+  children,
+  ...otherProps
+}) {
   const addEditRef = useRef(null);
   const importRef = useRef(null);
+  const filterRef = useRef(null);
   const [editData, setEditData] = useState("");
 
   return (
     <EnhancedTable
       title={MODULE_NAME}
-      urlPrefix="provider"
+      urlPrefix="city"
       pagination={children}
       getList={getList}
       add={true}
+      filterRef={filterRef}
       addEditRef={addEditRef}
-      importRef={importRef}
       columns={columns}
       setEditData={setEditData}
       {...otherProps}
     >
-      <CountryAddEdit
+      <CityAddEdit
         clearSearchField={clearSearchField}
         setSearch={setSearch}
         editData={editData}
@@ -66,20 +73,35 @@ function Country(props) {
       />
       <ImportFile
         sampleUrl={
-          "https://mobile-api2.alpha-dev.streamspace.ai/sample/sample_import_country.csv"
+          "https://mobile-api2.alpha-dev.streamspace.ai/sample/sample_import_city.csv"
         }
         clearSearchField={clearSearchField}
         getList={getList}
         rowsPerPage={rowsPerPage}
         setSearch={setSearch}
         title={MODULE_NAME}
-        url="country/import"
+        url="city/import"
         ref={importRef}
+      />
+      <CityFilter
+        onFilterChange={(values) => {
+          const { cityId, countryId } = values;
+          filterRef.current.handleClose();
+          setQuery({
+            // cityId: cityId?._id || "",
+            countryId: countryId?._id || "",
+          });
+        }}
+        onClear={() => {
+          filterRef.current.handleClose();
+          setQuery(null);
+        }}
+        ref={filterRef}
       />
     </EnhancedTable>
   );
 }
-export default withPagination(Country, "country/list", {
+export default withPagination(City, "city/listAll", {
   imageRequired: true,
   title: MODULE_NAME,
 });

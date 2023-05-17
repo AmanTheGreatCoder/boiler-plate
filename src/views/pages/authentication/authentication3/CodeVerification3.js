@@ -62,7 +62,7 @@ const CodeVerification = () => {
       });
       if (!res.error) {
         localStorage.setItem("token", res.data["access_token"]);
-        navigate("/dashboard/default");
+        navigate("/dashboard");
       }
     } else {
       setError(true);

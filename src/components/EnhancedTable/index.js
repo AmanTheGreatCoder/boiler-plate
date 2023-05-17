@@ -233,7 +233,7 @@ function EnhancedTable(props) {
           rateListOnClick={
             rateList
               ? () => {
-                  navigate(`/settings/rate-list/provider/${e._id}/${e.name}`, {
+                  navigate(`/rate-list/provider/${e._id}/${e.name}`, {
                     type: "provider",
                     parentId: e._id,
                   });

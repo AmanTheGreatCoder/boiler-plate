@@ -69,9 +69,7 @@ export default class APIManager {
           body: JSON.stringify(body),
         });
         data = await response.json();
-      } catch (e) {
-        console.log(e);
-      }
+      } catch (e) {}
       return this.sendResponse(data, response);
     }
     return;

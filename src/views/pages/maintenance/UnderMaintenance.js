@@ -79,10 +79,9 @@ const UnderConstruction = () => {
                     ? imageDarkBackground
                     : imageBackground
                 }
-                title="Slider 3 image"
               />
-              <CardMediaParts src={imageParts} title="Slider 1 image" />
-              <CardMediaBuild src={image} title="Slider 2 image" />
+              <CardMediaParts src={imageParts} />
+              <CardMediaBuild src={image}/>
             </CardMediaWrapper>
           </Grid>
           <Grid item xs={12}>

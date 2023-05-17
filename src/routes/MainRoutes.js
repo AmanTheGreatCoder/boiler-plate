@@ -6,9 +6,7 @@ import Loadable from "ui-component/Loadable";
 import AuthGuard from "utils/route-guard/AuthGuard";
 
 // dashboard routing
-const DashboardDefault = Loadable(
-  lazy(() => import("views/dashboard/Default"))
-);
+const DashboardDefault = Loadable(lazy(() => import("views/dashboard/Default")));
 const DashboardAnalytics = Loadable(
   lazy(() => import("views/dashboard/Analytics"))
 );
@@ -276,30 +274,21 @@ const UtilsAnimation = Loadable(
 const UtilsGrid = Loadable(lazy(() => import("views/utilities/Grid")));
 
 // settings routing
-const Country = Loadable(
-  lazy(() => import("views/pages/settings/country/Country"))
-);
-const City = Loadable(lazy(() => import("views/pages/settings/City/City")));
+const Country = Loadable(lazy(() => import("views/pages/country/Country")));
+const City = Loadable(lazy(() => import("views/pages/City/City")));
 const Subscription = Loadable(
-  lazy(() => import("views/pages/settings/Subscription/Subscription"))
+  lazy(() => import("views/pages/Subscription/Subscription"))
 );
-const User = Loadable(lazy(() => import("views/pages/settings/User/User")));
+const User = Loadable(lazy(() => import("views/pages/User/User")));
 const SIPExtensions = Loadable(
-  lazy(() => import("views/pages/settings/SIPExtensions/SIPExtensions"))
+  lazy(() => import("views/pages/SIPExtensions/SIPExtensions"))
 );
 const PhoneNumber = Loadable(
-  lazy(() => import("views/pages/settings/PhoneNumber/PhoneNumber"))
+  lazy(() => import("views/pages/PhoneNumber/PhoneNumber"))
 );
-const Provider = Loadable(
-  lazy(() => import("views/pages/settings/Provider/Provider"))
-);
-const RateList = Loadable(
-  lazy(() => import("views/pages/settings/RateList/RateList"))
-);
-// sample page routing
+const Provider = Loadable(lazy(() => import("views/pages/Provider/Provider")));
+const RateList = Loadable(lazy(() => import("views/pages/RateList/RateList")));
 const SamplePage = Loadable(lazy(() => import("views/sample-page")));
-
-// ==============================|| MAIN ROUTING ||============================== //
 
 const MainRoutes = {
   path: "/",
@@ -310,43 +299,43 @@ const MainRoutes = {
   ),
   children: [
     {
-      path: "/dashboard/default",
+      path: "/dashboard",
       element: <DashboardDefault />,
     },
     {
-      path: "/settings/country",
+      path: "/country",
       element: <Country />,
     },
     {
-      path: "/settings/city",
+      path: "/city",
       element: <City />,
     },
     {
-      path: "/settings/plans",
+      path: "/plans",
       element: <Country />,
     },
     {
-      path: "/settings/phone-number",
+      path: "/phone-number",
       element: <PhoneNumber />,
     },
     {
-      path: "/settings/subscription",
+      path: "/subscription",
       element: <Subscription />,
     },
     {
-      path: "/settings/system-config",
+      path: "/system-config",
       element: <SIPExtensions />,
     },
     {
-      path: "/settings/provider",
+      path: "/provider",
       element: <Provider />,
     },
     {
-      path: "/settings/rate-list/:type/:parentId/:providerName",
+      path: "/rate-list/:type/:parentId/:providerName",
       element: <RateList />,
     },
     {
-      path: "/settings/user",
+      path: "/user",
       element: <User />,
     },
     // {

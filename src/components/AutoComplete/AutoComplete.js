@@ -172,6 +172,7 @@ function AutoComplete({
           onChange && onChange(value);
         }}
         ListboxProps={{
+          
           onScroll: (event) => {
             const listboxNode = event.currentTarget;
             if (

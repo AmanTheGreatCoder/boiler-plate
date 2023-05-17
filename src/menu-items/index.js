@@ -1,5 +1,4 @@
-import dashboard from "./dashboard";
-import settings from "./settings";
+import Dashboard from "./dashboard";
 import widget from "./widget";
 import application from "./application";
 import forms from "./forms";
@@ -9,10 +8,8 @@ import utilities from "./utilities";
 import support from "./support";
 import other from "./other";
 
-// ==============================|| MENU ITEMS ||============================== //
-
 const menuItems = {
-  items: [dashboard, settings],
+  items: [Dashboard],
 };
 
 export default menuItems;

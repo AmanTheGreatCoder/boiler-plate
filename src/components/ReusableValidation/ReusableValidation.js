@@ -54,7 +54,6 @@ const ReusableValidation = memo(
             if (!isoCountryRegex.test(value)) error = errorMessage(fieldName);
             break;
           case "isNumber":
-            console.log("validation coming here 2", min, max);
             if (!onlyNumber.test(value)) {
               error = errorMessage(fieldName);
             }

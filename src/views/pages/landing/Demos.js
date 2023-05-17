@@ -58,7 +58,7 @@ const DemosPage = () => (
             <FadeInWhenVisible>
               <ButtonBase
                 component={Link}
-                to="/dashboard/default"
+                to="/dashboard"
                 target="_blank"
               >
                 <img src={imgDemo1} alt="Berry Dashboard" style={imageStyle} />

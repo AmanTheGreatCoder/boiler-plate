@@ -131,7 +131,7 @@ const HeaderPage = () => {
                     <AnimateButton>
                       <Button
                         component={RouterLink}
-                        to="/dashboard/default"
+                        to="/dashboard"
                         target="_blank"
                         size="large"
                         variant="contained"

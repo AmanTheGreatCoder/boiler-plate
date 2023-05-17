@@ -26,7 +26,7 @@ const GuestGuard = ({ children }) => {
       const result = await apiManager.get("auth/profile");
       //
       if (!result.error) {
-        navigate("/dashboard/default", { replace: true });
+        navigate("/dashboard", { replace: true });
       } else {
         localStorage.removeItem("token");
       }

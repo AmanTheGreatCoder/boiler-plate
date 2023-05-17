@@ -28,8 +28,6 @@ const apiManager = new APIManager();
 const SubscriptionAddEdit = forwardRef(
   ({ getList, rowsPerPage, editData, setSearch, clearSearchField }, ref) => {
     const formik = useRef();
-    const theme = useTheme();
-    const [tagValue, setTagValue] = useState("");
     const disabled = editData ? true : false;
 
     const debouncedValidate = useMemo(
@@ -43,8 +41,6 @@ const SubscriptionAddEdit = forwardRef(
     useEffect(() => {
       debouncedValidate(formik.current?.values);
     }, [formik.current?.values, debouncedValidate]);
-
-    useEffect(() => {});
 
     let initialValues = {
       name: editData.name || "",
@@ -84,7 +80,6 @@ const SubscriptionAddEdit = forwardRef(
             : await apiManager.post(`subscription/create`, trimmedValues);
           if (!res.error) {
             ref.current.handleClose();
-            getList(rowsPerPage);
             setSearch("");
             clearSearchField();
           }
