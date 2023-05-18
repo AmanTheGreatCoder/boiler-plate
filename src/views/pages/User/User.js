@@ -40,6 +40,7 @@ function User(props) {
   return (
     <EnhancedTable
       title={MODULE_NAME}
+      addBtnTitle="Add Admin"
       urlPrefix="user"
       pagination={children}
       add={true}

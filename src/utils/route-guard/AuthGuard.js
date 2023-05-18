@@ -18,11 +18,6 @@ const AuthGuard = ({ children }) => {
   const { setAuth } = useContext(AzhaiAuthContext);
   const navigate = useNavigate();
 
-  // const getUser = async () => {
-  //     const res = await apiManager.get('auth/profile')
-  //     return res;
-  // }
-
   useEffect(async () => {
     if (localStorage.getItem("token")) {
       const result = await apiManager.get("auth/profile");
@@ -36,7 +31,7 @@ const AuthGuard = ({ children }) => {
     } else {
       navigate("login", { replace: true });
     }
-  }, [navigate]);
+  }, []);
 
   return children;
 };

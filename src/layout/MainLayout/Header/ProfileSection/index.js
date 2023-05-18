@@ -1,39 +1,32 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import {
+  Fragment,
+  forwardRef,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { useNavigate } from "react-router-dom";
 import confirm from "views/forms/plugins/Confirm/confirm";
 import { confirmMessage } from "utils/Helper";
-
-// material-ui
 import { useTheme } from "@mui/material/styles";
 import {
   Avatar,
   Box,
-  Card,
-  CardContent,
   Chip,
   ClickAwayListener,
   Divider,
-  Grid,
-  InputAdornment,
   List,
   ListItemButton,
   ListItemIcon,
   ListItemText,
-  OutlinedInput,
   Paper,
   Popper,
   Stack,
-  Switch,
   Typography,
 } from "@mui/material";
-
-// third-party
-import PerfectScrollbar from "react-perfect-scrollbar";
-
-// project imports
 import MainCard from "ui-component/cards/MainCard";
 import Transitions from "ui-component/extended/Transitions";
-import UpgradePlanCard from "./UpgradePlanCard";
 import useAuth from "hooks/useAuth";
 import User1 from "assets/images/users/user-round.svg";
 
@@ -41,21 +34,18 @@ import User1 from "assets/images/users/user-round.svg";
 import { IconLogout, IconSearch, IconSettings, IconUser } from "@tabler/icons";
 import useConfig from "hooks/useConfig";
 import { AzhaiAuthContext } from "contexts/AzhaiAuthContext";
-
-// ==============================|| PROFILE MENU ||============================== //
+import ProfileEdit from "./ProfileEdit";
 
 const ProfileSection = () => {
   const { auth } = useContext(AzhaiAuthContext);
   const theme = useTheme();
   const { borderRadius } = useConfig();
   const navigate = useNavigate();
-
-  const [sdm, setSdm] = useState(true);
-  const [value, setValue] = useState("");
-  const [notification, setNotification] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(-1);
-  const { logout, user } = useAuth();
+  const { user } = useAuth();
   const [open, setOpen] = useState(false);
+  const modalRef = useRef(null);
+
   /**
    * anchorRef is used on different components and specifying one type leads to other components throwing an error
    * */
@@ -77,6 +67,7 @@ const ProfileSection = () => {
     }
     setOpen(false);
   };
+
   const handleListItemClick = (event, index, route = "") => {
     setSelectedIndex(index);
     handleClose(event);
@@ -100,6 +91,8 @@ const ProfileSection = () => {
 
   return (
     <>
+      <ProfileEdit modalRef={modalRef} />
+
       <Chip
         sx={{
           height: "48px",
@@ -174,54 +167,46 @@ const ProfileSection = () => {
         }}
       >
         {({ TransitionProps }) => (
-          <ClickAwayListener onClickAway={handleClose}>
-            <Transitions in={open} {...TransitionProps}>
-              <Paper>
-                {open && (
-                  <MainCard
-                    border={false}
-                    elevation={16}
-                    content={false}
-                    boxShadow
-                    shadow={theme.shadows[16]}
-                  >
-                    <Box sx={{ p: 2 }}>
-                      <Stack>
-                        <Stack
-                          direction="row"
-                          spacing={0.5}
-                          alignItems="center"
-                        >
-                          <Typography variant="h4">
-                            Welcome, {auth.fullName}
-                          </Typography>
-                          <Typography
-                            component="span"
-                            variant="h4"
-                            sx={{ fontWeight: 400 }}
+          <Fragment>
+            <ClickAwayListener onClickAway={handleClose}>
+              <Transitions in={open} {...TransitionProps}>
+                <Paper>
+                  {open && (
+                    <MainCard
+                      border={false}
+                      elevation={16}
+                      content={false}
+                      boxShadow
+                      shadow={theme.shadows[16]}
+                    >
+                      <Box sx={{ p: 2 }}>
+                        <Stack>
+                          <Stack
+                            direction="row"
+                            spacing={0.5}
+                            alignItems="center"
                           >
-                            {user?.name}
+                            <Typography variant="h4">
+                              Welcome, {auth.fullName}
+                            </Typography>
+                            <Typography
+                              component="span"
+                              variant="h4"
+                              sx={{ fontWeight: 400 }}
+                            >
+                              {user?.name}
+                            </Typography>
+                          </Stack>
+                          <Typography sx={{ mt: 1 }} variant="subtitle2">
+                            {auth.email}
+                          </Typography>
+                          <Typography variant="subtitle2">
+                            +{auth.countryCode + " " + auth.phoneNumber}
                           </Typography>
                         </Stack>
-                        <Typography sx={{ mt: 1 }} variant="subtitle2">
-                          {auth.email}
-                        </Typography>
-                        <Typography variant="subtitle2">
-                          +{auth.countryCode + " " + auth.phoneNumber}
-                        </Typography>
-                      </Stack>
-                    </Box>
-                    {/* <PerfectScrollbar
-                      style={{
-                        height: "100%",
-                        maxHeight: "calc(100vh - 250px)",
-                        overflowX: "hidden",
-                      }}
-                    > */}
+                      </Box>
                       <Box sx={{ p: 2, pt: 0 }}>
-                        {/* <UpgradePlanCard /> */}
                         <Divider />
-                        {/* <Divider /> */}
                         <List
                           component="nav"
                           sx={{
@@ -238,47 +223,24 @@ const ProfileSection = () => {
                             },
                           }}
                         >
-                          {/* <ListItemButton
-                                                        sx={{ borderRadius: `${borderRadius}px` }}
-                                                        selected={selectedIndex === 0}
-                                                        onClick={(event) => handleListItemClick(event, 0, '/user/account-profile/profile1')}
-                                                    >
-                                                        <ListItemIcon>
-                                                            <IconSettings stroke={1.5} size="1.3rem" />
-                                                        </ListItemIcon>
-                                                        <ListItemText primary={<Typography variant="body2">Account Settings</Typography>} />
-                                                    </ListItemButton> */}
-                          {/* <ListItemButton
-                                                        sx={{ borderRadius: `${borderRadius}px` }}
-                                                        selected={selectedIndex === 1}
-                                                        onClick={(event) => handleListItemClick(event, 1, '/user/social-profile/posts')}
-                                                    >
-                                                        <ListItemIcon>
-                                                            <IconUser stroke={1.5} size="1.3rem" />
-                                                        </ListItemIcon>
-                                                        <ListItemText
-                                                            primary={
-                                                                <Grid container spacing={1} justifyContent="space-between">
-                                                                    <Grid item>
-                                                                        <Typography variant="body2">Social Profile</Typography>
-                                                                    </Grid>
-                                                                    <Grid item>
-                                                                        <Chip
-                                                                            label="02"
-                                                                            size="small"
-                                                                            sx={{
-                                                                                bgcolor:
-                                                                                    theme.palette.mode === 'dark'
-                                                                                        ? theme.palette.dark.dark
-                                                                                        : theme.palette.warning.dark,
-                                                                                color: theme.palette.background.default
-                                                                            }}
-                                                                        />
-                                                                    </Grid>
-                                                                </Grid>
-                                                            }
-                                                        />
-                                                    </ListItemButton> */}
+                          <ListItemButton
+                            sx={{ borderRadius: `${borderRadius}px` }}
+                            selected={selectedIndex === 0}
+                            onClick={() => {
+                              console.log("modal Ref", modalRef);
+                            }}
+                          >
+                            <ListItemIcon>
+                              <IconSettings stroke={1.5} size="1.3rem" />
+                            </ListItemIcon>
+                            <ListItemText
+                              primary={
+                                <Typography variant="body2">
+                                  Edit Profile
+                                </Typography>
+                              }
+                            />
+                          </ListItemButton>
                           <ListItemButton
                             sx={{ borderRadius: `${borderRadius}px` }}
                             selected={selectedIndex === 4}
@@ -295,12 +257,12 @@ const ProfileSection = () => {
                           </ListItemButton>
                         </List>
                       </Box>
-                    {/* </PerfectScrollbar> */}
-                  </MainCard>
-                )}
-              </Paper>
-            </Transitions>
-          </ClickAwayListener>
+                    </MainCard>
+                  )}
+                </Paper>
+              </Transitions>
+            </ClickAwayListener>
+          </Fragment>
         )}
       </Popper>
     </>

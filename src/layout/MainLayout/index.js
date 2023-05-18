@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import { Outlet } from "react-router-dom";
 
 // material-ui
@@ -38,7 +38,7 @@ const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
         duration: theme.transitions.duration.shorter,
       }),
       [theme.breakpoints.up("md")]: {
-        marginLeft: -(drawerWidth - 20),
+        marginLeft: -(drawerWidth - 70),
         width: `calc(100% - ${drawerWidth}px)`,
       },
       [theme.breakpoints.down("md")]: {
@@ -72,20 +72,31 @@ const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
   })
 );
 
-// ==============================|| MAIN LAYOUT ||============================== //
-
 const MainLayout = () => {
   const theme = useTheme();
-  const matchDownMd = useMediaQuery(theme.breakpoints.down("lg"));
+  const matchDownMd = useMediaQuery(theme.breakpoints.down("md"));
+  const matchDownLg = useMediaQuery(theme.breakpoints.down("lg"));
 
   const dispatch = useDispatch();
   const { drawerOpen } = useSelector((state) => state.menu);
   const { container } = useConfig();
 
-  React.useEffect(() => {
-    dispatch(openDrawer(!matchDownMd));
+  useEffect(() => {
+    console.log("match down md", matchDownMd);
+    if (matchDownMd) {
+      dispatch(openDrawer(false));
+    } else {
+      dispatch(openDrawer(true));
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [matchDownMd]);
+
+  useEffect(() => {
+    console.log("match down lg", matchDownLg);
+    if (matchDownLg) {
+      dispatch(openDrawer(false));
+    }
+  }, [matchDownLg]);
 
   const header = useMemo(
     () => (

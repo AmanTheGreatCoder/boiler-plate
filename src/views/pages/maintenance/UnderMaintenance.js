@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 
 // material-ui
 import { useTheme, styled } from "@mui/material/styles";
@@ -8,6 +8,7 @@ import {
   CardContent,
   CardMedia,
   Grid,
+  LinearProgress,
   Typography,
 } from "@mui/material";
 
@@ -18,12 +19,15 @@ import { gridSpacing } from "store/constant";
 
 // assets
 import HomeTwoToneIcon from "@mui/icons-material/HomeTwoTone";
-import ReplayIcon from '@mui/icons-material/Replay'
+import ReplayIcon from "@mui/icons-material/Replay";
 
 import image from "assets/images/maintenance/img-build.svg";
 import imageBackground from "assets/images/maintenance/img-bg-grid.svg";
 import imageDarkBackground from "assets/images/maintenance/img-bg-grid-dark.svg";
 import imageParts from "assets/images/maintenance/img-bg-parts.svg";
+import { useEffect, useLayoutEffect, useState } from "react";
+import APIManager from "utils/APImanager";
+import useScriptRef from "hooks/useScriptRef";
 
 // styles
 const CardMediaWrapper = styled("div")({
@@ -61,10 +65,27 @@ const CardMediaParts = styled("img")({
   animation: "10s blink ease-in-out infinite",
 });
 
-// ========================|| UNDER CONSTRUCTION PAGE ||======================== //
-
 const UnderConstruction = () => {
   const theme = useTheme();
+  const navigate = useNavigate();
+  const [checking, setChecking] = useState(true);
+
+  useEffect(async () => {
+    try {
+      const res = await fetch(process.env.REACT_APP_BASE_URL);
+      console.log("res", res);
+      if (res.status === 200) {
+        navigate("/");
+      }
+    } catch (err) {
+      setChecking(false);
+      console.log("error", err);
+    }
+  }, []);
+
+  if (checking) {
+    return <LinearProgress color="secondary" />;
+  }
 
   return (
     <ConstructionCard>
@@ -81,7 +102,7 @@ const UnderConstruction = () => {
                 }
               />
               <CardMediaParts src={imageParts} />
-              <CardMediaBuild src={image}/>
+              <CardMediaBuild src={image} />
             </CardMediaWrapper>
           </Grid>
           <Grid item xs={12}>

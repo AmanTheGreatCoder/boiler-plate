@@ -30,18 +30,18 @@ const columns = [
     style: { minWidth: 30, textTransform: "capitalize", maxWidth: 150 },
   },
   {
-    id: "isActive",
-    label: "Active",
-  },
-  {
     id: "assignedTo.fullName",
     label: "Assigned To",
     style: { minWidth: 30, textAlign: "center", maxWidth: 150 },
-    fallback: (
-      <Button size="small" variant="contained">
-        Assign
-      </Button>
-    ),
+    // fallback: (
+    //   <Button size="small" variant="contained">
+    //     Assign
+    //   </Button>
+    // ),
+  },
+  {
+    id: "isActive",
+    label: "Active",
   },
   {
     id: "actions",
@@ -76,6 +76,7 @@ function PhoneNumber({
       add={true}
       addEditRef={addEditRef}
       filterRef={filterRef}
+      importRef={importRef}
       assignModalRef={assignModalRef}
       columns={columns}
       setEditData={setEditData}
@@ -89,21 +90,22 @@ function PhoneNumber({
         rowsPerPage={rowsPerPage}
         ref={addEditRef}
       />
-      <AssignNumberModal
+      {/* <AssignNumberModal
         ref={assignModalRef}
         editData={editData}
         getList={getList}
         clearSearchField={clearSearchField}
         setSearch={setSearch}
         rowsPerPage={rowsPerPage}
-      />
+      /> */}
       <PhoneFilter
         onFilterChange={(values) => {
-          const { cityId, countryId } = values;
+          const { cityId, countryId, providerId } = values;
           filterRef.current.handleClose();
           setQuery({
             cityId: cityId?._id || "",
             countryId: countryId?._id || "",
+            providerId: providerId?._id || "",
           });
         }}
         onClear={() => {

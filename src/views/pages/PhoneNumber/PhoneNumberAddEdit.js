@@ -71,7 +71,7 @@ const PhoneNumberAddEdit = forwardRef(
 
           if (!res.error) {
             modalRef.current.handleClose();
-            getList(rowsPerPage);
+            getList();
             setSearch("");
             clearSearchField();
           }
@@ -88,69 +88,68 @@ const PhoneNumberAddEdit = forwardRef(
           resetForm,
           submitForm,
           setFieldValue,
-        }) => (
-          <SimpleModal
-            title={MODULE_NAME}
-            submitForm={submitForm}
-            resetForm={resetForm}
-            ref={modalRef}
-            errors={errors}
-            handleSubmit={handleSubmit}
-          >
-            <Layout
-              itemsInRow={2}
-              components={[
-                // <ReusableValidation
-                //   varName="phoneNumber"
-                //   control="isNumber"
-                //   fieldName={"Phone Number"}
-                //   required={true}
-                // />,
-                <AutoComplete
-                  placeholder="Choose a country"
-                  url="country/list"
-                  fieldName="countryId"
-                  errorName={"Country"}
-                  required={true}
-                  optionRow={[
-                    "countryName",
-                    "isoCountry",
-                    { countryCode: true, field: "countryCode" },
-                  ]}
-                  showFlag={true}
-                  valueToShowInField="countryName"
-                  onChange={(value) => {
-                    setFieldValue("cityId", "");
-                  }}
-                />,
-                <CustomNumberWithCountry/>,
-                <AutoComplete
-                  placeholder="Choose a provider"
-                  url="provider/list"
-                  fieldName="providerId"
-                  errorName={"Provider"}
-                  // onChange={}
-                  required={true}
-                  optionRow={["name"]}
-                  valueToShowInField="name"
-                />,
-                values.countryId && (
+        }) => {
+          console.log("values", values);
+          return (
+            <SimpleModal
+              title={editData ? "Edit" : "Add"}
+              submitForm={submitForm}
+              resetForm={resetForm}
+              ref={modalRef}
+              errors={errors}
+              handleSubmit={handleSubmit}
+            >
+              <Layout
+                components={[
                   <AutoComplete
-                    key={values.countryId._id}
+                    placeholder="Choose a country"
+                    url="country/list"
+                    fieldName="countryId"
+                    errorName={"Country"}
+                    required={true}
+                    optionRow={[
+                      "countryName",
+                      "isoCountry",
+                      { countryCode: true, field: "countryCode" },
+                    ]}
+                    showFlag={true}
+                    valueToShowInField="countryName"
+                    onChange={(value) => {
+                      setFieldValue("cityId", "");
+                    }}
+                  />,
+                  <AutoComplete
+                    key={values?.countryId?._id}
                     placeholder="Choose a city"
-                    url="city/list"
+                    disabled={!values.countryId}
+                    url={values?.countryId ? "city/list" : ""}
                     required={true}
                     fieldName="cityId"
                     query={{ countryId: values?.countryId?._id }}
                     errorName={"City"}
                     optionRow={["cityName"]}
                     valueToShowInField="cityName"
-                  />
-                ),
-              ]}
-            />
-          </SimpleModal>
-        )}
+                  />,
+                  <AutoComplete
+                    placeholder="Choose a provider"
+                    url="provider/list"
+                    fieldName="providerId"
+                    errorName={"Provider"}
+                    required={true}
+                    optionRow={["name"]}
+                    valueToShowInField="name"
+                  />,
+                  <ReusableValidation
+                    varName="phoneNumber"
+                    control="isNumber"
+                    fieldName={"Phone Number"}
+                    required={true}
+                  />,
+                ]}
+              />
+            </SimpleModal>
+          );
+        }}
       </Formik>
     );
   }

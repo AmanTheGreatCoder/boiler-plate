@@ -1,7 +1,7 @@
 import { memo } from "react";
 
 // material-ui
-import { Typography } from "@mui/material";
+import { IconButton, Typography } from "@mui/material";
 
 // project imports
 import NavGroup from "./NavGroup";
@@ -9,7 +9,7 @@ import menuItem from "menu-items";
 
 // ==============================|| SIDEBAR MENU LIST ||============================== //
 
-const MenuList = () => {
+const MenuList = ({ drawerOpen }) => {
   const navItems = menuItem.items.map((item, index) => {
     switch (item.type) {
       case "group":
@@ -17,6 +17,7 @@ const MenuList = () => {
           <NavGroup
             key={item.id}
             item={item}
+            showText={drawerOpen}
             lastItem={menuItem.items.length - 1 === index}
           />
         );

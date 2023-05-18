@@ -24,14 +24,14 @@ const columns = [
     label: "Name",
   },
   {
-    id: "isActive",
-    label: "Active",
-  },
-  {
     id: "outboundActiveGateway",
     label: "Gateway",
     component: "toggle",
     endpoint: "active-gateway",
+  },
+  {
+    id: "isActive",
+    label: "Active",
   },
   {
     id: "actions",

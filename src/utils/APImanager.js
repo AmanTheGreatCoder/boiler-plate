@@ -2,7 +2,7 @@ import CustomAlert from "components/CustomAlert";
 
 export default class APIManager {
   constructor() {
-    this.baseURL = "https://mobile-api2.alpha-dev.streamspace.ai";
+    console.log("base url", process.env.REACT_APP_BASE_URL);
   }
 
   checkInternet() {
@@ -41,7 +41,7 @@ export default class APIManager {
 
   async requestForm(endpoint, method, body) {
     if (this.checkInternet()) {
-      const response = await fetch(`${this.baseURL}/${endpoint}`, {
+      const response = await fetch(`${process.env.REACT_APP_BASE_URL}/${endpoint}`, {
         method: method,
         headers: {
           accept: "*/*",
@@ -59,7 +59,7 @@ export default class APIManager {
     if (this.checkInternet()) {
       let response, data;
       try {
-        response = await fetch(`${this.baseURL}/${endpoint}`, {
+        response = await fetch(`${process.env.REACT_APP_BASE_URL}/${endpoint}`, {
           method: method,
           headers: {
             "Content-Type": "application/json",

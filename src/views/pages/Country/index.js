@@ -17,6 +17,11 @@ const columns = [
     style: { minWidth: 100, maxWidth: 150 },
     prefix: "+",
   },
+  {
+    id: "isoCountry",
+    label: "ISO",
+    style: { minWidth: 30, maxWidth: 150 },
+  },
   { id: "flag", label: "Flag", style: { minWidth: 30, maxWidth: 150 } },
   {
     id: "isActive",
@@ -72,7 +77,7 @@ function Country(props) {
         getList={getList}
         rowsPerPage={rowsPerPage}
         setSearch={setSearch}
-        title={MODULE_NAME}
+        title={'Import'}
         url="country/import"
         ref={importRef}
       />

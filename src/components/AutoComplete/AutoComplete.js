@@ -17,9 +17,11 @@ function AutoComplete({
   disableClear = false,
   optionRow,
   valueToShowInField,
+  inputProps,
+  InputProps,
   fieldName,
   errorName,
-  disabled,
+  disabled = false,
   showFlag,
   query,
   onChange,
@@ -49,9 +51,25 @@ function AutoComplete({
       });
     }
     const res = await apiManager.get(queryString);
+    console.log("res", res);
+    console.log("url includes", url.includes("country"));
     if (!res.error) {
       if (showFlag) {
         setImageUrl(res.data.imageUrl);
+      }
+
+      if (url.includes("country")) {
+        const temp = res.data.data.map((e) => {
+          let t = e.countryName;
+          // t[0] = t[0].toUpperCase();
+          console.log("t", t);
+          return {
+            ...e,
+            countryName: t,
+          };
+        });
+        setOptions([...options, ...temp]);
+        return;
       }
       setOptions([...options, ...res.data.data]);
     }
@@ -124,13 +142,21 @@ function AutoComplete({
   const { setValue, setTouched, setError } = helpers;
   const hasError = Boolean(error) && touched;
 
-  useEffect(() => {
-    console.log("form value", formValue);
-  }, [formValue]);
-
-  useEffect(() => {
-    console.log("values filed", value);
-  }, [value]);
+  const getOptionLabel = (option) => {
+    if (typeof valueToShowInField === "object") {
+      let v1 = "";
+      valueToShowInField.map((e) => {
+        if (e === "isoCountry") {
+          v1 += `(${option[e]})`;
+        } else if (e === "countryName") {
+          v1 += option[e];
+        }
+        v1 += " ";
+      });
+      return v1;
+    }
+    return valueToShowInField ? option[valueToShowInField] : option;
+  };
 
   return (
     <FormControl fullWidth>
@@ -144,9 +170,7 @@ function AutoComplete({
         name={name}
         disabled={disabled}
         autoHighlight
-        getOptionLabel={(option) =>
-          valueToShowInField ? option[valueToShowInField] : option
-        }
+        getOptionLabel={getOptionLabel}
         // isOptionEqualToValue={(option, value) => option.id === value.id}
         renderOption={(props, option) =>
           optionRow && (
@@ -172,7 +196,6 @@ function AutoComplete({
           onChange && onChange(value);
         }}
         ListboxProps={{
-          
           onScroll: (event) => {
             const listboxNode = event.currentTarget;
             if (
@@ -180,7 +203,6 @@ function AutoComplete({
               listboxNode.scrollHeight
             ) {
               loadMoreResults();
-              // console.log('scrolled to the bottom!')
             }
           },
         }}
@@ -201,6 +223,7 @@ function AutoComplete({
               }}
               inputProps={{
                 ...params.inputProps,
+                ...inputProps,
                 autoComplete: "off", // disable autocomplete and autofill
               }}
             />

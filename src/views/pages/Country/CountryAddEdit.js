@@ -97,7 +97,7 @@ const CountryAddEdit = forwardRef(
           submitForm,
         }) => (
           <SimpleModal
-            title={MODULE_NAME}
+            title={editData ? "Edit" : "Add"}
             submitForm={submitForm}
             resetForm={resetForm}
             ref={modalRef}
@@ -105,7 +105,6 @@ const CountryAddEdit = forwardRef(
             handleSubmit={handleSubmit}
           >
             <Layout
-              itemsInRow={2}
               components={[
                 <ReusableValidation
                   varName="countryName"

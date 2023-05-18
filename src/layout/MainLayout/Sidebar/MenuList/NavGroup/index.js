@@ -8,9 +8,7 @@ import { Divider, List, Typography } from "@mui/material";
 import NavItem from "../NavItem";
 import NavCollapse from "../NavCollapse";
 
-// ==============================|| SIDEBAR MENU LIST GROUP ||============================== //
-
-const NavGroup = ({ item, lastItem }) => {
+const NavGroup = ({ item, lastItem, showText }) => {
   const theme = useTheme();
 
   // menu list collapse & items
@@ -19,7 +17,14 @@ const NavGroup = ({ item, lastItem }) => {
       case "collapse":
         return <NavCollapse key={menu.id} menu={menu} level={1} />;
       case "item":
-        return <NavItem key={menu.id} item={menu} level={1} />;
+        return (
+          <NavItem
+            showText={showText}
+            key={menu.id}
+            item={menu}
+            level={1}
+          />
+        );
       default:
         return (
           <Typography key={menu.id} variant="h6" color="error" align="center">

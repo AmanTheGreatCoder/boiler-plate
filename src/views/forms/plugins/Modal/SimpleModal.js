@@ -58,8 +58,13 @@ const Body = forwardRef(
           style={modalStyle}
           sx={{
             position: "absolute",
-            width: size || { xs: "90%", sm: "60%", lg: "50%", xl: "50%" },
-            // width: '70%',
+            width: size || {
+              xs: "80%",
+              sm: "50%",
+              md: "40%",
+              lg: "35%",
+              xl: "30%",
+            },
             top: "50%",
             left: "50%",
             transform: "translate(-50%, -50%)",
@@ -155,6 +160,9 @@ const SimpleModal = forwardRef(
         <Modal
           open={open}
           onClose={handleClose}
+          // sx={{
+          //   width: size || { xs: "90%", sm: "60%", lg: "50%", xl: "50%" },
+          // }}
           aria-labelledby="simple-modal-title"
           aria-describedby="simple-modal-description"
         >

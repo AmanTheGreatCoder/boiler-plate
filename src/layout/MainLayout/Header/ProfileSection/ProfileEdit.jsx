@@ -1,35 +1,30 @@
 import ReusableValidation from "components/ReusableValidation/ReusableValidation";
 import { Formik } from "formik";
-import React, { forwardRef, useEffect, useState } from "react";
-import APIManager from "utils/APImanager";
+import { forwardRef } from "react";
 import SimpleModal from "views/forms/plugins/Modal/SimpleModal";
-import {
-  FormControl,
-  FormControlLabel,
-  FormGroup,
-  Switch,
-} from "@mui/material";
-import * as Yup from "yup";
 import { trimValues } from "utils/Helper";
-import { MODULE_NAME } from "./Values";
 import AutoComplete from "components/AutoComplete/AutoComplete";
 import { Layout } from "components/Layout/Layout";
+import APIManager from "utils/APImanager";
 
 const apiManager = new APIManager();
 
-const CityAddEdit = forwardRef(
+const ProfileEdit = forwardRef(
   (
     { getList, rowsPerPage, editData, setSearch, clearSearchField },
     modalRef
   ) => {
+    const disabled = editData ? true : false;
+
     let initialValues = {
-      cityName: editData.cityName || "",
-      SelectValue: editData.countryId || "",
-      isActive: true,
+      fullName: editData?.fullName || "",
+      phoneNumber: editData?.phoneNumber || "",
+      CountryValue: editData?.countryCode,
+      email: editData?.email || "",
     };
+
     if (editData) {
-      initialValues._id = editData._id;
-      console.log("edit data", editData);
+      initialValues._id = editData?._id;
     }
 
     return (
@@ -37,16 +32,11 @@ const CityAddEdit = forwardRef(
         enableReinitialize
         initialValues={initialValues}
         onSubmit={async (values) => {
-          const { _id: countryId } = values.SelectValue;
-          const { cityName, isActive } = values;
-          const trimmedValues = trimValues({ countryId, cityName, isActive });
-
+          const { countryCode } = values.CountryValue;
+          const trimmedValues = trimValues({ ...values, countryCode });
           const res = editData
-            ? await apiManager.patch(
-                `city/update/${initialValues._id}`,
-                trimmedValues
-              )
-            : await apiManager.post("city/create", trimmedValues);
+            ? await apiManager.patch(`user/update/${values._id}`, trimmedValues)
+            : await apiManager.post(`auth/admin-register`, trimmedValues);
           if (!res.error) {
             modalRef.current.handleClose();
             getList(rowsPerPage);
@@ -66,10 +56,9 @@ const CityAddEdit = forwardRef(
           resetForm,
           submitForm,
         }) => {
-          console.log("values", values);
           return (
             <SimpleModal
-              title={editData ? "Edit" : "Add"}
+              title={"Edit Profile"}
               submitForm={submitForm}
               resetForm={resetForm}
               ref={modalRef}
@@ -79,27 +68,37 @@ const CityAddEdit = forwardRef(
               <Layout
                 components={[
                   <ReusableValidation
-                    varName="cityName"
-                    fieldName={"City Name"}
+                    varName="fullName"
+                    fieldName={"Name"}
                     required={true}
-                    maxLength={100}
+                  />,
+                  <ReusableValidation
+                    varName="email"
+                    fieldName={"Email"}
+                    required={true}
+                    control={"isEmail"}
                   />,
                   <AutoComplete
-                    placeholder="Choose a country"
+                    disabled={disabled}
+                    placeholder="Choose a country code"
                     url="country/list"
-                    fieldName="SelectValue"
+                    fieldName="CountryValue"
                     errorName={"Country"}
+                    required={true}
                     optionRow={[
                       "countryName",
                       "isoCountry",
                       { countryCode: true, field: "countryCode" },
                     ]}
                     showFlag={true}
-                    valueToShowInField={["countryName", "isoCountry"]}
+                    valueToShowInField={editData ? "" : "countryCode"}
+                  />,
+                  <ReusableValidation
+                    disabled={disabled}
+                    varName="phoneNumber"
+                    control="isNumber"
+                    fieldName={"Phone Number"}
                     required={true}
-                    inputProps={{
-                      style: { textTransform: "capitalize" },
-                    }}
                   />,
                 ]}
               />
@@ -111,4 +110,6 @@ const CityAddEdit = forwardRef(
   }
 );
 
-export default CityAddEdit;
+ProfileEdit.propTypes = {};
+
+export default ProfileEdit;

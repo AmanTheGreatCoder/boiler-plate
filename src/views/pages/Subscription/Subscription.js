@@ -35,6 +35,7 @@ function Subscription(props) {
     setSearch,
     clearSearchField,
     children,
+    search,
     ...otherProps
   } = props;
   const addEditRef = useRef(null);
@@ -55,6 +56,7 @@ function Subscription(props) {
     >
       <SubscriptionAddEdit
         clearSearchField={clearSearchField}
+        search={search}
         setSearch={setSearch}
         editData={editData}
         getList={getList}

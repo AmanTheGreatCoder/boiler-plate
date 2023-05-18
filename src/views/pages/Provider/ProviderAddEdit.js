@@ -107,6 +107,13 @@ const ProviderAddEdit = forwardRef(
             ref={modalRef}
             errors={errors}
             handleSubmit={handleSubmit}
+            size={{
+              xs: "80%",
+              sm: "50%",
+              md: "40%",
+              lg: "80%",
+              xl: "30%",
+            }}
           >
             <ReusableValidation
               varName="name"
@@ -224,13 +231,13 @@ const ProviderAddEdit = forwardRef(
                       fieldName="Outbound Prefix"
                     />,
                     <ReusableValidation
+                      varName="outboundUserName"
+                      fieldName="Outbound Username"
+                    />,
+                    <ReusableValidation
                       varName="outboundPassword"
                       type="password"
                       fieldName="Outbound Password"
-                    />,
-                    <ReusableValidation
-                      varName="outboundUserName"
-                      fieldName="Outbound Username"
                     />,
                     <ReusableSwitch
                       varName="outboundRegister"

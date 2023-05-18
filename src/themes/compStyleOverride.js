@@ -131,6 +131,9 @@ export default function componentStyleOverrides(
         root: {
           background: outlinedFilled ? bgColor : "transparent",
           borderRadius: `${borderRadius}px`,
+          "&.Mui-error .MuiOutlinedInput-notchedOutline": {
+            borderColor: theme.palette.error.main,
+          },
           "& .MuiOutlinedInput-notchedOutline": {
             borderColor:
               mode === "dark"

@@ -11,11 +11,11 @@ import {
 } from "@tabler/icons";
 
 const Dashboard = {
-  id: "settings",
+  id: "dashboard",
   type: "group",
   children: [
     {
-      id: "default",
+      id: "dashboard",
       title: <FormattedMessage id="dashboard" />,
       type: "item",
       url: "/dashboard",

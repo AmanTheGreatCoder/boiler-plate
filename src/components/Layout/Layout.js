@@ -1,7 +1,7 @@
 import { Grid } from "@mui/material";
 import React from "react";
 
-function Layout({ components, itemsInRow }) {
+function Layout({ components, itemsInRow = 1 }) {
   return (
     <Grid spacing={1} container>
       {components.map((e) => {

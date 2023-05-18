@@ -51,10 +51,9 @@ const CityFilter = forwardRef(
           setFieldValue,
         }) => (
           <SimpleModal
-            size={{ xs: "80%", sm: "50%", md: "40%", lg: "35%", xl: "30%" }}
             showClearButton={values.countryId ? true : false}
             resetOnClear={true}
-            title={MODULE_NAME}
+            title={'Filter'}
             onClear={onClear}
             submitForm={submitForm}
             resetForm={resetForm}

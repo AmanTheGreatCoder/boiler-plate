@@ -33,6 +33,7 @@ const PhoneFilter = forwardRef(
     let initialValues = {
       countryId: "",
       cityId: "",
+      providerId: "",
     };
     return (
       <Formik
@@ -55,9 +56,13 @@ const PhoneFilter = forwardRef(
           setFieldValue,
         }) => (
           <SimpleModal
-            showClearButton={values.countryId || values.cityId ? true : false}
+            showClearButton={
+              values.countryId || values.cityId || values.providerId
+                ? true
+                : false
+            }
             resetOnClear={true}
-            title={MODULE_NAME}
+            title={"Filter"}
             onClear={onClear}
             submitForm={submitForm}
             resetForm={resetForm}
@@ -66,7 +71,6 @@ const PhoneFilter = forwardRef(
             handleSubmit={handleSubmit}
           >
             <Layout
-              itemsInRow={2}
               components={[
                 <AutoComplete
                   placeholder="Choose a country"
@@ -96,6 +100,15 @@ const PhoneFilter = forwardRef(
                   errorName={"City"}
                   optionRow={["cityName"]}
                   valueToShowInField="cityName"
+                />,
+                <AutoComplete
+                  placeholder="Choose a provider"
+                  disableClear={true}
+                  url="provider/list"
+                  fieldName="providerId"
+                  errorName={"Provider"}
+                  optionRow={["name"]}
+                  valueToShowInField="name"
                 />,
               ]}
             />

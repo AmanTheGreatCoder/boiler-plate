@@ -48,7 +48,7 @@ const withPagination = (WrappedComponent, url, { ...otherParams }) => {
     };
 
     const getList = async () => {
-      console.log("get list called search and query", search, query);
+      console.log("get list called search", search);
       setLoading(true);
       let queryString = `${url}?limit=${rowsPerPage}&pageNo=${
         page + 1
@@ -76,7 +76,9 @@ const withPagination = (WrappedComponent, url, { ...otherParams }) => {
         }
       }
     };
+
     useEffect(() => {
+      console.log("search ", search);
       getList();
     }, [rowsPerPage, page, query, search]);
 
@@ -100,6 +102,7 @@ const withPagination = (WrappedComponent, url, { ...otherParams }) => {
         setList={setList}
         loading={loading}
         setSearch={setSearch}
+        search={search}
         setQuery={setQuery}
         clearSearchField={() => searchRef.current.clearSearch()}
         searchSection={

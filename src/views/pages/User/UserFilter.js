@@ -53,7 +53,6 @@ const UserFilter = forwardRef(
           setFieldValue,
         }) => (
           <SimpleModal
-            size={{ xs: "80%", sm: "50%", md: "40%", lg: "35%", xl: "30%" }}
             showClearButton={values.filterObj ? true : false}
             resetOnClear={true}
             title={MODULE_NAME}

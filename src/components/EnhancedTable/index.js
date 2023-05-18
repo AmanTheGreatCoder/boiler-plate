@@ -27,6 +27,7 @@ function EnhancedTable(props) {
     urlPrefix,
     children,
     title,
+    addBtnTitle = "Add",
     searchSection,
     filtered,
     pagination,
@@ -114,7 +115,8 @@ function EnhancedTable(props) {
                     style={renderStyle(ele.id, "body")}
                     align={ele.align}
                     className={`${
-                      ele.id === "countryName" || ele.id === "cityName"
+                      ele.id.includes("countryName") ||
+                      ele.id.includes("cityName")
                         ? "capitalize"
                         : ""
                     }`}
@@ -208,7 +210,7 @@ function EnhancedTable(props) {
         onClick={() => {
           confirm(confirmMessage(`${e[ele.id] ? "de" : ""}active`)).then(
             async () => {
-              const res = await apiManager.put(
+              const res = await apiManager.patch(
                 `${urlPrefix}/${ele.endpoint ? ele.endpoint : "status"}/${
                   e._id
                 }`,
@@ -335,7 +337,7 @@ function EnhancedTable(props) {
               startIcon={<AddIcon />}
               onClick={() => addOnClick()}
             >
-              Add
+              {addBtnTitle}
             </Button>
           )}
           {importRef && (

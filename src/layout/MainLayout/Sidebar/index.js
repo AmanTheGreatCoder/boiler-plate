@@ -1,23 +1,42 @@
 import PropTypes from "prop-types";
-import { Fragment, memo, useMemo } from "react";
-
-// material-ui
+import { memo, useMemo } from "react";
 import { useTheme } from "@mui/material/styles";
-import { Box, Drawer, Stack, useMediaQuery } from "@mui/material";
+import { Box, Drawer, useMediaQuery } from "@mui/material";
 import PerfectScrollbar from "react-perfect-scrollbar";
-
-// third-party
-
-// project imports
 import MenuList from "./MenuList";
 import LogoSection from "../LogoSection";
-import MenuCard from "./MenuCard";
 import { openDrawer } from "store/slices/menu";
 import { useDispatch, useSelector } from "store";
 import { drawerWidth } from "store/constant";
-import Chip from "ui-component/extended/Chip";
+import styled from "@emotion/styled";
 
-// ==============================|| SIDEBAR DRAWER ||============================== //
+const MenuStyle = styled.div`
+  position: fixed;
+  top: 88px;
+  bottom: 0;
+  height: calc(100vh - 88px);
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  ul {
+    padding: 0;
+  }
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  & .MuiListItemButton-root {
+    padding: 10px 14px;
+    justify-content: center;
+    margin: 5px 10px;
+  }
+
+  & .MuiListItemIcon-root {
+    min-width: 0;
+  }
+`;
 
 const Sidebar = ({ window }) => {
   const theme = useTheme();
@@ -39,15 +58,8 @@ const Sidebar = ({ window }) => {
 
   const drawer = useMemo(
     () => (
-      // <PerfectScrollbar
-      //   component="div"
-      //   style={{
-      //     height: !matchUpMd ? "calc(100vh - 56px)" : "calc(100vh - 88px)",
-      //     paddingLeft: "16px",
-      //     paddingRight: "16px",
-      //   }}
-      // >
-      <div
+      <PerfectScrollbar
+        component="div"
         style={{
           height: !matchUpMd ? "calc(100vh - 56px)" : "calc(100vh - 88px)",
           paddingLeft: "16px",
@@ -55,18 +67,7 @@ const Sidebar = ({ window }) => {
         }}
       >
         <MenuList />
-        {/* <MenuCard /> */}
-        <Stack direction="row" justifyContent="center" sx={{ mb: 2 }}>
-          <Chip
-            label={process.env.REACT_APP_VERSION}
-            disabled
-            chipcolor="secondary"
-            size="small"
-            sx={{ cursor: "pointer" }}
-          />
-        </Stack>
-        {/* </PerfectScrollbar> */}
-      </div>
+      </PerfectScrollbar>
     ),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [matchUpMd]
@@ -101,9 +102,14 @@ const Sidebar = ({ window }) => {
         ModalProps={{ keepMounted: true }}
         color="inherit"
       >
-        {drawerOpen && logo}
-        {drawerOpen && drawer}
+        {logo}
+        {drawer}
       </Drawer>
+      {!drawerOpen && matchUpMd && (
+        <MenuStyle>
+          <MenuList drawerOpen={drawerOpen} />
+        </MenuStyle>
+      )}
     </Box>
   );
 };

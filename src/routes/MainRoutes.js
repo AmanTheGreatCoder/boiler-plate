@@ -6,7 +6,9 @@ import Loadable from "ui-component/Loadable";
 import AuthGuard from "utils/route-guard/AuthGuard";
 
 // dashboard routing
-const DashboardDefault = Loadable(lazy(() => import("views/dashboard/Default")));
+const DashboardDefault = Loadable(
+  lazy(() => import("views/dashboard/Default"))
+);
 const DashboardAnalytics = Loadable(
   lazy(() => import("views/dashboard/Analytics"))
 );
@@ -274,7 +276,7 @@ const UtilsAnimation = Loadable(
 const UtilsGrid = Loadable(lazy(() => import("views/utilities/Grid")));
 
 // settings routing
-const Country = Loadable(lazy(() => import("views/pages/country/Country")));
+const Country = Loadable(lazy(() => import("views/pages/Country")));
 const City = Loadable(lazy(() => import("views/pages/City/City")));
 const Subscription = Loadable(
   lazy(() => import("views/pages/Subscription/Subscription"))

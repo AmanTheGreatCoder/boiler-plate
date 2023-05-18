@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { forwardRef, useEffect } from "react";
+import { Fragment, forwardRef, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 // material-ui
@@ -10,6 +10,7 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  Tooltip,
   Typography,
   useMediaQuery,
 } from "@mui/material";
@@ -24,7 +25,7 @@ import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 
 // ==============================|| SIDEBAR MENU LIST ITEMS ||============================== //
 
-const NavItem = ({ item, level }) => {
+const NavItem = ({ item, level, showText = true, showTooltip }) => {
   const theme = useTheme();
   const location = useLocation();
   const matchesSM = useMediaQuery(theme.breakpoints.down("lg"));
@@ -77,7 +78,7 @@ const NavItem = ({ item, level }) => {
     // eslint-disable-next-line
   }, [location]);
 
-  return (
+  const ListItems = () => (
     <ListItemButton
       {...listItemProps}
       disabled={item.disabled}
@@ -95,30 +96,35 @@ const NavItem = ({ item, level }) => {
       <ListItemIcon sx={{ my: "auto", minWidth: !item?.icon ? 18 : 36 }}>
         {itemIcon}
       </ListItemIcon>
-      <ListItemText
-        primary={
-          <Typography
-            variant={
-              openItem?.findIndex((id) => id === item.id) > -1 ? "h5" : "body1"
-            }
-            color="inherit"
-          >
-            {item.title}
-          </Typography>
-        }
-        secondary={
-          item.caption && (
+
+      {showText && (
+        <ListItemText
+          primary={
             <Typography
-              variant="caption"
-              sx={{ ...theme.typography.subMenuCaption }}
-              display="block"
-              gutterBottom
+              variant={
+                openItem?.findIndex((id) => id === item.id) > -1
+                  ? "h5"
+                  : "body1"
+              }
+              color="inherit"
             >
-              {item.caption}
+              {item.title}
             </Typography>
-          )
-        }
-      />
+          }
+          secondary={
+            item.caption && (
+              <Typography
+                variant="caption"
+                sx={{ ...theme.typography.subMenuCaption }}
+                display="block"
+                gutterBottom
+              >
+                {item.caption}
+              </Typography>
+            )
+          }
+        />
+      )}
       {item.chip && (
         <Chip
           color={item.chip.color}
@@ -129,6 +135,14 @@ const NavItem = ({ item, level }) => {
         />
       )}
     </ListItemButton>
+  );
+
+  return !showText ? (
+    <Tooltip arrow={true} title={item.title} placement={"top"}>
+      {ListItems()}
+    </Tooltip>
+  ) : (
+    ListItems()
   );
 };
 
