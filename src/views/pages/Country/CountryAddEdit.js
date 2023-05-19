@@ -107,14 +107,14 @@ const CountryAddEdit = forwardRef(
             <Layout
               components={[
                 <ReusableValidation
-                  varName="countryName"
-                  fieldName={"Country Name"}
+                  fieldName="countryName"
+                  label={"Country Name"}
                   required={true}
                   // isSubmitting={isSubmitting}
                 />,
                 <ReusableValidation
-                  varName="countryCode"
-                  fieldName={"Country Code"}
+                  fieldName="countryCode"
+                  label={"Country Code"}
                   required={true}
                   control="countryCode"
                   InputProps={{
@@ -128,8 +128,8 @@ const CountryAddEdit = forwardRef(
                   // isSubmitting={isSubmitting}
                 />,
                 <ReusableValidation
-                  varName="isoCountry"
-                  fieldName={"ISO Country"}
+                  fieldName="isoCountry"
+                  label={"ISO Country"}
                   required={true}
                   control="isoCountry"
                   // isSubmitting={isSubmitting}
@@ -137,8 +137,8 @@ const CountryAddEdit = forwardRef(
               ]}
             />
             {/* <ReusableValidation
-            varName="flag"
-            fieldName={"Flag"}
+            fieldName="flag"
+            label={"Flag"}
             required={true}
           /> */}
           </SimpleModal>

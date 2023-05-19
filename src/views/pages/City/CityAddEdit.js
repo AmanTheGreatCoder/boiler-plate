@@ -14,6 +14,7 @@ import { trimValues } from "utils/Helper";
 import { MODULE_NAME } from "./Values";
 import AutoComplete from "components/AutoComplete/AutoComplete";
 import { Layout } from "components/Layout/Layout";
+import ChooseCountry from "components/ChooseCountry";
 
 const apiManager = new APIManager();
 
@@ -24,7 +25,7 @@ const CityAddEdit = forwardRef(
   ) => {
     let initialValues = {
       cityName: editData.cityName || "",
-      SelectValue: editData.countryId || "",
+      countryId: editData.countryId || "",
       isActive: true,
     };
     if (editData) {
@@ -37,7 +38,7 @@ const CityAddEdit = forwardRef(
         enableReinitialize
         initialValues={initialValues}
         onSubmit={async (values) => {
-          const { _id: countryId } = values.SelectValue;
+          const { _id: countryId } = values.countryId;
           const { cityName, isActive } = values;
           const trimmedValues = trimValues({ countryId, cityName, isActive });
 
@@ -79,28 +80,12 @@ const CityAddEdit = forwardRef(
               <Layout
                 components={[
                   <ReusableValidation
-                    varName="cityName"
-                    fieldName={"City Name"}
+                    fieldName="cityName"
+                    label={"City Name"}
                     required={true}
                     maxLength={100}
                   />,
-                  <AutoComplete
-                    placeholder="Choose a country"
-                    url="country/list"
-                    fieldName="SelectValue"
-                    errorName={"Country"}
-                    optionRow={[
-                      "countryName",
-                      "isoCountry",
-                      { countryCode: true, field: "countryCode" },
-                    ]}
-                    showFlag={true}
-                    valueToShowInField={["countryName", "isoCountry"]}
-                    required={true}
-                    inputProps={{
-                      style: { textTransform: "capitalize" },
-                    }}
-                  />,
+                  <ChooseCountry />,
                 ]}
               />
             </SimpleModal>

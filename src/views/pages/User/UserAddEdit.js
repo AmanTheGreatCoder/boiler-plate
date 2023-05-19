@@ -9,6 +9,8 @@ import { useTheme } from "@mui/material/styles";
 import AutoComplete from "components/AutoComplete/AutoComplete";
 import { Layout } from "components/Layout/Layout";
 import { InputAdornment } from "@mui/material";
+import MuiPhoneNumber from "material-ui-phone-number";
+import { NumberWithCountryCode } from "components";
 
 const apiManager = new APIManager();
 
@@ -21,13 +23,17 @@ const UserAddEdit = forwardRef(
 
     let initialValues = {
       fullName: editData.fullName || "",
-      phoneNumber: editData.phoneNumber || "",
-      CountryValue: editData.countryCode,
       email: editData.email || "",
+      // phoneDetail: {
+      //   dialCode: editData.countryCode,
+      //   phoneNumber: editData.phoneNumber,
+      //   countryCode: editData.isoCountry
+      // },
     };
 
     if (editData) {
       initialValues._id = editData._id;
+      console.log("edit Data", editData);
     }
 
     return (
@@ -35,14 +41,20 @@ const UserAddEdit = forwardRef(
         enableReinitialize
         initialValues={initialValues}
         onSubmit={async (values) => {
-          const { countryCode } = values.CountryValue;
-          const trimmedValues = trimValues({ ...values, countryCode });
+          const { fullName, email } = values;
+          const { dialCode, phoneNumber } = values.phoneDetail;
+          const trimmedValues = trimValues({
+            fullName,
+            email,
+            countryCode: dialCode,
+            phoneNumber,
+          });
           const res = editData
             ? await apiManager.patch(`user/update/${values._id}`, trimmedValues)
             : await apiManager.post(`auth/admin-register`, trimmedValues);
           if (!res.error) {
             modalRef.current.handleClose();
-            getList(rowsPerPage);
+            getList();
             setSearch("");
             clearSearchField();
           }
@@ -72,37 +84,20 @@ const UserAddEdit = forwardRef(
               <Layout
                 components={[
                   <ReusableValidation
-                    varName="fullName"
-                    fieldName={"Name"}
+                    fieldName="fullName"
+                    label={"Name"}
                     required={true}
                   />,
                   <ReusableValidation
-                    varName="email"
-                    fieldName={"Email"}
+                    fieldName="email"
+                    label={"Email"}
                     required={true}
                     control={"isEmail"}
                   />,
-                  <AutoComplete
+                  <NumberWithCountryCode
                     disabled={disabled}
-                    placeholder="Choose a country code"
-                    url="country/list"
-                    fieldName="CountryValue"
-                    errorName={"Country"}
-                    required={true}
-                    optionRow={[
-                      "countryName",
-                      "isoCountry",
-                      { countryCode: true, field: "countryCode" },
-                    ]}
-                    showFlag={true}
-                    valueToShowInField={editData ? "" : "countryCode"}
-                  />,
-                  <ReusableValidation
-                    disabled={disabled}
-                    varName="phoneNumber"
-                    control="isNumber"
-                    fieldName={"Phone Number"}
-                    required={true}
+                    fieldName="phoneDetail"
+                    sx={{ mt: 1, mb: 0.5 }}
                   />,
                 ]}
               />

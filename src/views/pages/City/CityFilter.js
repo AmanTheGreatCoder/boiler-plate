@@ -4,6 +4,7 @@ import APIManager from "utils/APImanager";
 import SimpleModal from "views/forms/plugins/Modal/SimpleModal";
 import { MODULE_NAME } from "./Values";
 import AutoComplete from "components/AutoComplete/AutoComplete";
+import ChooseCountry from "components/ChooseCountry";
 
 const apiManager = new APIManager();
 
@@ -53,7 +54,7 @@ const CityFilter = forwardRef(
           <SimpleModal
             showClearButton={values.countryId ? true : false}
             resetOnClear={true}
-            title={'Filter'}
+            title={"Filter"}
             onClear={onClear}
             submitForm={submitForm}
             resetForm={resetForm}
@@ -61,20 +62,7 @@ const CityFilter = forwardRef(
             errors={errors}
             handleSubmit={handleSubmit}
           >
-            <AutoComplete
-              placeholder="Choose a country"
-              disableClear={true}
-              url="country/list"
-              fieldName="countryId"
-              errorName={"Country"}
-              optionRow={[
-                "countryName",
-                "isoCountry",
-                { countryCode: true, field: "countryCode" },
-              ]}
-              showFlag={true}
-              valueToShowInField="countryName"
-            />
+            <ChooseCountry disableClear={true} />
           </SimpleModal>
         )}
       </Formik>

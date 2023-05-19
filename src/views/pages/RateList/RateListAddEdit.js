@@ -100,18 +100,18 @@ const RateListAddEdit = forwardRef(
               itemsInRow={2}
               components={[
                 <ReusableValidation
-                  varName="dialCode"
+                  fieldName="dialCode"
                   control="isNumber"
                   fieldName="Dial Code"
                   required={true}
                 />,
                 <ReusableValidation
-                  varName="Destination"
+                  fieldName="Destination"
                   fieldName="Destination"
                   required={true}
                 />,
                 <ReusableValidation
-                  varName="rate"
+                  fieldName="rate"
                   control="isNumber"
                   fieldName="Rate"
                   min={0}
@@ -119,7 +119,7 @@ const RateListAddEdit = forwardRef(
                   required={true}
                 />,
                 <ReusableValidation
-                  varName="initialPulse"
+                  fieldName="initialPulse"
                   control="isNumber"
                   min={0}
                   max={30}
@@ -127,7 +127,7 @@ const RateListAddEdit = forwardRef(
                   required={true}
                 />,
                 <ReusableValidation
-                  varName="subsequentPulse"
+                  fieldName="subsequentPulse"
                   control="isNumber"
                   min={0}
                   max={30}
@@ -135,7 +135,7 @@ const RateListAddEdit = forwardRef(
                   required={true}
                 />,
                 <ReusableValidation
-                  varName="connectionCharge"
+                  fieldName="connectionCharge"
                   control="isNumber"
                   min={0}
                   max={5000}

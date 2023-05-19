@@ -80,77 +80,58 @@ const SIPExtensionsAddEdit = forwardRef(
             ref={modalRef}
             errors={errors}
             handleSubmit={handleSubmit}
+            size={{
+              xs: "80%",
+              sm: "50%",
+              md: "60%",
+              lg: "45%",
+              xl: "30%",
+            }}
           >
-            {/* <Grid container alignItems={'flex-start'} spacing={1}>
-                        <Grid item lg={6}>
-                            <ReusableValidation varName="sipDomain" control="isDomain" fieldName="SIP Domain" required={true} />
-                        </Grid>
-                        <Grid item lg={6}>
-                            <ReusableValidation varName="proxyServerIp" control="isIP" fieldName="Proxy Server IP" required={true} />
-                        </Grid>
-                        <Grid item lg={6}>
-                            <ReusableValidation varName="proxyServerPort" control="isPort" fieldName="Proxy Server Port" required={true} />
-                        </Grid>
-                        <Grid item lg={6}>
-                            <ReusableValidation varName="dnsServer" control="isIP" fieldName="DNS Server" required={true} />
-                        </Grid>
-                        <Grid item lg={6}>
-                            <ReusableValidation varName="mediaType" fieldName="Media Type" required={true} />
-                        </Grid>
-                        <Grid item lg={6}>
-                            <ReusableValidation varName="registerServer" fieldName="Register Server" />
-                        </Grid>
-                        <Grid item lg={6}>
-                    <ReusableValidation varName="sipTimeout" control="isNumber" fieldName="SIP Timeout" required={true} />
-                        </Grid>
-                        <Grid item lg={6}>
-                    <ReusableValidation varName="sipTransport" fieldName="SIP Transport" required={true} />
-                        </Grid>
-                    </Grid> */}
             <Layout
               itemsInRow={2}
               components={[
                 <ReusableValidation
-                  varName="sipDomain"
+                  fieldName="sipDomain"
                   control="isDomain"
                   fieldName="SIP Domain"
                   required={true}
                 />,
                 <ReusableValidation
-                  varName="proxyServerIp"
+                  fieldName="proxyServerIp"
                   control="isIP"
                   fieldName="Proxy Server IP"
                   required={true}
                 />,
                 <ReusableValidation
-                  varName="proxyServerPort"
+                  fieldName="proxyServerPort"
                   control="isPort"
                   fieldName="Proxy Server Port"
                   required={true}
                 />,
                 <ReusableValidation
-                  varName="dnsServer"
+                  fieldName="dnsServer"
                   control="isIP"
                   fieldName="DNS Server"
                   required={true}
                 />,
                 <ReusableValidation
-                  varName="mediaType"
+                  fieldName="mediaType"
                   fieldName="Media Type"
                   required={true}
                 />,
                 <ReusableValidation
-                  varName="registerServer"
+                  fieldName="registerServer"
                   fieldName="Register Server"
                 />,
                 <ReusableValidation
-                  varName="sipTimeout"
+                  fieldName="sipTimeout"
                   control="isNumber"
                   fieldName="SIP Timeout"
                   required={true}
                 />,
                 <ReusableValidation
-                  varName="sipTransport"
+                  fieldName="sipTransport"
                   fieldName="SIP Transport"
                   required={true}
                 />,

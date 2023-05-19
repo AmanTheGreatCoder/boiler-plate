@@ -5,6 +5,7 @@ import { MODULE_NAME } from "./Values";
 import UserFilter from "./UserFilter";
 import EnhancedTable from "components/EnhancedTable";
 import CustomAlert from "components/CustomAlert";
+import MuiPhoneNumber from "components/MuiPhoneNumber";
 
 const columns = [
   { id: "fullName", label: "Name", style: { minWidth: 30, maxWidth: 150 } },
@@ -42,6 +43,7 @@ function User(props) {
       title={MODULE_NAME}
       addBtnTitle="Add Admin"
       urlPrefix="user"
+      downloadUrl="https://mobile-api2.alpha-dev.streamspace.ai/sample/sample_import_phone.csv"
       pagination={children}
       add={true}
       addEditRef={addEditRef}

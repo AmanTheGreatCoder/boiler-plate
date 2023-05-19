@@ -3,15 +3,14 @@ import { Formik, FieldArray } from "formik";
 import { Fragment, forwardRef } from "react";
 import APIManager from "utils/APImanager";
 import SimpleModal from "views/forms/plugins/Modal/SimpleModal";
-import { Button, Grid } from "@mui/material";
+import { Grid, IconButton } from "@mui/material";
 import { trimValues } from "utils/Helper";
 import { MODULE_NAME } from "./Values";
 import ReusableSwitch from "components/ReusableSwitch.js/ReusableSwitch";
-import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
-import AddIcon from "@mui/icons-material/Add";
-import { dispatch } from "store";
 import { Layout } from "components/Layout/Layout";
 import CustomAlert from "components/CustomAlert";
+import { AddCircleOutline, RemoveCircleOutline } from "@mui/icons-material";
+import { useTheme } from "@mui/styles";
 
 const apiManager = new APIManager();
 
@@ -21,6 +20,8 @@ const ProviderAddEdit = forwardRef(
     modalRef
   ) => {
     console.log({ editDataCheck: editData });
+
+    const theme = useTheme();
 
     let initialValues = {
       name: editData.name || "",
@@ -99,192 +100,200 @@ const ProviderAddEdit = forwardRef(
           resetForm,
           submitForm,
           setFieldValue,
-        }) => (
-          <SimpleModal
-            title={MODULE_NAME}
-            submitForm={submitForm}
-            resetForm={resetForm}
-            ref={modalRef}
-            errors={errors}
-            handleSubmit={handleSubmit}
-            size={{
-              xs: "80%",
-              sm: "50%",
-              md: "40%",
-              lg: "80%",
-              xl: "30%",
-            }}
-          >
-            <ReusableValidation
-              varName="name"
-              fieldName={"Provider"}
-              required={true}
-            />
-            {
-              <Fragment>
-                <FieldArray name="inboundIP">
-                  {({ push, remove }) => (
-                    <Fragment>
-                      {/* <div className='mt-10 flex-center-bt'> */}
-                      <div className="flex-center-bt">
-                        <ReusableSwitch
-                          varName="isInbound"
-                          fieldName={"Inbound"}
-                        />
-                        {values.isInbound && (
-                          <Button
-                            size="small"
-                            variant="contained"
-                            startIcon={<AddIcon />}
-                            onClick={() =>
-                              push({
-                                ip: "",
-                                port: "",
-                              })
-                            }
-                          >
-                            Add
-                          </Button>
-                        )}
-                      </div>
-                      {values.isInbound &&
-                        values.inboundIP.map((ele, index) => (
-                          // <div style={{display: 'flex', alignItems: 'center'}}>
-                          <Grid
-                            container
-                            alignItems={"flex-start"}
-                            justifyContent={"space-between"}
-                            spacing={2}
-                          >
-                            <Grid item lg={5}>
-                              <ReusableValidation
-                                key={index + "ele"}
-                                varName={`inboundIP.${index}.ip`}
-                                control="isIP"
-                                fieldName="Inbound IP"
-                                required={true}
-                              />
-                            </Grid>
-                            <Grid item lg={5}>
-                              <ReusableValidation
-                                key={"ele" + index}
-                                varName={`inboundIP.${index}.port`}
-                                control="isPort"
-                                fieldName="Inbound Port"
-                                required={true}
-                              />
-                            </Grid>
-                            <Grid className="flex-end" item lg={2}>
-                              <Button
-                                variant="contained"
-                                sx={{ mt: 2 }}
-                                onClick={() => {
-                                  if (values.inboundIP.length > 1) {
-                                    remove(index);
-                                  } else {
-                                    CustomAlert({
-                                      message:
-                                        "Atleast one inbound is required",
-                                      color: "error",
-                                    });
-                                  }
-                                }}
+        }) => {
+          console.log("errors", errors);
+          return (
+            <SimpleModal
+              title={MODULE_NAME}
+              submitForm={submitForm}
+              resetForm={resetForm}
+              ref={modalRef}
+              errors={errors}
+              handleSubmit={handleSubmit}
+              size={{
+                xs: "80%",
+                sm: "50%",
+                md: "60%",
+                lg: "45%",
+                xl: "30%",
+              }}
+            >
+              <ReusableValidation
+                fieldName="name"
+                label={"Provider"}
+                required={true}
+              />
+              {
+                <Fragment>
+                  <FieldArray name="inboundIP">
+                    {({ push, remove }) => (
+                      <Fragment>
+                        {/* <div className='mt-10 flex-center-bt'> */}
+                        <div className="flex-center-bt">
+                          <ReusableSwitch
+                            fieldName="isInbound"
+                            label={"Inbound"}
+                          />
+                          {values.isInbound && (
+                            <IconButton
+                              onClick={() =>
+                                push({
+                                  ip: "",
+                                  port: "",
+                                })
+                              }
+                              color="secondary"
+                              size="medium"
+                            >
+                              <AddCircleOutline />
+                            </IconButton>
+                          )}
+                        </div>
+                        {values.isInbound &&
+                          values.inboundIP.map((ele, index) => (
+                            // <div style={{display: 'flex', alignItems: 'center'}}>
+                            <Grid
+                              container
+                              alignItems={"center"}
+                              justifyContent={"space-between"}
+                              spacing={2}
+                            >
+                              <Grid item lg={5}>
+                                <ReusableValidation
+                                  key={index + "ele"}
+                                  fieldName={`inboundIP.${index}.ip`}
+                                  control="isIP"
+                                  fieldName="Inbound IP"
+                                  required={true}
+                                />
+                              </Grid>
+                              <Grid item lg={5}>
+                                <ReusableValidation
+                                  key={"ele" + index}
+                                  fieldName={`inboundIP.${index}.port`}
+                                  control="isPort"
+                                  fieldName="Inbound Port"
+                                  required={true}
+                                />
+                              </Grid>
+                              <Grid
+                                className="flex-end"
+                                item
+                                lg={2}
                               >
-                                <RemoveCircleOutlineIcon />
-                              </Button>
+                                <IconButton
+                                  onClick={() => {
+                                    if (values.inboundIP.length > 1) {
+                                      remove(index);
+                                    } else {
+                                      CustomAlert({
+                                        message:
+                                          "Atleast one inbound is required",
+                                        color: "error",
+                                      });
+                                    }
+                                  }}
+                                  color="secondary"
+                                  size="medium"
+                                >
+                                  <RemoveCircleOutline
+                                    sx={{ color: theme.palette.error.main }}
+                                  />
+                                </IconButton>
+                              </Grid>
                             </Grid>
-                          </Grid>
-                          // </div>
-                        ))}
-                    </Fragment>
-                  )}
-                </FieldArray>
-              </Fragment>
-            }
-            <ReusableSwitch varName="isOutBound" fieldName={"Outbound"} />
-            {/* {values.isInbound && <Divider sx={{ mt: 1 }} />} */}
-            {values.isOutBound && (
-              <Fragment>
-                <Layout
-                  itemsInRow={2}
-                  components={[
-                    <ReusableValidation
-                      varName="outboundDomain"
-                      control="isDomain"
-                      fieldName="Outbound Domain"
-                      required={true}
-                    />,
-                    <ReusableValidation
-                      varName="outboundProxy"
-                      control="isIP"
-                      fieldName="Outbound Proxy"
-                      required={true}
-                    />,
-                    <ReusableValidation
-                      varName="outboundPort"
-                      control="isPort"
-                      fieldName="Outbound Port"
-                      required={true}
-                    />,
-                    <ReusableValidation
-                      varName="outboundPrefix"
-                      fieldName="Outbound Prefix"
-                    />,
-                    <ReusableValidation
-                      varName="outboundUserName"
-                      fieldName="Outbound Username"
-                    />,
-                    <ReusableValidation
-                      varName="outboundPassword"
-                      type="password"
-                      fieldName="Outbound Password"
-                    />,
-                    <ReusableSwitch
-                      varName="outboundRegister"
-                      fieldName={"Outbound Register"}
-                    />,
-                  ]}
-                />
-              </Fragment>
-            )}
-            <div>
-              <ReusableSwitch varName="isBilled" fieldName={"Billed"} />
-              {values.isBilled && (
+                            // </div>
+                          ))}
+                      </Fragment>
+                    )}
+                  </FieldArray>
+                </Fragment>
+              }
+              <ReusableSwitch fieldName="isOutBound" label={"Outbound"} />
+              {/* {values.isInbound && <Divider sx={{ mt: 1 }} />} */}
+              {values.isOutBound && (
                 <Fragment>
                   <Layout
                     itemsInRow={2}
                     components={[
                       <ReusableValidation
-                        control="isNumber"
-                        varName="initialPulse"
-                        fieldName="Initial Pulse"
+                        fieldName="outboundDomain"
+                        control="isDomain"
+                        fieldName="Outbound Domain"
                         required={true}
                       />,
                       <ReusableValidation
-                        control="isNumber"
-                        varName="subsequentPulse"
-                        fieldName="Subsequent Pulse"
+                        fieldName="outboundProxy"
+                        control="isIP"
+                        fieldName="Outbound Proxy"
                         required={true}
                       />,
                       <ReusableValidation
-                        control="isNumber"
-                        varName="connectionCharge"
-                        fieldName="Connection Charge"
+                        fieldName="outboundPort"
+                        control="isPort"
+                        fieldName="Outbound Port"
                         required={true}
                       />,
                       <ReusableValidation
-                        control="isNumber"
-                        varName="defaultRate"
-                        fieldName="Default Rate"
-                        required={true}
+                        fieldName="outboundPrefix"
+                        fieldName="Outbound Prefix"
+                      />,
+                      <ReusableValidation
+                        fieldName="outboundUserName"
+                        fieldName="Outbound Username"
+                      />,
+                      <ReusableValidation
+                        fieldName="outboundPassword"
+                        type="password"
+                        fieldName="Outbound Password"
+                      />,
+                      <ReusableSwitch
+                        fieldName="outboundRegister"
+                        label={"Outbound Register"}
                       />,
                     ]}
                   />
                 </Fragment>
               )}
-            </div>
-          </SimpleModal>
-        )}
+              <div>
+                <ReusableSwitch fieldName="isBilled" label={"Billed"} />
+                {values.isBilled && (
+                  <Fragment>
+                    <Layout
+                      itemsInRow={2}
+                      components={[
+                        <ReusableValidation
+                          control="isNumber"
+                          fieldName="initialPulse"
+                          fieldName="Initial Pulse"
+                          required={true}
+                        />,
+                        <ReusableValidation
+                          control="isNumber"
+                          fieldName="subsequentPulse"
+                          fieldName="Subsequent Pulse"
+                          required={true}
+                        />,
+                        <ReusableValidation
+                          control="isNumber"
+                          fieldName="connectionCharge"
+                          fieldName="Connection Charge"
+                          required={true}
+                        />,
+                        <ReusableValidation
+                          control="isNumber"
+                          fieldName="defaultRate"
+                          fieldName="Default Rate"
+                          required={true}
+                        />,
+                      ]}
+                    />
+                  </Fragment>
+                )}
+              </div>
+            </SimpleModal>
+          );
+        }}
       </Formik>
     );
   }

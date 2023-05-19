@@ -15,7 +15,7 @@ import { MODULE_NAME } from "./Values";
 import AutoComplete from "components/AutoComplete/AutoComplete";
 import { Layout } from "components/Layout/Layout";
 import { NumberWithCountryCode } from "components";
-import CustomNumberWithCountry from "components/CustomNumberWithCountry";
+import ChooseCountry from "components/ChooseCountry";
 
 const apiManager = new APIManager();
 
@@ -49,10 +49,12 @@ const PhoneNumberAddEdit = forwardRef(
         enableReinitialize
         initialValues={initialValues}
         onSubmit={async (values) => {
+          console.log("avlues", values);
+          const { phoneNumber } = values.phoneDetail;
           const { _id: countryId, countryCode } = values.countryId;
           const { _id: cityId } = values.cityId;
           const { _id: providerId } = values.providerId;
-          const { phoneNumber, isActive, capabilities } = values;
+          const { isActive, capabilities } = values;
           const trimmedValues = trimValues({
             countryId,
             cityId,
@@ -101,23 +103,7 @@ const PhoneNumberAddEdit = forwardRef(
             >
               <Layout
                 components={[
-                  <AutoComplete
-                    placeholder="Choose a country"
-                    url="country/list"
-                    fieldName="countryId"
-                    errorName={"Country"}
-                    required={true}
-                    optionRow={[
-                      "countryName",
-                      "isoCountry",
-                      { countryCode: true, field: "countryCode" },
-                    ]}
-                    showFlag={true}
-                    valueToShowInField="countryName"
-                    onChange={(value) => {
-                      setFieldValue("cityId", "");
-                    }}
-                  />,
+                  <ChooseCountry />,
                   <AutoComplete
                     key={values?.countryId?._id}
                     placeholder="Choose a city"
@@ -140,9 +126,9 @@ const PhoneNumberAddEdit = forwardRef(
                     valueToShowInField="name"
                   />,
                   <ReusableValidation
-                    varName="phoneNumber"
+                    fieldName="phoneNumber"
                     control="isNumber"
-                    fieldName={"Phone Number"}
+                    label={"Phone Number"}
                     required={true}
                   />,
                 ]}

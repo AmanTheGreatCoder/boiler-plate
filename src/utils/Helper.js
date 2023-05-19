@@ -10,6 +10,10 @@ export const removePlusStr = (value) => {
   return value.replace(/\+/g, "");
 };
 
+export const capitalize = (value) => {
+  return value[0].toUpperCase() + value.substring(1);
+};
+
 export const removeFirstSubstring = (str, substring) => {
   // removeFirstSubstring("+91 91523-23234","91") ==> 91523-23234
   const index = str.indexOf(substring);

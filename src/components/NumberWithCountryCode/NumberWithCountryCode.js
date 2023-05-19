@@ -19,8 +19,8 @@ const NumberStyle = styled.div`
   }
 `;
 
-function NumberWithCountryCode({ fieldName, onlyCountries }) {
-  const theme = useTheme();
+function NumberWithCountryCode(props) {
+  const { fieldName, onlyCountries, disabled,disableDropdown, sx } = props;
   const [field, meta, helpers] = useField({
     name: fieldName,
     validate: (newValue) => {
@@ -32,7 +32,6 @@ function NumberWithCountryCode({ fieldName, onlyCountries }) {
       return error;
     },
   });
-
   const { name, onBlur, value = "" } = field;
   const { error, touched } = meta;
   const { setValue } = helpers;
@@ -40,11 +39,14 @@ function NumberWithCountryCode({ fieldName, onlyCountries }) {
 
   let phoneNumber = "";
   let simplePhoneNumber = "";
+
   return (
     <NumberStyle>
       <MuiPhoneNumber
         error={hasError}
+        disabled={disabled}
         name={name}
+        disableDropdown={disableDropdown || disabled}
         onBlur={onBlur}
         helperText={hasError && error}
         value={value}
@@ -53,6 +55,7 @@ function NumberWithCountryCode({ fieldName, onlyCountries }) {
         id="phone-input"
         label="Phone number"
         defaultCountry={"in"}
+        sx={{ ...sx }}
         onlyCountries={onlyCountries}
         onChange={(phone, others) => {
           phoneNumber = removeFirstSubstring(phone, others.dialCode);

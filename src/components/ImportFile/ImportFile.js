@@ -12,13 +12,11 @@ import CustomAlert from "components/CustomAlert";
 const apiManager = new APIManager();
 
 const SoundGroup = styled.div`
-  // height: 211px;
   padding: 70px 0px 70px 0px;
   width: 100%;
   margin: 15px 0 auto;
   position: relative;
   text-align: center;
-  // line-height: 195px;
   border: 1px dashed #dae0e6;
   display: inline-block;
   transition: transform 0.3s;
@@ -26,6 +24,11 @@ const SoundGroup = styled.div`
   letter-spacing: 0.23px;
   color: #5b5b5b;
   border-radius: 14px;
+
+  .file-span {
+    word-break: break-word;
+  }
+
   img {
     display: block;
     width: 40px !important;
@@ -124,7 +127,7 @@ const ImportFile = forwardRef((props, ref) => {
             <UploadFileIcon
               style={{ fontSize: "34px", color: theme.palette.primary.main }}
             />
-            <span>
+            <span className="file-span">
               {!values?.files ? (
                 <p>Select or drop a file to upload.</p>
               ) : (

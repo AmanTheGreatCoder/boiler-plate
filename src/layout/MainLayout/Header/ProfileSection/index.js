@@ -36,7 +36,7 @@ import useConfig from "hooks/useConfig";
 import { AzhaiAuthContext } from "contexts/AzhaiAuthContext";
 import ProfileEdit from "./ProfileEdit";
 
-const ProfileSection = () => {
+const ProfileSection = forwardRef(() => {
   const { auth } = useContext(AzhaiAuthContext);
   const theme = useTheme();
   const { borderRadius } = useConfig();
@@ -68,19 +68,12 @@ const ProfileSection = () => {
     setOpen(false);
   };
 
-  const handleListItemClick = (event, index, route = "") => {
-    setSelectedIndex(index);
-    handleClose(event);
-
-    if (route && route !== "") {
-      navigate(route);
-    }
-  };
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
   };
 
   const prevOpen = useRef(open);
+
   useEffect(() => {
     if (prevOpen.current === true && open === false) {
       anchorRef.current.focus();
@@ -91,8 +84,6 @@ const ProfileSection = () => {
 
   return (
     <>
-      <ProfileEdit modalRef={modalRef} />
-
       <Chip
         sx={{
           height: "48px",
@@ -171,6 +162,7 @@ const ProfileSection = () => {
             <ClickAwayListener onClickAway={handleClose}>
               <Transitions in={open} {...TransitionProps}>
                 <Paper>
+                  <ProfileEdit modalRef={modalRef} />
                   {open && (
                     <MainCard
                       border={false}
@@ -267,6 +259,6 @@ const ProfileSection = () => {
       </Popper>
     </>
   );
-};
+});
 
 export default ProfileSection;

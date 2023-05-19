@@ -111,13 +111,13 @@ const SubscriptionAddEdit = forwardRef(
               <Layout
                 components={[
                   <ReusableValidation
-                    varName="name"
-                    fieldName={"Name"}
+                    fieldName="name"
+                    label={"Name"}
                     required={true}
                   />,
                   <ReusableValidation
-                    varName="amount"
-                    fieldName={"Amount"}
+                    fieldName="amount"
+                    label={"Amount"}
                     required={true}
                     disabled={disabled}
                     min={1}
@@ -132,8 +132,8 @@ const SubscriptionAddEdit = forwardRef(
                     }}
                   />,
                   <ReusableValidation
-                    varName="totalMinutes"
-                    fieldName={"Total Minutes"}
+                    fieldName="totalMinutes"
+                    label={"Total Minutes"}
                     min={1}
                     required={true}
                     disabled={disabled}
@@ -148,10 +148,10 @@ const SubscriptionAddEdit = forwardRef(
                   />,
                   <Grid item>
                     <ReusableSwitch
-                      varName="defaultSelected"
-                      fieldName={"Default Selected"}
+                      fieldName="defaultSelected"
+                      label={"Default Selected"}
                     />
-                    <ReusableSwitch varName="isPopular" fieldName={"Popular"} />
+                    <ReusableSwitch fieldName="isPopular" label={"Popular"} />
                   </Grid>,
                 ]}
               />
@@ -179,7 +179,7 @@ const SubscriptionAddEdit = forwardRef(
                           <Grid item lg={10}>
                             <ReusableValidation
                               key={index + "ele"}
-                              varName={`benefits.${index}`}
+                              fieldName={`benefits.${index}`}
                               fieldName="Benefit"
                               required={true}
                             />

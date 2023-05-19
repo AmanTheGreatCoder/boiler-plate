@@ -5,7 +5,7 @@ import APIManager from "utils/APImanager";
 import debounce from "lodash.debounce";
 import { useField } from "formik";
 import "./AutoComplete.css";
-import { addDefaultSrc } from "utils/Helper";
+import { addDefaultSrc, capitalize } from "utils/Helper";
 
 const apiManager = new APIManager();
 
@@ -33,6 +33,7 @@ function AutoComplete({
   const [formValue, setFormValue] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const [page, setPage] = useState(1);
+  const [count, setCount] = useState(-1);
 
   const loadMoreResults = () => {
     fetchData(formValue, page + 1);
@@ -54,18 +55,18 @@ function AutoComplete({
     console.log("res", res);
     console.log("url includes", url.includes("country"));
     if (!res.error) {
+      if (count === -1) {
+        setCount(res.data.count);
+      }
       if (showFlag) {
         setImageUrl(res.data.imageUrl);
       }
 
       if (url.includes("country")) {
         const temp = res.data.data.map((e) => {
-          let t = e.countryName;
-          // t[0] = t[0].toUpperCase();
-          console.log("t", t);
           return {
             ...e,
-            countryName: t,
+            countryName: capitalize(e.countryName),
           };
         });
         setOptions([...options, ...temp]);
@@ -202,7 +203,9 @@ function AutoComplete({
               listboxNode.scrollTop + listboxNode.clientHeight ===
               listboxNode.scrollHeight
             ) {
-              loadMoreResults();
+              if (page < Math.ceil(count / 20)) {
+                loadMoreResults();
+              }
             }
           },
         }}

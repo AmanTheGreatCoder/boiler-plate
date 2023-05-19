@@ -355,8 +355,7 @@ export default function componentStyleOverrides(
     MuiTableContainer: {
       styleOverrides: {
         root: {
-          maxHeight: "calc(100vh - 307px) !important",
-          // maxHeight: 'calc(100vh - 278px)!important'
+          maxHeight: "calc(100vh - 268px) !important",
         },
       },
     },

@@ -19,6 +19,7 @@ import { visuallyHidden } from "@mui/utils";
 import { useTheme } from "@mui/styles";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
 import { useNavigate } from "react-router-dom";
+import { FileDownload } from "@mui/icons-material";
 
 const apiManager = new APIManager();
 
@@ -36,6 +37,7 @@ function EnhancedTable(props) {
     filterRef,
     importRef,
     assignModalRef,
+    downloadUrl,
     add,
     isDel = true,
     rateList,
@@ -50,7 +52,6 @@ function EnhancedTable(props) {
   const [data, setData] = useState(list);
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState("");
-  const theme = useTheme();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -315,6 +316,7 @@ function EnhancedTable(props) {
     <MainCard
       content={false}
       title={title}
+      sx={{ height: "100%" }}
       secondary={
         <div style={{ display: "flex", alignItems: "center" }}>
           {searchSection}
@@ -349,6 +351,19 @@ function EnhancedTable(props) {
               onClick={() => importOnClick()}
             >
               Import
+            </Button>
+          )}
+          {downloadUrl && (
+            <Button
+              size="medium"
+              sx={{ ml: 3 }}
+              href={downloadUrl}
+              download={true}
+              about="_blank"
+              variant="contained"
+              startIcon={<FileDownload />}
+            >
+              Download
             </Button>
           )}
         </div>

@@ -24,13 +24,13 @@ import {
 
 const ReusableValidation = memo(
   ({
-    fieldName,
+    label,
     disabled,
     required,
     control,
     fieldValue,
     isSubmitting,
-    varName,
+    fieldName,
     type,
     InputProps,
     min,
@@ -38,52 +38,52 @@ const ReusableValidation = memo(
     maxLength,
   }) => {
     const theme = useTheme();
-    const errorMessage = (fieldName) => {
-      return `${fieldName} is not valid`;
+    const errorMessage = (label) => {
+      return `${label} is not valid`;
     };
     const validation = (value) => {
       let error = null;
       if (required && typeof value === "string" && !value?.trim()) {
-        error = `${fieldName} is required`;
+        error = `${label} is required`;
       } else if (control) {
         switch (control) {
           case "countryCode":
-            if (!countryCodeRegex.test(value)) error = errorMessage(fieldName);
+            if (!countryCodeRegex.test(value)) error = errorMessage(label);
             break;
           case "isoCountry":
-            if (!isoCountryRegex.test(value)) error = errorMessage(fieldName);
+            if (!isoCountryRegex.test(value)) error = errorMessage(label);
             break;
           case "isNumber":
             if (!onlyNumber.test(value)) {
-              error = errorMessage(fieldName);
+              error = errorMessage(label);
             }
             if (!isNaN(value)) {
               if (!isNaN(min)) {
                 if (parseInt(value) < min) {
-                  error = `${fieldName} must be greater than ${min}`;
+                  error = `${label} must be greater than ${min}`;
                 }
               } else if (!isNaN(max)) {
                 if (parseInt(value) > max) {
-                  error = `${fieldName} must be less than ${max}`;
+                  error = `${label} must be less than ${max}`;
                 }
               }
             }
             break;
           case "isEmail":
-            if (!isEmail.test(value)) error = errorMessage(fieldName);
+            if (!isEmail.test(value)) error = errorMessage(label);
             break;
           case "isDomain":
-            if (!domainRegex.test(value)) error = errorMessage(fieldName);
+            if (!domainRegex.test(value)) error = errorMessage(label);
             break;
           case "isIP":
-            if (!ipRegex.test(value)) error = errorMessage(fieldName);
+            if (!ipRegex.test(value)) error = errorMessage(label);
             break;
           case "isPort":
-            if (value < 1 || value > 65535) error = errorMessage(fieldName);
+            if (value < 1 || value > 65535) error = errorMessage(label);
             break;
           case "isDomainOrIP":
             if (!ipRegex.test(value) && !domainRegex.test(value))
-              error = errorMessage(fieldName);
+              error = errorMessage(label);
             break;
         }
       }
@@ -91,7 +91,7 @@ const ReusableValidation = memo(
       return error;
     };
     const [field, meta, helpers] = useField({
-      name: varName,
+      name: fieldName,
       validate: (newValue) => {
         return validation(newValue);
       },
@@ -124,7 +124,7 @@ const ReusableValidation = memo(
       >
         <TextField
           type={type || "text"}
-          label={fieldName}
+          label={label}
           error={hasError}
           variant="outlined"
           disabled={disabled}
