@@ -1,5 +1,10 @@
 import PropTypes from "prop-types";
-import React, { forwardRef, useImperativeHandle } from "react";
+import React, {
+  forwardRef,
+  useEffect,
+  useImperativeHandle,
+  useState,
+} from "react";
 
 // material-ui
 import {
@@ -38,17 +43,10 @@ const Body = forwardRef(
     },
     ref
   ) => {
-    // const {errors}=useFormikContext();
-
     return (
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          // handleSubmit();
-
-          // if (Object.keys(errors).length === 0) {
-          //     onSubmit();
-          // }
           submitForm();
         }}
         ref={ref}
@@ -120,8 +118,6 @@ Body.propTypes = {
   handleClose: PropTypes.func,
 };
 
-// ==============================|| SIMPLE MODAL ||============================== //
-
 const SimpleModal = forwardRef(
   (
     {
@@ -139,7 +135,7 @@ const SimpleModal = forwardRef(
     },
     ref
   ) => {
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
 
     useImperativeHandle(ref, () => ({
       handleOpen() {
@@ -160,9 +156,6 @@ const SimpleModal = forwardRef(
         <Modal
           open={open}
           onClose={handleClose}
-          // sx={{
-          //   width: size || { xs: "90%", sm: "60%", lg: "50%", xl: "50%" },
-          // }}
           aria-labelledby="simple-modal-title"
           aria-describedby="simple-modal-description"
         >

@@ -3,6 +3,7 @@ import {
   forwardRef,
   useContext,
   useEffect,
+  useImperativeHandle,
   useRef,
   useState,
 } from "react";
@@ -34,9 +35,8 @@ import User1 from "assets/images/users/user-round.svg";
 import { IconLogout, IconSearch, IconSettings, IconUser } from "@tabler/icons";
 import useConfig from "hooks/useConfig";
 import { AzhaiAuthContext } from "contexts/AzhaiAuthContext";
-import ProfileEdit from "./ProfileEdit";
 
-const ProfileSection = forwardRef(() => {
+const ProfileSection = forwardRef(({ editProfileClick }, ref) => {
   const { auth } = useContext(AzhaiAuthContext);
   const theme = useTheme();
   const { borderRadius } = useConfig();
@@ -44,12 +44,21 @@ const ProfileSection = forwardRef(() => {
   const [selectedIndex, setSelectedIndex] = useState(-1);
   const { user } = useAuth();
   const [open, setOpen] = useState(false);
-  const modalRef = useRef(null);
 
   /**
    * anchorRef is used on different components and specifying one type leads to other components throwing an error
    * */
   const anchorRef = useRef(null);
+
+  useImperativeHandle(ref, () => ({
+    handleOpen() {
+      setOpen(true);
+    },
+    handleClose() {
+      setOpen(false);
+    },
+  }));
+
   const handleLogout = async () => {
     confirm(confirmMessage("logout")).then(async () => {
       try {
@@ -162,7 +171,6 @@ const ProfileSection = forwardRef(() => {
             <ClickAwayListener onClickAway={handleClose}>
               <Transitions in={open} {...TransitionProps}>
                 <Paper>
-                  <ProfileEdit modalRef={modalRef} />
                   {open && (
                     <MainCard
                       border={false}
@@ -218,9 +226,7 @@ const ProfileSection = forwardRef(() => {
                           <ListItemButton
                             sx={{ borderRadius: `${borderRadius}px` }}
                             selected={selectedIndex === 0}
-                            onClick={() => {
-                              console.log("modal Ref", modalRef);
-                            }}
+                            onClick={editProfileClick}
                           >
                             <ListItemIcon>
                               <IconSettings stroke={1.5} size="1.3rem" />

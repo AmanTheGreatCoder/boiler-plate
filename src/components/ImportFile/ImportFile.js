@@ -67,15 +67,8 @@ const FileInput = styled.input`
 `;
 
 const ImportFile = forwardRef((props, ref) => {
-  const {
-    url,
-    title,
-    getList,
-    rowsPerPage,
-    setSearch,
-    clearSearchField,
-    sampleUrl,
-  } = props;
+  const { url, getList, rowsPerPage, setSearch, clearSearchField, sampleUrl } =
+    props;
   const theme = useTheme();
 
   let initialValues = {
@@ -120,7 +113,7 @@ const ImportFile = forwardRef((props, ref) => {
         <SimpleModal
           submitForm={submitForm}
           resetForm={resetForm}
-          title={title}
+          title={"IMPORT"}
           ref={ref}
         >
           <SoundGroup>

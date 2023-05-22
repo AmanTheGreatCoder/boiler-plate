@@ -64,7 +64,7 @@ function RateList({
   const params = useParams();
 
   useEffect(() => {
-    console.log("params", params);
+     
     if (params && params.type && params.parentId) {
       setQuery({ type: params.type, parentId: params.parentId });
     } else {

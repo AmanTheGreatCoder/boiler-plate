@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import AutoComplete from "components/AutoComplete/AutoComplete";
+import CustomAutoComplete from "components/CustomAutoComplete";
 
 const ChooseCountry = (props) => {
   const {
@@ -8,16 +8,18 @@ const ChooseCountry = (props) => {
     required = true,
     disableClear = false,
     valueToShowInField,
+    onChange,
   } = props;
 
   return (
-    <AutoComplete
+    <CustomAutoComplete
       disabled={disabled}
       disableClear={disableClear}
       placeholder="Choose a country"
       url="country/list"
       fieldName={"countryId"}
       errorName={"Country"}
+      onChange={onChange}
       optionRow={[
         "countryName",
         "isoCountry",

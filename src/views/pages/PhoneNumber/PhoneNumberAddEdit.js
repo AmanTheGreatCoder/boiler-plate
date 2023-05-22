@@ -12,7 +12,7 @@ import {
 import * as Yup from "yup";
 import { trimValues } from "utils/Helper";
 import { MODULE_NAME } from "./Values";
-import AutoComplete from "components/AutoComplete/AutoComplete";
+import CustomAutoComplete from "components/CustomAutoComplete";
 import { Layout } from "components/Layout/Layout";
 import { NumberWithCountryCode } from "components";
 import ChooseCountry from "components/ChooseCountry";
@@ -49,7 +49,6 @@ const PhoneNumberAddEdit = forwardRef(
         enableReinitialize
         initialValues={initialValues}
         onSubmit={async (values) => {
-          console.log("avlues", values);
           const { phoneNumber } = values.phoneDetail;
           const { _id: countryId, countryCode } = values.countryId;
           const { _id: cityId } = values.cityId;
@@ -91,7 +90,6 @@ const PhoneNumberAddEdit = forwardRef(
           submitForm,
           setFieldValue,
         }) => {
-          console.log("values", values);
           return (
             <SimpleModal
               title={editData ? "Edit" : "Add"}
@@ -103,8 +101,13 @@ const PhoneNumberAddEdit = forwardRef(
             >
               <Layout
                 components={[
-                  <ChooseCountry />,
-                  <AutoComplete
+                  <ChooseCountry
+                    onChange={(e) => {
+                      console.log("change cityId", e);
+                      setFieldValue("cityId", "");
+                    }}
+                  />,
+                  <CustomAutoComplete
                     key={values?.countryId?._id}
                     placeholder="Choose a city"
                     disabled={!values.countryId}
@@ -116,7 +119,7 @@ const PhoneNumberAddEdit = forwardRef(
                     optionRow={["cityName"]}
                     valueToShowInField="cityName"
                   />,
-                  <AutoComplete
+                  <CustomAutoComplete
                     placeholder="Choose a provider"
                     url="provider/list"
                     fieldName="providerId"

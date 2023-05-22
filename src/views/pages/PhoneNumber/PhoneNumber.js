@@ -122,7 +122,6 @@ function PhoneNumber({
         getList={getList}
         rowsPerPage={rowsPerPage}
         setSearch={setSearch}
-        title={MODULE_NAME}
         url="phone/import"
         ref={importRef}
       />

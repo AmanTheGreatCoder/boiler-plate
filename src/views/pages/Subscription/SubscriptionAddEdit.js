@@ -77,7 +77,7 @@ const SubscriptionAddEdit = forwardRef(
             : await apiManager.post(`subscription/create`, trimmedValues);
           if (!res.error) {
             ref.current.handleClose();
-            console.log("search ", search);
+             
             if (search !== "") {
               setSearch("");
               clearSearchField();
@@ -98,7 +98,7 @@ const SubscriptionAddEdit = forwardRef(
           resetForm,
           submitForm,
         }) => {
-          console.log("errors", errors);
+           
           return (
             <SimpleModal
               title={MODULE_NAME}
@@ -180,7 +180,7 @@ const SubscriptionAddEdit = forwardRef(
                             <ReusableValidation
                               key={index + "ele"}
                               fieldName={`benefits.${index}`}
-                              fieldName="Benefit"
+                              label="Benefit"
                               required={true}
                             />
                           </Grid>

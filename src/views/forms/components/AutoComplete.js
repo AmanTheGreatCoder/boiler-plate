@@ -24,7 +24,7 @@ const top100Films = [
 
 // ==============================|| AUTOCOMPLETE ||============================== //
 
-const AutoComplete = () => {
+const CustomAutoComplete = () => {
   const theme = useTheme();
   return (
     <MainCard
@@ -125,4 +125,4 @@ const AutoComplete = () => {
   );
 };
 
-export default AutoComplete;
+export default CustomAutoComplete;

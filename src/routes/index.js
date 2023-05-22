@@ -2,24 +2,20 @@ import { lazy } from "react";
 import { useRoutes, Navigate } from "react-router-dom";
 import MainRoutes from "./MainRoutes";
 import LoginRoutes from "./LoginRoutes";
-import AuthenticationRoutes from "./AuthenticationRoutes";
 import Loadable from "ui-component/Loadable";
 
-const NotFound = Loadable(
-  lazy(() => import("views/pages/maintenance/Error"))
-);
+const NotFound = Loadable(lazy(() => import("views/pages/maintenance/Error")));
 
 const MaintenanceLanding = Loadable(
-  lazy(()=>import('views/pages/maintenance/UnderMaintenance'))
-)
+  lazy(() => import("views/pages/maintenance/UnderMaintenance"))
+);
 
 export default function ThemeRoutes() {
   return useRoutes([
     { path: "/", element: <Navigate to="/login" /> },
-    AuthenticationRoutes,
     LoginRoutes,
     MainRoutes,
-    {path:'/maintenance',element: <MaintenanceLanding/>},
+    { path: "/maintenance", element: <MaintenanceLanding /> },
     { path: "*", element: <NotFound /> },
   ]);
 }

@@ -73,13 +73,13 @@ const UnderConstruction = () => {
   useEffect(async () => {
     try {
       const res = await fetch(process.env.REACT_APP_BASE_URL);
-      console.log("res", res);
+       
       if (res.status === 200) {
         navigate("/");
       }
     } catch (err) {
       setChecking(false);
-      console.log("error", err);
+       
     }
   }, []);
 

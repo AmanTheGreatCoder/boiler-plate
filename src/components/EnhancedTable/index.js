@@ -316,7 +316,7 @@ function EnhancedTable(props) {
     <MainCard
       content={false}
       title={title}
-      sx={{ height: "100%" }}
+      sx={{ maxHeight: "100%" }}
       secondary={
         <div style={{ display: "flex", alignItems: "center" }}>
           {searchSection}

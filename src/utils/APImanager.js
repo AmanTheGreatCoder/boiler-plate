@@ -1,9 +1,7 @@
 import CustomAlert from "components/CustomAlert";
 
 export default class APIManager {
-  constructor() {
-    console.log("base url", process.env.REACT_APP_BASE_URL);
-  }
+  constructor() {}
 
   checkInternet() {
     if (!window.navigator.onLine) {
@@ -41,14 +39,17 @@ export default class APIManager {
 
   async requestForm(endpoint, method, body) {
     if (this.checkInternet()) {
-      const response = await fetch(`${process.env.REACT_APP_BASE_URL}/${endpoint}`, {
-        method: method,
-        headers: {
-          accept: "*/*",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-        body: body,
-      });
+      const response = await fetch(
+        `${process.env.REACT_APP_BASE_URL}/${endpoint}`,
+        {
+          method: method,
+          headers: {
+            accept: "*/*",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          body: body,
+        }
+      );
       const data = await response.json();
       return this.sendResponse(data, response);
     }
@@ -59,15 +60,18 @@ export default class APIManager {
     if (this.checkInternet()) {
       let response, data;
       try {
-        response = await fetch(`${process.env.REACT_APP_BASE_URL}/${endpoint}`, {
-          method: method,
-          headers: {
-            "Content-Type": "application/json",
-            accept: "*/*",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-          body: JSON.stringify(body),
-        });
+        response = await fetch(
+          `${process.env.REACT_APP_BASE_URL}/${endpoint}`,
+          {
+            method: method,
+            headers: {
+              "Content-Type": "application/json",
+              accept: "*/*",
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+            body: JSON.stringify(body),
+          }
+        );
         data = await response.json();
       } catch (e) {}
       return this.sendResponse(data, response);

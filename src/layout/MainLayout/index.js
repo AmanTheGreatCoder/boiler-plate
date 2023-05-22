@@ -82,7 +82,7 @@ const MainLayout = () => {
   const { container } = useConfig();
 
   useEffect(() => {
-    console.log("match down md", matchDownMd);
+     
     if (matchDownMd) {
       dispatch(openDrawer(false));
     } else {
@@ -92,7 +92,7 @@ const MainLayout = () => {
   }, [matchDownMd]);
 
   useEffect(() => {
-    console.log("match down lg", matchDownLg);
+     
     if (matchDownLg) {
       dispatch(openDrawer(false));
     }

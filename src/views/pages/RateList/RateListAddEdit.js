@@ -1,24 +1,10 @@
 import ReusableValidation from "components/ReusableValidation/ReusableValidation";
-import { Formik, FieldArray } from "formik";
-import React, { Fragment, forwardRef, useEffect, useState } from "react";
+import { Formik } from "formik";
+import { forwardRef } from "react";
 import APIManager from "utils/APImanager";
 import SimpleModal from "views/forms/plugins/Modal/SimpleModal";
-import {
-  FormControl,
-  FormControlLabel,
-  FormGroup,
-  Switch,
-  Button,
-  Grid,
-  Divider,
-} from "@mui/material";
-import * as Yup from "yup";
 import { trimValues } from "utils/Helper";
 import { MODULE_NAME } from "./Values";
-import AutoComplete from "components/AutoComplete/AutoComplete";
-import ReusableSwitch from "components/ReusableSwitch.js/ReusableSwitch";
-import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
-import AddIcon from "@mui/icons-material/Add";
 import { useParams } from "react-router-dom";
 import { Layout } from "components/Layout/Layout";
 
@@ -102,18 +88,18 @@ const RateListAddEdit = forwardRef(
                 <ReusableValidation
                   fieldName="dialCode"
                   control="isNumber"
-                  fieldName="Dial Code"
+                  label="Dial Code"
                   required={true}
                 />,
                 <ReusableValidation
                   fieldName="Destination"
-                  fieldName="Destination"
+                  label="Destination"
                   required={true}
                 />,
                 <ReusableValidation
                   fieldName="rate"
                   control="isNumber"
-                  fieldName="Rate"
+                  label="Rate"
                   min={0}
                   max={5000}
                   required={true}
@@ -123,7 +109,7 @@ const RateListAddEdit = forwardRef(
                   control="isNumber"
                   min={0}
                   max={30}
-                  fieldName="Initial Pulse"
+                  label="Initial Pulse"
                   required={true}
                 />,
                 <ReusableValidation
@@ -131,7 +117,7 @@ const RateListAddEdit = forwardRef(
                   control="isNumber"
                   min={0}
                   max={30}
-                  fieldName="Subsequent Pulse"
+                  label="Subsequent Pulse"
                   required={true}
                 />,
                 <ReusableValidation
@@ -139,7 +125,7 @@ const RateListAddEdit = forwardRef(
                   control="isNumber"
                   min={0}
                   max={5000}
-                  fieldName="Connection Charge"
+                  label="Connection Charge"
                   required={true}
                 />,
               ]}

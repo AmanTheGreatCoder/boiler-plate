@@ -20,7 +20,8 @@ const NumberStyle = styled.div`
 `;
 
 function NumberWithCountryCode(props) {
-  const { fieldName, onlyCountries, disabled,disableDropdown, sx } = props;
+  const { fieldName, onlyCountries, propValue, disabled, disableDropdown, sx } =
+    props;
   const [field, meta, helpers] = useField({
     name: fieldName,
     validate: (newValue) => {
@@ -32,13 +33,15 @@ function NumberWithCountryCode(props) {
       return error;
     },
   });
-  const { name, onBlur, value = "" } = field;
+  const { name, onBlur, value = propValue || "" } = field;
   const { error, touched } = meta;
   const { setValue } = helpers;
   const hasError = Boolean(error) && touched;
 
   let phoneNumber = "";
   let simplePhoneNumber = "";
+
+   
 
   return (
     <NumberStyle>

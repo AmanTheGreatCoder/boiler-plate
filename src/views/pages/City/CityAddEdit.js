@@ -12,7 +12,7 @@ import {
 import * as Yup from "yup";
 import { trimValues } from "utils/Helper";
 import { MODULE_NAME } from "./Values";
-import AutoComplete from "components/AutoComplete/AutoComplete";
+import CustomAutoComplete from "components/CustomAutoComplete";
 import { Layout } from "components/Layout/Layout";
 import ChooseCountry from "components/ChooseCountry";
 
@@ -30,7 +30,7 @@ const CityAddEdit = forwardRef(
     };
     if (editData) {
       initialValues._id = editData._id;
-      console.log("edit data", editData);
+       
     }
 
     return (
@@ -67,7 +67,7 @@ const CityAddEdit = forwardRef(
           resetForm,
           submitForm,
         }) => {
-          console.log("values", values);
+           
           return (
             <SimpleModal
               title={editData ? "Edit" : "Add"}

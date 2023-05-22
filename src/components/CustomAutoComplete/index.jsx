@@ -4,12 +4,12 @@ import React, { useCallback, useEffect, useState } from "react";
 import APIManager from "utils/APImanager";
 import debounce from "lodash.debounce";
 import { useField } from "formik";
-import "./AutoComplete.css";
+import "./style.css";
 import { addDefaultSrc, capitalize } from "utils/Helper";
 
 const apiManager = new APIManager();
 
-function AutoComplete({
+function CustomAutoComplete({
   placeholder,
   url,
   customOptions,
@@ -49,11 +49,11 @@ function AutoComplete({
         if (query[e]) {
           queryString += `&${e}=${query[e]}`;
         }
+        return e;
       });
     }
     const res = await apiManager.get(queryString);
-    console.log("res", res);
-    console.log("url includes", url.includes("country"));
+
     if (!res.error) {
       if (count === -1) {
         setCount(res.data.count);
@@ -96,6 +96,7 @@ function AutoComplete({
   };
 
   useEffect(() => {
+    console.log("on change in auto complete", onChange);
     fetching();
   }, []);
 
@@ -192,8 +193,8 @@ function AutoComplete({
         onBlur={onBlur}
         onInputChange={(e) => setFormValue(e?.target?.value)}
         onChange={(event, value) => {
+          console.log("change called in auto complete");
           setValue(value);
-
           onChange && onChange(value);
         }}
         ListboxProps={{
@@ -236,4 +237,4 @@ function AutoComplete({
     </FormControl>
   );
 }
-export default AutoComplete;
+export default CustomAutoComplete;

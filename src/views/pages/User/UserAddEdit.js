@@ -1,39 +1,30 @@
 import ReusableValidation from "components/ReusableValidation/ReusableValidation";
 import { Formik } from "formik";
-import { Fragment, forwardRef, useEffect, useState } from "react";
+import { forwardRef } from "react";
 import APIManager from "utils/APImanager";
 import SimpleModal from "views/forms/plugins/Modal/SimpleModal";
 import { trimValues } from "utils/Helper";
-import { MODULE_NAME } from "./Values";
-import { useTheme } from "@mui/material/styles";
-import AutoComplete from "components/AutoComplete/AutoComplete";
 import { Layout } from "components/Layout/Layout";
-import { InputAdornment } from "@mui/material";
-import MuiPhoneNumber from "material-ui-phone-number";
 import { NumberWithCountryCode } from "components";
 
 const apiManager = new APIManager();
 
 const UserAddEdit = forwardRef(
   (
-    { getList, rowsPerPage, editData, setSearch, clearSearchField },
+    { getList, editData, setSearch, setProfile, clearSearchField },
     modalRef
   ) => {
     const disabled = editData ? true : false;
 
     let initialValues = {
-      fullName: editData.fullName || "",
-      email: editData.email || "",
-      // phoneDetail: {
-      //   dialCode: editData.countryCode,
-      //   phoneNumber: editData.phoneNumber,
-      //   countryCode: editData.isoCountry
-      // },
+      fullName: editData?.fullName || "",
+      email: editData?.email || "",
+      phoneNumber: editData?.fullNumber || "",
     };
 
     if (editData) {
-      initialValues._id = editData._id;
-      console.log("edit Data", editData);
+      initialValues._id = editData?._id;
+       
     }
 
     return (
@@ -42,21 +33,26 @@ const UserAddEdit = forwardRef(
         initialValues={initialValues}
         onSubmit={async (values) => {
           const { fullName, email } = values;
-          const { dialCode, phoneNumber } = values.phoneDetail;
-          const trimmedValues = trimValues({
-            fullName,
-            email,
-            countryCode: dialCode,
-            phoneNumber,
-          });
+          let newValues = { fullName, email };
+          if (!editData) {
+            const { dialCode, phoneNumber } = values.phoneDetail;
+            newValues = {
+              ...newValues,
+              dialCode,
+              phoneNumber,
+            };
+          }
+
+          const trimmedValues = trimValues(newValues);
           const res = editData
             ? await apiManager.patch(`user/update/${values._id}`, trimmedValues)
             : await apiManager.post(`auth/admin-register`, trimmedValues);
           if (!res.error) {
             modalRef.current.handleClose();
-            getList();
-            setSearch("");
-            clearSearchField();
+            getList && getList();
+            setSearch && setSearch("");
+            clearSearchField && clearSearchField();
+            setProfile && setProfile();
           }
         }}
       >
@@ -71,7 +67,7 @@ const UserAddEdit = forwardRef(
           resetForm,
           submitForm,
         }) => {
-          console.log("values ", values);
+           
           return (
             <SimpleModal
               title={editData ? "Edit" : "Add Admin"}
@@ -97,6 +93,7 @@ const UserAddEdit = forwardRef(
                   <NumberWithCountryCode
                     disabled={disabled}
                     fieldName="phoneDetail"
+                    propValue={editData ? values?.phoneNumber : null}
                     sx={{ mt: 1, mb: 0.5 }}
                   />,
                 ]}

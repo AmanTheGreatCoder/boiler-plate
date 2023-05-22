@@ -4,17 +4,17 @@ import { useTheme } from "@mui/material/styles";
 import { useField } from "formik";
 
 function ReusableSwitch({
-  fieldName,
+  label,
   disabled,
   required,
   control,
   fieldValue,
   isSubmitting,
-  varName,
+  fieldName,
 }) {
   const theme = useTheme();
   const [field, meta, helpers] = useField({
-    name: varName,
+    name: fieldName,
   });
 
   const { name, value = true } = field;
@@ -40,7 +40,7 @@ function ReusableSwitch({
           color="primary"
         />
       }
-      label={fieldName}
+      label={label}
     />
   );
 }

@@ -1,32 +1,57 @@
 // material-ui
 import { useTheme } from "@mui/material/styles";
 import { Avatar, Box } from "@mui/material";
-
-// project imports
+import { Formik } from "formik";
+import SimpleModal from "views/forms/plugins/Modal/SimpleModal";
+import APIManager from "utils/APImanager";
 import LogoSection from "../LogoSection";
-import SearchSection from "./SearchSection";
 import MobileSection from "./MobileSection";
 import ProfileSection from "./ProfileSection";
-import LocalizationSection from "./LocalizationSection";
-import MegaMenuSection from "./MegaMenuSection";
-import NotificationSection from "./NotificationSection";
 import { useDispatch, useSelector } from "store";
 import { openDrawer } from "store/slices/menu";
-
-// assets
 import { IconMenu2 } from "@tabler/icons";
+import { useContext, useRef } from "react";
+import { AzhaiAuthContext } from "contexts/AzhaiAuthContext";
+import UserAddEdit from "views/pages/User/UserAddEdit";
+import { SettingsBackupRestoreSharp } from "@mui/icons-material";
 
-// ==============================|| MAIN NAVBAR / HEADER ||============================== //
+const apiManager = new APIManager();
 
 const Header = () => {
   const theme = useTheme();
-
+  const { auth, setAuth } = useContext(AzhaiAuthContext);
   const dispatch = useDispatch();
   const { drawerOpen } = useSelector((state) => state.menu);
+  const modalRef = useRef(null);
+  const profileCardRef = useRef(null);
+
+   
+  const { _id, fullName, email, countryCode, phoneNumber, isoCountry } = auth;
+  const editData = {
+    _id,
+    fullName,
+    email,
+    countryCode,
+    phoneNumber,
+    isoCountry,
+  };
+
+  const editProfileClick = () => {
+    modalRef.current.handleOpen();
+    profileCardRef.current.handleClose();
+     
+  };
+
+  const setProfile = async () => {
+    const res = await apiManager.get("auth/profile");
+
+    if (!res.error) {
+      setAuth(res.data);
+    }
+  };
 
   return (
     <>
-      {/* logo & toggler button */}
       <Box
         sx={{
           width: 228,
@@ -57,6 +82,7 @@ const Header = () => {
               theme.palette.mode === "dark"
                 ? theme.palette.secondary.main
                 : theme.palette.secondary.dark,
+            marginLeft: "50px",
             "&:hover": {
               background:
                 theme.palette.mode === "dark"
@@ -74,27 +100,13 @@ const Header = () => {
           <IconMenu2 stroke={1.5} size="1.3rem" />
         </Avatar>
       </Box>
-
-      {/* header search */}
-      {/* <SearchSection /> */}
       <Box sx={{ flexGrow: 1 }} />
+      <UserAddEdit setProfile={setProfile} ref={modalRef} editData={editData} />
       <Box sx={{ flexGrow: 1 }} />
-
-      {/* mega-menu */}
-      <Box sx={{ display: { xs: "none", sm: "block" } }}>
-        {/* <MegaMenuSection /> */}
-      </Box>
-
-      {/* live customization & localization */}
-      <Box sx={{ display: { xs: "none", sm: "block" } }}>
-        {/* <LocalizationSection /> */}
-      </Box>
-
-      {/* notification & profile */}
-      {/* <NotificationSection /> */}
-      <ProfileSection />
-
-      {/* mobile header */}
+      <ProfileSection
+        ref={profileCardRef}
+        editProfileClick={editProfileClick}
+      />
       <Box sx={{ display: { xs: "block", sm: "none" } }}>
         <MobileSection />
       </Box>

@@ -79,7 +79,6 @@ function City({
         getList={getList}
         rowsPerPage={rowsPerPage}
         setSearch={setSearch}
-        title={MODULE_NAME}
         url="city/import"
         ref={importRef}
       />

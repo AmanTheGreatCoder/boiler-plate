@@ -12,7 +12,7 @@ import {
 import * as Yup from "yup";
 import { trimValues } from "utils/Helper";
 import { MODULE_NAME } from "./Values";
-import AutoComplete from "components/AutoComplete/AutoComplete";
+import CustomAutoComplete from "components/CustomAutoComplete";
 
 const apiManager = new APIManager();
 
@@ -35,7 +35,7 @@ const AssignNumberModal = forwardRef(
         initialValues={initialValues}
         onSubmit={async (values) => {
           const trimmedValues = trimValues(values);
-          console.log({ values });
+           
           trimmedValues.assignedTo = values.user._id;
           const res = await apiManager.put(
             `phone/assign/${values._id}`,
@@ -70,7 +70,7 @@ const AssignNumberModal = forwardRef(
             errors={errors}
             handleSubmit={handleSubmit}
           >
-            <AutoComplete
+            <CustomAutoComplete
               placeholder="Choose a user"
               url="user/list"
               fieldName="user"

@@ -13,7 +13,7 @@ import {
 import * as Yup from "yup";
 import { trimValues } from "utils/Helper";
 import { MODULE_NAME } from "./Values";
-import AutoComplete from "components/AutoComplete/AutoComplete";
+import CustomAutoComplete from "components/CustomAutoComplete";
 import { Layout } from "components/Layout/Layout";
 
 const apiManager = new APIManager();
@@ -94,45 +94,45 @@ const SIPExtensionsAddEdit = forwardRef(
                 <ReusableValidation
                   fieldName="sipDomain"
                   control="isDomain"
-                  fieldName="SIP Domain"
+                  label="SIP Domain"
                   required={true}
                 />,
                 <ReusableValidation
                   fieldName="proxyServerIp"
                   control="isIP"
-                  fieldName="Proxy Server IP"
+                  label="Proxy Server IP"
                   required={true}
                 />,
                 <ReusableValidation
                   fieldName="proxyServerPort"
                   control="isPort"
-                  fieldName="Proxy Server Port"
+                  label="Proxy Server Port"
                   required={true}
                 />,
                 <ReusableValidation
                   fieldName="dnsServer"
                   control="isIP"
-                  fieldName="DNS Server"
+                  label="DNS Server"
                   required={true}
                 />,
                 <ReusableValidation
                   fieldName="mediaType"
-                  fieldName="Media Type"
+                  label="Media Type"
                   required={true}
                 />,
                 <ReusableValidation
                   fieldName="registerServer"
-                  fieldName="Register Server"
+                  label="Register Server"
                 />,
                 <ReusableValidation
                   fieldName="sipTimeout"
                   control="isNumber"
-                  fieldName="SIP Timeout"
+                  label="SIP Timeout"
                   required={true}
                 />,
                 <ReusableValidation
                   fieldName="sipTransport"
-                  fieldName="SIP Transport"
+                  label="SIP Transport"
                   required={true}
                 />,
               ]}

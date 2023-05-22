@@ -12,7 +12,7 @@ import {
 import * as Yup from "yup";
 import { trimValues } from "utils/Helper";
 import { MODULE_NAME } from "./Values";
-import AutoComplete from "components/AutoComplete/AutoComplete";
+import CustomAutoComplete from "components/CustomAutoComplete";
 
 const apiManager = new APIManager();
 
@@ -63,7 +63,7 @@ const UserFilter = forwardRef(
             errors={errors}
             handleSubmit={handleSubmit}
           >
-            <AutoComplete
+            <CustomAutoComplete
               placeholder="Access Level"
               disableClear={true}
               customOptions={[

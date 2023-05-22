@@ -19,7 +19,7 @@ const ProviderAddEdit = forwardRef(
     { getList, rowsPerPage, editData, setSearch, clearSearchField },
     modalRef
   ) => {
-    console.log({ editDataCheck: editData });
+     
 
     const theme = useTheme();
 
@@ -56,8 +56,8 @@ const ProviderAddEdit = forwardRef(
         enableReinitialize
         initialValues={initialValues}
         onSubmit={async (values) => {
-          console.log("values", values);
-          console.log("values port", values.inboundIP.port);
+           
+           
           if (!values.inboundIP[0].port && !values.outboundPort) {
             CustomAlert({
               message: "Please enter either inbound or outbound",
@@ -101,7 +101,7 @@ const ProviderAddEdit = forwardRef(
           submitForm,
           setFieldValue,
         }) => {
-          console.log("errors", errors);
+           
           return (
             <SimpleModal
               title={MODULE_NAME}
@@ -163,7 +163,7 @@ const ProviderAddEdit = forwardRef(
                                   key={index + "ele"}
                                   fieldName={`inboundIP.${index}.ip`}
                                   control="isIP"
-                                  fieldName="Inbound IP"
+                                  label="Inbound IP"
                                   required={true}
                                 />
                               </Grid>
@@ -172,15 +172,11 @@ const ProviderAddEdit = forwardRef(
                                   key={"ele" + index}
                                   fieldName={`inboundIP.${index}.port`}
                                   control="isPort"
-                                  fieldName="Inbound Port"
+                                  label="Inbound Port"
                                   required={true}
                                 />
                               </Grid>
-                              <Grid
-                                className="flex-end"
-                                item
-                                lg={2}
-                              >
+                              <Grid className="flex-end" item lg={2}>
                                 <IconButton
                                   onClick={() => {
                                     if (values.inboundIP.length > 1) {
@@ -219,33 +215,33 @@ const ProviderAddEdit = forwardRef(
                       <ReusableValidation
                         fieldName="outboundDomain"
                         control="isDomain"
-                        fieldName="Outbound Domain"
+                        label="Outbound Domain"
                         required={true}
                       />,
                       <ReusableValidation
                         fieldName="outboundProxy"
                         control="isIP"
-                        fieldName="Outbound Proxy"
+                        label="Outbound Proxy"
                         required={true}
                       />,
                       <ReusableValidation
                         fieldName="outboundPort"
                         control="isPort"
-                        fieldName="Outbound Port"
+                        label="Outbound Port"
                         required={true}
                       />,
                       <ReusableValidation
                         fieldName="outboundPrefix"
-                        fieldName="Outbound Prefix"
+                        label="Outbound Prefix"
                       />,
                       <ReusableValidation
                         fieldName="outboundUserName"
-                        fieldName="Outbound Username"
+                        label="Outbound Username"
                       />,
                       <ReusableValidation
                         fieldName="outboundPassword"
                         type="password"
-                        fieldName="Outbound Password"
+                        label="Outbound Password"
                       />,
                       <ReusableSwitch
                         fieldName="outboundRegister"
@@ -265,25 +261,25 @@ const ProviderAddEdit = forwardRef(
                         <ReusableValidation
                           control="isNumber"
                           fieldName="initialPulse"
-                          fieldName="Initial Pulse"
+                          label="Initial Pulse"
                           required={true}
                         />,
                         <ReusableValidation
                           control="isNumber"
                           fieldName="subsequentPulse"
-                          fieldName="Subsequent Pulse"
+                          label="Subsequent Pulse"
                           required={true}
                         />,
                         <ReusableValidation
                           control="isNumber"
                           fieldName="connectionCharge"
-                          fieldName="Connection Charge"
+                          label="Connection Charge"
                           required={true}
                         />,
                         <ReusableValidation
                           control="isNumber"
                           fieldName="defaultRate"
-                          fieldName="Default Rate"
+                          label="Default Rate"
                           required={true}
                         />,
                       ]}

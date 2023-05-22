@@ -12,7 +12,7 @@ import {
 import * as Yup from "yup";
 import { trimValues } from "utils/Helper";
 import { MODULE_NAME } from "./Values";
-import AutoComplete from "components/AutoComplete/AutoComplete";
+import CustomAutoComplete from "components/CustomAutoComplete";
 import { Layout } from "components/Layout/Layout";
 
 const apiManager = new APIManager();
@@ -72,7 +72,7 @@ const PhoneFilter = forwardRef(
           >
             <Layout
               components={[
-                <AutoComplete
+                <CustomAutoComplete
                   placeholder="Choose a country"
                   disableClear={true}
                   url="country/list"
@@ -90,7 +90,7 @@ const PhoneFilter = forwardRef(
                     setFieldValue("cityId", "");
                   }}
                 />,
-                <AutoComplete
+                <CustomAutoComplete
                   key={values?.countryId?._id}
                   placeholder="Choose a city"
                   disableClear={true}
@@ -101,7 +101,7 @@ const PhoneFilter = forwardRef(
                   optionRow={["cityName"]}
                   valueToShowInField="cityName"
                 />,
-                <AutoComplete
+                <CustomAutoComplete
                   placeholder="Choose a provider"
                   disableClear={true}
                   url="provider/list"

@@ -5,7 +5,6 @@ import { MODULE_NAME } from "./Values";
 import UserFilter from "./UserFilter";
 import EnhancedTable from "components/EnhancedTable";
 import CustomAlert from "components/CustomAlert";
-import MuiPhoneNumber from "components/MuiPhoneNumber";
 
 const columns = [
   { id: "fullName", label: "Name", style: { minWidth: 30, maxWidth: 150 } },
@@ -58,13 +57,12 @@ function User(props) {
         setSearch={setSearch}
         editData={editData}
         getList={getList}
-        rowsPerPage={rowsPerPage}
         ref={addEditRef}
       />
       <UserFilter
         onFilterChange={(values) => {
           filterRef.current.handleClose();
-          console.log("values", values);
+           
           setQuery({ role: values?.filterObj?.role || "" });
         }}
         onClear={() => {

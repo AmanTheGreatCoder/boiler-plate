@@ -3,7 +3,7 @@ import { forwardRef, useEffect } from "react";
 import APIManager from "utils/APImanager";
 import SimpleModal from "views/forms/plugins/Modal/SimpleModal";
 import { MODULE_NAME } from "./Values";
-import AutoComplete from "components/AutoComplete/AutoComplete";
+import CustomAutoComplete from "components/CustomAutoComplete";
 import ChooseCountry from "components/ChooseCountry";
 
 const apiManager = new APIManager();
@@ -26,7 +26,7 @@ const CityFilter = forwardRef(
     };
 
     useEffect(() => {
-      console.log("initial Values", initialValues);
+       
     }, [initialValues]);
 
     return (
@@ -34,7 +34,7 @@ const CityFilter = forwardRef(
         enableReinitialize
         initialValues={initialValues}
         onSubmit={async (values) => {
-          console.log("values", values);
+           
           initialValues.countryId = values.countryId;
           onFilterChange(values);
         }}
