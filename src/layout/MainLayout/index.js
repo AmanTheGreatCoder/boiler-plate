@@ -12,11 +12,9 @@ import {
   useMediaQuery,
 } from "@mui/material";
 
-// project imports
-import Breadcrumbs from "ui-component/extended/Breadcrumbs";
+import Breadcrumbs from "components/Breadcrumbs";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
-import Customization from "../Customization";
 import navigation from "menu-items";
 import useConfig from "hooks/useConfig";
 import { drawerWidth } from "store/constant";
@@ -155,7 +153,6 @@ const MainLayout = () => {
           </>
         )}
       </Main>
-      {/* <Customization /> */}
     </Box>
   );
 };

@@ -1,14 +1,10 @@
 import PropTypes from "prop-types";
 import { useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-
-// project imports
 import useAuth from "hooks/useAuth";
-import { DASHBOARD_PATH } from "config";
-import { AzhaiAuthContext } from "contexts/AzhaiAuthContext";
+import { AzhaiAuthContext } from "contexts/AuthContext";
 import APIManager from "utils/APImanager";
 
-// ==============================|| GUEST GUARD ||============================== //
 const apiManager = new APIManager();
 
 /**
@@ -22,6 +18,7 @@ const GuestGuard = ({ children }) => {
   const navigate = useNavigate();
 
   useEffect(async () => {
+    console.log("logs7 use effect running guest guard");
     if (localStorage.getItem("token")) {
       const result = await apiManager.get("auth/profile");
       //
@@ -31,10 +28,6 @@ const GuestGuard = ({ children }) => {
         localStorage.removeItem("token");
       }
     }
-
-    // if (isLoggedIn) {
-    //     navigate(DASHBOARD_PATH, { replace: true });
-    // }
   }, [isLoggedIn, navigate]);
 
   return children;

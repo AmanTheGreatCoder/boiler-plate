@@ -2,7 +2,7 @@
 import { useTheme } from "@mui/material/styles";
 import { Avatar, Box } from "@mui/material";
 import { Formik } from "formik";
-import SimpleModal from "views/forms/plugins/Modal/SimpleModal";
+import SimpleModal from "components/SimpleModal";
 import APIManager from "utils/APImanager";
 import LogoSection from "../LogoSection";
 import MobileSection from "./MobileSection";
@@ -11,8 +11,8 @@ import { useDispatch, useSelector } from "store";
 import { openDrawer } from "store/slices/menu";
 import { IconMenu2 } from "@tabler/icons";
 import { useContext, useRef } from "react";
-import { AzhaiAuthContext } from "contexts/AzhaiAuthContext";
-import UserAddEdit from "views/pages/User/UserAddEdit";
+import { AzhaiAuthContext } from "contexts/AuthContext";
+import UserAddEdit from "pages/User/UserAddEdit";
 import { SettingsBackupRestoreSharp } from "@mui/icons-material";
 
 const apiManager = new APIManager();
@@ -25,21 +25,17 @@ const Header = () => {
   const modalRef = useRef(null);
   const profileCardRef = useRef(null);
 
-   
-  const { _id, fullName, email, countryCode, phoneNumber, isoCountry } = auth;
+  const { _id, fullName, email, fullNumber } = auth;
   const editData = {
     _id,
     fullName,
     email,
-    countryCode,
-    phoneNumber,
-    isoCountry,
+    fullNumber,
   };
 
   const editProfileClick = () => {
     modalRef.current.handleOpen();
     profileCardRef.current.handleClose();
-     
   };
 
   const setProfile = async () => {

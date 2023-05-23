@@ -1,4 +1,3 @@
-import { FormattedMessage } from "react-intl";
 import {
   IconHeartHandshake,
   IconSettings,
@@ -14,17 +13,17 @@ const Dashboard = {
   id: "dashboard",
   type: "group",
   children: [
-    {
-      id: "dashboard",
-      title: <FormattedMessage id="dashboard" />,
-      type: "item",
-      url: "/dashboard",
-      icon: IconDashboard,
-      breadcrumbs: false,
-    },
+    // {
+    //   id: "dashboard",
+    //   title: 'Dashboard',
+    //   type: "item",
+    //   url: "/dashboard",
+    //   icon: IconDashboard,
+    //   breadcrumbs: false,
+    // },
     {
       id: "user",
-      title: <FormattedMessage id="user" />,
+      title: 'Users',
       type: "item",
       url: "/user",
       icon: IconUserCircle,
@@ -32,7 +31,7 @@ const Dashboard = {
     },
     {
       id: "country",
-      title: <FormattedMessage id="country" />,
+      title: 'Countries',
       type: "item",
       url: "/country",
       icon: IconMap2,
@@ -40,7 +39,7 @@ const Dashboard = {
     },
     {
       id: "city",
-      title: <FormattedMessage id="city" />,
+      title: 'Cities',
       type: "item",
       url: "/city",
       icon: IconMapPin,
@@ -48,7 +47,7 @@ const Dashboard = {
     },
     {
       id: "phone-number",
-      title: <FormattedMessage id="phone number" />,
+      title: 'Phone Numbers',
       type: "item",
       url: "/phone-number",
       icon: IconPhone,
@@ -56,7 +55,7 @@ const Dashboard = {
     },
     {
       id: "subscription",
-      title: <FormattedMessage id="subscription" />,
+      title: 'Subscriptions',
       type: "item",
       url: "/subscription",
       icon: IconBrandStripe,
@@ -64,7 +63,7 @@ const Dashboard = {
     },
     {
       id: "system-config",
-      title: <FormattedMessage id="system config" />,
+      title: 'System Config',
       type: "item",
       url: "/system-config",
       icon: IconSettings,
@@ -72,9 +71,17 @@ const Dashboard = {
     },
     {
       id: "provider",
-      title: <FormattedMessage id="provider" />,
+      title: 'Provider',
       type: "item",
       url: "/provider",
+      icon: IconHeartHandshake,
+      breadcrumbs: false,
+    },
+    {
+      id: "subs",
+      title: 'User Subscriptions',
+      type: "item",
+      url: "/usersubs",
       icon: IconHeartHandshake,
       breadcrumbs: false,
     },

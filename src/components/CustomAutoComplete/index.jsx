@@ -96,7 +96,6 @@ function CustomAutoComplete({
   };
 
   useEffect(() => {
-    console.log("on change in auto complete", onChange);
     fetching();
   }, []);
 
@@ -159,6 +158,10 @@ function CustomAutoComplete({
     }
     return valueToShowInField ? option[valueToShowInField] : option;
   };
+
+  useEffect(() => {
+    // console.log("value in auto complete", value);
+  }, [value]);
 
   return (
     <FormControl fullWidth>

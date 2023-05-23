@@ -1,5 +1,5 @@
 import { forwardRef } from "react";
-import SimpleModal from "views/forms/plugins/Modal/SimpleModal";
+import SimpleModal from "components/SimpleModal";
 import APIManager from "utils/APImanager";
 import styled from "@emotion/styled";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
@@ -113,7 +113,7 @@ const ImportFile = forwardRef((props, ref) => {
         <SimpleModal
           submitForm={submitForm}
           resetForm={resetForm}
-          title={"IMPORT"}
+          title={"Import"}
           ref={ref}
         >
           <SoundGroup>

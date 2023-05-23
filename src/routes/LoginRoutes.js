@@ -2,15 +2,11 @@ import { lazy } from "react";
 import GuestGuard from "utils/route-guard/GuestGuard";
 import MinimalLayout from "layout/MinimalLayout";
 import NavMotion from "layout/NavMotion";
-import Loadable from "ui-component/Loadable";
+import Loadable from "utils/Loadable";
 
-const AuthLogin = Loadable(
-  lazy(() => import("views/pages/authentication/authentication3/Login3"))
-);
+const AuthLogin = Loadable(lazy(() => import("pages/Authentication/Login")));
 const AuthCodeVerification = Loadable(
-  lazy(() =>
-    import("views/pages/authentication/authentication3/CodeVerification3")
-  )
+  lazy(() => import("pages/Authentication/OTP"))
 );
 
 const LoginRoutes = {

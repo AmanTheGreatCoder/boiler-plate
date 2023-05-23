@@ -1,4 +1,4 @@
-import { AzhaiAuthContext } from "contexts/AzhaiAuthContext";
+import { AzhaiAuthContext } from "contexts/AuthContext";
 import PropTypes from "prop-types";
 import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";

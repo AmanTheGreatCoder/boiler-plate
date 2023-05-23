@@ -1,25 +1,24 @@
 import { lazy } from "react";
 import MainLayout from "layout/MainLayout";
-import Loadable from "ui-component/Loadable";
 import AuthGuard from "utils/route-guard/AuthGuard";
+import Loadable from "utils/Loadable";
 
-const DashboardDefault = Loadable(
-  lazy(() => import("views/dashboard/Default"))
-);
-const Country = Loadable(lazy(() => import("views/pages/Country")));
-const City = Loadable(lazy(() => import("views/pages/City/City")));
+const Dashboard = Loadable(lazy(() => import("pages/Dashboard")));
+const Country = Loadable(lazy(() => import("pages/Country")));
+const City = Loadable(lazy(() => import("pages/City/City")));
 const Subscription = Loadable(
-  lazy(() => import("views/pages/Subscription/Subscription"))
+  lazy(() => import("pages/Subscription/Subscription"))
 );
-const User = Loadable(lazy(() => import("views/pages/User/User")));
+const User = Loadable(lazy(() => import("pages/User/User")));
+const UserSub = Loadable(lazy(() => import("pages/UserSub")));
 const SIPExtensions = Loadable(
-  lazy(() => import("views/pages/SIPExtensions/SIPExtensions"))
+  lazy(() => import("pages/SIPExtensions/SIPExtensions"))
 );
 const PhoneNumber = Loadable(
-  lazy(() => import("views/pages/PhoneNumber/PhoneNumber"))
+  lazy(() => import("pages/PhoneNumber/PhoneNumber"))
 );
-const Provider = Loadable(lazy(() => import("views/pages/Provider/Provider")));
-const RateList = Loadable(lazy(() => import("views/pages/RateList/RateList")));
+const Provider = Loadable(lazy(() => import("pages/Provider/Provider")));
+const RateList = Loadable(lazy(() => import("pages/RateList/RateList")));
 
 const MainRoutes = {
   path: "/",
@@ -31,7 +30,7 @@ const MainRoutes = {
   children: [
     {
       path: "/dashboard",
-      element: <DashboardDefault />,
+      element: <Dashboard />,
     },
     {
       path: "/country",
@@ -64,6 +63,10 @@ const MainRoutes = {
     {
       path: "/user",
       element: <User />,
+    },
+    {
+      path: "/usersubs",
+      element: <UserSub />,
     },
   ],
 };

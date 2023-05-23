@@ -8,7 +8,7 @@ import {
   useState,
 } from "react";
 import { useNavigate } from "react-router-dom";
-import confirm from "views/forms/plugins/Confirm/confirm";
+import confirm from "components/Confim";
 import { confirmMessage } from "utils/Helper";
 import { useTheme } from "@mui/material/styles";
 import {
@@ -26,15 +26,16 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import MainCard from "ui-component/cards/MainCard";
-import Transitions from "ui-component/extended/Transitions";
+import MainCard from "components/MainCard";
+import Transitions from "components/Transition";
 import useAuth from "hooks/useAuth";
 import User1 from "assets/images/users/user-round.svg";
 
 // assets
 import { IconLogout, IconSearch, IconSettings, IconUser } from "@tabler/icons";
 import useConfig from "hooks/useConfig";
-import { AzhaiAuthContext } from "contexts/AzhaiAuthContext";
+import { AzhaiAuthContext } from "contexts/AuthContext";
+import { ManageAccounts } from "@mui/icons-material";
 
 const ProfileSection = forwardRef(({ editProfileClick }, ref) => {
   const { auth } = useContext(AzhaiAuthContext);

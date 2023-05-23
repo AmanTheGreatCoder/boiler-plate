@@ -2,12 +2,12 @@ import { lazy } from "react";
 import { useRoutes, Navigate } from "react-router-dom";
 import MainRoutes from "./MainRoutes";
 import LoginRoutes from "./LoginRoutes";
-import Loadable from "ui-component/Loadable";
+import Loadable from "utils/Loadable";
 
-const NotFound = Loadable(lazy(() => import("views/pages/maintenance/Error")));
+const NotFound = Loadable(lazy(() => import("pages/maintenance/404")));
 
 const MaintenanceLanding = Loadable(
-  lazy(() => import("views/pages/maintenance/UnderMaintenance"))
+  lazy(() => import("pages/maintenance/UnderMaintenance"))
 );
 
 export default function ThemeRoutes() {
