@@ -9,8 +9,8 @@ import {
   IconDashboard,
 } from "@tabler/icons";
 
-const Dashboard = {
-  id: "dashboard",
+const SidebarItems = {
+  id: "items",
   type: "group",
   children: [
     {
@@ -78,14 +78,18 @@ const Dashboard = {
       breadcrumbs: false,
     },
     {
-      id: "subs",
+      id: "user-subscription",
       title: "User Subscriptions",
       type: "item",
-      url: "/usersubscriptions",
+      url: "/user-subscription",
       icon: IconHeartHandshake,
       breadcrumbs: false,
     },
   ],
 };
 
-export default Dashboard;
+const MenuItems = {
+  items: [SidebarItems],
+};
+
+export default MenuItems;

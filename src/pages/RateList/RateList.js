@@ -28,25 +28,22 @@ import EnhancedTable from "components/EnhancedTable";
 const apiManager = new APIManager();
 
 const columns = [
-  { id: "dialCode", label: "Dialcode", style: { minWidth: 30 }, prefix: "+" },
-  { id: "destination", label: "Destination", style: { minWidth: 30 } },
-  { id: "rate", label: "Rate", style: { minWidth: 30 }, prefix: "$ " },
-  { id: "initialPulse", label: "Initial Pulse", style: { minWidth: 30 } },
+  { id: "dialCode", label: "Dialcode", prefix: "+" },
+  { id: "destination", label: "Destination" },
+  { id: "rate", label: "Rate", prefix: "$ " },
+  { id: "initialPulse", label: "Initial Pulse" },
   {
     id: "subsequentPulse",
     label: "Subsequent Pulse",
-    style: { minWidth: 30 },
   },
   {
     id: "connectionCharge",
     label: "Connection Charge",
-    style: { minWidth: 30 },
     prefix: "$ ",
   },
   {
     id: "actions",
     name: "Actions",
-    style: { minWidth: 70 },
     align: "right",
   },
 ];
@@ -64,7 +61,6 @@ function RateList({
   const params = useParams();
 
   useEffect(() => {
-     
     if (params && params.type && params.parentId) {
       setQuery({ type: params.type, parentId: params.parentId });
     } else {

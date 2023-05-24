@@ -253,7 +253,7 @@ const SearchSection = forwardRef(({ getValue }, ref) => {
             </InputAdornment>
           }
           aria-describedby="search-helper-text"
-          inputProps={{ "aria-label": "weight" }}
+          inputProps={{ "aria-label": "weight", autoComplete: "off" }}
         />
       </Box>
     </>

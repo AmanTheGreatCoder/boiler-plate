@@ -37,10 +37,6 @@ const withPagination = (WrappedComponent, url, { ...otherParams }) => {
       setAnchorEl(null);
     };
 
-    useEffect(() => {
-      console.log("page", page);
-    }, [page]);
-
     const handleCloseWithRow = (event) => {
       handleClose();
       setRowsPerPage(+event?.target?.value);

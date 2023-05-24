@@ -65,7 +65,7 @@ const MainRoutes = {
       element: <User />,
     },
     {
-      path: "/usersubs",
+      path: "/user-subscription",
       element: <UserSub />,
     },
   ],

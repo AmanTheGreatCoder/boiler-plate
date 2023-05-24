@@ -107,7 +107,6 @@ const PhoneNumberAddEdit = forwardRef(
                 components={[
                   <ChooseCountry
                     onChange={(e) => {
-                      console.log("choose country ", e);
                       if (e?.countryCode) {
                         setPrefix(`+${e.countryCode}`);
                       } else {

@@ -18,7 +18,6 @@ const GuestGuard = ({ children }) => {
   const navigate = useNavigate();
 
   useEffect(async () => {
-    console.log("logs7 use effect running guest guard");
     if (localStorage.getItem("token")) {
       const result = await apiManager.get("auth/profile");
       //

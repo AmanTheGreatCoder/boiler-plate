@@ -21,7 +21,8 @@ import { useNavigate } from "react-router-dom";
 import { FileDownload } from "@mui/icons-material";
 import MainCard from "components/MainCard";
 import Chip from "components/Chip";
-import { isPropertyDeclaration } from "typescript";
+import moment from "moment";
+import { ErrorBoundary } from "pages/ErrorManagement/ErrorBoundary";
 
 const apiManager = new APIManager();
 
@@ -200,16 +201,16 @@ function EnhancedTable(props) {
   };
 
   const addOnClick = () => {
-    addEditRef.current.handleOpen();
+    addEditRef?.current?.handleOpen();
     setEditData("");
   };
 
   const filterOnClick = () => {
-    filterRef.current.handleOpen();
+    filterRef?.current?.handleOpen();
   };
 
   const importOnClick = () => {
-    importRef.current.handleOpen();
+    importRef?.current?.handleOpen();
   };
 
   const renderSwitch = (ele, e) => {
@@ -290,17 +291,7 @@ function EnhancedTable(props) {
     } else if (ele.id === "phoneNumber") {
       value = `+${e["countryCode"]} ${e[ele.id]}`;
     } else if (ele.format === "Date") {
-      const isoString = e[ele.id];
-      const date = new Date(isoString);
-      const options = {
-        day: "2-digit",
-        month: "long",
-        year: "numeric",
-        hour: "numeric",
-        minute: "2-digit",
-        hour12: true,
-      };
-      value = date.toLocaleString("en-US", options);
+      value = moment(e[ele.id]).format("D MMMM YYYY, h:mm A");
     } else if (ele.id === "phoneNumberId") {
       const temp = `+${e[ele.id]["countryCode"]} ${e[ele.id]["phoneNumber"]}`;
       value = temp;

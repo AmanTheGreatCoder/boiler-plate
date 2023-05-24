@@ -10,12 +10,10 @@ const columns = [
   {
     id: "cityName",
     label: "City Name",
-    style: { minWidth: 30, textTransform: "capitalize", maxWidth: 150 },
   },
   {
     id: "countryId.countryName",
     label: "Country Name",
-    style: { minWidth: 30, textTransform: "capitalize", maxWidth: 150 },
   },
   {
     id: "isActive",
@@ -24,7 +22,6 @@ const columns = [
   {
     id: "actions",
     name: "Actions",
-    style: { minWidth: 70, maxWidth: 150 },
     align: "right",
   },
 ];
@@ -65,9 +62,7 @@ function City({
         ref={addEditRef}
       />
       <ImportFile
-        sampleUrl={
-          "https://mobile-api2.alpha-dev.streamspace.ai/sample/sample_import_city.csv"
-        }
+        sampleUrl={`${process.env.REACT_APP_BASE_URL}sample/sample_import_city.csv`}
         clearSearchField={clearSearchField}
         getList={getList}
         rowsPerPage={rowsPerPage}

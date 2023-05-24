@@ -4,10 +4,10 @@ import MainRoutes from "./MainRoutes";
 import LoginRoutes from "./LoginRoutes";
 import Loadable from "utils/Loadable";
 
-const NotFound = Loadable(lazy(() => import("pages/maintenance/404")));
+const NotFound = Loadable(lazy(() => import("pages/ErrorManagement/NotFound")));
 
 const MaintenanceLanding = Loadable(
-  lazy(() => import("pages/maintenance/UnderMaintenance"))
+  lazy(() => import("pages/ErrorManagement/Maintenance"))
 );
 
 export default function ThemeRoutes() {

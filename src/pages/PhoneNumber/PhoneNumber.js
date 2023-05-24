@@ -13,27 +13,22 @@ const columns = [
   {
     id: "phoneNumber",
     label: "Phone Number",
-    style: { minWidth: 30, maxWidth: 150 },
   },
   {
     id: "providerId.name",
     label: "Provider",
-    style: { minWidth: 30, maxWidth: 150 },
   },
   {
     id: "cityId.cityName",
     label: "City Name",
-    style: { minWidth: 30, textTransform: "capitalize", maxWidth: 150 },
   },
   {
     id: "countryId.countryName",
     label: "Country Name",
-    style: { minWidth: 30, textTransform: "capitalize", maxWidth: 150 },
   },
   {
     id: "assignedTo.fullName",
     label: "Assigned To",
-    style: { minWidth: 30, textAlign: "center", maxWidth: 150 },
   },
   {
     id: "isActive",
@@ -42,7 +37,6 @@ const columns = [
   {
     id: "actions",
     name: "Actions",
-    style: { minWidth: 70, maxWidth: 150 },
     align: "right",
   },
 ];
@@ -66,10 +60,9 @@ function PhoneNumber({
   useEffect(() => {
     var phoneUtil = PhoneNumberUtil.getInstance();
     let valid2 = phoneUtil.isValidNumberForRegion(
-      phoneUtil.parse('2222222222', "IN"),
+      phoneUtil.parse("2222222222", "IN"),
       "IN"
     );
-    console.log("valid logs 2", valid2);
   }, []);
 
   return (
@@ -120,9 +113,7 @@ function PhoneNumber({
         ref={filterRef}
       />
       <ImportFile
-        sampleUrl={
-          "https://mobile-api2.alpha-dev.streamspace.ai/sample/sample_import_phone.csv"
-        }
+        sampleUrl={`${process.env.REACT_APP_BASE_URL}sample/sample_import_phone.csv`}
         clearSearchField={clearSearchField}
         getList={getList}
         rowsPerPage={rowsPerPage}

@@ -1,12 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-// initial state
 const initialState = {
   openItem: ["dashboard"],
   drawerOpen: false,
 };
-
-// ==============================|| SLICE - MENU ||============================== //
 
 const menu = createSlice({
   name: "menu",

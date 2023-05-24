@@ -4,21 +4,18 @@ import withPagination from "hoc/withPagination/withPagination";
 import { MODULE_NAME } from "./Values";
 import UserFilter from "./UserFilter";
 import EnhancedTable from "components/EnhancedTable";
-import CustomAlert from "components/CustomAlert";
 
 const columns = [
-  { id: "fullName", label: "Name", style: { minWidth: 30, maxWidth: 150 } },
-  { id: "email", label: "Email", style: { minWidth: 30, maxWidth: 150 } },
+  { id: "fullName", label: "Name" },
+  { id: "email", label: "Email" },
   {
     id: "phoneNumber",
     label: "Phone Number",
-    style: { minWidth: 30, maxWidth: 150 },
   },
   { id: "role", label: "Role" },
   {
     id: "isActive",
     label: "Active",
-    headStyle: { paddingLeft: "25px" },
   },
   { id: "actions", name: "Actions" },
 ];
@@ -42,7 +39,7 @@ function User(props) {
       title={MODULE_NAME}
       addBtnTitle="Add Admin"
       urlPrefix="user"
-      downloadUrl="https://mobile-api2.alpha-dev.streamspace.ai/sample/sample_import_phone.csv"
+      downloadUrl={`${process.env.REACT_APP_BASE_URL}sample/sample_import_phone.csv`}
       pagination={children}
       add={true}
       addEditRef={addEditRef}
@@ -62,7 +59,6 @@ function User(props) {
       <UserFilter
         onFilterChange={(values) => {
           filterRef.current.handleClose();
-           
           setQuery({ role: values?.filterObj?.role || "" });
         }}
         onClear={() => {

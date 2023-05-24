@@ -46,6 +46,9 @@ function OtpInput({ onChange, error }) {
           value={value}
           onChange={handleValueChange(index)}
           onKeyDown={handleKeyDown(index)}
+          inputProps={{
+            autoComplete: "off",
+          }}
         />
       ))}
     </Stack>

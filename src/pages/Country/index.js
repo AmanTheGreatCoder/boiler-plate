@@ -9,20 +9,17 @@ const columns = [
   {
     id: "countryName",
     label: "Country Name",
-    style: { minWidth: 30, maxWidth: 150 },
   },
   {
     id: "countryCode",
     label: "Dial Code",
-    style: { minWidth: 100, maxWidth: 150 },
     prefix: "+",
   },
   {
     id: "isoCountry",
     label: "ISO",
-    style: { minWidth: 30, maxWidth: 150 },
   },
-  { id: "flag", label: "Flag", style: { minWidth: 30, maxWidth: 150 } },
+  { id: "flag", label: "Flag" },
   {
     id: "isActive",
     label: "Active",
@@ -30,7 +27,6 @@ const columns = [
   {
     id: "actions",
     name: "Actions",
-    style: { minWidth: 70, maxWidth: 150 },
     align: "right",
   },
 ];
@@ -70,14 +66,12 @@ function Country(props) {
         ref={addEditRef}
       />
       <ImportFile
-        sampleUrl={
-          "https://mobile-api2.alpha-dev.streamspace.ai/sample/sample_import_country.csv"
-        }
+        sampleUrl={`${process.env.REACT_APP_BASE_URL}sample/sample_import_country.csv`}
         clearSearchField={clearSearchField}
         getList={getList}
         rowsPerPage={rowsPerPage}
         setSearch={setSearch}
-        title={'Import'}
+        title={"Import"}
         url="country/import"
         ref={importRef}
       />

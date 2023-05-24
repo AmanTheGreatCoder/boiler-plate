@@ -6,22 +6,19 @@ import { MODULE_NAME } from "./Values";
 import EnhancedTable from "components/EnhancedTable";
 
 const columns = [
-  { id: "sipDomain", label: "Domain", style: { minWidth: 30, maxWidth: 150 } },
-  { id: "proxyServerIp", label: "IP", style: { minWidth: 30, maxWidth: 150 } },
+  { id: "sipDomain", label: "Domain" },
+  { id: "proxyServerIp", label: "IP" },
   {
     id: "proxyServerPort",
     label: "Port",
-    style: { minWidth: 30, maxWidth: 150 },
   },
   {
     id: "sipTransport",
     label: "Transport",
-    style: { minWidth: 30, maxWidth: 150 },
   },
   {
     id: "actions",
     name: "Actions",
-    style: { minWidth: 70, maxWidth: 150 },
     align: "right",
   },
 ];

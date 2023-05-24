@@ -15,7 +15,7 @@ import {
 import Breadcrumbs from "components/Breadcrumbs";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
-import navigation from "menu-items";
+import navigation from "../MainLayout/Sidebar/MenuItems";
 import useConfig from "hooks/useConfig";
 import { drawerWidth } from "store/constant";
 import { openDrawer } from "store/slices/menu";
@@ -80,7 +80,6 @@ const MainLayout = () => {
   const { container } = useConfig();
 
   useEffect(() => {
-     
     if (matchDownMd) {
       dispatch(openDrawer(false));
     } else {
@@ -90,7 +89,6 @@ const MainLayout = () => {
   }, [matchDownMd]);
 
   useEffect(() => {
-     
     if (matchDownLg) {
       dispatch(openDrawer(false));
     }

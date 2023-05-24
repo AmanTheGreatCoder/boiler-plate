@@ -65,7 +65,6 @@ export default function ThemeCustomization({ children }) {
 
   return (
     <StyledEngineProvider injectFirst>
-      {console.log("Themessss", themes)}
       <ThemeProvider theme={themes}>
         <CssBaseline />
         {children}

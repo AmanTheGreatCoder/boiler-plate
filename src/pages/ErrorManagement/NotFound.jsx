@@ -70,7 +70,7 @@ const CardMediaPurple = styled("img")({
 
 // ==============================|| ERROR PAGE ||============================== //
 
-const Error = () => {
+const NotFound = () => {
   const theme = useTheme();
 
   return (
@@ -128,4 +128,4 @@ const Error = () => {
   );
 };
 
-export default Error;
+export default NotFound;

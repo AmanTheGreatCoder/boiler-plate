@@ -159,10 +159,6 @@ function CustomAutoComplete({
     return valueToShowInField ? option[valueToShowInField] : option;
   };
 
-  useEffect(() => {
-    // console.log("value in auto complete", value);
-  }, [value]);
-
   return (
     <FormControl fullWidth>
       <Autocomplete
@@ -196,7 +192,6 @@ function CustomAutoComplete({
         onBlur={onBlur}
         onInputChange={(e) => setFormValue(e?.target?.value)}
         onChange={(event, value) => {
-          console.log("change called in auto complete");
           setValue(value);
           onChange && onChange(value);
         }}
@@ -231,7 +226,7 @@ function CustomAutoComplete({
               inputProps={{
                 ...params.inputProps,
                 ...inputProps,
-                autoComplete: "off", // disable autocomplete and autofill
+                autoComplete: "off",
               }}
             />
           );

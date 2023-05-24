@@ -158,7 +158,7 @@ const ReusableValidation = memo((props) => {
           setValue(e.target.value);
           onChange && onChange(e.target.value);
         }}
-        inputProps={{ maxLength, ...inputProps }}
+        inputProps={{ maxLength, autoComplete: "off", ...inputProps }}
         InputProps={{ ...InputProps }}
       />
       {hasError && (

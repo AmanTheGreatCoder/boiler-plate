@@ -60,18 +60,15 @@ export default class APIManager {
     if (this.checkInternet()) {
       let response, data;
       try {
-        response = await fetch(
-          `${process.env.REACT_APP_BASE_URL}/${endpoint}`,
-          {
-            method: method,
-            headers: {
-              "Content-Type": "application/json",
-              accept: "*/*",
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-            body: JSON.stringify(body),
-          }
-        );
+        response = await fetch(`${process.env.REACT_APP_BASE_URL}${endpoint}`, {
+          method: method,
+          headers: {
+            "Content-Type": "application/json",
+            accept: "*/*",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          body: JSON.stringify(body),
+        });
         data = await response.json();
       } catch (e) {}
       return this.sendResponse(data, response);
