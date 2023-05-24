@@ -13,17 +13,17 @@ const Dashboard = {
   id: "dashboard",
   type: "group",
   children: [
-    // {
-    //   id: "dashboard",
-    //   title: 'Dashboard',
-    //   type: "item",
-    //   url: "/dashboard",
-    //   icon: IconDashboard,
-    //   breadcrumbs: false,
-    // },
+    {
+      id: "dashboard",
+      title: "Dashboard",
+      type: "item",
+      url: "/dashboard",
+      icon: IconDashboard,
+      breadcrumbs: false,
+    },
     {
       id: "user",
-      title: 'Users',
+      title: "Users",
       type: "item",
       url: "/user",
       icon: IconUserCircle,
@@ -31,7 +31,7 @@ const Dashboard = {
     },
     {
       id: "country",
-      title: 'Countries',
+      title: "Countries",
       type: "item",
       url: "/country",
       icon: IconMap2,
@@ -39,7 +39,7 @@ const Dashboard = {
     },
     {
       id: "city",
-      title: 'Cities',
+      title: "Cities",
       type: "item",
       url: "/city",
       icon: IconMapPin,
@@ -47,7 +47,7 @@ const Dashboard = {
     },
     {
       id: "phone-number",
-      title: 'Phone Numbers',
+      title: "Phone Numbers",
       type: "item",
       url: "/phone-number",
       icon: IconPhone,
@@ -55,7 +55,7 @@ const Dashboard = {
     },
     {
       id: "subscription",
-      title: 'Subscriptions',
+      title: "Subscriptions",
       type: "item",
       url: "/subscription",
       icon: IconBrandStripe,
@@ -63,7 +63,7 @@ const Dashboard = {
     },
     {
       id: "system-config",
-      title: 'System Config',
+      title: "System Config",
       type: "item",
       url: "/system-config",
       icon: IconSettings,
@@ -71,7 +71,7 @@ const Dashboard = {
     },
     {
       id: "provider",
-      title: 'Provider',
+      title: "Provider",
       type: "item",
       url: "/provider",
       icon: IconHeartHandshake,
@@ -79,9 +79,9 @@ const Dashboard = {
     },
     {
       id: "subs",
-      title: 'User Subscriptions',
+      title: "User Subscriptions",
       type: "item",
-      url: "/usersubs",
+      url: "/usersubscriptions",
       icon: IconHeartHandshake,
       breadcrumbs: false,
     },

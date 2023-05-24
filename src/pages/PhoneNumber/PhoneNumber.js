@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import PhoneNumberAddEdit from "./PhoneNumberAddEdit";
 import PhoneFilter from "./PhoneFilter";
 import withPagination from "hoc/withPagination/withPagination";
@@ -7,6 +7,7 @@ import { Button } from "@mui/material";
 import AssignNumberModal from "./AssignNumberModal";
 import ImportFile from "components/ImportFile/ImportFile";
 import EnhancedTable from "components/EnhancedTable";
+import { PhoneNumberUtil } from "google-libphonenumber";
 
 const columns = [
   {
@@ -61,6 +62,15 @@ function PhoneNumber({
   const filterRef = useRef(null);
 
   const [editData, setEditData] = useState("");
+
+  useEffect(() => {
+    var phoneUtil = PhoneNumberUtil.getInstance();
+    let valid2 = phoneUtil.isValidNumberForRegion(
+      phoneUtil.parse('2222222222', "IN"),
+      "IN"
+    );
+    console.log("valid logs 2", valid2);
+  }, []);
 
   return (
     <EnhancedTable

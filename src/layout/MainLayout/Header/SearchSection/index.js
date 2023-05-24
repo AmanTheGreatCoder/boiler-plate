@@ -235,7 +235,13 @@ const SearchSection = forwardRef(({ getValue }, ref) => {
           sx={{ width: "100%", margin: "0" }}
           id="input-search-header"
           value={value}
-          onChange={(e) => setValue(e.target.value)}
+          onChange={(e) => {
+            if (value && value[0] !== " ") {
+              setValue(e.target.value);
+            } else {
+              setValue(e.target.value.trim());
+            }
+          }}
           placeholder="Search"
           startAdornment={
             <InputAdornment position="start">
@@ -246,13 +252,6 @@ const SearchSection = forwardRef(({ getValue }, ref) => {
               />
             </InputAdornment>
           }
-          // endAdornment={
-          //     <InputAdornment position="end">
-          //         <HeaderAvatarStyle variant="rounded">
-          //             <IconAdjustmentsHorizontal stroke={1.5} size="1.3rem" />
-          //         </HeaderAvatarStyle>
-          //     </InputAdornment>
-          // }
           aria-describedby="search-helper-text"
           inputProps={{ "aria-label": "weight" }}
         />

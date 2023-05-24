@@ -6933,6 +6933,11 @@
     "merge2" "^1.3.0"
     "slash" "^3.0.0"
 
+"google-libphonenumber@^3.2.32":
+  "integrity" "sha512-mcNgakausov/B/eTgVeX8qc8IwWjRrupk9UzZZ/QDEvdh5fAjE7Aa211bkZpZj42zKkeS6MTT8avHUwjcLxuGQ=="
+  "resolved" "https://registry.npmjs.org/google-libphonenumber/-/google-libphonenumber-3.2.32.tgz"
+  "version" "3.2.32"
+
 "gopd@^1.0.1":
   "integrity" "sha512-d65bNlIadxvpb/A2abVdlqKqV563juRnZ1Wtk6s1sIR8uNsXR70xqIzVqxVf1eTqDunwT2MkczEeaezCKTZhwA=="
   "resolved" "https://registry.npmjs.org/gopd/-/gopd-1.0.1.tgz"

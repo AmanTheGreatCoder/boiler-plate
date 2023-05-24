@@ -29,8 +29,7 @@ import {
 import MainCard from "components/MainCard";
 import Transitions from "components/Transition";
 import useAuth from "hooks/useAuth";
-import User1 from "assets/images/users/user-round.svg";
-
+import { AccountCircle } from "@mui/icons-material";
 // assets
 import { IconLogout, IconSearch, IconSettings, IconUser } from "@tabler/icons";
 import useConfig from "hooks/useConfig";
@@ -122,7 +121,7 @@ const ProfileSection = forwardRef(({ editProfileClick }, ref) => {
         }}
         icon={
           <Avatar
-            src={User1}
+            src={<AccountCircle />}
             sx={{
               ...theme.typography.mediumAvatar,
               margin: "8px 0 8px 8px !important",

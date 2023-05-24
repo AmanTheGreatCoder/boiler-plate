@@ -110,7 +110,9 @@ const CountryAddEdit = forwardRef(
                   fieldName="countryName"
                   label={"Country Name"}
                   required={true}
-                  // isSubmitting={isSubmitting}
+                  inputProps={{
+                    style: { textTransform: "capitalize" },
+                  }}
                 />,
                 <ReusableValidation
                   fieldName="countryCode"

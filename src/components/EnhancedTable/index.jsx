@@ -61,19 +61,19 @@ function EnhancedTable(props) {
   }, [list]);
 
   function getProperty(obj, property) {
-    console.log("obj", obj);
-    console.log("property", property);
-    const properties = property.split(".");
-    console.log("properties after splitting", properties);
-    let value = obj;
-    for (let prop of properties) {
-      if (value[prop]) {
-        console.log("inside if");
-        value = value[prop];
+    let value = "";
+    if (property.includes(".")) {
+      const arr = property.split(".");
+      value = obj[arr[0]];
+      if (value) {
+        value = value[arr[arr.length - 1]];
       }
+    } else {
+      value = obj[property];
     }
     return value;
   }
+
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
   };
@@ -317,12 +317,11 @@ function EnhancedTable(props) {
     } else if (ele.id.includes(".")) {
       if (ele.format === "add") {
         const arr = ele.id.split(".");
+        const id = arr[0];
         let temp = "";
         for (let i = 1; i < arr.length; i++) {
-          console.log("e ele id", e[ele.id]);
-          if (e[ele.id]) {
-            console.log("e ele id arr i", arr[i]);
-            temp += e[ele.id][arr[i]];
+          if (e[id]) {
+            temp += e[id][arr[i]];
             temp += " ";
           }
         }

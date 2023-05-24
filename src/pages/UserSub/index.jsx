@@ -37,7 +37,7 @@ const columns = [
   },
 ];
 
-function UserSub(props) {
+function UserSubscription(props) {
   const {
     rowsPerPage,
     setSearch,
@@ -88,7 +88,7 @@ function UserSub(props) {
   );
 }
 
-export default withPagination(UserSub, "user-subs", {
+export default withPagination(UserSubscription, "user-subs", {
   imageRequired: true,
   title: "User Subs",
 });

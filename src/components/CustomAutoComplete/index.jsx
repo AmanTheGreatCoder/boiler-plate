@@ -37,7 +37,7 @@ function CustomAutoComplete({
 
   const loadMoreResults = () => {
     fetchData(formValue, page + 1);
-    setPage(page + 1);
+    setPage((prev) => prev + 1);
   };
 
   const fetchData = async (value, page = 1) => {

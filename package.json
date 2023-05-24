@@ -36,6 +36,7 @@
     "firebase": "^9.6.6",
     "formik": "^2.2.9",
     "framer-motion": "^4.1.13",
+    "google-libphonenumber": "^3.2.32",
     "history": "^5.2.0",
     "image-to-base64": "^2.2.0",
     "jsonwebtoken": "^8.5.1",

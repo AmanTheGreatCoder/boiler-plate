@@ -10,6 +10,7 @@ import {
   isEmail,
 } from "utils/Regex";
 import phone from "phone";
+import { PhoneNumberUtil } from "google-libphonenumber";
 
 const ReusableValidation = memo((props) => {
   const {
@@ -39,11 +40,30 @@ const ReusableValidation = memo((props) => {
     } else if (control) {
       switch (control) {
         case "isValidPhoneNumber":
-          let valid = phone(`+${propValue.countryCode}${value}`, {
+          if (!value) {
+            error = errorMessage(label);
+            return;
+          }
+
+          var phoneUtil = PhoneNumberUtil.getInstance();
+          let isMobileNumber = phone(`+${propValue.countryCode}${value}`, {
             country: propValue.isoCountry,
           });
 
-          if (!valid.isValid) error = errorMessage(label);
+          if (!isMobileNumber?.isValid) {
+            let isLandlineNumber;
+            try {
+              isLandlineNumber = phoneUtil.isValidNumberForRegion(
+                phoneUtil.parse(value, propValue.isoCountry),
+                propValue.isoCountry
+              );
+              if (!isLandlineNumber) {
+                error = errorMessage(label);
+              }
+            } catch (e) {
+              error = errorMessage(label);
+            }
+          }
           break;
         case "countryCode":
           if (!countryCodeRegex.test(value)) error = errorMessage(label);

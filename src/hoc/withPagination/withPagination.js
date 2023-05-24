@@ -15,7 +15,7 @@ const withPagination = (WrappedComponent, url, { ...otherParams }) => {
   const NewComponent = (props) => {
     const theme = useTheme();
     const searchRef = useRef(null);
-    const [page, setPage] = useState(0);
+    const [page, setPage] = useState(1);
     const [search, setSearch] = useState("");
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [loading, setLoading] = useState(false);
@@ -30,17 +30,21 @@ const withPagination = (WrappedComponent, url, { ...otherParams }) => {
     });
 
     const handleChangePage = (event, newPage) => {
-      setPage(newPage - 1);
+      setPage(newPage);
     };
 
     const handleClose = () => {
       setAnchorEl(null);
     };
 
+    useEffect(() => {
+      console.log("page", page);
+    }, [page]);
+
     const handleCloseWithRow = (event) => {
       handleClose();
       setRowsPerPage(+event?.target?.value);
-      setPage(0);
+      setPage(1);
     };
 
     const handleClick = (event) => {
@@ -48,11 +52,10 @@ const withPagination = (WrappedComponent, url, { ...otherParams }) => {
     };
 
     const getList = async () => {
-      
       setLoading(true);
-      let queryString = `${url}?limit=${rowsPerPage}&pageNo=${
-        page + 1
-      }&search=${search?.toString().trim()}`;
+      let queryString = `${url}?limit=${rowsPerPage}&pageNo=${page}&search=${search
+        ?.toString()
+        .trim()}`;
 
       if (query) {
         Object.keys(query).map((e) => {
@@ -78,7 +81,6 @@ const withPagination = (WrappedComponent, url, { ...otherParams }) => {
     };
 
     useEffect(() => {
-      
       getList();
     }, [rowsPerPage, page, query, search]);
 
@@ -114,7 +116,7 @@ const withPagination = (WrappedComponent, url, { ...otherParams }) => {
               } else {
                 setSearch(e);
               }
-              setPage(0);
+              setPage(1);
             }}
           />
         }
@@ -173,6 +175,7 @@ const withPagination = (WrappedComponent, url, { ...otherParams }) => {
               color="primary"
               onChange={handleChangePage}
               siblingCount={1}
+              page={page}
             />
           </Grid>
         )}
