@@ -1,32 +1,25 @@
-import ReusableValidation from "components/ReusableValidation/ReusableValidation";
-import { FieldArray, Formik } from "formik";
-import { Fragment, forwardRef, useEffect, useMemo, useRef } from "react";
-import APIManager from "utils/APImanager";
-import SimpleModal from "components/SimpleModal";
-import { trimValues } from "utils/Helper";
-import { MODULE_NAME } from "./Values";
-import { Grid, IconButton, InputAdornment } from "@mui/material";
-import AddIcon from "@mui/icons-material/Add";
-import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
-import AccessTimeIcon from "@mui/icons-material/AccessTime";
-import { Layout } from "components/Layout/Layout";
-import { debounce } from "lodash";
-import CustomAlert from "components/CustomAlert";
-import ReusableSwitch from "components/ReusableSwitch.js/ReusableSwitch";
-import {
-  AddCircleOutline,
-  CurrencyPound,
-  RemoveCircleOutline,
-} from "@mui/icons-material";
-import { useTheme } from "@mui/styles";
+import ReusableValidation from 'components/ReusableValidation/ReusableValidation';
+import { FieldArray, Formik } from 'formik';
+import { Fragment, forwardRef, useEffect, useMemo, useRef } from 'react';
+import APIManager from 'utils/APImanager';
+import SimpleModal from 'components/SimpleModal';
+import { trimValues } from 'utils/Helper';
+import { MODULE_NAME } from './Values';
+import { Grid, IconButton, InputAdornment } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import { Layout } from 'components/Layout/Layout';
+import { debounce } from 'lodash';
+import CustomAlert from 'components/CustomAlert';
+import ReusableSwitch from 'components/ReusableSwitch.js/ReusableSwitch';
+import { AddCircleOutline, CurrencyPound, RemoveCircleOutline } from '@mui/icons-material';
+import { useTheme } from '@mui/styles';
 
 const apiManager = new APIManager();
 
 const SubscriptionAddEdit = forwardRef(
-  (
-    { getList, rowsPerPage, editData, search, setSearch, clearSearchField },
-    ref
-  ) => {
+  ({ getList, rowsPerPage, editData, search, setSearch, clearSearchField }, ref) => {
     const formik = useRef();
     const disabled = editData ? true : false;
     const theme = useTheme();
@@ -44,18 +37,18 @@ const SubscriptionAddEdit = forwardRef(
     }, [formik.current?.values, debouncedValidate]);
 
     let initialValues = {
-      name: editData.name || "",
-      interval: editData.interval || "month",
-      amount: editData?.amount || "",
-      currency: editData?.currency || "gbp",
+      name: editData.name || '',
+      interval: editData.interval || 'month',
+      amount: editData?.amount || '',
+      currency: editData?.currency || 'gbp',
       isActive: editData?.isActive || false,
       isDeleted: editData?.isDeleted || false,
       isLimited: editData?.isLimited || false,
-      benefits: editData.benefits || [""],
+      benefits: editData.benefits || [''],
       defaultSelected: editData?.defaultSelected || false,
       isPopular: editData?.isPopular || false,
       recurring: editData?.recurring || false,
-      totalMinutes: editData.total_minutes || "",
+      totalMinutes: editData.total_minutes || ''
     };
 
     if (editData) {
@@ -74,16 +67,13 @@ const SubscriptionAddEdit = forwardRef(
           trimmedValues.amount = parseInt(trimmedValues.amount);
           trimmedValues.totalMinutes = parseInt(trimmedValues.totalMinutes);
           const res = editData
-            ? await apiManager.patch(
-                `subscription/update/${initialValues._id}`,
-                trimmedValues
-              )
+            ? await apiManager.patch(`subscription/update/${initialValues._id}`, trimmedValues)
             : await apiManager.post(`subscription/create`, trimmedValues);
           if (!res.error) {
             ref.current.handleClose();
 
-            if (search !== "") {
-              setSearch("");
+            if (search !== '') {
+              setSearch('');
               clearSearchField();
             } else {
               getList();
@@ -100,11 +90,11 @@ const SubscriptionAddEdit = forwardRef(
           touched,
           values,
           resetForm,
-          submitForm,
+          submitForm
         }) => {
           return (
             <SimpleModal
-              title={editData ? "Edit" : "Add"}
+              title={editData ? 'Edit' : 'Add'}
               submitForm={submitForm}
               resetForm={resetForm}
               ref={ref}
@@ -113,49 +103,42 @@ const SubscriptionAddEdit = forwardRef(
             >
               <Layout
                 components={[
-                  <ReusableValidation
-                    fieldName="name"
-                    label={"Name"}
-                    required={true}
-                  />,
+                  <ReusableValidation fieldName="name" label={'Name'} required={true} />,
                   <ReusableValidation
                     fieldName="amount"
-                    label={"Amount"}
+                    label={'Amount'}
                     required={true}
                     disabled={disabled}
                     min={1}
                     max={1000}
-                    control={"isNumber"}
+                    control={'isNumber'}
                     InputProps={{
                       startAdornment: (
                         <InputAdornment position="start">
                           <CurrencyPound className="icon-size" />
                         </InputAdornment>
-                      ),
+                      )
                     }}
                   />,
                   <ReusableValidation
                     fieldName="totalMinutes"
-                    label={"Total Minutes"}
+                    label={'Total Minutes'}
                     min={1}
                     required={true}
                     disabled={disabled}
-                    control={"isNumber"}
+                    control={'isNumber'}
                     InputProps={{
                       startAdornment: (
                         <InputAdornment position="start">
                           <AccessTimeIcon className="icon-size" />
                         </InputAdornment>
-                      ),
+                      )
                     }}
                   />,
                   <Grid item>
-                    <ReusableSwitch
-                      fieldName="defaultSelected"
-                      label={"Default Selected"}
-                    />
-                    <ReusableSwitch fieldName="isPopular" label={"Popular"} />
-                  </Grid>,
+                    <ReusableSwitch fieldName="defaultSelected" label={'Default Selected'} />
+                    <ReusableSwitch fieldName="isPopular" label={'Popular'} />
+                  </Grid>
                 ]}
               />
               <FieldArray name="benefits">
@@ -163,11 +146,7 @@ const SubscriptionAddEdit = forwardRef(
                   <Fragment>
                     <div className="mt-10 flex-center-bt">
                       <label>Benefits</label>
-                      <IconButton
-                        onClick={() => push("")}
-                        color="secondary"
-                        size="medium"
-                      >
+                      <IconButton onClick={() => push('')} color="secondary" size="medium">
                         <AddCircleOutline />
                       </IconButton>
                     </div>
@@ -175,13 +154,13 @@ const SubscriptionAddEdit = forwardRef(
                       return (
                         <Grid
                           container
-                          alignItems={"center"}
-                          justifyContent={"space-between"}
+                          alignItems={'center'}
+                          justifyContent={'space-between'}
                           spacing={2}
                         >
                           <Grid item lg={10}>
                             <ReusableValidation
-                              key={index + "ele"}
+                              key={index + 'ele'}
                               fieldName={`benefits.${index}`}
                               label="Benefit"
                               required={true}
@@ -189,9 +168,7 @@ const SubscriptionAddEdit = forwardRef(
                           </Grid>
                           <Grid
                             sx={{
-                              paddingTop: errors?.benefits
-                                ? "0 !important"
-                                : "16px",
+                              paddingTop: errors?.benefits ? '0 !important' : '16px'
                             }}
                             className="flex-end"
                             item
@@ -203,17 +180,15 @@ const SubscriptionAddEdit = forwardRef(
                                   remove(index);
                                 } else {
                                   CustomAlert({
-                                    message: "Atleast one benefit is required",
-                                    color: "error",
+                                    message: 'Atleast one benefit is required',
+                                    color: 'error'
                                   });
                                 }
                               }}
                               color="secondary"
                               size="medium"
                             >
-                              <RemoveCircleOutline
-                                sx={{ color: theme.palette.error.main }}
-                              />
+                              <RemoveCircleOutline sx={{ color: theme.palette.error.main }} />
                             </IconButton>
                           </Grid>
                         </Grid>

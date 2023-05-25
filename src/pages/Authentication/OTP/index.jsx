@@ -1,49 +1,42 @@
-import { useNavigate } from "react-router-dom";
-import { useTheme } from "@mui/material/styles";
-import {
-  Divider,
-  Grid,
-  IconButton,
-  Stack,
-  Typography,
-  useMediaQuery,
-} from "@mui/material";
-import AuthWrapper1 from "../AuthWrapper1";
-import AuthCardWrapper from "../AuthCardWrapper";
-import Logo from "components/Logo";
-import { useContext, useEffect, useState } from "react";
-import { PhoneNumberContext } from "contexts/PhoneNumberContext";
-import { maskPhoneNumber } from "utils/Helper";
-import APIManager from "utils/APImanager";
-import withTitle from "hoc/withTitle";
-import CustomAlert from "components/CustomAlert";
-import { KeyboardBackspaceTwoTone } from "@mui/icons-material";
-import AuthCodeVerification from "./AuthCodeVerification";
+import { useNavigate } from 'react-router-dom';
+import { useTheme } from '@mui/material/styles';
+import { Divider, Grid, IconButton, Stack, Typography, useMediaQuery } from '@mui/material';
+import AuthWrapper1 from '../AuthWrapper1';
+import AuthCardWrapper from '../AuthCardWrapper';
+import Logo from 'components/Logo';
+import { useContext, useEffect, useState } from 'react';
+import { PhoneNumberContext } from 'contexts/PhoneNumberContext';
+import { maskPhoneNumber } from 'utils/Helper';
+import APIManager from 'utils/APImanager';
+import withTitle from 'hoc/withTitle';
+import CustomAlert from 'components/CustomAlert';
+import { KeyboardBackspaceTwoTone } from '@mui/icons-material';
+import AuthCodeVerification from './AuthCodeVerification';
 
 const apiManager = new APIManager();
 
 const CodeVerification = () => {
   const theme = useTheme();
   const [disabled, setDisabled] = useState(false);
-  const [OTP, setOTP] = useState("");
+  const [OTP, setOTP] = useState('');
   const [time, setTime] = useState(60);
   const [error, setError] = useState(false);
-  const matchDownSM = useMediaQuery(theme.breakpoints.down("md"));
+  const matchDownSM = useMediaQuery(theme.breakpoints.down('md'));
   const navigate = useNavigate();
   const { detail } = useContext(PhoneNumberContext);
   const maskedNumber = maskPhoneNumber(detail.phoneNumber);
 
   useEffect(() => {
     if (!detail.phoneNumber) {
-      navigate("/login");
+      navigate('/login');
     }
   }, [detail]);
 
   const validOtp = () => {
     if (OTP.length < 6) {
       CustomAlert({
-        message: "Please enter otp",
-        color: "error",
+        message: 'Please enter otp',
+        color: 'error'
       });
       return false;
     }
@@ -53,15 +46,15 @@ const CodeVerification = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (validOtp()) {
-      const res = await apiManager.post("auth/verify-otp", {
+      const res = await apiManager.post('auth/verify-otp', {
         countryCode: detail.countryCode,
         phoneNumber: detail.phoneNumber,
         isRemember: detail.isRemember,
-        otp: parseInt(OTP),
+        otp: parseInt(OTP)
       });
       if (!res.error) {
-        localStorage.setItem("token", res.data["access_token"]);
-        navigate("/dashboard");
+        localStorage.setItem('token', res.data['access_token']);
+        navigate('/dashboard');
       }
     } else {
       setError(true);
@@ -89,18 +82,13 @@ const CodeVerification = () => {
   return (
     <AuthWrapper1>
       <form onSubmit={handleSubmit}>
-        <Grid
-          container
-          direction="column"
-          justifyContent="flex-end"
-          sx={{ minHeight: "100vh" }}
-        >
+        <Grid container direction="column" justifyContent="flex-end" sx={{ minHeight: '100vh' }}>
           <Grid item xs={12}>
             <Grid
               container
               justifyContent="center"
               alignItems="center"
-              sx={{ minHeight: "calc(100vh - 68px)" }}
+              sx={{ minHeight: 'calc(100vh - 68px)' }}
             >
               <Grid item sx={{ m: { xs: 1, sm: 3 }, mb: 0 }}>
                 <AuthCardWrapper>
@@ -109,21 +97,16 @@ const CodeVerification = () => {
                     spacing={2}
                     alignItems="center"
                     justifyContent="center"
-                    position={"relative"}
+                    position={'relative'}
                   >
-                    <Grid
-                      display={"flex"}
-                      alignItems={"center"}
-                      item
-                      sx={{ mb: 3 }}
-                    >
+                    <Grid display={'flex'} alignItems={'center'} item sx={{ mb: 3 }}>
                       <IconButton
                         sx={{
-                          position: "absolute",
+                          position: 'absolute',
                           left: 0,
-                          marginLeft: "12px",
+                          marginLeft: '12px'
                         }}
-                        onClick={() => navigate("/")}
+                        onClick={() => navigate('/')}
                         color="secondary"
                         size="medium"
                       >
@@ -134,20 +117,16 @@ const CodeVerification = () => {
                     <Grid item xs={12}>
                       <Grid
                         container
-                        direction={matchDownSM ? "column-reverse" : "row"}
+                        direction={matchDownSM ? 'column-reverse' : 'row'}
                         alignItems="center"
                         justifyContent="center"
                       >
                         <Grid item>
-                          <Stack
-                            alignItems="center"
-                            justifyContent="center"
-                            spacing={1}
-                          >
+                          <Stack alignItems="center" justifyContent="center" spacing={1}>
                             <Typography
                               color={theme.palette.secondary.main}
                               gutterBottom
-                              variant={matchDownSM ? "h3" : "h2"}
+                              variant={matchDownSM ? 'h3' : 'h2'}
                             >
                               Enter Verification Code
                             </Typography>
@@ -157,29 +136,25 @@ const CodeVerification = () => {
                             <Typography
                               variant="caption"
                               fontSize="0.875rem"
-                              textAlign={matchDownSM ? "center" : "inherit"}
+                              textAlign={matchDownSM ? 'center' : 'inherit'}
                             >
-                              We've send you code on +{detail.countryCode}{" "}
-                              {maskedNumber}
+                              We've send you code on +{detail.countryCode} {maskedNumber}
                             </Typography>
                           </Stack>
                         </Grid>
                       </Grid>
                     </Grid>
                     <Grid item xs={12}>
-                      <AuthCodeVerification
-                        error={error}
-                        onChange={(otp) => setOTP(otp)}
-                      />
+                      <AuthCodeVerification error={error} onChange={(otp) => setOTP(otp)} />
                     </Grid>
                     <Grid item xs={12}>
                       <Divider />
                     </Grid>
                     <Grid
                       style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "center",
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center'
                       }}
                       item
                       xs={12}
@@ -187,37 +162,32 @@ const CodeVerification = () => {
                       <Grid>
                         <Typography
                           variant="subtitle1"
-                          sx={{ textDecoration: "none" }}
-                          textAlign={matchDownSM ? "center" : "inherit"}
+                          sx={{ textDecoration: 'none' }}
+                          textAlign={matchDownSM ? 'center' : 'inherit'}
                         >
                           {disabled
                             ? `Time Remaining: 0:${
                                 time.toString().length === 1 ? `0${time}` : time
                               }`
-                            : "Did not receive the OTP?"}
+                            : 'Did not receive the OTP?'}
                         </Typography>
                       </Grid>
                       <Grid>
                         <Typography
                           variant="subtitle1"
                           sx={{
-                            color: disabled
-                              ? theme.palette.grey[500]
-                              : theme.palette.primary.main,
-                            cursor: disabled ? "not-allowed" : "pointer",
+                            color: disabled ? theme.palette.grey[500] : theme.palette.primary.main,
+                            cursor: disabled ? 'not-allowed' : 'pointer'
                           }}
-                          style={{ textDecoration: "underline" }}
-                          textAlign={matchDownSM ? "center" : "inherit"}
+                          style={{ textDecoration: 'underline' }}
+                          textAlign={matchDownSM ? 'center' : 'inherit'}
                           onClick={async () => {
                             if (!disabled) {
                               try {
-                                const res = await apiManager.post(
-                                  "auth/admin-login",
-                                  {
-                                    countryCode: detail.countryCode,
-                                    phoneNumber: detail.phoneNumber,
-                                  }
-                                );
+                                const res = await apiManager.post('auth/admin-login', {
+                                  countryCode: detail.countryCode,
+                                  phoneNumber: detail.phoneNumber
+                                });
                                 setDisabled(true);
                               } catch (e) {
                                 console.error(e);
@@ -243,4 +213,4 @@ const CodeVerification = () => {
   );
 };
 
-export default withTitle(CodeVerification, "Phone Number Verification");
+export default withTitle(CodeVerification, 'Phone Number Verification');

@@ -1,11 +1,11 @@
-import { Autocomplete, FormControl } from "@mui/material";
-import { TextField } from "@mui/material";
-import React, { useCallback, useEffect, useState } from "react";
-import APIManager from "utils/APImanager";
-import debounce from "lodash.debounce";
-import { useField } from "formik";
-import "./style.css";
-import { addDefaultSrc, capitalize } from "utils/Helper";
+import { Autocomplete, FormControl } from '@mui/material';
+import { TextField } from '@mui/material';
+import React, { useCallback, useEffect, useState } from 'react';
+import APIManager from 'utils/APImanager';
+import debounce from 'lodash.debounce';
+import { useField } from 'formik';
+import './style.css';
+import { addDefaultSrc, capitalize } from 'utils/Helper';
 
 const apiManager = new APIManager();
 
@@ -27,11 +27,11 @@ function CustomAutoComplete({
   onChange,
   multiple,
   freeSolo,
-  required,
+  required
 }) {
   const [options, setOptions] = useState([]);
-  const [formValue, setFormValue] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
+  const [formValue, setFormValue] = useState('');
+  const [imageUrl, setImageUrl] = useState('');
   const [page, setPage] = useState(1);
   const [count, setCount] = useState(-1);
 
@@ -41,9 +41,7 @@ function CustomAutoComplete({
   };
 
   const fetchData = async (value, page = 1) => {
-    let queryString = `${url}?limit=20&pageNo=${page}&search=${
-      value ? value : ""
-    }`;
+    let queryString = `${url}?limit=20&pageNo=${page}&search=${value ? value : ''}`;
     if (query) {
       Object.keys(query).map((e) => {
         if (query[e]) {
@@ -62,11 +60,11 @@ function CustomAutoComplete({
         setImageUrl(res.data.imageUrl);
       }
 
-      if (url.includes("country")) {
+      if (url.includes('country')) {
         const temp = res.data.data.map((e) => {
           return {
             ...e,
-            countryName: capitalize(e.countryName),
+            countryName: capitalize(e.countryName)
           };
         });
         setOptions([...options, ...temp]);
@@ -101,9 +99,9 @@ function CustomAutoComplete({
 
   const getOptionRow = (option) => {
     const temp = optionRow?.map((e) => {
-      if (typeof e === "string") {
+      if (typeof e === 'string') {
         return <span className="space-to-right">{`${option[e]}`}</span>;
-      } else if (typeof e === "object" && e.field === "countryCode") {
+      } else if (typeof e === 'object' && e.field === 'countryCode') {
         return <span className="space-to-right">{`+${option[e.field]}`}</span>;
       }
     });
@@ -129,30 +127,29 @@ function CustomAutoComplete({
 
       if (
         required &&
-        (!newValue ||
-          (typeof newValue === "object" && Object.keys(newValue).length === 0))
+        (!newValue || (typeof newValue === 'object' && Object.keys(newValue).length === 0))
       ) {
         error = `${errorName} is required`;
       }
       return error;
-    },
+    }
   });
 
-  const { name, onBlur, value = "" } = field;
+  const { name, onBlur, value = '' } = field;
   const { error, touched } = meta;
   const { setValue, setTouched, setError } = helpers;
   const hasError = Boolean(error) && touched;
 
   const getOptionLabel = (option) => {
-    if (typeof valueToShowInField === "object") {
-      let v1 = "";
+    if (typeof valueToShowInField === 'object') {
+      let v1 = '';
       valueToShowInField.map((e) => {
-        if (e === "isoCountry") {
+        if (e === 'isoCountry') {
           v1 += `(${option[e]})`;
-        } else if (e === "countryName") {
+        } else if (e === 'countryName') {
           v1 += option[e];
         }
-        v1 += " ";
+        v1 += ' ';
       });
       return v1;
     }
@@ -175,11 +172,7 @@ function CustomAutoComplete({
         // isOptionEqualToValue={(option, value) => option.id === value.id}
         renderOption={(props, option) =>
           optionRow && (
-            <li
-              {...props}
-              key={option._id || option.id}
-              style={{ fontSize: 15 }}
-            >
+            <li {...props} key={option._id || option.id} style={{ fontSize: 15 }}>
               {getOptionRow(option)}
             </li>
           )
@@ -198,15 +191,12 @@ function CustomAutoComplete({
         ListboxProps={{
           onScroll: (event) => {
             const listboxNode = event.currentTarget;
-            if (
-              listboxNode.scrollTop + listboxNode.clientHeight ===
-              listboxNode.scrollHeight
-            ) {
+            if (listboxNode.scrollTop + listboxNode.clientHeight === listboxNode.scrollHeight) {
               if (page < Math.ceil(count / 20)) {
                 loadMoreResults();
               }
             }
-          },
+          }
         }}
         renderInput={(params) => {
           return (
@@ -221,12 +211,12 @@ function CustomAutoComplete({
               label={placeholder}
               sx={{
                 mt: 1,
-                mb: 1,
+                mb: 1
               }}
               inputProps={{
                 ...params.inputProps,
                 ...inputProps,
-                autoComplete: "off",
+                autoComplete: 'off'
               }}
             />
           );

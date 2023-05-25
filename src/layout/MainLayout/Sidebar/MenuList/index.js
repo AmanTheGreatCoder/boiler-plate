@@ -1,18 +1,18 @@
-import { memo } from "react";
+import { memo } from 'react';
 
 // material-ui
-import { IconButton, Typography } from "@mui/material";
+import { IconButton, Typography } from '@mui/material';
 
 // project imports
-import NavGroup from "./NavGroup";
-import menuItem from "../MenuItems";
+import NavGroup from './NavGroup';
+import menuItem from '../MenuItems';
 
 // ==============================|| SIDEBAR MENU LIST ||============================== //
 
 const MenuList = ({ drawerOpen }) => {
   const navItems = menuItem.items.map((item, index) => {
     switch (item.type) {
-      case "group":
+      case 'group':
         return (
           <NavGroup
             key={item.id}

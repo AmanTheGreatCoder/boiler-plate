@@ -1,4 +1,4 @@
-import { alpha } from "@mui/material/styles";
+import { alpha } from '@mui/material/styles';
 
 const createCustomShadow = (theme, color) => {
   const transparent = alpha(color, 0.24);
@@ -15,12 +15,12 @@ const createCustomShadow = (theme, color) => {
     orange: `0px 12px 14px 0px ${alpha(theme.palette.orange.main, 0.3)}`,
     success: `0px 12px 14px 0px ${alpha(theme.palette.success.main, 0.3)}`,
     warning: `0px 12px 14px 0px ${alpha(theme.palette.warning.main, 0.3)}`,
-    error: `0px 12px 14px 0px ${alpha(theme.palette.error.main, 0.3)}`,
+    error: `0px 12px 14px 0px ${alpha(theme.palette.error.main, 0.3)}`
   };
 };
 
-export default function customShadows(navType, theme) {
-  return navType === "dark"
+export default function customShadows(mode, theme) {
+  return mode === 'dark'
     ? createCustomShadow(theme, theme.palette.dark.main)
     : createCustomShadow(theme, theme.palette.grey[600]);
 }

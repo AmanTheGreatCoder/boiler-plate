@@ -1,7 +1,7 @@
-import React, { forwardRef, useImperativeHandle } from "react";
+import React, { forwardRef, useImperativeHandle } from 'react';
 
 // material-ui
-import { useTheme } from "@mui/material/styles";
+import { useTheme } from '@mui/material/styles';
 import {
   Button,
   Dialog,
@@ -10,16 +10,13 @@ import {
   DialogContentText,
   DialogTitle,
   Typography,
-  useMediaQuery,
-} from "@mui/material";
+  useMediaQuery
+} from '@mui/material';
 
 // ===============================|| UI DIALOG - RESPONSIVE ||=============================== //
 
 const ResponsiveDialog = forwardRef(
-  (
-    { confirmation = "ARE YOU SURE?", content, onAgree, proceed, dismiss },
-    ref
-  ) => {
+  ({ confirmation = 'ARE YOU SURE?', content, onAgree, proceed, dismiss }, ref) => {
     const [open, setOpen] = React.useState(true);
     let onAgreeFunc;
 
@@ -35,7 +32,7 @@ const ResponsiveDialog = forwardRef(
     //     }
     // }));
     const theme = useTheme();
-    const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
+    const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
     const handleClose = () => {
       setOpen(false);
@@ -51,9 +48,7 @@ const ResponsiveDialog = forwardRef(
         >
           {open && (
             <>
-              <DialogTitle id="responsive-dialog-title">
-                {confirmation}
-              </DialogTitle>
+              <DialogTitle id="responsive-dialog-title">{confirmation}</DialogTitle>
               {/* <DialogContent>
                             <DialogContentText>
                                 <Typography variant="body2" component="span">
@@ -77,8 +72,8 @@ const ResponsiveDialog = forwardRef(
                   variant="contained"
                   color="primary"
                   sx={{
-                    background: "#6275d1",
-                    "&:hover": { background: "#4f5aa6" },
+                    background: '#6275d1',
+                    '&:hover': { background: '#4f5aa6' }
                   }}
                   size="small"
                   onClick={() => {

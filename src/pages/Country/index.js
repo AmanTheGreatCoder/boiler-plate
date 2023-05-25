@@ -1,48 +1,41 @@
-import { useRef, useState } from "react";
-import CountryAddEdit from "./CountryAddEdit";
-import withPagination from "hoc/withPagination/withPagination";
-import { MODULE_NAME } from "./Values";
-import ImportFile from "components/ImportFile/ImportFile";
-import EnhancedTable from "components/EnhancedTable";
+import { useRef, useState } from 'react';
+import CountryAddEdit from './CountryAddEdit';
+import withPagination from 'hoc/withPagination/withPagination';
+import { MODULE_NAME } from './Values';
+import ImportFile from 'components/ImportFile/ImportFile';
+import EnhancedTable from 'components/EnhancedTable';
 
 const columns = [
   {
-    id: "countryName",
-    label: "Country Name",
+    id: 'countryName',
+    label: 'Country Name'
   },
   {
-    id: "countryCode",
-    label: "Dial Code",
-    prefix: "+",
+    id: 'countryCode',
+    label: 'Dial Code',
+    prefix: '+'
   },
   {
-    id: "isoCountry",
-    label: "ISO",
+    id: 'isoCountry',
+    label: 'ISO'
   },
-  { id: "flag", label: "Flag" },
+  { id: 'flag', label: 'Flag' },
   {
-    id: "isActive",
-    label: "Active",
+    id: 'isActive',
+    label: 'Active'
   },
   {
-    id: "actions",
-    name: "Actions",
-    align: "right",
-  },
+    id: 'actions',
+    name: 'Actions',
+    align: 'right'
+  }
 ];
 
 function Country(props) {
-  const {
-    rowsPerPage,
-    getList,
-    setSearch,
-    clearSearchField,
-    children,
-    ...otherProps
-  } = props;
+  const { rowsPerPage, getList, setSearch, clearSearchField, children, ...otherProps } = props;
   const addEditRef = useRef(null);
   const importRef = useRef(null);
-  const [editData, setEditData] = useState("");
+  const [editData, setEditData] = useState('');
 
   return (
     <EnhancedTable
@@ -71,14 +64,14 @@ function Country(props) {
         getList={getList}
         rowsPerPage={rowsPerPage}
         setSearch={setSearch}
-        title={"Import"}
+        title={'Import'}
         url="country/import"
         ref={importRef}
       />
     </EnhancedTable>
   );
 }
-export default withPagination(Country, "country/list", {
+export default withPagination(Country, 'country/list', {
   imageRequired: true,
-  title: MODULE_NAME,
+  title: MODULE_NAME
 });

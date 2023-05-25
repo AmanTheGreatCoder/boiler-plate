@@ -1,26 +1,18 @@
-import { Formik } from "formik";
-import { forwardRef, useEffect } from "react";
-import APIManager from "utils/APImanager";
-import SimpleModal from "components/SimpleModal";
-import ChooseCountry from "components/ChooseCountry";
+import { Formik } from 'formik';
+import { forwardRef, useEffect } from 'react';
+import APIManager from 'utils/APImanager';
+import SimpleModal from 'components/SimpleModal';
+import ChooseCountry from 'components/ChooseCountry';
 
 const apiManager = new APIManager();
 
 const CityFilter = forwardRef(
   (
-    {
-      getList,
-      rowsPerPage,
-      editData,
-      setSearch,
-      clearSearchField,
-      onFilterChange,
-      onClear,
-    },
+    { getList, rowsPerPage, editData, setSearch, clearSearchField, onFilterChange, onClear },
     modalRef
   ) => {
     let initialValues = {
-      countryId: "",
+      countryId: ''
     };
 
     useEffect(() => {}, [initialValues]);
@@ -44,12 +36,12 @@ const CityFilter = forwardRef(
           values,
           resetForm,
           submitForm,
-          setFieldValue,
+          setFieldValue
         }) => (
           <SimpleModal
             showClearButton={values.countryId ? true : false}
             resetOnClear={true}
-            title={"Filter"}
+            title={'Filter'}
             onClear={onClear}
             submitForm={submitForm}
             resetForm={resetForm}

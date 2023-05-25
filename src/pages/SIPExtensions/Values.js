@@ -1,1 +1,1 @@
-export const MODULE_NAME = "System Config";
+export const MODULE_NAME = 'System Config';

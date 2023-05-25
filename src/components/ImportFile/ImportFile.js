@@ -1,13 +1,13 @@
-import { forwardRef } from "react";
-import SimpleModal from "components/SimpleModal";
-import APIManager from "utils/APImanager";
-import styled from "@emotion/styled";
-import UploadFileIcon from "@mui/icons-material/UploadFile";
-import { Formik } from "formik";
-import { useTheme } from "@emotion/react";
-import { Link } from "@mui/material";
-import CloudDownloadIcon from "@mui/icons-material/CloudDownload";
-import CustomAlert from "components/CustomAlert";
+import { forwardRef } from 'react';
+import SimpleModal from 'components/SimpleModal';
+import APIManager from 'utils/APImanager';
+import styled from '@emotion/styled';
+import UploadFileIcon from '@mui/icons-material/UploadFile';
+import { Formik } from 'formik';
+import { useTheme } from '@emotion/react';
+import { Link } from '@mui/material';
+import CloudDownloadIcon from '@mui/icons-material/CloudDownload';
+import CustomAlert from 'components/CustomAlert';
 
 const apiManager = new APIManager();
 
@@ -37,7 +37,7 @@ const SoundGroup = styled.div`
     border-radius: 0px;
     margin: auto;
   }
-  input[type="file"] {
+  input[type='file'] {
     position: absolute;
     height: 100%;
     width: 100%;
@@ -67,12 +67,11 @@ const FileInput = styled.input`
 `;
 
 const ImportFile = forwardRef((props, ref) => {
-  const { url, getList, rowsPerPage, setSearch, clearSearchField, sampleUrl } =
-    props;
+  const { url, getList, rowsPerPage, setSearch, clearSearchField, sampleUrl } = props;
   const theme = useTheme();
 
   let initialValues = {
-    files: null,
+    files: null
   };
 
   return (
@@ -82,18 +81,18 @@ const ImportFile = forwardRef((props, ref) => {
       onSubmit={async (values) => {
         if (values.files) {
           const formData = new FormData();
-          formData.append("file", values.files);
+          formData.append('file', values.files);
           const response = await apiManager.postForm(url, formData);
           if (!response.error) {
             ref.current.handleClose();
             getList(rowsPerPage);
-            setSearch("");
+            setSearch('');
             clearSearchField();
           }
         } else {
           CustomAlert({
-            message: "Please select a file",
-            color: "error",
+            message: 'Please select a file',
+            color: 'error'
           });
         }
       }}
@@ -108,18 +107,11 @@ const ImportFile = forwardRef((props, ref) => {
         touched,
         values,
         resetForm,
-        submitForm,
+        submitForm
       }) => (
-        <SimpleModal
-          submitForm={submitForm}
-          resetForm={resetForm}
-          title={"Import"}
-          ref={ref}
-        >
+        <SimpleModal submitForm={submitForm} resetForm={resetForm} title={'Import'} ref={ref}>
           <SoundGroup>
-            <UploadFileIcon
-              style={{ fontSize: "34px", color: theme.palette.primary.main }}
-            />
+            <UploadFileIcon style={{ fontSize: '34px', color: theme.palette.primary.main }} />
             <span className="file-span">
               {!values?.files ? (
                 <p>Select or drop a file to upload.</p>
@@ -133,25 +125,23 @@ const ImportFile = forwardRef((props, ref) => {
               accept=".csv"
               value={values?.files && values.files[0]}
               onChange={(e) => {
-                setFieldValue("files", e.target.files[0]);
+                setFieldValue('files', e.target.files[0]);
               }}
             />
           </SoundGroup>
           {sampleUrl && (
             <Link
-              sx={{ marginTop: "10px" }}
+              sx={{ marginTop: '10px' }}
               style={{
-                textDecoration: "none",
-                display: "flex",
-                alignItems: "center",
+                textDecoration: 'none',
+                display: 'flex',
+                alignItems: 'center'
               }}
               about="_blank"
               href={sampleUrl}
             >
               <CloudDownloadIcon />
-              <p style={{ margin: "0", marginLeft: "10px" }}>
-                Download Sample File
-              </p>
+              <p style={{ margin: '0', marginLeft: '10px' }}>Download Sample File</p>
             </Link>
           )}
         </SimpleModal>

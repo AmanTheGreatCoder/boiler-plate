@@ -1,12 +1,12 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  openItem: ["dashboard"],
-  drawerOpen: false,
+  openItem: ['dashboard'],
+  drawerOpen: false
 };
 
 const menu = createSlice({
-  name: "menu",
+  name: 'menu',
   initialState,
   reducers: {
     activeItem(state, action) {
@@ -15,8 +15,8 @@ const menu = createSlice({
 
     openDrawer(state, action) {
       state.drawerOpen = action.payload;
-    },
-  },
+    }
+  }
 });
 
 export default menu.reducer;

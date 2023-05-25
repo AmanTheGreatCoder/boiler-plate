@@ -1,13 +1,13 @@
-import { Button, Grid, Menu, MenuItem, Pagination } from "@mui/material";
-import SearchSection from "layout/MainLayout/Header/SearchSection";
-import React, { useEffect, useRef, useState } from "react";
-import APIManager from "utils/APImanager";
-import ExpandMoreRoundedIcon from "@mui/icons-material/ExpandMoreRounded";
-import noData from "assets/images/no-data.svg";
-import { useTheme } from "@mui/material/styles";
-import "./withPagination.css";
-import EnhancedTable from "components/EnhancedTable";
-import { removePlusStr, simplifyString } from "utils/Helper";
+import { Button, Grid, Menu, MenuItem, Pagination } from '@mui/material';
+import SearchSection from 'layout/MainLayout/Header/SearchSection';
+import React, { useEffect, useRef, useState } from 'react';
+import APIManager from 'utils/APImanager';
+import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded';
+import noData from 'assets/images/no-data.svg';
+import { useTheme } from '@mui/material/styles';
+import './withPagination.css';
+import EnhancedTable from 'components/EnhancedTable';
+import { removePlusStr, simplifyString } from 'utils/Helper';
 
 const apiManager = new APIManager();
 
@@ -16,17 +16,15 @@ const withPagination = (WrappedComponent, url, { ...otherParams }) => {
     const theme = useTheme();
     const searchRef = useRef(null);
     const [page, setPage] = useState(1);
-    const [search, setSearch] = useState("");
+    const [search, setSearch] = useState('');
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [loading, setLoading] = useState(false);
     const [list, setList] = useState([]);
     const [rowsPerPage, setRowsPerPage] = useState(10);
     const [count, setCount] = useState(1);
-    const [query, setQuery] = useState(
-      otherParams.query ? otherParams.query : null
-    );
+    const [query, setQuery] = useState(otherParams.query ? otherParams.query : null);
     const [otherData, setOtherData] = useState({
-      imageUrl: "",
+      imageUrl: ''
     });
 
     const handleChangePage = (event, newPage) => {
@@ -70,7 +68,7 @@ const withPagination = (WrappedComponent, url, { ...otherParams }) => {
         setCount(res.data.count);
         if (otherParams.imageRequired) {
           setOtherData({
-            imageUrl: res.data.imageUrl,
+            imageUrl: res.data.imageUrl
           });
         }
       }
@@ -81,8 +79,7 @@ const withPagination = (WrappedComponent, url, { ...otherParams }) => {
     }, [rowsPerPage, page, query, search]);
 
     useEffect(() => {
-      document.title =
-        (otherParams.title || WrappedComponent.name) + " - Azhai";
+      document.title = (otherParams.title || WrappedComponent.name) + ' - Azhai';
     }, []);
 
     return (
@@ -90,7 +87,7 @@ const withPagination = (WrappedComponent, url, { ...otherParams }) => {
         emptyData={
           count === 0 && (
             <img
-              className="withPagination__img"
+              className={`withPagination__img ${count === 0 ? 'empty-image-css' : ''}`}
               src={noData}
               alt="No data image"
             />
@@ -107,7 +104,7 @@ const withPagination = (WrappedComponent, url, { ...otherParams }) => {
           <SearchSection
             ref={searchRef}
             getValue={(e) => {
-              if (e.includes("+")) {
+              if (e.includes('+')) {
                 setSearch(removePlusStr(e));
               } else {
                 setSearch(e);
@@ -125,9 +122,9 @@ const withPagination = (WrappedComponent, url, { ...otherParams }) => {
         {list?.length > 0 && (
           <Grid
             container
-            justifyContent={"space-between"}
+            justifyContent={'space-between'}
             sx={{ py: 2 }}
-            alignItems={"center"}
+            alignItems={'center'}
             className="border-top-grey"
           >
             <Button
@@ -148,12 +145,12 @@ const withPagination = (WrappedComponent, url, { ...otherParams }) => {
               onClose={handleClose}
               variant="selectedMenu"
               anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
+                vertical: 'top',
+                horizontal: 'right'
               }}
               transformOrigin={{
-                vertical: "bottom",
-                horizontal: "right",
+                vertical: 'bottom',
+                horizontal: 'right'
               }}
             >
               <MenuItem onClick={handleCloseWithRow} value={10}>

@@ -1,7 +1,7 @@
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 
 // material-ui
-import { useTheme, styled } from "@mui/material/styles";
+import { useTheme, styled } from '@mui/material/styles';
 import {
   Button,
   Card,
@@ -9,59 +9,59 @@ import {
   CardMedia,
   Grid,
   LinearProgress,
-  Typography,
-} from "@mui/material";
+  Typography
+} from '@mui/material';
 
 // project imports
-import AnimateButton from "components/AnimateButton";
-import { gridSpacing } from "store/constant";
+import AnimateButton from 'components/AnimateButton';
+import { gridSpacing } from 'store/constant';
 
 // assets
-import HomeTwoToneIcon from "@mui/icons-material/HomeTwoTone";
-import ReplayIcon from "@mui/icons-material/Replay";
+import HomeTwoToneIcon from '@mui/icons-material/HomeTwoTone';
+import ReplayIcon from '@mui/icons-material/Replay';
 
-import image from "assets/images/maintenance/img-build.svg";
-import imageBackground from "assets/images/maintenance/img-bg-grid.svg";
-import imageDarkBackground from "assets/images/maintenance/img-bg-grid-dark.svg";
-import imageParts from "assets/images/maintenance/img-bg-parts.svg";
-import { useEffect, useLayoutEffect, useState } from "react";
-import APIManager from "utils/APImanager";
-import useScriptRef from "hooks/useScriptRef";
+import image from 'assets/images/maintenance/img-build.svg';
+import imageBackground from 'assets/images/maintenance/img-bg-grid.svg';
+import imageDarkBackground from 'assets/images/maintenance/img-bg-grid-dark.svg';
+import imageParts from 'assets/images/maintenance/img-bg-parts.svg';
+import { useEffect, useLayoutEffect, useState } from 'react';
+import APIManager from 'utils/APImanager';
+import useScriptRef from 'hooks/useScriptRef';
 
 // styles
-const CardMediaWrapper = styled("div")({
+const CardMediaWrapper = styled('div')({
   maxWidth: 720,
-  margin: "0 auto",
-  position: "relative",
+  margin: '0 auto',
+  position: 'relative'
 });
 
-const PageContentWrapper = styled("div")({
+const PageContentWrapper = styled('div')({
   maxWidth: 350,
-  margin: "0 auto",
-  textAlign: "center",
+  margin: '0 auto',
+  textAlign: 'center'
 });
 
 const ConstructionCard = styled(Card)({
-  minHeight: "100vh",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
+  minHeight: '100vh',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center'
 });
 
-const CardMediaBuild = styled("img")({
-  position: "absolute",
+const CardMediaBuild = styled('img')({
+  position: 'absolute',
   top: 0,
   left: 0,
-  width: "100%",
-  animation: "5s bounce ease-in-out infinite",
+  width: '100%',
+  animation: '5s bounce ease-in-out infinite'
 });
 
-const CardMediaParts = styled("img")({
-  position: "absolute",
+const CardMediaParts = styled('img')({
+  position: 'absolute',
   top: 0,
   left: 0,
-  width: "100%",
-  animation: "10s blink ease-in-out infinite",
+  width: '100%',
+  animation: '10s blink ease-in-out infinite'
 });
 
 const UnderConstruction = () => {
@@ -72,13 +72,12 @@ const UnderConstruction = () => {
   useEffect(async () => {
     try {
       const res = await fetch(process.env.REACT_APP_BASE_URL);
-       
+
       if (res.status === 200) {
-        navigate("/");
+        navigate('/');
       }
     } catch (err) {
       setChecking(false);
-       
     }
   }, []);
 
@@ -94,11 +93,7 @@ const UnderConstruction = () => {
             <CardMediaWrapper>
               <CardMedia
                 component="img"
-                image={
-                  theme.palette.mode === "dark"
-                    ? imageDarkBackground
-                    : imageBackground
-                }
+                image={theme.palette.mode === 'dark' ? imageDarkBackground : imageBackground}
               />
               <CardMediaParts src={imageParts} />
               <CardMediaBuild src={image} />
@@ -114,19 +109,14 @@ const UnderConstruction = () => {
                 </Grid>
                 <Grid item xs={12}>
                   <Typography variant="body2">
-                    We're very sorry for the inconvenience but we're performing
-                    maintenance.Please check back soon...
+                    We're very sorry for the inconvenience but we're performing maintenance.Please
+                    check back soon...
                   </Typography>
                 </Grid>
                 <Grid item xs={12}>
                   <AnimateButton>
-                    <Button
-                      variant="contained"
-                      size="large"
-                      component={Link}
-                      to="/"
-                    >
-                      <ReplayIcon sx={{ fontSize: "1.3rem", mr: 0.75 }} />
+                    <Button variant="contained" size="large" component={Link} to="/">
+                      <ReplayIcon sx={{ fontSize: '1.3rem', mr: 0.75 }} />
                       RETRY
                     </Button>
                   </AnimateButton>

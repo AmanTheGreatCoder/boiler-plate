@@ -1,29 +1,29 @@
-import { useRef, useState } from "react";
-import CityAddEdit from "./CityAddEdit";
-import withPagination from "hoc/withPagination/withPagination";
-import APIManager from "utils/APImanager";
-import ImportFile from "components/ImportFile/ImportFile";
-import CityFilter from "./CityFilter";
-import EnhancedTable from "components/EnhancedTable";
+import { useRef, useState } from 'react';
+import CityAddEdit from './CityAddEdit';
+import withPagination from 'hoc/withPagination/withPagination';
+import APIManager from 'utils/APImanager';
+import ImportFile from 'components/ImportFile/ImportFile';
+import CityFilter from './CityFilter';
+import EnhancedTable from 'components/EnhancedTable';
 
 const columns = [
   {
-    id: "cityName",
-    label: "City Name",
+    id: 'cityName',
+    label: 'City Name'
   },
   {
-    id: "countryId.countryName",
-    label: "Country Name",
+    id: 'countryId.countryName',
+    label: 'Country Name'
   },
   {
-    id: "isActive",
-    label: "Active",
+    id: 'isActive',
+    label: 'Active'
   },
   {
-    id: "actions",
-    name: "Actions",
-    align: "right",
-  },
+    id: 'actions',
+    name: 'Actions',
+    align: 'right'
+  }
 ];
 
 function City({
@@ -38,11 +38,11 @@ function City({
   const addEditRef = useRef(null);
   const importRef = useRef(null);
   const filterRef = useRef(null);
-  const [editData, setEditData] = useState("");
+  const [editData, setEditData] = useState('');
 
   return (
     <EnhancedTable
-      title={"Cities"}
+      title={'Cities'}
       urlPrefix="city"
       pagination={children}
       getList={getList}
@@ -76,7 +76,7 @@ function City({
           filterRef.current.handleClose();
           setQuery({
             // cityId: cityId?._id || "",
-            countryId: countryId?._id || "",
+            countryId: countryId?._id || ''
           });
         }}
         onClear={() => {
@@ -88,7 +88,7 @@ function City({
     </EnhancedTable>
   );
 }
-export default withPagination(City, "city/listAll", {
+export default withPagination(City, 'city/listAll', {
   imageRequired: true,
-  title: "Cities",
+  title: 'Cities'
 });

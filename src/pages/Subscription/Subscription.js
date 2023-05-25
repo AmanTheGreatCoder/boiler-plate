@@ -1,45 +1,38 @@
-import { useRef, useState } from "react";
-import withPagination from "hoc/withPagination/withPagination";
-import SubscriptionAddEdit from "./SubscriptionAddEdit";
-import { MODULE_NAME } from "./Values";
-import EnhancedTable from "components/EnhancedTable";
-import { CurrencyPound, AccessTime } from "@mui/icons-material";
+import { useRef, useState } from 'react';
+import withPagination from 'hoc/withPagination/withPagination';
+import SubscriptionAddEdit from './SubscriptionAddEdit';
+import { MODULE_NAME } from './Values';
+import EnhancedTable from 'components/EnhancedTable';
+import { CurrencyPound, AccessTime } from '@mui/icons-material';
 
 const columns = [
-  { id: "name", label: "Name" },
+  { id: 'name', label: 'Name' },
   {
-    id: "amount",
-    label: "Amount",
-    prefix: [<CurrencyPound sx={{ fontSize: "18px", mr: 0.5 }} />],
+    id: 'amount',
+    label: 'Amount',
+    prefix: [<CurrencyPound sx={{ fontSize: '18px', mr: 0.5 }} />]
   },
   {
-    id: "total_minutes",
-    label: "Total Minutes",
-    prefix: [<AccessTime sx={{ fontSize: "18px", mr: 0.5 }} />],
+    id: 'totalMinutes',
+    label: 'Total Minutes',
+    prefix: [<AccessTime sx={{ fontSize: '18px', mr: 0.5 }} />]
   },
   {
-    id: "isActive",
-    label: "Active",
+    id: 'isActive',
+    label: 'Active'
   },
   {
-    id: "actions",
-    name: "Actions",
-    align: "right",
-  },
+    id: 'actions',
+    name: 'Actions',
+    align: 'right'
+  }
 ];
 
 function Subscription(props) {
-  const {
-    rowsPerPage,
-    getList,
-    setSearch,
-    clearSearchField,
-    children,
-    search,
-    ...otherProps
-  } = props;
+  const { rowsPerPage, getList, setSearch, clearSearchField, children, search, ...otherProps } =
+    props;
   const addEditRef = useRef(null);
-  const [editData, setEditData] = useState("");
+  const [editData, setEditData] = useState('');
 
   return (
     <EnhancedTable
@@ -66,8 +59,8 @@ function Subscription(props) {
     </EnhancedTable>
   );
 }
-export default withPagination(Subscription, "subscription/list", {
+export default withPagination(Subscription, 'subscription/list', {
   imageRequired: true,
   query: { isDeleted: false },
-  title: MODULE_NAME,
+  title: MODULE_NAME
 });

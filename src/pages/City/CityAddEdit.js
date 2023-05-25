@@ -1,31 +1,23 @@
-import ReusableValidation from "components/ReusableValidation/ReusableValidation";
-import { Formik } from "formik";
-import React, { forwardRef, useEffect, useState } from "react";
-import APIManager from "utils/APImanager";
-import SimpleModal from "components/SimpleModal";
-import {
-  FormControl,
-  FormControlLabel,
-  FormGroup,
-  Switch,
-} from "@mui/material";
-import * as Yup from "yup";
-import { trimValues } from "utils/Helper";
-import CustomAutoComplete from "components/CustomAutoComplete";
-import { Layout } from "components/Layout/Layout";
-import ChooseCountry from "components/ChooseCountry";
+import ReusableValidation from 'components/ReusableValidation/ReusableValidation';
+import { Formik } from 'formik';
+import React, { forwardRef, useEffect, useState } from 'react';
+import APIManager from 'utils/APImanager';
+import SimpleModal from 'components/SimpleModal';
+import { FormControl, FormControlLabel, FormGroup, Switch } from '@mui/material';
+import * as Yup from 'yup';
+import { trimValues } from 'utils/Helper';
+import CustomAutoComplete from 'components/CustomAutoComplete';
+import { Layout } from 'components/Layout/Layout';
+import ChooseCountry from 'components/ChooseCountry';
 
 const apiManager = new APIManager();
 
 const CityAddEdit = forwardRef(
-  (
-    { getList, rowsPerPage, editData, setSearch, clearSearchField },
-    modalRef
-  ) => {
+  ({ getList, rowsPerPage, editData, setSearch, clearSearchField }, modalRef) => {
     let initialValues = {
-      cityName: editData.cityName || "",
-      countryId: editData.countryId || "",
-      isActive: true,
+      cityName: editData.cityName || '',
+      countryId: editData.countryId || '',
+      isActive: true
     };
     if (editData) {
       initialValues._id = editData._id;
@@ -41,15 +33,12 @@ const CityAddEdit = forwardRef(
           const trimmedValues = trimValues({ countryId, cityName, isActive });
 
           const res = editData
-            ? await apiManager.patch(
-                `city/update/${initialValues._id}`,
-                trimmedValues
-              )
-            : await apiManager.post("city/create", trimmedValues);
+            ? await apiManager.patch(`city/update/${initialValues._id}`, trimmedValues)
+            : await apiManager.post('city/create', trimmedValues);
           if (!res.error) {
             modalRef.current.handleClose();
             getList(rowsPerPage);
-            setSearch("");
+            setSearch('');
             clearSearchField();
           }
         }}
@@ -63,11 +52,11 @@ const CityAddEdit = forwardRef(
           touched,
           values,
           resetForm,
-          submitForm,
+          submitForm
         }) => {
           return (
             <SimpleModal
-              title={editData ? "Edit" : "Add"}
+              title={editData ? 'Edit' : 'Add'}
               submitForm={submitForm}
               resetForm={resetForm}
               ref={modalRef}
@@ -78,14 +67,14 @@ const CityAddEdit = forwardRef(
                 components={[
                   <ReusableValidation
                     fieldName="cityName"
-                    label={"City Name"}
+                    label={'City Name'}
                     required={true}
                     maxLength={100}
                     inputProps={{
-                      style: { textTransform: "capitalize" },
+                      style: { textTransform: 'capitalize' }
                     }}
                   />,
-                  <ChooseCountry />,
+                  <ChooseCountry />
                 ]}
               />
             </SimpleModal>

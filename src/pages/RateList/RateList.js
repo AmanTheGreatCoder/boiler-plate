@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from 'react';
 
 // material-ui
 import {
@@ -8,44 +8,44 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  LinearProgress,
-} from "@mui/material";
-import { Switch } from "@mui/material";
+  LinearProgress
+} from '@mui/material';
+import { Switch } from '@mui/material';
 
 // project imports
-import ProviderAddEdit from "./RateListAddEdit";
-import withPagination from "hoc/withPagination/withPagination";
-import confirm from "components/Confim";
-import APIManager from "utils/APImanager";
-import { confirmMessage, getValueFromObject } from "utils/Helper";
-import TableHeader from "components/EnhancedTable";
-import ActionButtons from "components/ActionButtons/ActionButtons";
-import { MODULE_NAME } from "./Values";
-import { Button } from "@mui/material";
-import { useNavigate, useParams } from "react-router-dom";
-import EnhancedTable from "components/EnhancedTable";
+import ProviderAddEdit from './RateListAddEdit';
+import withPagination from 'hoc/withPagination/withPagination';
+import confirm from 'components/Confim';
+import APIManager from 'utils/APImanager';
+import { confirmMessage, getValueFromObject } from 'utils/Helper';
+import TableHeader from 'components/EnhancedTable';
+import ActionButtons from 'components/ActionButtons/ActionButtons';
+import { MODULE_NAME } from './Values';
+import { Button } from '@mui/material';
+import { useNavigate, useParams } from 'react-router-dom';
+import EnhancedTable from 'components/EnhancedTable';
 
 const apiManager = new APIManager();
 
 const columns = [
-  { id: "dialCode", label: "Dialcode", prefix: "+" },
-  { id: "destination", label: "Destination" },
-  { id: "rate", label: "Rate", prefix: "$ " },
-  { id: "initialPulse", label: "Initial Pulse" },
+  { id: 'dialCode', label: 'Dial Code', prefix: '+' },
+  { id: 'destination', label: 'Destination' },
+  { id: 'rate', label: 'Rate', prefix: '$ ' },
+  { id: 'initialPulse', label: 'Initial Pulse' },
   {
-    id: "subsequentPulse",
-    label: "Subsequent Pulse",
+    id: 'subsequentPulse',
+    label: 'Subsequent Pulse'
   },
   {
-    id: "connectionCharge",
-    label: "Connection Charge",
-    prefix: "$ ",
+    id: 'connectionCharge',
+    label: 'Connection Charge',
+    prefix: '$ '
   },
   {
-    id: "actions",
-    name: "Actions",
-    align: "right",
-  },
+    id: 'actions',
+    name: 'Actions',
+    align: 'right'
+  }
 ];
 
 function RateList({
@@ -70,7 +70,7 @@ function RateList({
 
   const addEditRef = useRef(null);
 
-  const [editData, setEditData] = useState("");
+  const [editData, setEditData] = useState('');
 
   return (
     <EnhancedTable
@@ -95,7 +95,7 @@ function RateList({
     </EnhancedTable>
   );
 }
-export default withPagination(RateList, "rate-list/list", {
+export default withPagination(RateList, 'rate-list/list', {
   title: MODULE_NAME,
-  queryOnly: true,
+  queryOnly: true
 });

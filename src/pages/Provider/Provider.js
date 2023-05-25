@@ -1,55 +1,48 @@
-import { useRef, useState } from "react";
-import ProviderAddEdit from "./ProviderAddEdit";
-import withPagination from "hoc/withPagination/withPagination";
-import APIManager from "utils/APImanager";
-import { MODULE_NAME } from "./Values";
-import EnhancedTable from "components/EnhancedTable";
+import { useRef, useState } from 'react';
+import ProviderAddEdit from './ProviderAddEdit';
+import withPagination from 'hoc/withPagination/withPagination';
+import APIManager from 'utils/APImanager';
+import { MODULE_NAME } from './Values';
+import EnhancedTable from 'components/EnhancedTable';
 
 const columns = [
-  { id: "name", label: "Provider" },
+  { id: 'name', label: 'Provider' },
   {
-    id: "outboundDomain",
-    label: "Domain",
+    id: 'outboundDomain',
+    label: 'Domain'
   },
   {
-    id: "outboundProxy",
-    label: "Proxy",
+    id: 'outboundProxy',
+    label: 'Proxy'
   },
   {
-    id: "outboundPort",
-    label: "Port",
+    id: 'outboundPort',
+    label: 'Port'
   },
   {
-    id: "outboundUserName",
-    label: "Name",
+    id: 'outboundUserName',
+    label: 'Username'
   },
   {
-    id: "outboundActiveGateway",
-    label: "Gateway",
-    component: "toggle",
-    endpoint: "active-gateway",
+    id: 'outboundActiveGateway',
+    label: 'Gateway',
+    component: 'toggle',
+    endpoint: 'active-gateway'
   },
   {
-    id: "isActive",
-    label: "Active",
+    id: 'isActive',
+    label: 'Active'
   },
   {
-    id: "actions",
-    name: "Actions",
-  },
+    id: 'actions',
+    name: 'Actions'
+  }
 ];
 
-function Provider({
-  rowsPerPage,
-  getList,
-  setSearch,
-  clearSearchField,
-  children,
-  ...otherProps
-}) {
+function Provider({ rowsPerPage, getList, setSearch, clearSearchField, children, ...otherProps }) {
   const addEditRef = useRef(null);
 
-  const [editData, setEditData] = useState("");
+  const [editData, setEditData] = useState('');
 
   return (
     <EnhancedTable
@@ -75,7 +68,7 @@ function Provider({
     </EnhancedTable>
   );
 }
-export default withPagination(Provider, "provider/list", {
+export default withPagination(Provider, 'provider/list', {
   imageRequired: true,
-  title: MODULE_NAME,
+  title: MODULE_NAME
 });

@@ -1,7 +1,7 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 
 // third-party
-import { motion } from "framer-motion";
+import { motion } from 'framer-motion';
 
 // ==============================|| ANIMATION FOR CONTENT ||============================== //
 
@@ -9,22 +9,22 @@ const NavMotion = ({ children }) => {
   const motionVariants = {
     initial: {
       opacity: 0,
-      scale: 0.99,
+      scale: 0.99
     },
     in: {
       opacity: 1,
-      scale: 1,
+      scale: 1
     },
     out: {
       opacity: 0,
-      scale: 1.01,
-    },
+      scale: 1.01
+    }
   };
 
   const motionTransition = {
-    type: "tween",
-    ease: "anticipate",
-    duration: 0.4,
+    type: 'tween',
+    ease: 'anticipate',
+    duration: 0.4
   };
 
   return (
@@ -41,7 +41,7 @@ const NavMotion = ({ children }) => {
 };
 
 NavMotion.propTypes = {
-  children: PropTypes.node,
+  children: PropTypes.node
 };
 
 export default NavMotion;

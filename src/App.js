@@ -1,24 +1,21 @@
-import Routes from "routes";
-import NavigationScroll from "layout/NavigationScroll";
-import ThemeCustomization from "themes";
-import { PhoneNumberProvider } from "contexts/PhoneNumberContext";
-import { AzhaiAuthProvider } from "contexts/AuthContext";
-import Snackbar from "components/Snackbar";
-import RTLLayout from "layout/RTLLayout";
-import "./index.css";
+import Routes from 'routes';
+import NavigationScroll from 'layout/NavigationScroll';
+import ThemeCustomization from 'themes';
+import { PhoneNumberProvider } from 'contexts/PhoneNumberContext';
+import { AzhaiAuthProvider } from 'contexts/AuthContext';
+import Snackbar from 'components/Snackbar';
+import './index.css';
 
 const App = () => (
   <ThemeCustomization>
-    <RTLLayout>
-      <NavigationScroll>
-        <AzhaiAuthProvider>
-          <PhoneNumberProvider>
-            <Routes />
-            <Snackbar />
-          </PhoneNumberProvider>
-        </AzhaiAuthProvider>
-      </NavigationScroll>
-    </RTLLayout>
+    <NavigationScroll>
+      <AzhaiAuthProvider>
+        <PhoneNumberProvider>
+          <Routes />
+          <Snackbar />
+        </PhoneNumberProvider>
+      </AzhaiAuthProvider>
+    </NavigationScroll>
   </ThemeCustomization>
 );
 

@@ -1,10 +1,5 @@
-import PropTypes from "prop-types";
-import React, {
-  forwardRef,
-  useEffect,
-  useImperativeHandle,
-  useState,
-} from "react";
+import PropTypes from 'prop-types';
+import React, { forwardRef, useEffect, useImperativeHandle, useState } from 'react';
 
 // material-ui
 import {
@@ -15,12 +10,12 @@ import {
   Grid,
   IconButton,
   Modal,
-  Typography,
-} from "@mui/material";
+  Typography
+} from '@mui/material';
 
-import CloseIcon from "@mui/icons-material/Close";
-import { useFormikContext } from "formik";
-import MainCard from "components/MainCard";
+import CloseIcon from '@mui/icons-material/Close';
+import { useFormikContext } from 'formik';
+import MainCard from 'components/MainCard';
 
 const Body = forwardRef(
   (
@@ -36,7 +31,7 @@ const Body = forwardRef(
       title,
       showClearButton,
       resetForm,
-      size,
+      size
     },
     ref
   ) => {
@@ -52,19 +47,19 @@ const Body = forwardRef(
         <MainCard
           style={modalStyle}
           sx={{
-            position: "absolute",
+            position: 'absolute',
             width: size || {
-              xs: "80%",
-              sm: "50%",
-              md: "40%",
-              lg: "35%",
-              xl: "30%",
+              xs: '80%',
+              sm: '50%',
+              md: '40%',
+              lg: '35%',
+              xl: '30%'
             },
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)'
           }}
-          title={title || "Title"}
+          title={title || 'Title'}
           content={false}
           secondary={
             <IconButton onClick={handleClose} size="large">
@@ -74,15 +69,15 @@ const Body = forwardRef(
         >
           <CardContent
             sx={{
-              maxHeight: "50vh",
-              overflow: "auto",
+              maxHeight: '50vh',
+              overflow: 'auto'
             }}
           >
             <Typography variant="body1">{children}</Typography>
           </CardContent>
           <Divider />
           <CardActions>
-            <Grid container justifyContent={"flex-end"} spacing={1}>
+            <Grid container justifyContent={'flex-end'} spacing={1}>
               {showClearButton && (
                 <Grid item>
                   <Button
@@ -97,7 +92,7 @@ const Body = forwardRef(
                   </Button>
                 </Grid>
               )}
-              <Grid item justifySelf={"flex-end"}>
+              <Grid item justifySelf={'flex-end'}>
                 <Button type="submit" variant="contained">
                   Submit
                 </Button>
@@ -112,7 +107,7 @@ const Body = forwardRef(
 
 Body.propTypes = {
   modalStyle: PropTypes.object,
-  handleClose: PropTypes.func,
+  handleClose: PropTypes.func
 };
 
 const SimpleModal = forwardRef(
@@ -128,7 +123,7 @@ const SimpleModal = forwardRef(
       showClearButton,
       resetOnClear,
       onClear,
-      size,
+      size
     },
     ref
   ) => {
@@ -141,7 +136,7 @@ const SimpleModal = forwardRef(
       handleClose() {
         setOpen(false);
         !resetOnClear && resetForm();
-      },
+      }
     }));
 
     const handleClose = () => {

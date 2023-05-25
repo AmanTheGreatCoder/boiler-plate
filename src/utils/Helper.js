@@ -1,12 +1,12 @@
-import { onlyNumber } from "./Regex";
-import Flag from "assets/images/flag.svg";
+import { onlyNumber } from './Regex';
+import Flag from 'assets/images/flag.svg';
 export const simplifyString = (value) => {
-  const cleanedStr = value.replace(/[\s()-]+/g, "");
+  const cleanedStr = value.replace(/[\s()-]+/g, '');
   return cleanedStr;
 };
 
 export const removePlusStr = (value) => {
-  return value.replace(/\+/g, "");
+  return value.replace(/\+/g, '');
 };
 
 export const capitalize = (value) => {
@@ -24,14 +24,12 @@ export const removeFirstSubstring = (str, substring) => {
 
 export const maskPhoneNumber = (phoneNumber) => {
   if (!phoneNumber) {
-    return "";
+    return '';
   }
   const visibleDigits = 4; // number of digits to show (2 at the beginning and 2 at the end)
   const maskedDigits = phoneNumber.length - visibleDigits;
   const maskedPhoneNumber =
-    phoneNumber.substr(0, 2) +
-    "*".repeat(maskedDigits) +
-    phoneNumber.substr(-2);
+    phoneNumber.substr(0, 2) + '*'.repeat(maskedDigits) + phoneNumber.substr(-2);
   return maskedPhoneNumber;
 };
 
@@ -41,8 +39,7 @@ export const isNumber = (value) => {
 
 export const trimValues = (values) =>
   Object.keys(values).reduce((acc, key) => {
-    acc[key] =
-      typeof values[key] === "string" ? values[key].trim() : values[key];
+    acc[key] = typeof values[key] === 'string' ? values[key].trim() : values[key];
     return acc;
   }, {});
 
@@ -55,7 +52,7 @@ export const addDefaultSrc = (ev) => {
 };
 
 export const getValueFromObject = (str, obj) => {
-  const keys = str.split(".");
+  const keys = str.split('.');
   let value = obj;
   for (const key of keys) {
     value = value[key];

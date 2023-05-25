@@ -1,32 +1,29 @@
-import ReusableValidation from "components/ReusableValidation/ReusableValidation";
-import { Formik } from "formik";
-import { forwardRef, useEffect } from "react";
-import APIManager from "utils/APImanager";
-import SimpleModal from "components/SimpleModal";
-import { trimValues } from "utils/Helper";
-import { Layout } from "components/Layout/Layout";
-import NumberWithCountryCode from "components/NumberWithCountryCode";
-import { ErrorBoundary } from "pages/ErrorManagement/ErrorBoundary";
+import ReusableValidation from 'components/ReusableValidation/ReusableValidation';
+import { Formik } from 'formik';
+import { forwardRef, useEffect } from 'react';
+import APIManager from 'utils/APImanager';
+import SimpleModal from 'components/SimpleModal';
+import { trimValues } from 'utils/Helper';
+import { Layout } from 'components/Layout/Layout';
+import NumberWithCountryCode from 'components/NumberWithCountryCode';
+import { ErrorBoundary } from 'pages/ErrorManagement/ErrorBoundary';
 
 const apiManager = new APIManager();
 
 const UserAddEdit = forwardRef(
-  (
-    { getList, editData, setSearch, setProfile, clearSearchField },
-    modalRef
-  ) => {
+  ({ getList, editData, setSearch, setProfile, clearSearchField }, modalRef) => {
     const disabled = editData ? true : false;
 
     let initialValues = {
-      fullName: editData?.fullName || "",
-      email: editData?.email || "",
-      phoneNumber: editData?.fullNumber || "",
+      fullName: editData?.fullName || '',
+      email: editData?.email || '',
+      phoneNumber: editData?.fullNumber || ''
     };
 
     if (editData) {
       initialValues._id = editData?._id;
     }
-    
+
     return (
       <ErrorBoundary>
         <Formik
@@ -40,26 +37,22 @@ const UserAddEdit = forwardRef(
               newValues = {
                 ...newValues,
                 dialCode,
-                phoneNumber,
+                phoneNumber
               };
             }
 
             const trimmedValues = trimValues(newValues);
             const res = editData
-              ? await apiManager.patch(
-                  `user/update/${values._id}`,
-                  trimmedValues
-                )
+              ? await apiManager.patch(`user/update/${values._id}`, trimmedValues)
               : await apiManager.post(`auth/admin-register`, trimmedValues);
             if (!res.error) {
               modalRef.current.handleClose();
               getList && getList();
-              setSearch && setSearch("");
+              setSearch && setSearch('');
               clearSearchField && clearSearchField();
               setProfile && setProfile();
             }
-          }}
-        >
+          }}>
           {({
             errors,
             handleBlur,
@@ -69,36 +62,31 @@ const UserAddEdit = forwardRef(
             touched,
             values,
             resetForm,
-            submitForm,
+            submitForm
           }) => {
             return (
               <SimpleModal
-                title={editData ? "Edit" : "Add Admin"}
+                title={editData ? 'Edit' : 'Add Admin'}
                 submitForm={submitForm}
                 resetForm={resetForm}
                 ref={modalRef}
                 errors={errors}
-                handleSubmit={handleSubmit}
-              >
+                handleSubmit={handleSubmit}>
                 <Layout
                   components={[
-                    <ReusableValidation
-                      fieldName="fullName"
-                      label={"Name"}
-                      required={true}
-                    />,
+                    <ReusableValidation fieldName="fullName" label={'Name'} required={true} />,
                     <ReusableValidation
                       fieldName="email"
-                      label={"Email"}
+                      label={'Email'}
                       required={true}
-                      control={"isEmail"}
+                      control={'isEmail'}
                     />,
                     <NumberWithCountryCode
                       disabled={disabled}
                       fieldName="phoneDetail"
                       propValue={editData ? values?.phoneNumber : null}
                       sx={{ mt: 1, mb: 0.5 }}
-                    />,
+                    />
                   ]}
                 />
               </SimpleModal>

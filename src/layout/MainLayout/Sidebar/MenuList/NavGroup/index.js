@@ -1,12 +1,12 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 
 // material-ui
-import { useTheme } from "@mui/material/styles";
-import { Divider, List, Typography } from "@mui/material";
+import { useTheme } from '@mui/material/styles';
+import { Divider, List, Typography } from '@mui/material';
 
 // project imports
-import NavItem from "../NavItem";
-import NavCollapse from "../NavCollapse";
+import NavItem from '../NavItem';
+import NavCollapse from '../NavCollapse';
 
 const NavGroup = ({ item, lastItem, showText }) => {
   const theme = useTheme();
@@ -14,17 +14,10 @@ const NavGroup = ({ item, lastItem, showText }) => {
   // menu list collapse & items
   const items = item.children?.map((menu) => {
     switch (menu.type) {
-      case "collapse":
+      case 'collapse':
         return <NavCollapse key={menu.id} menu={menu} level={1} />;
-      case "item":
-        return (
-          <NavItem
-            showText={showText}
-            key={menu.id}
-            item={menu}
-            level={1}
-          />
-        );
+      case 'item':
+        return <NavItem showText={showText} key={menu.id} item={menu} level={1} />;
       default:
         return (
           <Typography key={menu.id} variant="h6" color="error" align="center">
@@ -70,7 +63,7 @@ const NavGroup = ({ item, lastItem, showText }) => {
 };
 
 NavGroup.propTypes = {
-  item: PropTypes.object,
+  item: PropTypes.object
 };
 
 export default NavGroup;

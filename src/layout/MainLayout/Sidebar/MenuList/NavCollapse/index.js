@@ -1,32 +1,28 @@
-import PropTypes from "prop-types";
-import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import PropTypes from 'prop-types';
+import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
 // material-ui
-import { useTheme } from "@mui/material/styles";
+import { useTheme } from '@mui/material/styles';
 import {
   Collapse,
   List,
   ListItemButton,
   ListItemIcon,
   ListItemText,
-  Typography,
-} from "@mui/material";
-import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
+  Typography
+} from '@mui/material';
+import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 
 // project imports
-import NavItem from "../NavItem";
-import useConfig from "hooks/useConfig";
-
-// assets
-import { IconChevronDown, IconChevronUp } from "@tabler/icons";
+import NavItem from '../NavItem';
+import { IconChevronDown, IconChevronUp } from '@tabler/icons';
 
 // ==============================|| SIDEBAR MENU LIST COLLAPSE ITEMS ||============================== //
 
 const NavCollapse = ({ menu, level }) => {
   const theme = useTheme();
-  const { borderRadius } = useConfig();
-
+  const { borderRadius } = theme.custom;
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState(null);
 
@@ -40,8 +36,8 @@ const NavCollapse = ({ menu, level }) => {
   useEffect(() => {
     const childrens = menu.children ? menu.children : [];
     childrens.forEach((item) => {
-      if (pathname && pathname.includes("product-details")) {
-        if (item.url && item.url.includes("product-details")) {
+      if (pathname && pathname.includes('product-details')) {
+        if (item.url && item.url.includes('product-details')) {
           setOpen(true);
         }
       }
@@ -54,9 +50,9 @@ const NavCollapse = ({ menu, level }) => {
   // menu collapse & item
   const menus = menu.children?.map((item) => {
     switch (item.type) {
-      case "collapse":
+      case 'collapse':
         return <NavCollapse key={item.id} menu={item} level={level + 1} />;
-      case "item":
+      case 'item':
         return <NavItem key={item.id} item={item} level={level + 1} />;
       default:
         return (
@@ -69,18 +65,14 @@ const NavCollapse = ({ menu, level }) => {
 
   const Icon = menu.icon;
   const menuIcon = menu.icon ? (
-    <Icon
-      strokeWidth={1.5}
-      size="1.3rem"
-      style={{ marginTop: "auto", marginBottom: "auto" }}
-    />
+    <Icon strokeWidth={1.5} size="1.3rem" style={{ marginTop: 'auto', marginBottom: 'auto' }} />
   ) : (
     <FiberManualRecordIcon
       sx={{
         width: selected === menu.id ? 8 : 6,
-        height: selected === menu.id ? 8 : 6,
+        height: selected === menu.id ? 8 : 6
       }}
-      fontSize={level > 0 ? "inherit" : "medium"}
+      fontSize={level > 0 ? 'inherit' : 'medium'}
     />
   );
 
@@ -90,23 +82,21 @@ const NavCollapse = ({ menu, level }) => {
         sx={{
           borderRadius: `${borderRadius}px`,
           mb: 0.5,
-          alignItems: "flex-start",
-          backgroundColor: level > 1 ? "transparent !important" : "inherit",
+          alignItems: 'flex-start',
+          backgroundColor: level > 1 ? 'transparent !important' : 'inherit',
           py: level > 1 ? 1 : 1.25,
-          pl: `${level * 24}px`,
+          pl: `${level * 24}px`
         }}
         selected={selected === menu.id}
         onClick={handleClick}
       >
-        <ListItemIcon sx={{ my: "auto", minWidth: !menu.icon ? 18 : 36 }}>
-          {menuIcon}
-        </ListItemIcon>
+        <ListItemIcon sx={{ my: 'auto', minWidth: !menu.icon ? 18 : 36 }}>{menuIcon}</ListItemIcon>
         <ListItemText
           primary={
             <Typography
-              variant={selected === menu.id ? "h5" : "body1"}
+              variant={selected === menu.id ? 'h5' : 'body1'}
               color="inherit"
-              sx={{ my: "auto" }}
+              sx={{ my: 'auto' }}
             >
               {menu.title}
             </Typography>
@@ -128,13 +118,13 @@ const NavCollapse = ({ menu, level }) => {
           <IconChevronUp
             stroke={1.5}
             size="1rem"
-            style={{ marginTop: "auto", marginBottom: "auto" }}
+            style={{ marginTop: 'auto', marginBottom: 'auto' }}
           />
         ) : (
           <IconChevronDown
             stroke={1.5}
             size="1rem"
-            style={{ marginTop: "auto", marginBottom: "auto" }}
+            style={{ marginTop: 'auto', marginBottom: 'auto' }}
           />
         )}
       </ListItemButton>
@@ -144,20 +134,20 @@ const NavCollapse = ({ menu, level }) => {
             component="div"
             disablePadding
             sx={{
-              position: "relative",
-              "&:after": {
+              position: 'relative',
+              '&:after': {
                 content: "''",
-                position: "absolute",
-                left: "32px",
+                position: 'absolute',
+                left: '32px',
                 top: 0,
-                height: "100%",
-                width: "1px",
-                opacity: theme.palette.mode === "dark" ? 0.2 : 1,
+                height: '100%',
+                width: '1px',
+                opacity: theme.palette.mode === 'dark' ? 0.2 : 1,
                 background:
-                  theme.palette.mode === "dark"
+                  theme.palette.mode === 'dark'
                     ? theme.palette.dark.light
-                    : theme.palette.primary.light,
-              },
+                    : theme.palette.primary.light
+              }
             }}
           >
             {menus}
@@ -170,7 +160,7 @@ const NavCollapse = ({ menu, level }) => {
 
 NavCollapse.propTypes = {
   menu: PropTypes.object,
-  level: PropTypes.number,
+  level: PropTypes.number
 };
 
 export default NavCollapse;

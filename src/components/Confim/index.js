@@ -1,4 +1,4 @@
-import createConfirmation from "./CreateConfirmation";
+import createConfirmation from './CreateConfirmation';
 
 // create confirm function
 const confirm = createConfirmation();

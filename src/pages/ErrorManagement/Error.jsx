@@ -1,5 +1,5 @@
-import { Link, useNavigate } from "react-router-dom";
-import { useTheme, styled } from "@mui/material/styles";
+import { Link, useNavigate } from 'react-router-dom';
+import { useTheme, styled } from '@mui/material/styles';
 import {
   Button,
   Card,
@@ -7,50 +7,50 @@ import {
   CardMedia,
   Grid,
   LinearProgress,
-  Typography,
-} from "@mui/material";
-import AnimateButton from "components/AnimateButton";
-import { gridSpacing } from "store/constant";
-import ReplayIcon from "@mui/icons-material/Replay";
-import image from "assets/images/maintenance/img-build.svg";
-import imageBackground from "assets/images/maintenance/img-bg-grid.svg";
-import imageDarkBackground from "assets/images/maintenance/img-bg-grid-dark.svg";
-import imageParts from "assets/images/maintenance/img-bg-parts.svg";
-import { useEffect, useState } from "react";
+  Typography
+} from '@mui/material';
+import AnimateButton from 'components/AnimateButton';
+import { gridSpacing } from 'store/constant';
+import ReplayIcon from '@mui/icons-material/Replay';
+import image from 'assets/images/maintenance/img-build.svg';
+import imageBackground from 'assets/images/maintenance/img-bg-grid.svg';
+import imageDarkBackground from 'assets/images/maintenance/img-bg-grid-dark.svg';
+import imageParts from 'assets/images/maintenance/img-bg-parts.svg';
+import { useEffect, useState } from 'react';
 
-const CardMediaWrapper = styled("div")({
+const CardMediaWrapper = styled('div')({
   maxWidth: 720,
-  margin: "0 auto",
-  position: "relative",
+  margin: '0 auto',
+  position: 'relative'
 });
 
-const PageContentWrapper = styled("div")({
+const PageContentWrapper = styled('div')({
   maxWidth: 350,
-  margin: "0 auto",
-  textAlign: "center",
+  margin: '0 auto',
+  textAlign: 'center'
 });
 
 const ConstructionCard = styled(Card)({
-  minHeight: "100vh",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
+  minHeight: '100vh',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center'
 });
 
-const CardMediaBuild = styled("img")({
-  position: "absolute",
+const CardMediaBuild = styled('img')({
+  position: 'absolute',
   top: 0,
   left: 0,
-  width: "100%",
-  animation: "5s bounce ease-in-out infinite",
+  width: '100%',
+  animation: '5s bounce ease-in-out infinite'
 });
 
-const CardMediaParts = styled("img")({
-  position: "absolute",
+const CardMediaParts = styled('img')({
+  position: 'absolute',
   top: 0,
   left: 0,
-  width: "100%",
-  animation: "10s blink ease-in-out infinite",
+  width: '100%',
+  animation: '10s blink ease-in-out infinite'
 });
 
 const Error = (props) => {
@@ -64,11 +64,7 @@ const Error = (props) => {
             <CardMediaWrapper>
               <CardMedia
                 component="img"
-                image={
-                  theme.palette.mode === "dark"
-                    ? imageDarkBackground
-                    : imageBackground
-                }
+                image={theme.palette.mode === 'dark' ? imageDarkBackground : imageBackground}
               />
               <CardMediaParts src={imageParts} />
               <CardMediaBuild src={image} />
@@ -81,9 +77,7 @@ const Error = (props) => {
                   <Typography variant="h2" component="div"></Typography>
                 </Grid>
                 <Grid item xs={12}>
-                  <Typography variant="body2">
-                    OOPS! Something Went Wrong!
-                  </Typography>
+                  <Typography variant="body2">OOPS! Something Went Wrong!</Typography>
                 </Grid>
                 <Grid item xs={12}>
                   <AnimateButton>
@@ -94,7 +88,7 @@ const Error = (props) => {
                         window.location.reload();
                       }}
                     >
-                      <ReplayIcon sx={{ fontSize: "1.3rem", mr: 0.75 }} />
+                      <ReplayIcon sx={{ fontSize: '1.3rem', mr: 0.75 }} />
                       Refresh
                     </Button>
                   </AnimateButton>

@@ -1,28 +1,24 @@
-import { Button } from "@mui/material";
-import AddIcon from "@mui/icons-material/Add";
-import TuneIcon from "@mui/icons-material/Tune";
-import ActionButtons from "components/ActionButtons/ActionButtons";
-import confirm from "components/Confim";
-import {
-  addDefaultSrc,
-  confirmMessage,
-  getValueFromObject,
-} from "utils/Helper";
-import APIManager from "utils/APImanager";
-import { Table, TableContainer, LinearProgress, Switch } from "@mui/material";
-import { cloneElement, useState } from "react";
-import { TableBody, TableCell, TableHead, TableRow } from "@mui/material";
-import { useEffect } from "react";
-import { Box, TableSortLabel } from "@mui/material";
-import { visuallyHidden } from "@mui/utils";
-import { useTheme } from "@mui/styles";
-import FileUploadIcon from "@mui/icons-material/FileUpload";
-import { useNavigate } from "react-router-dom";
-import { FileDownload } from "@mui/icons-material";
-import MainCard from "components/MainCard";
-import Chip from "components/Chip";
-import moment from "moment";
-import { ErrorBoundary } from "pages/ErrorManagement/ErrorBoundary";
+import { Button } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
+import TuneIcon from '@mui/icons-material/Tune';
+import ActionButtons from 'components/ActionButtons/ActionButtons';
+import confirm from 'components/Confim';
+import { addDefaultSrc, confirmMessage, getValueFromObject } from 'utils/Helper';
+import APIManager from 'utils/APImanager';
+import { Table, TableContainer, LinearProgress, Switch } from '@mui/material';
+import { cloneElement, useState } from 'react';
+import { TableBody, TableCell, TableHead, TableRow } from '@mui/material';
+import { useEffect } from 'react';
+import { Box, TableSortLabel } from '@mui/material';
+import { visuallyHidden } from '@mui/utils';
+import { useTheme } from '@mui/styles';
+import FileUploadIcon from '@mui/icons-material/FileUpload';
+import { useNavigate } from 'react-router-dom';
+import { FileDownload } from '@mui/icons-material';
+import MainCard from 'components/MainCard';
+import Chip from 'components/Chip';
+import moment from 'moment';
+import { ErrorBoundary } from 'pages/ErrorManagement/ErrorBoundary';
 
 const apiManager = new APIManager();
 
@@ -31,7 +27,7 @@ function EnhancedTable(props) {
     urlPrefix,
     children,
     title,
-    addBtnTitle = "Add",
+    addBtnTitle = 'Add',
     searchSection,
     filtered,
     pagination,
@@ -50,11 +46,11 @@ function EnhancedTable(props) {
     list,
     loading,
     setEditData,
-    otherData,
+    otherData
   } = props;
   const [data, setData] = useState(list);
-  const [order, setOrder] = useState("asc");
-  const [orderBy, setOrderBy] = useState("");
+  const [order, setOrder] = useState('asc');
+  const [orderBy, setOrderBy] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -62,9 +58,9 @@ function EnhancedTable(props) {
   }, [list]);
 
   function getProperty(obj, property) {
-    let value = "";
-    if (property.includes(".")) {
-      const arr = property.split(".");
+    let value = '';
+    if (property.includes('.')) {
+      const arr = property.split('.');
       value = obj[arr[0]];
       if (value) {
         value = value[arr[arr.length - 1]];
@@ -80,8 +76,8 @@ function EnhancedTable(props) {
   };
 
   const onRequestSort = (event, property) => {
-    const isAsc = orderBy === property && order === "asc";
-    setOrder(isAsc ? "desc" : "asc");
+    const isAsc = orderBy === property && order === 'asc';
+    setOrder(isAsc ? 'desc' : 'asc');
     setOrderBy(property);
   };
 
@@ -96,7 +92,7 @@ function EnhancedTable(props) {
   }
 
   const getComparator = (order, orderBy) =>
-    order === "desc"
+    order === 'desc'
       ? (a, b) => descendingComparator(a, b, orderBy)
       : (a, b) => -descendingComparator(a, b, orderBy);
 
@@ -122,13 +118,12 @@ function EnhancedTable(props) {
                 return (
                   <TableCell
                     key={e._id + ele.id}
-                    style={renderStyle(ele.id, "body")}
+                    style={renderStyle(ele.id, 'body')}
                     align={ele.align}
                     className={`${
-                      ele.id.includes("countryName") ||
-                      ele.id.includes("cityName")
-                        ? "capitalize"
-                        : ""
+                      ele.id.includes('countryName') || ele.id.includes('cityName')
+                        ? 'capitalize'
+                        : ''
                     }`}
                   >
                     {renderCell(ele, e)}
@@ -143,22 +138,20 @@ function EnhancedTable(props) {
   };
 
   const renderStyle = (id, type) => {
-    let extraStyle;
-    if (id === "actions") {
-      extraStyle = {
-        textAlign: "center",
+    let style;
+    if (id === 'actions') {
+      style = {
+        textAlign: 'center'
       };
-    } else if (id === "isActive") {
-      if (type === "head") {
-        extraStyle = {
-          paddingLeft: 25,
+    } else if (id === 'isActive') {
+      if (type === 'head') {
+        style = {
+          paddingLeft: 25
         };
       }
     }
     return {
-      minWidth: 30,
-      maxWidth: 150,
-      ...extraStyle,
+      ...style
     };
   };
 
@@ -169,24 +162,22 @@ function EnhancedTable(props) {
           {columns?.map((item) => (
             <TableCell
               key={item.id}
-              style={renderStyle(item.id, "head")}
+              style={renderStyle(item.id, 'head')}
               align={item.align}
               sx={{ py: 2 }}
-              padding={item.disablePadding ? "none" : "normal"}
+              padding={item.disablePadding ? 'none' : 'normal'}
               sortDirection={orderBy === item.id ? order : false}
             >
               {item.label ? (
                 <TableSortLabel
                   active={orderBy === item.id}
-                  direction={orderBy === item.id ? order : "asc"}
+                  direction={orderBy === item.id ? order : 'asc'}
                   onClick={createSortHandler(item.id)}
                 >
                   {item.label}
                   {orderBy === item.id ? (
                     <Box component="span" sx={visuallyHidden}>
-                      {order === "desc"
-                        ? "sorted descending"
-                        : "sorted ascending"}
+                      {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
                     </Box>
                   ) : null}
                 </TableSortLabel>
@@ -202,7 +193,7 @@ function EnhancedTable(props) {
 
   const addOnClick = () => {
     addEditRef?.current?.handleOpen();
-    setEditData("");
+    setEditData('');
   };
 
   const filterOnClick = () => {
@@ -218,20 +209,16 @@ function EnhancedTable(props) {
       <Switch
         checked={e[ele.id]}
         onClick={() => {
-          confirm(confirmMessage(`${e[ele.id] ? "de" : ""}active`)).then(
-            async () => {
-              const res = await apiManager.patch(
-                `${urlPrefix}/${ele.endpoint ? ele.endpoint : "status"}/${
-                  e._id
-                }`,
-                { status: !e[ele.id] }
-              );
-              if (!res.error) {
-                e[ele.id] = !e[ele.id];
-                setList([...list]);
-              }
+          confirm(confirmMessage(`${e[ele.id] ? 'de' : ''}active`)).then(async () => {
+            const res = await apiManager.patch(
+              `${urlPrefix}/${ele.endpoint ? ele.endpoint : 'status'}/${e._id}`,
+              { status: !e[ele.id] }
+            );
+            if (!res.error) {
+              e[ele.id] = !e[ele.id];
+              setList([...list]);
             }
-          );
+          });
         }}
         color="primary"
       />
@@ -240,15 +227,15 @@ function EnhancedTable(props) {
 
   const renderCell = (ele, e) => {
     let value = null;
-    if (ele.id === "actions") {
+    if (ele.id === 'actions') {
       value = (
         <ActionButtons
           rateListOnClick={
             rateList
               ? () => {
                   navigate(`/rate-list/provider/${e._id}/${e.name}`, {
-                    type: "provider",
-                    parentId: e._id,
+                    type: 'provider',
+                    parentId: e._id
                   });
                 }
               : null
@@ -260,13 +247,10 @@ function EnhancedTable(props) {
           deleteOnClick={
             isDel
               ? () => {
-                  confirm(confirmMessage("delete")).then(async () => {
-                    const res = await apiManager.delete(
-                      `${urlPrefix}/delete/${e._id}`,
-                      {
-                        status: true,
-                      }
-                    );
+                  confirm(confirmMessage('delete')).then(async () => {
+                    const res = await apiManager.delete(`${urlPrefix}/delete/${e._id}`, {
+                      status: true
+                    });
                     if (!res.error) {
                       getList();
                     }
@@ -276,26 +260,26 @@ function EnhancedTable(props) {
           }
         />
       );
-    } else if (ele.id === "status") {
-      if (e[ele.id] === "succeeded") {
+    } else if (ele.id === 'status') {
+      if (e[ele.id] === 'succeeded') {
         value = <Chip label="Success" size="small" chipcolor="success" />;
       } else {
         value = <Chip label="Failed" size="small" chipcolor="orange" />;
       }
-    } else if (ele.id === "outboundActiveGateway") {
+    } else if (ele.id === 'outboundActiveGateway') {
       value = e.isOutBound ? renderSwitch(ele, e) : null;
-    } else if (ele.id === "isActive") {
+    } else if (ele.id === 'isActive') {
       value = renderSwitch(ele, e);
-    } else if (ele.id === "role") {
-      value = e[ele.id] === 5 ? "User" : "Admin";
-    } else if (ele.id === "phoneNumber") {
-      value = `+${e["countryCode"]} ${e[ele.id]}`;
-    } else if (ele.format === "Date") {
-      value = moment(e[ele.id]).format("D MMMM YYYY, h:mm A");
-    } else if (ele.id === "phoneNumberId") {
-      const temp = `+${e[ele.id]["countryCode"]} ${e[ele.id]["phoneNumber"]}`;
+    } else if (ele.id === 'role') {
+      value = e[ele.id] === 5 ? 'User' : 'Admin';
+    } else if (ele.id === 'phoneNumber') {
+      value = `+${e['countryCode']} ${e[ele.id]}`;
+    } else if (ele.format === 'Date') {
+      value = moment(e[ele.id]).format('D MMMM YYYY, h:mm A');
+    } else if (ele.id === 'phoneNumberId') {
+      const temp = `+${e[ele.id]['countryCode']} ${e[ele.id]['phoneNumber']}`;
       value = temp;
-    } else if (ele.id === "flag") {
+    } else if (ele.id === 'flag') {
       value = (
         <img
           src={`${otherData.imageUrl}${e.flag}`}
@@ -305,15 +289,15 @@ function EnhancedTable(props) {
           alt="country flag"
         />
       );
-    } else if (ele.id.includes(".")) {
-      if (ele.format === "add") {
-        const arr = ele.id.split(".");
+    } else if (ele.id.includes('.')) {
+      if (ele.format === 'add') {
+        const arr = ele.id.split('.');
         const id = arr[0];
-        let temp = "";
+        let temp = '';
         for (let i = 1; i < arr.length; i++) {
           if (e[id]) {
             temp += e[id][arr[i]];
-            temp += " ";
+            temp += ' ';
           }
         }
         value = temp;
@@ -325,7 +309,7 @@ function EnhancedTable(props) {
             onClick: () => {
               assignModalRef.current.handleOpen();
               setEditData(e);
-            },
+            }
           });
         }
       }
@@ -344,7 +328,7 @@ function EnhancedTable(props) {
         value
       )
     ) : (
-      "-"
+      '-'
     );
   };
 
@@ -352,15 +336,15 @@ function EnhancedTable(props) {
     <MainCard
       content={false}
       title={title}
-      sx={{ maxHeight: "100%" }}
+      sx={{ maxHeight: '100%' }}
       secondary={
-        <div style={{ display: "flex", alignItems: "center" }}>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
           {searchSection}
           {filterRef && (
             <Button
               size="medium"
               sx={{ ml: 3 }}
-              variant={filtered ? "contained" : "outlined"}
+              variant={filtered ? 'contained' : 'outlined'}
               startIcon={<TuneIcon />}
               onClick={() => filterOnClick()}
             >
@@ -406,7 +390,7 @@ function EnhancedTable(props) {
       }
     >
       {loading && <LinearProgress color="secondary" />}
-      <TableContainer className="table-container">
+      <TableContainer className={emptyData ? 'empty-image-css' : ''}>
         {emptyData}
         {!emptyData && (
           <Table sx={{ minWidth: 750 }} stickyHeader className="table">

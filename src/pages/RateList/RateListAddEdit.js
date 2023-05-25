@@ -1,31 +1,28 @@
-import ReusableValidation from "components/ReusableValidation/ReusableValidation";
-import { Formik } from "formik";
-import { forwardRef } from "react";
-import APIManager from "utils/APImanager";
-import SimpleModal from "components/SimpleModal";
-import { trimValues } from "utils/Helper";
-import { MODULE_NAME } from "./Values";
-import { useParams } from "react-router-dom";
-import { Layout } from "components/Layout/Layout";
+import ReusableValidation from 'components/ReusableValidation/ReusableValidation';
+import { Formik } from 'formik';
+import { forwardRef } from 'react';
+import APIManager from 'utils/APImanager';
+import SimpleModal from 'components/SimpleModal';
+import { trimValues } from 'utils/Helper';
+import { MODULE_NAME } from './Values';
+import { useParams } from 'react-router-dom';
+import { Layout } from 'components/Layout/Layout';
 
 const apiManager = new APIManager();
 
 const RateListAddEdit = forwardRef(
-  (
-    { getList, rowsPerPage, editData, setSearch, clearSearchField },
-    modalRef
-  ) => {
+  ({ getList, rowsPerPage, editData, setSearch, clearSearchField }, modalRef) => {
     const params = useParams();
 
     let initialValues = {
-      dialCode: editData.dialCode || "",
-      Destination: editData.destination || "",
-      type: "provider",
-      parentId: editData.parentId || "",
-      rate: editData.rate || "",
-      initialPulse: editData.initialPulse || "",
-      subsequentPulse: editData.subsequentPulse || "",
-      connectionCharge: editData.connectionCharge || "",
+      dialCode: editData.dialCode || '',
+      Destination: editData.destination || '',
+      type: 'provider',
+      parentId: editData.parentId || '',
+      rate: editData.rate || '',
+      initialPulse: editData.initialPulse || '',
+      subsequentPulse: editData.subsequentPulse || '',
+      connectionCharge: editData.connectionCharge || ''
     };
     if (editData) {
       initialValues._id = editData._id;
@@ -41,23 +38,16 @@ const RateListAddEdit = forwardRef(
           trimmedValues.initialPulse = parseInt(trimmedValues.initialPulse);
           trimmedValues.rate = parseInt(trimmedValues.rate);
           trimmedValues.dialCode = parseInt(trimmedValues.dialCode);
-          trimmedValues.subsequentPulse = parseInt(
-            trimmedValues.subsequentPulse
-          );
-          trimmedValues.connectionCharge = parseInt(
-            trimmedValues.connectionCharge
-          );
+          trimmedValues.subsequentPulse = parseInt(trimmedValues.subsequentPulse);
+          trimmedValues.connectionCharge = parseInt(trimmedValues.connectionCharge);
           trimmedValues.defaultRate = parseInt(trimmedValues.defaultRate);
           const res = editData
-            ? await apiManager.patch(
-                `rate-list/update/${initialValues._id}`,
-                trimmedValues
-              )
-            : await apiManager.post("rate-list/create", trimmedValues);
+            ? await apiManager.patch(`rate-list/update/${initialValues._id}`, trimmedValues)
+            : await apiManager.post('rate-list/create', trimmedValues);
           if (!res.error) {
             modalRef.current.handleClose();
             getList(rowsPerPage);
-            setSearch("");
+            setSearch('');
             clearSearchField();
           }
         }}
@@ -72,21 +62,21 @@ const RateListAddEdit = forwardRef(
           values,
           resetForm,
           submitForm,
-          setFieldValue,
+          setFieldValue
         }) => (
           <SimpleModal
-            title={editData ? "Edit" : "Add"}
+            title={editData ? 'Edit' : 'Add'}
             submitForm={submitForm}
             resetForm={resetForm}
             ref={modalRef}
             errors={errors}
             handleSubmit={handleSubmit}
             size={{
-              xs: "80%",
-              sm: "50%",
-              md: "60%",
-              lg: "45%",
-              xl: "30%",
+              xs: '80%',
+              sm: '50%',
+              md: '60%',
+              lg: '45%',
+              xl: '30%'
             }}
           >
             <Layout
@@ -98,11 +88,7 @@ const RateListAddEdit = forwardRef(
                   label="Dial Code"
                   required={true}
                 />,
-                <ReusableValidation
-                  fieldName="Destination"
-                  label="Destination"
-                  required={true}
-                />,
+                <ReusableValidation fieldName="Destination" label="Destination" required={true} />,
                 <ReusableValidation
                   fieldName="rate"
                   control="isNumber"
@@ -134,7 +120,7 @@ const RateListAddEdit = forwardRef(
                   max={5000}
                   label="Connection Charge"
                   required={true}
-                />,
+                />
               ]}
             />
           </SimpleModal>

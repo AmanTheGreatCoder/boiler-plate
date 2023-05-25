@@ -1,21 +1,14 @@
-import PropTypes from "prop-types";
-import { useContext } from "react";
-import { useNavigate } from "react-router-dom";
-import { useTheme } from "@mui/material/styles";
-import {
-  Box,
-  Button,
-  Checkbox,
-  FormControl,
-  FormControlLabel,
-  Stack,
-} from "@mui/material";
-import { Formik } from "formik";
-import AnimateButton from "components/AnimateButton";
-import APImanager from "utils/APImanager";
-import { PhoneNumberContext } from "contexts/PhoneNumberContext";
-import CustomAlert from "components/CustomAlert";
-import NumberWithCountryCode from "components/NumberWithCountryCode";
+import PropTypes from 'prop-types';
+import { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useTheme } from '@mui/material/styles';
+import { Box, Button, Checkbox, FormControl, FormControlLabel, Stack } from '@mui/material';
+import { Formik } from 'formik';
+import AnimateButton from 'components/AnimateButton';
+import APImanager from 'utils/APImanager';
+import { PhoneNumberContext } from 'contexts/PhoneNumberContext';
+import CustomAlert from 'components/CustomAlert';
+import NumberWithCountryCode from 'components/NumberWithCountryCode';
 
 const apiManager = new APImanager();
 
@@ -27,29 +20,29 @@ const Login = ({ loginProp, ...others }) => {
   return (
     <Formik
       initialValues={{
-        phoneDetailObj: "",
-        checked: true,
+        phoneDetailObj: '',
+        checked: true
       }}
       onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
         try {
           if (!values.phoneDetailObj.phoneNumber) {
             CustomAlert({
-              message: "Please enter phone number",
-              color: "error",
+              message: 'Please enter phone number',
+              color: 'error'
             });
             return;
           }
-          const res = await apiManager.post("auth/admin-login", {
+          const res = await apiManager.post('auth/admin-login', {
             countryCode: values.phoneDetailObj.dialCode,
-            phoneNumber: values.phoneDetailObj.phoneNumber,
+            phoneNumber: values.phoneDetailObj.phoneNumber
           });
           if (!res.error) {
             setDetail({
               countryCode: values.phoneDetailObj.dialCode,
               phoneNumber: values.phoneDetailObj.phoneNumber,
-              isRemember: values.checked,
+              isRemember: values.checked
             });
-            navigate("/otp-screen");
+            navigate('/otp-screen');
           }
         } catch (e) {
           console.error(e);
@@ -64,18 +57,13 @@ const Login = ({ loginProp, ...others }) => {
         isSubmitting,
         touched,
         values,
-        setFieldValue,
+        setFieldValue
       }) => (
         <form noValidate onSubmit={handleSubmit} {...others}>
           <FormControl fullWidth sx={{ ...theme.typography.customInput }}>
             <NumberWithCountryCode fieldName="phoneDetailObj" />
           </FormControl>
-          <Stack
-            direction="row"
-            alignItems="center"
-            justifyContent="space-between"
-            spacing={1}
-          >
+          <Stack direction="row" alignItems="center" justifyContent="space-between" spacing={1}>
             <FormControlLabel
               control={
                 <Checkbox
@@ -110,7 +98,7 @@ const Login = ({ loginProp, ...others }) => {
 };
 
 Login.propTypes = {
-  loginProp: PropTypes.number,
+  loginProp: PropTypes.number
 };
 
 export default Login;

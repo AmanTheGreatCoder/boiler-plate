@@ -1,5 +1,5 @@
-import { dispatch } from "store";
-import { openSnackbar } from "store/slices/snackbar";
+import { dispatch } from 'store';
+import { openSnackbar } from 'store/slices/snackbar';
 
 const CustomAlert = (props) => {
   const { message, color } = props;
@@ -7,11 +7,11 @@ const CustomAlert = (props) => {
     openSnackbar({
       open: true,
       message: message,
-      variant: "alert",
+      variant: 'alert',
       alert: {
-        color: color,
+        color: color
       },
-      close: false,
+      close: false
     })
   );
 };

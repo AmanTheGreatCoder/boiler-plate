@@ -1,5 +1,5 @@
-import { Grid } from "@mui/material";
-import React from "react";
+import { Grid } from '@mui/material';
+import React from 'react';
 
 function Layout({ components, itemsInRow = 1 }) {
   return (

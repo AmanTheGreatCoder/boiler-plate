@@ -1,7 +1,7 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from 'react';
 
 // material-ui
-import { useTheme } from "@mui/material/styles";
+import { useTheme } from '@mui/material/styles';
 import {
   AppBar,
   Box,
@@ -11,19 +11,19 @@ import {
   Paper,
   Popper,
   Toolbar,
-  useMediaQuery,
-} from "@mui/material";
+  useMediaQuery
+} from '@mui/material';
 
-import Transitions from "components/Transition";
+import Transitions from 'components/Transition';
 
 // assets
-import { IconDotsVertical } from "@tabler/icons";
+import { IconDotsVertical } from '@tabler/icons';
 
 // ==============================|| MOBILE HEADER ||============================== //
 
 const MobileSection = () => {
   const theme = useTheme();
-  const matchMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const matchMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   const [open, setOpen] = useState(false);
   /**
@@ -57,17 +57,17 @@ const MobileSection = () => {
       <Box component="span" ref={anchorRef} sx={{ mt: 1, ml: 1 }}>
         <IconButton
           sx={{
-            color: theme.palette.mode === "dark" ? "primary.main" : "inherit",
+            color: theme.palette.mode === 'dark' ? 'primary.main' : 'inherit',
             ml: 0.5,
-            cursor: "pointer",
+            cursor: 'pointer'
           }}
           onClick={handleToggle}
         >
           <IconDotsVertical
             stroke={1.5}
-            aria-controls={open ? "menu-list-grow" : undefined}
+            aria-controls={open ? 'menu-list-grow' : undefined}
             aria-haspopup="true"
-            style={{ fontSize: "1.5rem" }}
+            style={{ fontSize: '1.5rem' }}
           />
         </IconButton>
       </Box>
@@ -79,16 +79,16 @@ const MobileSection = () => {
         role={undefined}
         transition
         disablePortal
-        style={{ width: "100%", zIndex: 1 }}
+        style={{ width: '100%', zIndex: 1 }}
         popperOptions={{
           modifiers: [
             {
-              name: "offset",
+              name: 'offset',
               options: {
-                offset: [0, matchMobile ? 30 : 10],
-              },
-            },
-          ],
+                offset: [0, matchMobile ? 30 : 10]
+              }
+            }
+          ]
         }}
       >
         {({ TransitionProps }) => (
@@ -97,27 +97,22 @@ const MobileSection = () => {
               type="zoom"
               in={open}
               {...TransitionProps}
-              sx={{ transformOrigin: "top right" }}
+              sx={{ transformOrigin: 'top right' }}
             >
               <Paper>
                 {open && (
                   <AppBar
                     color="inherit"
                     sx={{
-                      [theme.breakpoints.down("md")]: {
-                        background:
-                          theme.palette.mode === "dark"
-                            ? theme.palette.dark[800]
-                            : "#fff",
-                      },
+                      [theme.breakpoints.down('md')]: {
+                        background: theme.palette.mode === 'dark' ? theme.palette.dark[800] : '#fff'
+                      }
                     }}
                   >
                     <Toolbar sx={{ pt: 2.75, pb: 2.75 }}>
                       <Grid
                         container
-                        justifyContent={
-                          matchMobile ? "space-between" : "flex-end"
-                        }
+                        justifyContent={matchMobile ? 'space-between' : 'flex-end'}
                         alignItems="center"
                       ></Grid>
                     </Toolbar>

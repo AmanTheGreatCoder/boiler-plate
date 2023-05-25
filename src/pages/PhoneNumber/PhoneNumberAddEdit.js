@@ -1,48 +1,39 @@
-import ReusableValidation from "components/ReusableValidation/ReusableValidation";
-import { Formik } from "formik";
-import React, { forwardRef, useEffect, useState } from "react";
-import APIManager from "utils/APImanager";
-import SimpleModal from "components/SimpleModal";
-import {
-  FormControl,
-  FormControlLabel,
-  FormGroup,
-  InputAdornment,
-  Switch,
-} from "@mui/material";
-import * as Yup from "yup";
-import { trimValues } from "utils/Helper";
-import { MODULE_NAME } from "./Values";
-import CustomAutoComplete from "components/CustomAutoComplete";
-import { Layout } from "components/Layout/Layout";
-import ChooseCountry from "components/ChooseCountry";
-import phone from "phone";
+import ReusableValidation from 'components/ReusableValidation/ReusableValidation';
+import { Formik } from 'formik';
+import React, { forwardRef, useEffect, useState } from 'react';
+import APIManager from 'utils/APImanager';
+import SimpleModal from 'components/SimpleModal';
+import { FormControl, FormControlLabel, FormGroup, InputAdornment, Switch } from '@mui/material';
+import * as Yup from 'yup';
+import { trimValues } from 'utils/Helper';
+import { MODULE_NAME } from './Values';
+import CustomAutoComplete from 'components/CustomAutoComplete';
+import { Layout } from 'components/Layout/Layout';
+import ChooseCountry from 'components/ChooseCountry';
+import phone from 'phone';
 
 const apiManager = new APIManager();
 
 const PhoneNumberAddEdit = forwardRef(
-  (
-    { getList, rowsPerPage, editData, setSearch, clearSearchField },
-    modalRef
-  ) => {
-    const [prefix, setPrefix] = useState("");
+  ({ getList, rowsPerPage, editData, setSearch, clearSearchField }, modalRef) => {
+    const [prefix, setPrefix] = useState('');
     const [disabled, setDisabled] = useState(true);
-    const [propValue, setPropValue] = useState("");
+    const [propValue, setPropValue] = useState('');
 
     let initialValues = {
-      phoneNumber: editData.phoneNumber || "",
-      countryId: editData.countryId || "",
-      cityId: editData.cityId || "",
-      providerId: editData.providerId || "",
+      phoneNumber: editData.phoneNumber || '',
+      countryId: editData.countryId || '',
+      cityId: editData.cityId || '',
+      providerId: editData.providerId || '',
       isActive: true,
       capabilities: {
         SMS: {
-          isCapable: false,
+          isCapable: false
         },
         Voice: {
-          isCapable: true,
-        },
-      },
+          isCapable: true
+        }
+      }
     };
     if (editData) {
       initialValues._id = editData._id;
@@ -65,19 +56,16 @@ const PhoneNumberAddEdit = forwardRef(
             providerId,
             countryCode,
             isActive,
-            capabilities,
+            capabilities
           });
           const res = editData
-            ? await apiManager.patch(
-                `phone/update/${initialValues._id}`,
-                trimmedValues
-              )
-            : await apiManager.post("phone/create", trimmedValues);
+            ? await apiManager.patch(`phone/update/${initialValues._id}`, trimmedValues)
+            : await apiManager.post('phone/create', trimmedValues);
 
           if (!res.error) {
             modalRef.current.handleClose();
             getList();
-            setSearch("");
+            setSearch('');
             clearSearchField();
           }
         }}
@@ -92,11 +80,11 @@ const PhoneNumberAddEdit = forwardRef(
           values,
           resetForm,
           submitForm,
-          setFieldValue,
+          setFieldValue
         }) => {
           return (
             <SimpleModal
-              title={editData ? "Edit" : "Add"}
+              title={editData ? 'Edit' : 'Add'}
               submitForm={submitForm}
               resetForm={resetForm}
               ref={modalRef}
@@ -115,54 +103,52 @@ const PhoneNumberAddEdit = forwardRef(
                       }
                       setPropValue({
                         isoCountry: e?.isoCountry,
-                        countryCode: e?.countryCode,
+                        countryCode: e?.countryCode
                       });
                       setDisabled(false);
-                      setFieldValue("cityId", "");
-                      setFieldValue("phoneNumber", "");
+                      setFieldValue('cityId', '');
+                      setFieldValue('phoneNumber', '');
                     }}
                   />,
                   <CustomAutoComplete
                     key={values?.countryId?._id}
                     placeholder="Choose a city"
                     disabled={!values.countryId}
-                    url={values?.countryId ? "city/list" : ""}
+                    url={values?.countryId ? 'city/list' : ''}
                     required={true}
                     fieldName="cityId"
                     query={{ countryId: values?.countryId?._id }}
-                    errorName={"City"}
-                    optionRow={["cityName"]}
+                    errorName={'City'}
+                    optionRow={['cityName']}
                     valueToShowInField="cityName"
                     inputProps={{
-                      style: { textTransform: "capitalize" },
+                      style: { textTransform: 'capitalize' }
                     }}
                   />,
                   <CustomAutoComplete
                     placeholder="Choose a provider"
                     url="provider/list"
                     fieldName="providerId"
-                    errorName={"Provider"}
+                    errorName={'Provider'}
                     required={true}
-                    optionRow={["name"]}
+                    optionRow={['name']}
                     valueToShowInField="name"
                   />,
                   <ReusableValidation
                     fieldName="phoneNumber"
                     disabled={disabled}
                     control="isValidPhoneNumber"
-                    label={"Phone Number"}
+                    label={'Phone Number'}
                     required={true}
                     min={4}
                     max={15}
                     propValue={propValue}
                     InputProps={{
                       startAdornment: prefix ? (
-                        <InputAdornment position="middle">
-                          {prefix}
-                        </InputAdornment>
-                      ) : null,
+                        <InputAdornment position="middle">{prefix}</InputAdornment>
+                      ) : null
                     }}
-                  />,
+                  />
                 ]}
               />
             </SimpleModal>

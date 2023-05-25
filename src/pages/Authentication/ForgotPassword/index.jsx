@@ -1,21 +1,14 @@
-import { useTheme } from "@mui/material/styles";
-import {
-  Box,
-  Button,
-  FormControl,
-  FormHelperText,
-  InputLabel,
-  OutlinedInput,
-} from "@mui/material";
-import { useDispatch } from "store";
-import { useNavigate } from "react-router-dom";
+import { useTheme } from '@mui/material/styles';
+import { Box, Button, FormControl, FormHelperText, InputLabel, OutlinedInput } from '@mui/material';
+import { useDispatch } from 'store';
+import { useNavigate } from 'react-router-dom';
 
-import * as Yup from "yup";
-import { Formik } from "formik";
+import * as Yup from 'yup';
+import { Formik } from 'formik';
 
-import useAuth from "hooks/useAuth";
-import useScriptRef from "hooks/useScriptRef";
-import CustomAlert from "components/CustomAlert";
+import useAuth from 'hooks/useAuth';
+import useScriptRef from 'hooks/useScriptRef';
+import CustomAlert from 'components/CustomAlert';
 
 const AuthForgotPassword = ({ ...others }) => {
   const theme = useTheme();
@@ -27,15 +20,12 @@ const AuthForgotPassword = ({ ...others }) => {
   return (
     <Formik
       initialValues={{
-        email: "",
-        password: "",
-        submit: null,
+        email: '',
+        password: '',
+        submit: null
       }}
       validationSchema={Yup.object().shape({
-        email: Yup.string()
-          .email("Must be a valid email")
-          .max(255)
-          .required("Email is required"),
+        email: Yup.string().email('Must be a valid email').max(255).required('Email is required')
       })}
       onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
         try {
@@ -44,11 +34,11 @@ const AuthForgotPassword = ({ ...others }) => {
             setStatus({ success: true });
             setSubmitting(false);
             CustomAlert({
-              message: "Check mail for reset password link",
-              color: "success",
+              message: 'Check mail for reset password link',
+              color: 'success'
             });
             setTimeout(() => {
-              navigate("/login", { replace: true });
+              navigate('/login', { replace: true });
             }, 1500);
           }
         } catch (err) {
@@ -61,15 +51,7 @@ const AuthForgotPassword = ({ ...others }) => {
         }
       }}
     >
-      {({
-        errors,
-        handleBlur,
-        handleChange,
-        handleSubmit,
-        isSubmitting,
-        touched,
-        values,
-      }) => (
+      {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
         <form noValidate onSubmit={handleSubmit} {...others}>
           <FormControl
             fullWidth
@@ -90,10 +72,7 @@ const AuthForgotPassword = ({ ...others }) => {
               inputProps={{}}
             />
             {touched.email && errors.email && (
-              <FormHelperText
-                error
-                id="standard-weight-helper-text-email-forgot"
-              >
+              <FormHelperText error id="standard-weight-helper-text-email-forgot">
                 {errors.email}
               </FormHelperText>
             )}

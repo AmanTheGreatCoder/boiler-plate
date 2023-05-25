@@ -1,38 +1,31 @@
-import { useEffect, useRef, useState } from "react";
-import UserAddEdit from "./UserAddEdit";
-import withPagination from "hoc/withPagination/withPagination";
-import { MODULE_NAME } from "./Values";
-import UserFilter from "./UserFilter";
-import EnhancedTable from "components/EnhancedTable";
+import { useEffect, useRef, useState } from 'react';
+import UserAddEdit from './UserAddEdit';
+import withPagination from 'hoc/withPagination/withPagination';
+import { MODULE_NAME } from './Values';
+import UserFilter from './UserFilter';
+import EnhancedTable from 'components/EnhancedTable';
 
 const columns = [
-  { id: "fullName", label: "Name" },
-  { id: "email", label: "Email" },
+  { id: 'fullName', label: 'Name' },
+  { id: 'email', label: 'Email' },
   {
-    id: "phoneNumber",
-    label: "Phone Number",
+    id: 'phoneNumber',
+    label: 'Phone Number'
   },
-  { id: "role", label: "Role" },
+  { id: 'role', label: 'Role' },
   {
-    id: "isActive",
-    label: "Active",
+    id: 'isActive',
+    label: 'Active'
   },
-  { id: "actions", name: "Actions" },
+  { id: 'actions', name: 'Actions' }
 ];
 
 function User(props) {
-  const {
-    rowsPerPage,
-    setSearch,
-    getList,
-    clearSearchField,
-    setQuery,
-    children,
-    ...otherProps
-  } = props;
+  const { rowsPerPage, setSearch, getList, clearSearchField, setQuery, children, ...otherProps } =
+    props;
   const addEditRef = useRef(null);
   const filterRef = useRef(null);
-  const [editData, setEditData] = useState("");
+  const [editData, setEditData] = useState('');
 
   return (
     <EnhancedTable
@@ -59,7 +52,7 @@ function User(props) {
       <UserFilter
         onFilterChange={(values) => {
           filterRef.current.handleClose();
-          setQuery({ role: values?.filterObj?.role || "" });
+          setQuery({ role: values?.filterObj?.role || '' });
         }}
         onClear={() => {
           filterRef.current.handleClose();
@@ -71,7 +64,7 @@ function User(props) {
   );
 }
 
-export default withPagination(User, "user/list", {
+export default withPagination(User, 'user/list', {
   imageRequired: true,
-  title: MODULE_NAME,
+  title: MODULE_NAME
 });

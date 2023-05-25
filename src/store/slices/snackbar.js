@@ -1,40 +1,32 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   action: false,
   open: false,
-  message: "Note archived",
+  message: 'Note archived',
   anchorOrigin: {
-    vertical: "top",
-    horizontal: "center",
+    vertical: 'top',
+    horizontal: 'center'
   },
-  variant: "default",
+  variant: 'default',
   alert: {
-    color: "primary",
-    variant: "filled",
+    color: 'primary',
+    variant: 'filled'
   },
-  transition: "SlideDown",
+  transition: 'SlideDown',
   close: true,
-  actionButton: false,
+  actionButton: false
 };
 
 // ==============================|| SLICE - SNACKBAR ||============================== //
 
 const snackbar = createSlice({
-  name: "snackbar",
+  name: 'snackbar',
   initialState,
   reducers: {
     openSnackbar(state, action) {
-      const {
-        open,
-        message,
-        anchorOrigin,
-        variant,
-        alert,
-        transition,
-        close,
-        actionButton,
-      } = action.payload;
+      const { open, message, anchorOrigin, variant, alert, transition, close, actionButton } =
+        action.payload;
 
       state.action = !state.action;
       state.open = open || initialState.open;
@@ -43,7 +35,7 @@ const snackbar = createSlice({
       state.variant = variant || initialState.variant;
       state.alert = {
         color: alert?.color || initialState.alert.color,
-        variant: alert?.variant || initialState.alert.variant,
+        variant: alert?.variant || initialState.alert.variant
       };
       state.transition = transition || initialState.transition;
       state.close = close === false ? close : initialState.close;
@@ -52,8 +44,8 @@ const snackbar = createSlice({
 
     closeSnackbar(state) {
       state.open = false;
-    },
-  },
+    }
+  }
 });
 
 export default snackbar.reducer;

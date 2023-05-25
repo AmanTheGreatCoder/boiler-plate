@@ -1,44 +1,44 @@
-import { useEffect, useRef, useState } from "react";
-import PhoneNumberAddEdit from "./PhoneNumberAddEdit";
-import PhoneFilter from "./PhoneFilter";
-import withPagination from "hoc/withPagination/withPagination";
-import { MODULE_NAME } from "./Values";
-import { Button } from "@mui/material";
-import AssignNumberModal from "./AssignNumberModal";
-import ImportFile from "components/ImportFile/ImportFile";
-import EnhancedTable from "components/EnhancedTable";
-import { PhoneNumberUtil } from "google-libphonenumber";
+import { useEffect, useRef, useState } from 'react';
+import PhoneNumberAddEdit from './PhoneNumberAddEdit';
+import PhoneFilter from './PhoneFilter';
+import withPagination from 'hoc/withPagination/withPagination';
+import { MODULE_NAME } from './Values';
+import { Button } from '@mui/material';
+import AssignNumberModal from './AssignNumberModal';
+import ImportFile from 'components/ImportFile/ImportFile';
+import EnhancedTable from 'components/EnhancedTable';
+import { PhoneNumberUtil } from 'google-libphonenumber';
 
 const columns = [
   {
-    id: "phoneNumber",
-    label: "Phone Number",
+    id: 'phoneNumber',
+    label: 'Phone Number'
   },
   {
-    id: "providerId.name",
-    label: "Provider",
+    id: 'providerId.name',
+    label: 'Provider'
   },
   {
-    id: "cityId.cityName",
-    label: "City Name",
+    id: 'cityId.cityName',
+    label: 'City Name'
   },
   {
-    id: "countryId.countryName",
-    label: "Country Name",
+    id: 'countryId.countryName',
+    label: 'Country Name'
   },
   {
-    id: "assignedTo.fullName",
-    label: "Assigned To",
+    id: 'assignedTo.fullName',
+    label: 'Assigned To'
   },
   {
-    id: "isActive",
-    label: "Active",
+    id: 'isActive',
+    label: 'Active'
   },
   {
-    id: "actions",
-    name: "Actions",
-    align: "right",
-  },
+    id: 'actions',
+    name: 'Actions',
+    align: 'right'
+  }
 ];
 
 function PhoneNumber({
@@ -55,14 +55,11 @@ function PhoneNumber({
   const assignModalRef = useRef(null);
   const filterRef = useRef(null);
 
-  const [editData, setEditData] = useState("");
+  const [editData, setEditData] = useState('');
 
   useEffect(() => {
     var phoneUtil = PhoneNumberUtil.getInstance();
-    let valid2 = phoneUtil.isValidNumberForRegion(
-      phoneUtil.parse("2222222222", "IN"),
-      "IN"
-    );
+    let valid2 = phoneUtil.isValidNumberForRegion(phoneUtil.parse('2222222222', 'IN'), 'IN');
   }, []);
 
   return (
@@ -101,9 +98,9 @@ function PhoneNumber({
           const { cityId, countryId, providerId } = values;
           filterRef.current.handleClose();
           setQuery({
-            cityId: cityId?._id || "",
-            countryId: countryId?._id || "",
-            providerId: providerId?._id || "",
+            cityId: cityId?._id || '',
+            countryId: countryId?._id || '',
+            providerId: providerId?._id || ''
           });
         }}
         onClear={() => {
@@ -124,7 +121,7 @@ function PhoneNumber({
     </EnhancedTable>
   );
 }
-export default withPagination(PhoneNumber, "phone/list", {
+export default withPagination(PhoneNumber, 'phone/list', {
   imageRequired: true,
-  title: MODULE_NAME,
+  title: MODULE_NAME
 });

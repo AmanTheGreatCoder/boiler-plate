@@ -1,49 +1,46 @@
-import ReusableValidation from "components/ReusableValidation/ReusableValidation";
-import { Formik, FieldArray } from "formik";
-import { Fragment, forwardRef } from "react";
-import APIManager from "utils/APImanager";
-import SimpleModal from "components/SimpleModal";
-import { Grid, IconButton } from "@mui/material";
-import { trimValues } from "utils/Helper";
-import { MODULE_NAME } from "./Values";
-import ReusableSwitch from "components/ReusableSwitch.js/ReusableSwitch";
-import { Layout } from "components/Layout/Layout";
-import CustomAlert from "components/CustomAlert";
-import { AddCircleOutline, RemoveCircleOutline } from "@mui/icons-material";
-import { useTheme } from "@mui/styles";
+import ReusableValidation from 'components/ReusableValidation/ReusableValidation';
+import { Formik, FieldArray } from 'formik';
+import { Fragment, forwardRef } from 'react';
+import APIManager from 'utils/APImanager';
+import SimpleModal from 'components/SimpleModal';
+import { Grid, IconButton } from '@mui/material';
+import { trimValues } from 'utils/Helper';
+import { MODULE_NAME } from './Values';
+import ReusableSwitch from 'components/ReusableSwitch.js/ReusableSwitch';
+import { Layout } from 'components/Layout/Layout';
+import CustomAlert from 'components/CustomAlert';
+import { AddCircleOutline, RemoveCircleOutline } from '@mui/icons-material';
+import { useTheme } from '@mui/styles';
 
 const apiManager = new APIManager();
 
 const ProviderAddEdit = forwardRef(
-  (
-    { getList, rowsPerPage, editData, setSearch, clearSearchField },
-    modalRef
-  ) => {
+  ({ getList, rowsPerPage, editData, setSearch, clearSearchField }, modalRef) => {
     const theme = useTheme();
 
     let initialValues = {
-      name: editData.name || "",
-      outboundDomain: editData.outboundDomain || "",
-      outboundProxy: editData.outboundProxy || "",
-      outboundPort: editData.outboundPort || "",
-      outboundUserName: editData.outboundUserName || "",
+      name: editData.name || '',
+      outboundDomain: editData.outboundDomain || '',
+      outboundProxy: editData.outboundProxy || '',
+      outboundPort: editData.outboundPort || '',
+      outboundUserName: editData.outboundUserName || '',
       isActive: true,
       isInbound: editData.isInbound || false,
       isOutBound: editData.isOutBound || false,
-      outboundPrefix: editData.outboundPrefix || "",
-      outboundPassword: editData.outboundPassword || "",
-      initialPulse: editData.initialPulse || "",
-      subsequentPulse: editData.subsequentPulse || "",
-      connectionCharge: editData.connectionCharge || "",
-      defaultRate: editData.defaultRate || "",
+      outboundPrefix: editData.outboundPrefix || '',
+      outboundPassword: editData.outboundPassword || '',
+      initialPulse: editData.initialPulse || '',
+      subsequentPulse: editData.subsequentPulse || '',
+      connectionCharge: editData.connectionCharge || '',
+      defaultRate: editData.defaultRate || '',
       isBilled: editData.isBilled || false,
       outboundRegister: editData.outboundRegister || false,
       inboundIP: editData.inboundIp || [
         {
-          ip: "",
-          port: "",
-        },
-      ],
+          ip: '',
+          port: ''
+        }
+      ]
     };
     if (editData) {
       initialValues._id = editData._id;
@@ -56,31 +53,24 @@ const ProviderAddEdit = forwardRef(
         onSubmit={async (values) => {
           if (!values.inboundIP[0].port && !values.outboundPort) {
             CustomAlert({
-              message: "Please enter either inbound or outbound",
-              color: "error",
+              message: 'Please enter either inbound or outbound',
+              color: 'error'
             });
             return;
           }
           const trimmedValues = trimValues(values);
           trimmedValues.initialPulse = parseInt(trimmedValues.initialPulse);
-          trimmedValues.subsequentPulse = parseInt(
-            trimmedValues.subsequentPulse
-          );
-          trimmedValues.connectionCharge = parseInt(
-            trimmedValues.connectionCharge
-          );
+          trimmedValues.subsequentPulse = parseInt(trimmedValues.subsequentPulse);
+          trimmedValues.connectionCharge = parseInt(trimmedValues.connectionCharge);
           trimmedValues.defaultRate = parseInt(trimmedValues.defaultRate);
           const res = editData
-            ? await apiManager.patch(
-                `provider/update/${initialValues._id}`,
-                trimmedValues
-              )
-            : await apiManager.post("provider/create", trimmedValues);
+            ? await apiManager.patch(`provider/update/${initialValues._id}`, trimmedValues)
+            : await apiManager.post('provider/create', trimmedValues);
 
           if (!res.error) {
             modalRef.current.handleClose();
             getList(rowsPerPage);
-            setSearch("");
+            setSearch('');
             clearSearchField();
           }
         }}
@@ -95,29 +85,25 @@ const ProviderAddEdit = forwardRef(
           values,
           resetForm,
           submitForm,
-          setFieldValue,
+          setFieldValue
         }) => {
           return (
             <SimpleModal
-              title={editData ? "Edit" : "Add"}
+              title={editData ? 'Edit' : 'Add'}
               submitForm={submitForm}
               resetForm={resetForm}
               ref={modalRef}
               errors={errors}
               handleSubmit={handleSubmit}
               size={{
-                xs: "80%",
-                sm: "50%",
-                md: "60%",
-                lg: "45%",
-                xl: "30%",
+                xs: '80%',
+                sm: '50%',
+                md: '60%',
+                lg: '45%',
+                xl: '30%'
               }}
             >
-              <ReusableValidation
-                fieldName="name"
-                label={"Provider"}
-                required={true}
-              />
+              <ReusableValidation fieldName="name" label={'Provider'} required={true} />
               {
                 <Fragment>
                   <FieldArray name="inboundIP">
@@ -125,16 +111,13 @@ const ProviderAddEdit = forwardRef(
                       <Fragment>
                         {/* <div className='mt-10 flex-center-bt'> */}
                         <div className="flex-center-bt">
-                          <ReusableSwitch
-                            fieldName="isInbound"
-                            label={"Inbound"}
-                          />
+                          <ReusableSwitch fieldName="isInbound" label={'Inbound'} />
                           {values.isInbound && (
                             <IconButton
                               onClick={() =>
                                 push({
-                                  ip: "",
-                                  port: "",
+                                  ip: '',
+                                  port: ''
                                 })
                               }
                               color="secondary"
@@ -149,13 +132,13 @@ const ProviderAddEdit = forwardRef(
                             // <div style={{display: 'flex', alignItems: 'center'}}>
                             <Grid
                               container
-                              alignItems={"center"}
-                              justifyContent={"space-between"}
+                              alignItems={'center'}
+                              justifyContent={'space-between'}
                               spacing={2}
                             >
                               <Grid item lg={5}>
                                 <ReusableValidation
-                                  key={index + "ele"}
+                                  key={index + 'ele'}
                                   fieldName={`inboundIP.${index}.ip`}
                                   control="isIP"
                                   label="Inbound IP"
@@ -164,7 +147,7 @@ const ProviderAddEdit = forwardRef(
                               </Grid>
                               <Grid item lg={5}>
                                 <ReusableValidation
-                                  key={"ele" + index}
+                                  key={'ele' + index}
                                   fieldName={`inboundIP.${index}.port`}
                                   control="isPort"
                                   label="Inbound Port"
@@ -178,18 +161,15 @@ const ProviderAddEdit = forwardRef(
                                       remove(index);
                                     } else {
                                       CustomAlert({
-                                        message:
-                                          "Atleast one inbound is required",
-                                        color: "error",
+                                        message: 'Atleast one inbound is required',
+                                        color: 'error'
                                       });
                                     }
                                   }}
                                   color="secondary"
                                   size="medium"
                                 >
-                                  <RemoveCircleOutline
-                                    sx={{ color: theme.palette.error.main }}
-                                  />
+                                  <RemoveCircleOutline sx={{ color: theme.palette.error.main }} />
                                 </IconButton>
                               </Grid>
                             </Grid>
@@ -200,7 +180,7 @@ const ProviderAddEdit = forwardRef(
                   </FieldArray>
                 </Fragment>
               }
-              <ReusableSwitch fieldName="isOutBound" label={"Outbound"} />
+              <ReusableSwitch fieldName="isOutBound" label={'Outbound'} />
               {/* {values.isInbound && <Divider sx={{ mt: 1 }} />} */}
               {values.isOutBound && (
                 <Fragment>
@@ -225,29 +205,20 @@ const ProviderAddEdit = forwardRef(
                         label="Outbound Port"
                         required={true}
                       />,
-                      <ReusableValidation
-                        fieldName="outboundPrefix"
-                        label="Outbound Prefix"
-                      />,
-                      <ReusableValidation
-                        fieldName="outboundUserName"
-                        label="Outbound Username"
-                      />,
+                      <ReusableValidation fieldName="outboundPrefix" label="Outbound Prefix" />,
+                      <ReusableValidation fieldName="outboundUserName" label="Outbound Username" />,
                       <ReusableValidation
                         fieldName="outboundPassword"
                         type="password"
                         label="Outbound Password"
                       />,
-                      <ReusableSwitch
-                        fieldName="outboundRegister"
-                        label={"Outbound Register"}
-                      />,
+                      <ReusableSwitch fieldName="outboundRegister" label={'Outbound Register'} />
                     ]}
                   />
                 </Fragment>
               )}
               <div>
-                <ReusableSwitch fieldName="isBilled" label={"Billed"} />
+                <ReusableSwitch fieldName="isBilled" label={'Billed'} />
                 {values.isBilled && (
                   <Fragment>
                     <Layout
@@ -276,7 +247,7 @@ const ProviderAddEdit = forwardRef(
                           fieldName="defaultRate"
                           label="Default Rate"
                           required={true}
-                        />,
+                        />
                       ]}
                     />
                   </Fragment>

@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
-import { Switch, FormControlLabel } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
-import { useField } from "formik";
+import React, { useEffect } from 'react';
+import { Switch, FormControlLabel } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
+import { useField } from 'formik';
 
 function ReusableSwitch({
   label,
@@ -10,11 +10,11 @@ function ReusableSwitch({
   control,
   fieldValue,
   isSubmitting,
-  fieldName,
+  fieldName
 }) {
   const theme = useTheme();
   const [field, meta, helpers] = useField({
-    name: fieldName,
+    name: fieldName
   });
 
   const { name, value = true } = field;

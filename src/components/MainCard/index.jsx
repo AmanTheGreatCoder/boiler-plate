@@ -1,13 +1,7 @@
-import PropTypes from "prop-types";
-import React from "react";
-import { useTheme } from "@mui/material/styles";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  Divider,
-  Typography,
-} from "@mui/material";
+import PropTypes from 'prop-types';
+import React from 'react';
+import { useTheme } from '@mui/material/styles';
+import { Card, CardContent, CardHeader, Divider, Typography } from '@mui/material';
 
 const MainCard = React.forwardRef(
   (
@@ -15,7 +9,7 @@ const MainCard = React.forwardRef(
       boxShadow,
       children,
       content = true,
-      contentClass = "",
+      contentClass = '',
       contentSX = {},
       darkTitle,
       secondary,
@@ -34,29 +28,26 @@ const MainCard = React.forwardRef(
         ref={ref}
         {...others}
         sx={{
-          border: "none",
+          border: 'none',
           borderColor:
-            theme.palette.mode === "dark"
+            theme.palette.mode === 'dark'
               ? theme.palette.background.default
               : theme.palette.primary[200] + 75,
-          ":hover": {
+          ':hover': {
             boxShadow: boxShadow
               ? shadow ||
-                (theme.palette.mode === "dark"
-                  ? "0 2px 14px 0 rgb(33 150 243 / 10%)"
-                  : "0 2px 14px 0 rgb(32 40 45 / 8%)")
-              : "inherit",
+                (theme.palette.mode === 'dark'
+                  ? '0 2px 14px 0 rgb(33 150 243 / 10%)'
+                  : '0 2px 14px 0 rgb(32 40 45 / 8%)')
+              : 'inherit'
           },
-          ...sx,
+          ...sx
         }}
       >
         {/* card header and action */}
         {!darkTitle && title && <CardHeader title={title} action={secondary} />}
         {darkTitle && title && (
-          <CardHeader
-            title={<Typography variant="h3">{title}</Typography>}
-            action={secondary}
-          />
+          <CardHeader title={<Typography variant="h3">{title}</Typography>} action={secondary} />
         )}
 
         {/* content & header divider */}
@@ -82,18 +73,10 @@ MainCard.propTypes = {
   contentClass: PropTypes.string,
   contentSX: PropTypes.object,
   darkTitle: PropTypes.bool,
-  secondary: PropTypes.oneOfType([
-    PropTypes.node,
-    PropTypes.string,
-    PropTypes.object,
-  ]),
+  secondary: PropTypes.oneOfType([PropTypes.node, PropTypes.string, PropTypes.object]),
   shadow: PropTypes.string,
   sx: PropTypes.object,
-  title: PropTypes.oneOfType([
-    PropTypes.node,
-    PropTypes.string,
-    PropTypes.object,
-  ]),
+  title: PropTypes.oneOfType([PropTypes.node, PropTypes.string, PropTypes.object])
 };
 
 export default MainCard;

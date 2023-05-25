@@ -1,8 +1,8 @@
-import { useContext } from "react";
+import { useContext } from 'react';
 
 // auth provider
 // import AuthContext from 'contexts/FirebaseContext';
-import { AzhaiAuthContext } from "contexts/AuthContext";
+import { AzhaiAuthContext } from 'contexts/AuthContext';
 // import AuthContext from 'contexts/Auth0Context';
 // import AuthContext from 'contexts/JWTContext';
 // import AuthContext from 'contexts/AWSCognitoContext';

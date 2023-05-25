@@ -1,11 +1,11 @@
-import React from "react";
-import styled from "@emotion/styled";
-import { FormControl } from "@mui/material";
-import MuiPhoneNumber from "material-ui-phone-number";
-import { simplifyString, removeFirstSubstring } from "utils/Helper";
-import { useTheme } from "@mui/material/styles";
-import { useField } from "formik";
-import { countryCodeRegex, phoneRegExp } from "utils/Regex";
+import React from 'react';
+import styled from '@emotion/styled';
+import { FormControl } from '@mui/material';
+import MuiPhoneNumber from 'material-ui-phone-number';
+import { simplifyString, removeFirstSubstring } from 'utils/Helper';
+import { useTheme } from '@mui/material/styles';
+import { useField } from 'formik';
+import { countryCodeRegex, phoneRegExp } from 'utils/Regex';
 
 const NumberStyle = styled.div`
   & > div {
@@ -20,26 +20,25 @@ const NumberStyle = styled.div`
 `;
 
 function NumberWithCountryCode(props) {
-  const { fieldName, onlyCountries, propValue, disabled, disableDropdown, sx } =
-    props;
+  const { fieldName, onlyCountries, propValue, disabled, disableDropdown, sx } = props;
   const [field, meta, helpers] = useField({
     name: fieldName,
     validate: (newValue) => {
       let error = null;
 
       if (newValue?.phoneNumber && !phoneRegExp.test(newValue.phoneNumber)) {
-        error = "Phone number is not valid";
+        error = 'Phone number is not valid';
       }
       return error;
-    },
+    }
   });
-  const { name, onBlur, value = propValue || "" } = field;
+  const { name, onBlur, value = propValue || '' } = field;
   const { error, touched } = meta;
   const { setValue } = helpers;
   const hasError = Boolean(error) && touched;
 
-  let phoneNumber = "";
-  let simplePhoneNumber = "";
+  let phoneNumber = '';
+  let simplePhoneNumber = '';
 
   return (
     <NumberStyle>
@@ -55,15 +54,15 @@ function NumberWithCountryCode(props) {
         variant="outlined"
         id="phone-input"
         label="Phone number"
-        defaultCountry={"in"}
+        defaultCountry={'in'}
         sx={{ ...sx }}
         onlyCountries={onlyCountries}
         onChange={(phone, others) => {
           phoneNumber = removeFirstSubstring(phone, others.dialCode);
           simplePhoneNumber = simplifyString(phoneNumber);
           setValue({
-            phoneNumber: simplePhoneNumber || "",
-            ...others,
+            phoneNumber: simplePhoneNumber || '',
+            ...others
           });
         }}
       />

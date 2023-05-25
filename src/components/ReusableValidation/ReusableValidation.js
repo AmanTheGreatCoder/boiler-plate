@@ -1,16 +1,16 @@
-import { useEffect, memo } from "react";
-import { FormControl, FormHelperText, TextField } from "@mui/material";
-import { useField } from "formik";
+import { useEffect, memo } from 'react';
+import { FormControl, FormHelperText, TextField } from '@mui/material';
+import { useField } from 'formik';
 import {
   countryCodeRegex,
   onlyNumber,
   isoCountryRegex,
   domainRegex,
   ipRegex,
-  isEmail,
-} from "utils/Regex";
-import phone from "phone";
-import { PhoneNumberUtil } from "google-libphonenumber";
+  isEmail
+} from 'utils/Regex';
+import phone from 'phone';
+import { PhoneNumberUtil } from 'google-libphonenumber';
 
 const ReusableValidation = memo((props) => {
   const {
@@ -27,7 +27,7 @@ const ReusableValidation = memo((props) => {
     onChange,
     min,
     max,
-    maxLength,
+    maxLength
   } = props;
   const errorMessage = (label) => {
     return `${label} is not valid`;
@@ -35,11 +35,11 @@ const ReusableValidation = memo((props) => {
 
   const validation = (value) => {
     let error = null;
-    if (required && typeof value === "string" && !value?.trim()) {
+    if (required && typeof value === 'string' && !value?.trim()) {
       error = `${label} is required`;
     } else if (control) {
       switch (control) {
-        case "isValidPhoneNumber":
+        case 'isValidPhoneNumber':
           if (!value) {
             error = errorMessage(label);
             return;
@@ -47,7 +47,7 @@ const ReusableValidation = memo((props) => {
 
           var phoneUtil = PhoneNumberUtil.getInstance();
           let isMobileNumber = phone(`+${propValue.countryCode}${value}`, {
-            country: propValue.isoCountry,
+            country: propValue.isoCountry
           });
 
           if (!isMobileNumber?.isValid) {
@@ -65,13 +65,13 @@ const ReusableValidation = memo((props) => {
             }
           }
           break;
-        case "countryCode":
+        case 'countryCode':
           if (!countryCodeRegex.test(value)) error = errorMessage(label);
           break;
-        case "isoCountry":
+        case 'isoCountry':
           if (!isoCountryRegex.test(value)) error = errorMessage(label);
           break;
-        case "isNumber":
+        case 'isNumber':
           if (!onlyNumber.test(value)) {
             error = errorMessage(label);
           }
@@ -87,21 +87,20 @@ const ReusableValidation = memo((props) => {
             }
           }
           break;
-        case "isEmail":
+        case 'isEmail':
           if (!isEmail.test(value)) error = errorMessage(label);
           break;
-        case "isDomain":
+        case 'isDomain':
           if (!domainRegex.test(value)) error = errorMessage(label);
           break;
-        case "isIP":
+        case 'isIP':
           if (!ipRegex.test(value)) error = errorMessage(label);
           break;
-        case "isPort":
+        case 'isPort':
           if (value < 1 || value > 65535) error = errorMessage(label);
           break;
-        case "isDomainOrIP":
-          if (!ipRegex.test(value) && !domainRegex.test(value))
-            error = errorMessage(label);
+        case 'isDomainOrIP':
+          if (!ipRegex.test(value) && !domainRegex.test(value)) error = errorMessage(label);
           break;
       }
     }
@@ -113,10 +112,10 @@ const ReusableValidation = memo((props) => {
     name: fieldName,
     validate: (newValue) => {
       return validation(newValue);
-    },
+    }
   });
 
-  const { name, onBlur, value = "" } = field;
+  const { name, onBlur, value = '' } = field;
   const { error, touched } = meta;
   const { setValue, setTouched, setError } = helpers;
   const hasError = Boolean(error) && touched;
@@ -128,14 +127,9 @@ const ReusableValidation = memo((props) => {
   }, []);
 
   return (
-    <FormControl
-      disabled={disabled}
-      fullWidth
-      error={hasError}
-      sx={{ mt: 1, mb: 0.5 }}
-    >
+    <FormControl disabled={disabled} fullWidth error={hasError} sx={{ mt: 1, mb: 0.5 }}>
       <TextField
-        type={type || "text"}
+        type={type || 'text'}
         label={label}
         error={hasError}
         variant="outlined"
@@ -145,20 +139,18 @@ const ReusableValidation = memo((props) => {
         onBlur={onBlur}
         onChange={(e) => {
           if (
-            (control === "isNumber" ||
-              control === "isPort" ||
-              control === "isPhoneNumber") &&
+            (control === 'isNumber' || control === 'isPort' || control === 'isPhoneNumber') &&
             !onlyNumber.test(e.target.value)
           ) {
-            if (e.target.value === "") {
-              setValue("");
+            if (e.target.value === '') {
+              setValue('');
             }
             return;
           }
           setValue(e.target.value);
           onChange && onChange(e.target.value);
         }}
-        inputProps={{ maxLength, autoComplete: "off", ...inputProps }}
+        inputProps={{ maxLength, autoComplete: 'off', ...inputProps }}
         InputProps={{ ...InputProps }}
       />
       {hasError && (

@@ -1,29 +1,21 @@
-import ReusableValidation from "components/ReusableValidation/ReusableValidation";
-import { Formik } from "formik";
-import React, { forwardRef, useEffect, useState } from "react";
-import APIManager from "utils/APImanager";
-import SimpleModal from "components/SimpleModal";
-import {
-  FormControl,
-  FormControlLabel,
-  FormGroup,
-  Switch,
-} from "@mui/material";
-import * as Yup from "yup";
-import { trimValues } from "utils/Helper";
-import { MODULE_NAME } from "./Values";
-import CustomAutoComplete from "components/CustomAutoComplete";
+import ReusableValidation from 'components/ReusableValidation/ReusableValidation';
+import { Formik } from 'formik';
+import React, { forwardRef, useEffect, useState } from 'react';
+import APIManager from 'utils/APImanager';
+import SimpleModal from 'components/SimpleModal';
+import { FormControl, FormControlLabel, FormGroup, Switch } from '@mui/material';
+import * as Yup from 'yup';
+import { trimValues } from 'utils/Helper';
+import { MODULE_NAME } from './Values';
+import CustomAutoComplete from 'components/CustomAutoComplete';
 
 const apiManager = new APIManager();
 
 const AssignNumberModal = forwardRef(
-  (
-    { getList, rowsPerPage, editData, setSearch, clearSearchField },
-    assignModalRef
-  ) => {
+  ({ getList, rowsPerPage, editData, setSearch, clearSearchField }, assignModalRef) => {
     let initialValues = {
-      user: "",
-      isAssigned: true,
+      user: '',
+      isAssigned: true
     };
     if (editData) {
       initialValues._id = editData._id;
@@ -35,17 +27,14 @@ const AssignNumberModal = forwardRef(
         initialValues={initialValues}
         onSubmit={async (values) => {
           const trimmedValues = trimValues(values);
-           
+
           trimmedValues.assignedTo = values.user._id;
-          const res = await apiManager.put(
-            `phone/assign/${values._id}`,
-            trimmedValues
-          );
+          const res = await apiManager.put(`phone/assign/${values._id}`, trimmedValues);
 
           if (!res.error) {
             assignModalRef.current.handleClose();
             getList(rowsPerPage);
-            setSearch("");
+            setSearch('');
             clearSearchField();
           }
         }}
@@ -60,7 +49,7 @@ const AssignNumberModal = forwardRef(
           values,
           resetForm,
           submitForm,
-          setFieldValue,
+          setFieldValue
         }) => (
           <SimpleModal
             title={'Assign To'}
@@ -74,9 +63,9 @@ const AssignNumberModal = forwardRef(
               placeholder="Choose a user"
               url="user/list"
               fieldName="user"
-              errorName={"User"}
+              errorName={'User'}
               required={true}
-              optionRow={["fullName"]}
+              optionRow={['fullName']}
               valueToShowInField="fullName"
             />
           </SimpleModal>

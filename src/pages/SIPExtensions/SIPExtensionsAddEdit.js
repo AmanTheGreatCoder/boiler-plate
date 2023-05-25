@@ -1,37 +1,28 @@
-import ReusableValidation from "components/ReusableValidation/ReusableValidation";
-import { Formik } from "formik";
-import React, { forwardRef, useEffect, useState } from "react";
-import APIManager from "utils/APImanager";
-import SimpleModal from "components/SimpleModal";
-import {
-  FormControl,
-  FormControlLabel,
-  FormGroup,
-  Grid,
-  Switch,
-} from "@mui/material";
-import * as Yup from "yup";
-import { trimValues } from "utils/Helper";
-import { MODULE_NAME } from "./Values";
-import CustomAutoComplete from "components/CustomAutoComplete";
-import { Layout } from "components/Layout/Layout";
+import ReusableValidation from 'components/ReusableValidation/ReusableValidation';
+import { Formik } from 'formik';
+import React, { forwardRef, useEffect, useState } from 'react';
+import APIManager from 'utils/APImanager';
+import SimpleModal from 'components/SimpleModal';
+import { FormControl, FormControlLabel, FormGroup, Grid, Switch } from '@mui/material';
+import * as Yup from 'yup';
+import { trimValues } from 'utils/Helper';
+import { MODULE_NAME } from './Values';
+import CustomAutoComplete from 'components/CustomAutoComplete';
+import { Layout } from 'components/Layout/Layout';
 
 const apiManager = new APIManager();
 
 const SIPExtensionsAddEdit = forwardRef(
-  (
-    { getList, rowsPerPage, editData, setSearch, clearSearchField },
-    modalRef
-  ) => {
+  ({ getList, rowsPerPage, editData, setSearch, clearSearchField }, modalRef) => {
     let initialValues = {
-      sipDomain: editData.sipDomain || "",
-      proxyServerIp: editData.proxyServerIp || "",
-      proxyServerPort: editData.proxyServerPort || "",
-      dnsServer: editData.dnsServer || "",
-      mediaType: editData.mediaType || "",
-      registerServer: editData.registerServer || "",
-      sipTimeout: editData.sipTimeout || "",
-      sipTransport: editData.sipTransport || "",
+      sipDomain: editData.sipDomain || '',
+      proxyServerIp: editData.proxyServerIp || '',
+      proxyServerPort: editData.proxyServerPort || '',
+      dnsServer: editData.dnsServer || '',
+      mediaType: editData.mediaType || '',
+      registerServer: editData.registerServer || '',
+      sipTimeout: editData.sipTimeout || '',
+      sipTransport: editData.sipTransport || ''
     };
     if (editData) {
       initialValues._id = editData._id;
@@ -43,21 +34,16 @@ const SIPExtensionsAddEdit = forwardRef(
         initialValues={initialValues}
         onSubmit={async (values) => {
           const trimmedValues = trimValues(values);
-          trimmedValues.proxyServerPort = parseInt(
-            trimmedValues.proxyServerPort
-          );
+          trimmedValues.proxyServerPort = parseInt(trimmedValues.proxyServerPort);
           trimmedValues.sipTimeout = parseInt(trimmedValues.sipTimeout);
 
           const res = editData
-            ? await apiManager.patch(
-                `sip/update/${initialValues._id}`,
-                trimmedValues
-              )
-            : await apiManager.post("sip/create", trimmedValues);
+            ? await apiManager.patch(`sip/update/${initialValues._id}`, trimmedValues)
+            : await apiManager.post('sip/create', trimmedValues);
           if (!res.error) {
             modalRef.current.handleClose();
             getList(rowsPerPage);
-            setSearch("");
+            setSearch('');
             clearSearchField();
           }
         }}
@@ -71,21 +57,21 @@ const SIPExtensionsAddEdit = forwardRef(
           touched,
           values,
           resetForm,
-          submitForm,
+          submitForm
         }) => (
           <SimpleModal
-            title={editData ? "Edit" : "Add"}
+            title={editData ? 'Edit' : 'Add'}
             submitForm={submitForm}
             resetForm={resetForm}
             ref={modalRef}
             errors={errors}
             handleSubmit={handleSubmit}
             size={{
-              xs: "80%",
-              sm: "50%",
-              md: "60%",
-              lg: "45%",
-              xl: "30%",
+              xs: '80%',
+              sm: '50%',
+              md: '60%',
+              lg: '45%',
+              xl: '30%'
             }}
           >
             <Layout
@@ -115,15 +101,8 @@ const SIPExtensionsAddEdit = forwardRef(
                   label="DNS Server"
                   required={true}
                 />,
-                <ReusableValidation
-                  fieldName="mediaType"
-                  label="Media Type"
-                  required={true}
-                />,
-                <ReusableValidation
-                  fieldName="registerServer"
-                  label="Register Server"
-                />,
+                <ReusableValidation fieldName="mediaType" label="Media Type" required={true} />,
+                <ReusableValidation fieldName="registerServer" label="Register Server" />,
                 <ReusableValidation
                   fieldName="sipTimeout"
                   control="isNumber"
@@ -134,7 +113,7 @@ const SIPExtensionsAddEdit = forwardRef(
                   fieldName="sipTransport"
                   label="SIP Transport"
                   required={true}
-                />,
+                />
               ]}
             />
           </SimpleModal>

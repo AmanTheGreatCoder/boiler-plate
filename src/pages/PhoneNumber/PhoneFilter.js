@@ -1,39 +1,26 @@
-import ReusableValidation from "components/ReusableValidation/ReusableValidation";
-import { Formik } from "formik";
-import React, { forwardRef, useEffect, useState } from "react";
-import APIManager from "utils/APImanager";
-import SimpleModal from "components/SimpleModal";
-import {
-  FormControl,
-  FormControlLabel,
-  FormGroup,
-  Switch,
-} from "@mui/material";
-import * as Yup from "yup";
-import { trimValues } from "utils/Helper";
-import { MODULE_NAME } from "./Values";
-import CustomAutoComplete from "components/CustomAutoComplete";
-import { Layout } from "components/Layout/Layout";
+import ReusableValidation from 'components/ReusableValidation/ReusableValidation';
+import { Formik } from 'formik';
+import React, { forwardRef, useEffect, useState } from 'react';
+import APIManager from 'utils/APImanager';
+import SimpleModal from 'components/SimpleModal';
+import { FormControl, FormControlLabel, FormGroup, Switch } from '@mui/material';
+import * as Yup from 'yup';
+import { trimValues } from 'utils/Helper';
+import { MODULE_NAME } from './Values';
+import CustomAutoComplete from 'components/CustomAutoComplete';
+import { Layout } from 'components/Layout/Layout';
 
 const apiManager = new APIManager();
 
 const PhoneFilter = forwardRef(
   (
-    {
-      getList,
-      rowsPerPage,
-      editData,
-      setSearch,
-      clearSearchField,
-      onFilterChange,
-      onClear,
-    },
+    { getList, rowsPerPage, editData, setSearch, clearSearchField, onFilterChange, onClear },
     modalRef
   ) => {
     let initialValues = {
-      countryId: "",
-      cityId: "",
-      providerId: "",
+      countryId: '',
+      cityId: '',
+      providerId: ''
     };
     return (
       <Formik
@@ -53,16 +40,12 @@ const PhoneFilter = forwardRef(
           values,
           resetForm,
           submitForm,
-          setFieldValue,
+          setFieldValue
         }) => (
           <SimpleModal
-            showClearButton={
-              values.countryId || values.cityId || values.providerId
-                ? true
-                : false
-            }
+            showClearButton={values.countryId || values.cityId || values.providerId ? true : false}
             resetOnClear={true}
-            title={"Filter"}
+            title={'Filter'}
             onClear={onClear}
             submitForm={submitForm}
             resetForm={resetForm}
@@ -77,17 +60,17 @@ const PhoneFilter = forwardRef(
                   disableClear={true}
                   url="country/list"
                   fieldName="countryId"
-                  errorName={"Country"}
+                  errorName={'Country'}
                   // onChange={}
                   optionRow={[
-                    "countryName",
-                    "isoCountry",
-                    { countryCode: true, field: "countryCode" },
+                    'countryName',
+                    'isoCountry',
+                    { countryCode: true, field: 'countryCode' }
                   ]}
                   showFlag={true}
                   valueToShowInField="countryName"
                   onChange={(value) => {
-                    setFieldValue("cityId", "");
+                    setFieldValue('cityId', '');
                   }}
                 />,
                 <CustomAutoComplete
@@ -97,8 +80,8 @@ const PhoneFilter = forwardRef(
                   url="city/listAll"
                   fieldName="cityId"
                   query={{ countryId: values?.countryId?._id }}
-                  errorName={"City"}
-                  optionRow={["cityName"]}
+                  errorName={'City'}
+                  optionRow={['cityName']}
                   valueToShowInField="cityName"
                 />,
                 <CustomAutoComplete
@@ -106,10 +89,10 @@ const PhoneFilter = forwardRef(
                   disableClear={true}
                   url="provider/list"
                   fieldName="providerId"
-                  errorName={"Provider"}
-                  optionRow={["name"]}
+                  errorName={'Provider'}
+                  optionRow={['name']}
                   valueToShowInField="name"
-                />,
+                />
               ]}
             />
           </SimpleModal>

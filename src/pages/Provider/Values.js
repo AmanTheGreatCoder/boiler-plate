@@ -1,1 +1,1 @@
-export const MODULE_NAME = "Providers";
+export const MODULE_NAME = 'Providers';

@@ -1,1 +1,1 @@
-export const MODULE_NAME = "Rate List";
+export const MODULE_NAME = 'Rate List';

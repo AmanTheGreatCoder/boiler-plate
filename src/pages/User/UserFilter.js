@@ -1,36 +1,23 @@
-import ReusableValidation from "components/ReusableValidation/ReusableValidation";
-import { Formik } from "formik";
-import React, { forwardRef, useEffect, useState } from "react";
-import APIManager from "utils/APImanager";
-import SimpleModal from "components/SimpleModal";
-import {
-  FormControl,
-  FormControlLabel,
-  FormGroup,
-  Switch,
-} from "@mui/material";
-import * as Yup from "yup";
-import { trimValues } from "utils/Helper";
-import { MODULE_NAME } from "./Values";
-import CustomAutoComplete from "components/CustomAutoComplete";
+import ReusableValidation from 'components/ReusableValidation/ReusableValidation';
+import { Formik } from 'formik';
+import React, { forwardRef, useEffect, useState } from 'react';
+import APIManager from 'utils/APImanager';
+import SimpleModal from 'components/SimpleModal';
+import { FormControl, FormControlLabel, FormGroup, Switch } from '@mui/material';
+import * as Yup from 'yup';
+import { trimValues } from 'utils/Helper';
+import { MODULE_NAME } from './Values';
+import CustomAutoComplete from 'components/CustomAutoComplete';
 
 const apiManager = new APIManager();
 
 const UserFilter = forwardRef(
   (
-    {
-      getList,
-      rowsPerPage,
-      editData,
-      setSearch,
-      clearSearchField,
-      onFilterChange,
-      onClear,
-    },
+    { getList, rowsPerPage, editData, setSearch, clearSearchField, onFilterChange, onClear },
     modalRef
   ) => {
     let initialValues = {
-      filterObj: "",
+      filterObj: ''
     };
     return (
       <Formik
@@ -50,7 +37,7 @@ const UserFilter = forwardRef(
           values,
           resetForm,
           submitForm,
-          setFieldValue,
+          setFieldValue
         }) => (
           <SimpleModal
             showClearButton={values.filterObj ? true : false}
@@ -67,14 +54,14 @@ const UserFilter = forwardRef(
               placeholder="Access Level"
               disableClear={true}
               customOptions={[
-                { name: "Admin", role: 2 },
-                { name: "User", role: 5 },
+                { name: 'Admin', role: 2 },
+                { name: 'User', role: 5 }
               ]}
               showCustomOptions={true}
-              valueToShowInField={"name"}
-              optionRow={["name"]}
+              valueToShowInField={'name'}
+              optionRow={['name']}
               fieldName="filterObj"
-              errorName={"Access Level"}
+              errorName={'Access Level'}
             />
           </SimpleModal>
         )}

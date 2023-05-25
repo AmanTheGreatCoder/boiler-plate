@@ -1,9 +1,9 @@
-import PropTypes from "prop-types";
-import { Fragment, forwardRef, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import PropTypes from 'prop-types';
+import { Fragment, forwardRef, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 
 // material-ui
-import { useTheme } from "@mui/material/styles";
+import { useTheme } from '@mui/material/styles';
 import {
   Avatar,
   Chip,
@@ -12,25 +12,22 @@ import {
   ListItemText,
   Tooltip,
   Typography,
-  useMediaQuery,
-} from "@mui/material";
+  useMediaQuery
+} from '@mui/material';
 
-// project imports
-import useConfig from "hooks/useConfig";
-import { useDispatch, useSelector } from "store";
-import { activeItem, openDrawer } from "store/slices/menu";
+import { useDispatch, useSelector } from 'store';
+import { activeItem, openDrawer } from 'store/slices/menu';
 
 // assets
-import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
+import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 
 // ==============================|| SIDEBAR MENU LIST ITEMS ||============================== //
 
 const NavItem = ({ item, level, showText = true, showTooltip }) => {
   const theme = useTheme();
+  const { borderRadius } = theme.custom;
   const location = useLocation();
-  const matchesSM = useMediaQuery(theme.breakpoints.down("lg"));
-
-  const { borderRadius } = useConfig();
+  const matchesSM = useMediaQuery(theme.breakpoints.down('lg'));
   const dispatch = useDispatch();
   const { openItem } = useSelector((state) => state.menu);
 
@@ -41,24 +38,24 @@ const NavItem = ({ item, level, showText = true, showTooltip }) => {
     <FiberManualRecordIcon
       sx={{
         width: openItem.findIndex((id) => id === item?.id) > -1 ? 8 : 6,
-        height: openItem.findIndex((id) => id === item?.id) > -1 ? 8 : 6,
+        height: openItem.findIndex((id) => id === item?.id) > -1 ? 8 : 6
       }}
-      fontSize={level > 0 ? "inherit" : "medium"}
+      fontSize={level > 0 ? 'inherit' : 'medium'}
     />
   );
 
-  let itemTarget = "_self";
+  let itemTarget = '_self';
   if (item.target) {
-    itemTarget = "_blank";
+    itemTarget = '_blank';
   }
 
   let listItemProps = {
     component: forwardRef((props, ref) => (
       <Link ref={ref} {...props} to={item.url} target={itemTarget} />
-    )),
+    ))
   };
   if (item?.external) {
-    listItemProps = { component: "a", href: item.url, target: itemTarget };
+    listItemProps = { component: 'a', href: item.url, target: itemTarget };
   }
 
   const itemHandler = (id) => {
@@ -70,7 +67,7 @@ const NavItem = ({ item, level, showText = true, showTooltip }) => {
   useEffect(() => {
     const currentIndex = document.location.pathname
       .toString()
-      .split("/")
+      .split('/')
       .findIndex((id) => id === item.id);
     if (currentIndex > -1) {
       dispatch(activeItem([item.id]));
@@ -85,27 +82,21 @@ const NavItem = ({ item, level, showText = true, showTooltip }) => {
       sx={{
         borderRadius: `${borderRadius}px`,
         mb: 0.5,
-        alignItems: "flex-start",
-        backgroundColor: level > 1 ? "transparent !important" : "inherit",
+        alignItems: 'flex-start',
+        backgroundColor: level > 1 ? 'transparent !important' : 'inherit',
         py: level > 1 ? 1 : 1.25,
-        pl: `${level * 24}px`,
+        pl: `${level * 24}px`
       }}
       selected={openItem?.findIndex((id) => id === item.id) > -1}
       onClick={() => itemHandler(item.id)}
     >
-      <ListItemIcon sx={{ my: "auto", minWidth: !item?.icon ? 18 : 36 }}>
-        {itemIcon}
-      </ListItemIcon>
+      <ListItemIcon sx={{ my: 'auto', minWidth: !item?.icon ? 18 : 36 }}>{itemIcon}</ListItemIcon>
 
       {showText && (
         <ListItemText
           primary={
             <Typography
-              variant={
-                openItem?.findIndex((id) => id === item.id) > -1
-                  ? "h5"
-                  : "body1"
-              }
+              variant={openItem?.findIndex((id) => id === item.id) > -1 ? 'h5' : 'body1'}
               color="inherit"
             >
               {item.title}
@@ -138,7 +129,7 @@ const NavItem = ({ item, level, showText = true, showTooltip }) => {
   );
 
   return !showText ? (
-    <Tooltip arrow={true} title={item.title} placement={"top"}>
+    <Tooltip arrow={true} title={item.title} placement={'top'}>
       {ListItems()}
     </Tooltip>
   ) : (
@@ -148,7 +139,7 @@ const NavItem = ({ item, level, showText = true, showTooltip }) => {
 
 NavItem.propTypes = {
   item: PropTypes.object,
-  level: PropTypes.number,
+  level: PropTypes.number
 };
 
 export default NavItem;

@@ -1,19 +1,19 @@
 // material-ui
-import { useTheme } from "@mui/material/styles";
-import { Avatar, Box } from "@mui/material";
-import { Formik } from "formik";
-import SimpleModal from "components/SimpleModal";
-import APIManager from "utils/APImanager";
-import LogoSection from "../LogoSection";
-import MobileSection from "./MobileSection";
-import ProfileSection from "./ProfileSection";
-import { useDispatch, useSelector } from "store";
-import { openDrawer } from "store/slices/menu";
-import { IconMenu2 } from "@tabler/icons";
-import { useContext, useRef } from "react";
-import { AzhaiAuthContext } from "contexts/AuthContext";
-import UserAddEdit from "pages/User/UserAddEdit";
-import { SettingsBackupRestoreSharp } from "@mui/icons-material";
+import { useTheme } from '@mui/material/styles';
+import { Avatar, Box } from '@mui/material';
+import { Formik } from 'formik';
+import SimpleModal from 'components/SimpleModal';
+import APIManager from 'utils/APImanager';
+import LogoSection from '../LogoSection';
+import MobileSection from './MobileSection';
+import ProfileSection from './ProfileSection';
+import { useDispatch, useSelector } from 'store';
+import { openDrawer } from 'store/slices/menu';
+import { IconMenu2 } from '@tabler/icons';
+import { useContext, useRef } from 'react';
+import { AzhaiAuthContext } from 'contexts/AuthContext';
+import UserAddEdit from 'pages/User/UserAddEdit';
+import { SettingsBackupRestoreSharp } from '@mui/icons-material';
 
 const apiManager = new APIManager();
 
@@ -30,7 +30,7 @@ const Header = () => {
     _id,
     fullName,
     email,
-    fullNumber,
+    fullNumber
   };
 
   const editProfileClick = () => {
@@ -39,7 +39,7 @@ const Header = () => {
   };
 
   const setProfile = async () => {
-    const res = await apiManager.get("auth/profile");
+    const res = await apiManager.get('auth/profile');
 
     if (!res.error) {
       setAuth(res.data);
@@ -51,16 +51,13 @@ const Header = () => {
       <Box
         sx={{
           width: 228,
-          display: "flex",
-          [theme.breakpoints.down("md")]: {
-            width: "auto",
-          },
+          display: 'flex',
+          [theme.breakpoints.down('md')]: {
+            width: 'auto'
+          }
         }}
       >
-        <Box
-          component="span"
-          sx={{ display: { xs: "none", md: "block" }, flexGrow: 1 }}
-        >
+        <Box component="span" sx={{ display: { xs: 'none', md: 'block' }, flexGrow: 1 }}>
           <LogoSection />
         </Box>
         <Avatar
@@ -68,27 +65,27 @@ const Header = () => {
           sx={{
             ...theme.typography.commonAvatar,
             ...theme.typography.mediumAvatar,
-            overflow: "hidden",
-            transition: "all .2s ease-in-out",
+            overflow: 'hidden',
+            transition: 'all .2s ease-in-out',
             background:
-              theme.palette.mode === "dark"
+              theme.palette.mode === 'dark'
                 ? theme.palette.dark.main
                 : theme.palette.secondary.light,
             color:
-              theme.palette.mode === "dark"
+              theme.palette.mode === 'dark'
                 ? theme.palette.secondary.main
                 : theme.palette.secondary.dark,
-            marginLeft: "50px",
-            "&:hover": {
+            marginLeft: '50px',
+            '&:hover': {
               background:
-                theme.palette.mode === "dark"
+                theme.palette.mode === 'dark'
                   ? theme.palette.secondary.main
                   : theme.palette.secondary.dark,
               color:
-                theme.palette.mode === "dark"
+                theme.palette.mode === 'dark'
                   ? theme.palette.secondary.light
-                  : theme.palette.secondary.light,
-            },
+                  : theme.palette.secondary.light
+            }
           }}
           onClick={() => dispatch(openDrawer(!drawerOpen))}
           color="inherit"
@@ -99,11 +96,8 @@ const Header = () => {
       <Box sx={{ flexGrow: 1 }} />
       <UserAddEdit setProfile={setProfile} ref={modalRef} editData={editData} />
       <Box sx={{ flexGrow: 1 }} />
-      <ProfileSection
-        ref={profileCardRef}
-        editProfileClick={editProfileClick}
-      />
-      <Box sx={{ display: { xs: "block", sm: "none" } }}>
+      <ProfileSection ref={profileCardRef} editProfileClick={editProfileClick} />
+      <Box sx={{ display: { xs: 'block', sm: 'none' } }}>
         <MobileSection />
       </Box>
     </>
