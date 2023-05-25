@@ -88,7 +88,9 @@ const Typography = (theme, borderRadius, fontFamily) => {
     },
     mainContent: {
       backgroundColor:
-        theme.palette.mode === 'dark' ? theme.palette.dark[800] : theme.palette.primary.light,
+        theme.palette.mode === 'dark'
+          ? theme.palette.dark[800]
+          : theme.palette.primary.light,
       width: '100%',
       minHeight: 'calc(100vh - 88px)',
       flexGrow: 1,

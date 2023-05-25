@@ -8,7 +8,15 @@ const apiManager = new APIManager();
 
 const CityFilter = forwardRef(
   (
-    { getList, rowsPerPage, editData, setSearch, clearSearchField, onFilterChange, onClear },
+    {
+      getList,
+      rowsPerPage,
+      editData,
+      setSearch,
+      clearSearchField,
+      onFilterChange,
+      onClear
+    },
     modalRef
   ) => {
     let initialValues = {

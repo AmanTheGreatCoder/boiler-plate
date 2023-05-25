@@ -2,7 +2,14 @@ import PropTypes from 'prop-types';
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTheme } from '@mui/material/styles';
-import { Box, Button, Checkbox, FormControl, FormControlLabel, Stack } from '@mui/material';
+import {
+  Box,
+  Button,
+  Checkbox,
+  FormControl,
+  FormControlLabel,
+  Stack
+} from '@mui/material';
 import { Formik } from 'formik';
 import AnimateButton from 'components/AnimateButton';
 import APImanager from 'utils/APImanager';
@@ -63,7 +70,12 @@ const Login = ({ loginProp, ...others }) => {
           <FormControl fullWidth sx={{ ...theme.typography.customInput }}>
             <NumberWithCountryCode fieldName="phoneDetailObj" />
           </FormControl>
-          <Stack direction="row" alignItems="center" justifyContent="space-between" spacing={1}>
+          <Stack
+            direction="row"
+            alignItems="center"
+            justifyContent="space-between"
+            spacing={1}
+          >
             <FormControlLabel
               control={
                 <Checkbox

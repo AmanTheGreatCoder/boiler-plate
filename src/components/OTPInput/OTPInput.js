@@ -26,7 +26,11 @@ function OtpInput({ onChange, error }) {
     if (event.ctrlKey && event.keyCode === 8) {
       setValues(['', '', '', '', '', '']);
       inputRefs.current[0].focus();
-    } else if (event.key === 'Backspace' && !values[index] && inputRefs.current[index - 1]) {
+    } else if (
+      event.key === 'Backspace' &&
+      !values[index] &&
+      inputRefs.current[index - 1]
+    ) {
       inputRefs.current[index - 1].focus();
     }
   };

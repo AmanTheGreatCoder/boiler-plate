@@ -13,7 +13,9 @@ const AuthCodeVerification = ({ onChange, error }) => {
   const theme = useTheme();
   const [otp, setOtp] = useState();
   const borderColor =
-    theme.palette.mode === 'dark' ? theme.palette.grey[200] : theme.palette.grey[300];
+    theme.palette.mode === 'dark'
+      ? theme.palette.grey[200]
+      : theme.palette.grey[300];
   return (
     <Grid container spacing={3}>
       <Grid item xs={12}>
@@ -46,7 +48,13 @@ const AuthCodeVerification = ({ onChange, error }) => {
         />
       </Grid>
       <Grid item xs={12}>
-        <Button disableElevation fullWidth size="large" type="submit" variant="contained">
+        <Button
+          disableElevation
+          fullWidth
+          size="large"
+          type="submit"
+          variant="contained"
+        >
           Continue
         </Button>
       </Grid>

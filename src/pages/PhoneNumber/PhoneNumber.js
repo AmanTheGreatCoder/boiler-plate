@@ -59,7 +59,10 @@ function PhoneNumber({
 
   useEffect(() => {
     var phoneUtil = PhoneNumberUtil.getInstance();
-    let valid2 = phoneUtil.isValidNumberForRegion(phoneUtil.parse('2222222222', 'IN'), 'IN');
+    let valid2 = phoneUtil.isValidNumberForRegion(
+      phoneUtil.parse('2222222222', 'IN'),
+      'IN'
+    );
   }, []);
 
   return (

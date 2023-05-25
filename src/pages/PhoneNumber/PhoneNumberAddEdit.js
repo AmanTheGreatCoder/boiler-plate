@@ -3,7 +3,13 @@ import { Formik } from 'formik';
 import React, { forwardRef, useEffect, useState } from 'react';
 import APIManager from 'utils/APImanager';
 import SimpleModal from 'components/SimpleModal';
-import { FormControl, FormControlLabel, FormGroup, InputAdornment, Switch } from '@mui/material';
+import {
+  FormControl,
+  FormControlLabel,
+  FormGroup,
+  InputAdornment,
+  Switch
+} from '@mui/material';
 import * as Yup from 'yup';
 import { trimValues } from 'utils/Helper';
 import { MODULE_NAME } from './Values';
@@ -15,7 +21,10 @@ import phone from 'phone';
 const apiManager = new APIManager();
 
 const PhoneNumberAddEdit = forwardRef(
-  ({ getList, rowsPerPage, editData, setSearch, clearSearchField }, modalRef) => {
+  (
+    { getList, rowsPerPage, editData, setSearch, clearSearchField },
+    modalRef
+  ) => {
     const [prefix, setPrefix] = useState('');
     const [disabled, setDisabled] = useState(true);
     const [propValue, setPropValue] = useState('');
@@ -59,7 +68,10 @@ const PhoneNumberAddEdit = forwardRef(
             capabilities
           });
           const res = editData
-            ? await apiManager.patch(`phone/update/${initialValues._id}`, trimmedValues)
+            ? await apiManager.patch(
+                `phone/update/${initialValues._id}`,
+                trimmedValues
+              )
             : await apiManager.post('phone/create', trimmedValues);
 
           if (!res.error) {
@@ -145,7 +157,9 @@ const PhoneNumberAddEdit = forwardRef(
                     propValue={propValue}
                     InputProps={{
                       startAdornment: prefix ? (
-                        <InputAdornment position="middle">{prefix}</InputAdornment>
+                        <InputAdornment position="middle">
+                          {prefix}
+                        </InputAdornment>
                       ) : null
                     }}
                   />

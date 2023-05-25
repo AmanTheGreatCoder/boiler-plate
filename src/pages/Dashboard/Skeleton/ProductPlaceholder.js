@@ -24,7 +24,11 @@ const ProductPlaceholder = () => (
           </Stack>
         </Grid>
         <Grid item xs={12}>
-          <Stack direction="row" justifyContent="space-between" alignItems="center">
+          <Stack
+            direction="row"
+            justifyContent="space-between"
+            alignItems="center"
+          >
             <Grid container spacing={1}>
               <Grid item>
                 <Skeleton variant="rectangular" height={20} width={40} />

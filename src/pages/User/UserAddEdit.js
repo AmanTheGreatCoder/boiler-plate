@@ -11,7 +11,10 @@ import { ErrorBoundary } from 'pages/ErrorManagement/ErrorBoundary';
 const apiManager = new APIManager();
 
 const UserAddEdit = forwardRef(
-  ({ getList, editData, setSearch, setProfile, clearSearchField }, modalRef) => {
+  (
+    { getList, editData, setSearch, setProfile, clearSearchField },
+    modalRef
+  ) => {
     const disabled = editData ? true : false;
 
     let initialValues = {
@@ -43,7 +46,10 @@ const UserAddEdit = forwardRef(
 
             const trimmedValues = trimValues(newValues);
             const res = editData
-              ? await apiManager.patch(`user/update/${values._id}`, trimmedValues)
+              ? await apiManager.patch(
+                  `user/update/${values._id}`,
+                  trimmedValues
+                )
               : await apiManager.post(`auth/admin-register`, trimmedValues);
             if (!res.error) {
               modalRef.current.handleClose();
@@ -52,7 +58,8 @@ const UserAddEdit = forwardRef(
               clearSearchField && clearSearchField();
               setProfile && setProfile();
             }
-          }}>
+          }}
+        >
           {({
             errors,
             handleBlur,
@@ -71,10 +78,15 @@ const UserAddEdit = forwardRef(
                 resetForm={resetForm}
                 ref={modalRef}
                 errors={errors}
-                handleSubmit={handleSubmit}>
+                handleSubmit={handleSubmit}
+              >
                 <Layout
                   components={[
-                    <ReusableValidation fieldName="fullName" label={'Name'} required={true} />,
+                    <ReusableValidation
+                      fieldName="fullName"
+                      label={'Name'}
+                      required={true}
+                    />,
                     <ReusableValidation
                       fieldName="email"
                       label={'Email'}

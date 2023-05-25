@@ -34,8 +34,15 @@ const columns = [
 ];
 
 function UserSubscription(props) {
-  const { rowsPerPage, setSearch, getList, clearSearchField, setQuery, children, ...otherProps } =
-    props;
+  const {
+    rowsPerPage,
+    setSearch,
+    getList,
+    clearSearchField,
+    setQuery,
+    children,
+    ...otherProps
+  } = props;
 
   return (
     <EnhancedTable

@@ -23,7 +23,14 @@ const columns = [
   }
 ];
 
-function City({ rowsPerPage, getList, setSearch, clearSearchField, children, ...otherProps }) {
+function City({
+  rowsPerPage,
+  getList,
+  setSearch,
+  clearSearchField,
+  children,
+  ...otherProps
+}) {
   const addEditRef = useRef(null);
   const [editData, setEditData] = useState('');
 

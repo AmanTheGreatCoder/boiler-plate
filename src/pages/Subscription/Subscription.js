@@ -29,8 +29,15 @@ const columns = [
 ];
 
 function Subscription(props) {
-  const { rowsPerPage, getList, setSearch, clearSearchField, children, search, ...otherProps } =
-    props;
+  const {
+    rowsPerPage,
+    getList,
+    setSearch,
+    clearSearchField,
+    children,
+    search,
+    ...otherProps
+  } = props;
   const addEditRef = useRef(null);
   const [editData, setEditData] = useState('');
 

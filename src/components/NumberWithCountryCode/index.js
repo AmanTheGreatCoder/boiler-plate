@@ -20,7 +20,8 @@ const NumberStyle = styled.div`
 `;
 
 function NumberWithCountryCode(props) {
-  const { fieldName, onlyCountries, propValue, disabled, disableDropdown, sx } = props;
+  const { fieldName, onlyCountries, propValue, disabled, disableDropdown, sx } =
+    props;
   const [field, meta, helpers] = useField({
     name: fieldName,
     validate: (newValue) => {

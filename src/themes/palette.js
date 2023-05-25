@@ -18,7 +18,8 @@ const Palette = (mode) => {
         800: mode === 'dark' ? colors.darkPrimary800 : colors.primary800
       },
       secondary: {
-        light: mode === 'dark' ? colors.darkSecondaryLight : colors.secondaryLight,
+        light:
+          mode === 'dark' ? colors.darkSecondaryLight : colors.secondaryLight,
         main: mode === 'dark' ? colors.darkSecondaryMain : colors.secondaryMain,
         dark: mode === 'dark' ? colors.darkSecondaryDark : colors.secondaryDark,
         200: mode === 'dark' ? colors.darkSecondary200 : colors.secondary200,

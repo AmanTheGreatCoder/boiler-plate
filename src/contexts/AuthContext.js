@@ -6,6 +6,8 @@ export const AzhaiAuthProvider = ({ children }) => {
   const [auth, setAuth] = useState({});
 
   return (
-    <AzhaiAuthContext.Provider value={{ auth, setAuth }}>{children}</AzhaiAuthContext.Provider>
+    <AzhaiAuthContext.Provider value={{ auth, setAuth }}>
+      {children}
+    </AzhaiAuthContext.Provider>
   );
 };

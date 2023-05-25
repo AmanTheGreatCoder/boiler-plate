@@ -3,7 +3,13 @@ import { Formik } from 'formik';
 import React, { forwardRef, useEffect, useState } from 'react';
 import APIManager from 'utils/APImanager';
 import SimpleModal from 'components/SimpleModal';
-import { FormControl, FormControlLabel, FormGroup, InputAdornment, Switch } from '@mui/material';
+import {
+  FormControl,
+  FormControlLabel,
+  FormGroup,
+  InputAdornment,
+  Switch
+} from '@mui/material';
 import * as Yup from 'yup';
 import { trimValues } from 'utils/Helper';
 import { MODULE_NAME } from './Values';
@@ -13,7 +19,10 @@ import AddIcon from '@mui/icons-material/Add';
 const apiManager = new APIManager();
 
 const CountryAddEdit = forwardRef(
-  ({ getList, rowsPerPage, editData, setSearch, clearSearchField }, modalRef) => {
+  (
+    { getList, rowsPerPage, editData, setSearch, clearSearchField },
+    modalRef
+  ) => {
     // const [initialValues, setInitialValues] = useState({
     //   countryName: "",
     //   countryCode: "",
@@ -63,7 +72,10 @@ const CountryAddEdit = forwardRef(
         onSubmit={async (values) => {
           const trimmedValues = trimValues(values);
           const res = editData
-            ? await apiManager.patch(`country/update/${initialValues._id}`, trimmedValues)
+            ? await apiManager.patch(
+                `country/update/${initialValues._id}`,
+                trimmedValues
+              )
             : await apiManager.post('country/create', trimmedValues);
           if (!res.error) {
             modalRef.current.handleClose();

@@ -105,14 +105,19 @@ const MobileSection = () => {
                     color="inherit"
                     sx={{
                       [theme.breakpoints.down('md')]: {
-                        background: theme.palette.mode === 'dark' ? theme.palette.dark[800] : '#fff'
+                        background:
+                          theme.palette.mode === 'dark'
+                            ? theme.palette.dark[800]
+                            : '#fff'
                       }
                     }}
                   >
                     <Toolbar sx={{ pt: 2.75, pb: 2.75 }}>
                       <Grid
                         container
-                        justifyContent={matchMobile ? 'space-between' : 'flex-end'}
+                        justifyContent={
+                          matchMobile ? 'space-between' : 'flex-end'
+                        }
                         alignItems="center"
                       ></Grid>
                     </Toolbar>

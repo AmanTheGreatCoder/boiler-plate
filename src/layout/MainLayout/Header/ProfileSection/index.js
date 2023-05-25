@@ -99,9 +99,13 @@ const ProfileSection = forwardRef(({ editProfileClick }, ref) => {
           borderRadius: '27px',
           transition: 'all .2s ease-in-out',
           borderColor:
-            theme.palette.mode === 'dark' ? theme.palette.dark.main : theme.palette.primary.light,
+            theme.palette.mode === 'dark'
+              ? theme.palette.dark.main
+              : theme.palette.primary.light,
           backgroundColor:
-            theme.palette.mode === 'dark' ? theme.palette.dark.main : theme.palette.primary.light,
+            theme.palette.mode === 'dark'
+              ? theme.palette.dark.main
+              : theme.palette.primary.light,
           '&[aria-controls="menu-list-grow"], &:hover': {
             borderColor: theme.palette.primary.main,
             background: `${theme.palette.primary.main}!important`,
@@ -128,7 +132,13 @@ const ProfileSection = forwardRef(({ editProfileClick }, ref) => {
             color="inherit"
           />
         }
-        label={<IconSettings stroke={1.5} size="1.5rem" color={theme.palette.primary.main} />}
+        label={
+          <IconSettings
+            stroke={1.5}
+            size="1.5rem"
+            color={theme.palette.primary.main}
+          />
+        }
         variant="outlined"
         ref={anchorRef}
         aria-controls={open ? 'menu-list-grow' : undefined}
@@ -170,9 +180,19 @@ const ProfileSection = forwardRef(({ editProfileClick }, ref) => {
                     >
                       <Box sx={{ p: 2 }}>
                         <Stack>
-                          <Stack direction="row" spacing={0.5} alignItems="center">
-                            <Typography variant="h4">Welcome, {auth.fullName}</Typography>
-                            <Typography component="span" variant="h4" sx={{ fontWeight: 400 }}>
+                          <Stack
+                            direction="row"
+                            spacing={0.5}
+                            alignItems="center"
+                          >
+                            <Typography variant="h4">
+                              Welcome, {auth.fullName}
+                            </Typography>
+                            <Typography
+                              component="span"
+                              variant="h4"
+                              sx={{ fontWeight: 400 }}
+                            >
                               {user?.name}
                             </Typography>
                           </Stack>
@@ -211,7 +231,11 @@ const ProfileSection = forwardRef(({ editProfileClick }, ref) => {
                               <IconSettings stroke={1.5} size="1.3rem" />
                             </ListItemIcon>
                             <ListItemText
-                              primary={<Typography variant="body2">Edit Profile</Typography>}
+                              primary={
+                                <Typography variant="body2">
+                                  Edit Profile
+                                </Typography>
+                              }
                             />
                           </ListItemButton>
                           <ListItemButton
@@ -223,7 +247,9 @@ const ProfileSection = forwardRef(({ editProfileClick }, ref) => {
                               <IconLogout stroke={1.5} size="1.3rem" />
                             </ListItemIcon>
                             <ListItemText
-                              primary={<Typography variant="body2">Logout</Typography>}
+                              primary={
+                                <Typography variant="body2">Logout</Typography>
+                              }
                             />
                           </ListItemButton>
                         </List>

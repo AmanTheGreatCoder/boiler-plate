@@ -39,14 +39,17 @@ export default class APIManager {
 
   async requestForm(endpoint, method, body) {
     if (this.checkInternet()) {
-      const response = await fetch(`${process.env.REACT_APP_BASE_URL}/${endpoint}`, {
-        method: method,
-        headers: {
-          accept: '*/*',
-          Authorization: `Bearer ${localStorage.getItem('token')}`
-        },
-        body: body
-      });
+      const response = await fetch(
+        `${process.env.REACT_APP_BASE_URL}/${endpoint}`,
+        {
+          method: method,
+          headers: {
+            accept: '*/*',
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+          },
+          body: body
+        }
+      );
       const data = await response.json();
       return this.sendResponse(data, response);
     }

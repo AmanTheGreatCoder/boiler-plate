@@ -11,7 +11,10 @@ import { Layout } from 'components/Layout/Layout';
 const apiManager = new APIManager();
 
 const RateListAddEdit = forwardRef(
-  ({ getList, rowsPerPage, editData, setSearch, clearSearchField }, modalRef) => {
+  (
+    { getList, rowsPerPage, editData, setSearch, clearSearchField },
+    modalRef
+  ) => {
     const params = useParams();
 
     let initialValues = {
@@ -38,11 +41,18 @@ const RateListAddEdit = forwardRef(
           trimmedValues.initialPulse = parseInt(trimmedValues.initialPulse);
           trimmedValues.rate = parseInt(trimmedValues.rate);
           trimmedValues.dialCode = parseInt(trimmedValues.dialCode);
-          trimmedValues.subsequentPulse = parseInt(trimmedValues.subsequentPulse);
-          trimmedValues.connectionCharge = parseInt(trimmedValues.connectionCharge);
+          trimmedValues.subsequentPulse = parseInt(
+            trimmedValues.subsequentPulse
+          );
+          trimmedValues.connectionCharge = parseInt(
+            trimmedValues.connectionCharge
+          );
           trimmedValues.defaultRate = parseInt(trimmedValues.defaultRate);
           const res = editData
-            ? await apiManager.patch(`rate-list/update/${initialValues._id}`, trimmedValues)
+            ? await apiManager.patch(
+                `rate-list/update/${initialValues._id}`,
+                trimmedValues
+              )
             : await apiManager.post('rate-list/create', trimmedValues);
           if (!res.error) {
             modalRef.current.handleClose();
@@ -88,7 +98,11 @@ const RateListAddEdit = forwardRef(
                   label="Dial Code"
                   required={true}
                 />,
-                <ReusableValidation fieldName="Destination" label="Destination" required={true} />,
+                <ReusableValidation
+                  fieldName="Destination"
+                  label="Destination"
+                  required={true}
+                />,
                 <ReusableValidation
                   fieldName="rate"
                   control="isNumber"

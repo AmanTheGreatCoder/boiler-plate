@@ -3,7 +3,13 @@ import { Formik } from 'formik';
 import React, { forwardRef, useEffect, useState } from 'react';
 import APIManager from 'utils/APImanager';
 import SimpleModal from 'components/SimpleModal';
-import { FormControl, FormControlLabel, FormGroup, Grid, Switch } from '@mui/material';
+import {
+  FormControl,
+  FormControlLabel,
+  FormGroup,
+  Grid,
+  Switch
+} from '@mui/material';
 import * as Yup from 'yup';
 import { trimValues } from 'utils/Helper';
 import { MODULE_NAME } from './Values';
@@ -13,7 +19,10 @@ import { Layout } from 'components/Layout/Layout';
 const apiManager = new APIManager();
 
 const SIPExtensionsAddEdit = forwardRef(
-  ({ getList, rowsPerPage, editData, setSearch, clearSearchField }, modalRef) => {
+  (
+    { getList, rowsPerPage, editData, setSearch, clearSearchField },
+    modalRef
+  ) => {
     let initialValues = {
       sipDomain: editData.sipDomain || '',
       proxyServerIp: editData.proxyServerIp || '',
@@ -34,11 +43,16 @@ const SIPExtensionsAddEdit = forwardRef(
         initialValues={initialValues}
         onSubmit={async (values) => {
           const trimmedValues = trimValues(values);
-          trimmedValues.proxyServerPort = parseInt(trimmedValues.proxyServerPort);
+          trimmedValues.proxyServerPort = parseInt(
+            trimmedValues.proxyServerPort
+          );
           trimmedValues.sipTimeout = parseInt(trimmedValues.sipTimeout);
 
           const res = editData
-            ? await apiManager.patch(`sip/update/${initialValues._id}`, trimmedValues)
+            ? await apiManager.patch(
+                `sip/update/${initialValues._id}`,
+                trimmedValues
+              )
             : await apiManager.post('sip/create', trimmedValues);
           if (!res.error) {
             modalRef.current.handleClose();
@@ -101,8 +115,15 @@ const SIPExtensionsAddEdit = forwardRef(
                   label="DNS Server"
                   required={true}
                 />,
-                <ReusableValidation fieldName="mediaType" label="Media Type" required={true} />,
-                <ReusableValidation fieldName="registerServer" label="Register Server" />,
+                <ReusableValidation
+                  fieldName="mediaType"
+                  label="Media Type"
+                  required={true}
+                />,
+                <ReusableValidation
+                  fieldName="registerServer"
+                  label="Register Server"
+                />,
                 <ReusableValidation
                   fieldName="sipTimeout"
                   control="isNumber"

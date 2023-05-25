@@ -3,7 +3,12 @@ import { Formik } from 'formik';
 import React, { forwardRef, useEffect, useState } from 'react';
 import APIManager from 'utils/APImanager';
 import SimpleModal from 'components/SimpleModal';
-import { FormControl, FormControlLabel, FormGroup, Switch } from '@mui/material';
+import {
+  FormControl,
+  FormControlLabel,
+  FormGroup,
+  Switch
+} from '@mui/material';
 import * as Yup from 'yup';
 import { trimValues } from 'utils/Helper';
 import CustomAutoComplete from 'components/CustomAutoComplete';
@@ -13,7 +18,10 @@ import ChooseCountry from 'components/ChooseCountry';
 const apiManager = new APIManager();
 
 const CityAddEdit = forwardRef(
-  ({ getList, rowsPerPage, editData, setSearch, clearSearchField }, modalRef) => {
+  (
+    { getList, rowsPerPage, editData, setSearch, clearSearchField },
+    modalRef
+  ) => {
     let initialValues = {
       cityName: editData.cityName || '',
       countryId: editData.countryId || '',
@@ -33,7 +41,10 @@ const CityAddEdit = forwardRef(
           const trimmedValues = trimValues({ countryId, cityName, isActive });
 
           const res = editData
-            ? await apiManager.patch(`city/update/${initialValues._id}`, trimmedValues)
+            ? await apiManager.patch(
+                `city/update/${initialValues._id}`,
+                trimmedValues
+              )
             : await apiManager.post('city/create', trimmedValues);
           if (!res.error) {
             modalRef.current.handleClose();

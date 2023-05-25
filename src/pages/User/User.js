@@ -21,8 +21,15 @@ const columns = [
 ];
 
 function User(props) {
-  const { rowsPerPage, setSearch, getList, clearSearchField, setQuery, children, ...otherProps } =
-    props;
+  const {
+    rowsPerPage,
+    setSearch,
+    getList,
+    clearSearchField,
+    setQuery,
+    children,
+    ...otherProps
+  } = props;
   const addEditRef = useRef(null);
   const filterRef = useRef(null);
   const [editData, setEditData] = useState('');

@@ -1,5 +1,12 @@
 import { useTheme } from '@mui/material/styles';
-import { Box, Button, FormControl, FormHelperText, InputLabel, OutlinedInput } from '@mui/material';
+import {
+  Box,
+  Button,
+  FormControl,
+  FormHelperText,
+  InputLabel,
+  OutlinedInput
+} from '@mui/material';
 import { useDispatch } from 'store';
 import { useNavigate } from 'react-router-dom';
 
@@ -25,7 +32,10 @@ const AuthForgotPassword = ({ ...others }) => {
         submit: null
       }}
       validationSchema={Yup.object().shape({
-        email: Yup.string().email('Must be a valid email').max(255).required('Email is required')
+        email: Yup.string()
+          .email('Must be a valid email')
+          .max(255)
+          .required('Email is required')
       })}
       onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
         try {
@@ -51,7 +61,15 @@ const AuthForgotPassword = ({ ...others }) => {
         }
       }}
     >
-      {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
+      {({
+        errors,
+        handleBlur,
+        handleChange,
+        handleSubmit,
+        isSubmitting,
+        touched,
+        values
+      }) => (
         <form noValidate onSubmit={handleSubmit} {...others}>
           <FormControl
             fullWidth
@@ -72,7 +90,10 @@ const AuthForgotPassword = ({ ...others }) => {
               inputProps={{}}
             />
             {touched.email && errors.email && (
-              <FormHelperText error id="standard-weight-helper-text-email-forgot">
+              <FormHelperText
+                error
+                id="standard-weight-helper-text-email-forgot"
+              >
                 {errors.email}
               </FormHelperText>
             )}

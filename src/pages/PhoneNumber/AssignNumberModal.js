@@ -3,7 +3,12 @@ import { Formik } from 'formik';
 import React, { forwardRef, useEffect, useState } from 'react';
 import APIManager from 'utils/APImanager';
 import SimpleModal from 'components/SimpleModal';
-import { FormControl, FormControlLabel, FormGroup, Switch } from '@mui/material';
+import {
+  FormControl,
+  FormControlLabel,
+  FormGroup,
+  Switch
+} from '@mui/material';
 import * as Yup from 'yup';
 import { trimValues } from 'utils/Helper';
 import { MODULE_NAME } from './Values';
@@ -12,7 +17,10 @@ import CustomAutoComplete from 'components/CustomAutoComplete';
 const apiManager = new APIManager();
 
 const AssignNumberModal = forwardRef(
-  ({ getList, rowsPerPage, editData, setSearch, clearSearchField }, assignModalRef) => {
+  (
+    { getList, rowsPerPage, editData, setSearch, clearSearchField },
+    assignModalRef
+  ) => {
     let initialValues = {
       user: '',
       isAssigned: true
@@ -29,7 +37,10 @@ const AssignNumberModal = forwardRef(
           const trimmedValues = trimValues(values);
 
           trimmedValues.assignedTo = values.user._id;
-          const res = await apiManager.put(`phone/assign/${values._id}`, trimmedValues);
+          const res = await apiManager.put(
+            `phone/assign/${values._id}`,
+            trimmedValues
+          );
 
           if (!res.error) {
             assignModalRef.current.handleClose();

@@ -67,7 +67,8 @@ const FileInput = styled.input`
 `;
 
 const ImportFile = forwardRef((props, ref) => {
-  const { url, getList, rowsPerPage, setSearch, clearSearchField, sampleUrl } = props;
+  const { url, getList, rowsPerPage, setSearch, clearSearchField, sampleUrl } =
+    props;
   const theme = useTheme();
 
   let initialValues = {
@@ -109,9 +110,16 @@ const ImportFile = forwardRef((props, ref) => {
         resetForm,
         submitForm
       }) => (
-        <SimpleModal submitForm={submitForm} resetForm={resetForm} title={'Import'} ref={ref}>
+        <SimpleModal
+          submitForm={submitForm}
+          resetForm={resetForm}
+          title={'Import'}
+          ref={ref}
+        >
           <SoundGroup>
-            <UploadFileIcon style={{ fontSize: '34px', color: theme.palette.primary.main }} />
+            <UploadFileIcon
+              style={{ fontSize: '34px', color: theme.palette.primary.main }}
+            />
             <span className="file-span">
               {!values?.files ? (
                 <p>Select or drop a file to upload.</p>
@@ -141,7 +149,9 @@ const ImportFile = forwardRef((props, ref) => {
               href={sampleUrl}
             >
               <CloudDownloadIcon />
-              <p style={{ margin: '0', marginLeft: '10px' }}>Download Sample File</p>
+              <p style={{ margin: '0', marginLeft: '10px' }}>
+                Download Sample File
+              </p>
             </Link>
           )}
         </SimpleModal>

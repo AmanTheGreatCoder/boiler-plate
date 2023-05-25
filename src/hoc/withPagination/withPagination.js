@@ -22,7 +22,9 @@ const withPagination = (WrappedComponent, url, { ...otherParams }) => {
     const [list, setList] = useState([]);
     const [rowsPerPage, setRowsPerPage] = useState(10);
     const [count, setCount] = useState(1);
-    const [query, setQuery] = useState(otherParams.query ? otherParams.query : null);
+    const [query, setQuery] = useState(
+      otherParams.query ? otherParams.query : null
+    );
     const [otherData, setOtherData] = useState({
       imageUrl: ''
     });
@@ -79,7 +81,8 @@ const withPagination = (WrappedComponent, url, { ...otherParams }) => {
     }, [rowsPerPage, page, query, search]);
 
     useEffect(() => {
-      document.title = (otherParams.title || WrappedComponent.name) + ' - Azhai';
+      document.title =
+        (otherParams.title || WrappedComponent.name) + ' - Azhai';
     }, []);
 
     return (
@@ -87,7 +90,9 @@ const withPagination = (WrappedComponent, url, { ...otherParams }) => {
         emptyData={
           count === 0 && (
             <img
-              className={`withPagination__img ${count === 0 ? 'empty-image-css' : ''}`}
+              className={`withPagination__img ${
+                count === 0 ? 'empty-image-css' : ''
+              }`}
               src={noData}
               alt="No data image"
             />

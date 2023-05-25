@@ -39,7 +39,14 @@ const columns = [
   }
 ];
 
-function Provider({ rowsPerPage, getList, setSearch, clearSearchField, children, ...otherProps }) {
+function Provider({
+  rowsPerPage,
+  getList,
+  setSearch,
+  clearSearchField,
+  children,
+  ...otherProps
+}) {
   const addEditRef = useRef(null);
 
   const [editData, setEditData] = useState('');

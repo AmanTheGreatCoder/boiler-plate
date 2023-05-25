@@ -6,11 +6,17 @@ import Loadable from 'utils/Loadable';
 const Dashboard = Loadable(lazy(() => import('pages/Dashboard')));
 const Country = Loadable(lazy(() => import('pages/Country')));
 const City = Loadable(lazy(() => import('pages/City/City')));
-const Subscription = Loadable(lazy(() => import('pages/Subscription/Subscription')));
+const Subscription = Loadable(
+  lazy(() => import('pages/Subscription/Subscription'))
+);
 const User = Loadable(lazy(() => import('pages/User/User')));
 const UserSub = Loadable(lazy(() => import('pages/UserSubscription')));
-const SIPExtensions = Loadable(lazy(() => import('pages/SIPExtensions/SIPExtensions')));
-const PhoneNumber = Loadable(lazy(() => import('pages/PhoneNumber/PhoneNumber')));
+const SIPExtensions = Loadable(
+  lazy(() => import('pages/SIPExtensions/SIPExtensions'))
+);
+const PhoneNumber = Loadable(
+  lazy(() => import('pages/PhoneNumber/PhoneNumber'))
+);
 const Provider = Loadable(lazy(() => import('pages/Provider/Provider')));
 const RateList = Loadable(lazy(() => import('pages/RateList/RateList')));
 

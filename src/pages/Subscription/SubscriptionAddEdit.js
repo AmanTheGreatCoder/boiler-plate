@@ -13,13 +13,20 @@ import { Layout } from 'components/Layout/Layout';
 import { debounce } from 'lodash';
 import CustomAlert from 'components/CustomAlert';
 import ReusableSwitch from 'components/ReusableSwitch.js/ReusableSwitch';
-import { AddCircleOutline, CurrencyPound, RemoveCircleOutline } from '@mui/icons-material';
+import {
+  AddCircleOutline,
+  CurrencyPound,
+  RemoveCircleOutline
+} from '@mui/icons-material';
 import { useTheme } from '@mui/styles';
 
 const apiManager = new APIManager();
 
 const SubscriptionAddEdit = forwardRef(
-  ({ getList, rowsPerPage, editData, search, setSearch, clearSearchField }, ref) => {
+  (
+    { getList, rowsPerPage, editData, search, setSearch, clearSearchField },
+    ref
+  ) => {
     const formik = useRef();
     const disabled = editData ? true : false;
     const theme = useTheme();
@@ -67,7 +74,10 @@ const SubscriptionAddEdit = forwardRef(
           trimmedValues.amount = parseInt(trimmedValues.amount);
           trimmedValues.totalMinutes = parseInt(trimmedValues.totalMinutes);
           const res = editData
-            ? await apiManager.patch(`subscription/update/${initialValues._id}`, trimmedValues)
+            ? await apiManager.patch(
+                `subscription/update/${initialValues._id}`,
+                trimmedValues
+              )
             : await apiManager.post(`subscription/create`, trimmedValues);
           if (!res.error) {
             ref.current.handleClose();
@@ -103,7 +113,11 @@ const SubscriptionAddEdit = forwardRef(
             >
               <Layout
                 components={[
-                  <ReusableValidation fieldName="name" label={'Name'} required={true} />,
+                  <ReusableValidation
+                    fieldName="name"
+                    label={'Name'}
+                    required={true}
+                  />,
                   <ReusableValidation
                     fieldName="amount"
                     label={'Amount'}
@@ -136,7 +150,10 @@ const SubscriptionAddEdit = forwardRef(
                     }}
                   />,
                   <Grid item>
-                    <ReusableSwitch fieldName="defaultSelected" label={'Default Selected'} />
+                    <ReusableSwitch
+                      fieldName="defaultSelected"
+                      label={'Default Selected'}
+                    />
                     <ReusableSwitch fieldName="isPopular" label={'Popular'} />
                   </Grid>
                 ]}
@@ -146,7 +163,11 @@ const SubscriptionAddEdit = forwardRef(
                   <Fragment>
                     <div className="mt-10 flex-center-bt">
                       <label>Benefits</label>
-                      <IconButton onClick={() => push('')} color="secondary" size="medium">
+                      <IconButton
+                        onClick={() => push('')}
+                        color="secondary"
+                        size="medium"
+                      >
                         <AddCircleOutline />
                       </IconButton>
                     </div>
@@ -168,7 +189,9 @@ const SubscriptionAddEdit = forwardRef(
                           </Grid>
                           <Grid
                             sx={{
-                              paddingTop: errors?.benefits ? '0 !important' : '16px'
+                              paddingTop: errors?.benefits
+                                ? '0 !important'
+                                : '16px'
                             }}
                             className="flex-end"
                             item
@@ -188,7 +211,9 @@ const SubscriptionAddEdit = forwardRef(
                               color="secondary"
                               size="medium"
                             >
-                              <RemoveCircleOutline sx={{ color: theme.palette.error.main }} />
+                              <RemoveCircleOutline
+                                sx={{ color: theme.palette.error.main }}
+                              />
                             </IconButton>
                           </Grid>
                         </Grid>

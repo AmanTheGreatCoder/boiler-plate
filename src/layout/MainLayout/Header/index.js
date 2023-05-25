@@ -57,7 +57,10 @@ const Header = () => {
           }
         }}
       >
-        <Box component="span" sx={{ display: { xs: 'none', md: 'block' }, flexGrow: 1 }}>
+        <Box
+          component="span"
+          sx={{ display: { xs: 'none', md: 'block' }, flexGrow: 1 }}
+        >
           <LogoSection />
         </Box>
         <Avatar
@@ -96,7 +99,10 @@ const Header = () => {
       <Box sx={{ flexGrow: 1 }} />
       <UserAddEdit setProfile={setProfile} ref={modalRef} editData={editData} />
       <Box sx={{ flexGrow: 1 }} />
-      <ProfileSection ref={profileCardRef} editProfileClick={editProfileClick} />
+      <ProfileSection
+        ref={profileCardRef}
+        editProfileClick={editProfileClick}
+      />
       <Box sx={{ display: { xs: 'block', sm: 'none' } }}>
         <MobileSection />
       </Box>

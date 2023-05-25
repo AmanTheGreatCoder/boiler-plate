@@ -17,7 +17,9 @@ const NavGroup = ({ item, lastItem, showText }) => {
       case 'collapse':
         return <NavCollapse key={menu.id} menu={menu} level={1} />;
       case 'item':
-        return <NavItem showText={showText} key={menu.id} item={menu} level={1} />;
+        return (
+          <NavItem showText={showText} key={menu.id} item={menu} level={1} />
+        );
       default:
         return (
           <Typography key={menu.id} variant="h6" color="error" align="center">

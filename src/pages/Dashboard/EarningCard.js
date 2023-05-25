@@ -20,7 +20,9 @@ import ArchiveTwoToneIcon from '@mui/icons-material/ArchiveOutlined';
 
 const CardWrapper = styled(MainCard)(({ theme }) => ({
   backgroundColor:
-    theme.palette.mode === 'dark' ? theme.palette.dark.dark : theme.palette.secondary.dark,
+    theme.palette.mode === 'dark'
+      ? theme.palette.dark.dark
+      : theme.palette.secondary.dark,
   color: '#fff',
   overflow: 'hidden',
   position: 'relative',
@@ -157,7 +159,13 @@ const EarningCard = ({ isLoading }) => {
                 <Grid container alignItems="center">
                   <Grid item>
                     <Typography
-                      sx={{ fontSize: '2.125rem', fontWeight: 500, mr: 1, mt: 1.75, mb: 0.75 }}
+                      sx={{
+                        fontSize: '2.125rem',
+                        fontWeight: 500,
+                        mr: 1,
+                        mt: 1.75,
+                        mb: 0.75
+                      }}
                     >
                       $500.00
                     </Typography>

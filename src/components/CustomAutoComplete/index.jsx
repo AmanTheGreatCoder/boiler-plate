@@ -41,7 +41,9 @@ function CustomAutoComplete({
   };
 
   const fetchData = async (value, page = 1) => {
-    let queryString = `${url}?limit=20&pageNo=${page}&search=${value ? value : ''}`;
+    let queryString = `${url}?limit=20&pageNo=${page}&search=${
+      value ? value : ''
+    }`;
     if (query) {
       Object.keys(query).map((e) => {
         if (query[e]) {
@@ -127,7 +129,8 @@ function CustomAutoComplete({
 
       if (
         required &&
-        (!newValue || (typeof newValue === 'object' && Object.keys(newValue).length === 0))
+        (!newValue ||
+          (typeof newValue === 'object' && Object.keys(newValue).length === 0))
       ) {
         error = `${errorName} is required`;
       }
@@ -172,7 +175,11 @@ function CustomAutoComplete({
         // isOptionEqualToValue={(option, value) => option.id === value.id}
         renderOption={(props, option) =>
           optionRow && (
-            <li {...props} key={option._id || option.id} style={{ fontSize: 15 }}>
+            <li
+              {...props}
+              key={option._id || option.id}
+              style={{ fontSize: 15 }}
+            >
               {getOptionRow(option)}
             </li>
           )
@@ -191,7 +198,10 @@ function CustomAutoComplete({
         ListboxProps={{
           onScroll: (event) => {
             const listboxNode = event.currentTarget;
-            if (listboxNode.scrollTop + listboxNode.clientHeight === listboxNode.scrollHeight) {
+            if (
+              listboxNode.scrollTop + listboxNode.clientHeight ===
+              listboxNode.scrollHeight
+            ) {
               if (page < Math.ceil(count / 20)) {
                 loadMoreResults();
               }

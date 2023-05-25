@@ -20,7 +20,11 @@ const ChooseCountry = (props) => {
       fieldName={'countryId'}
       errorName={'Country'}
       onChange={onChange}
-      optionRow={['countryName', 'isoCountry', { countryCode: true, field: 'countryCode' }]}
+      optionRow={[
+        'countryName',
+        'isoCountry',
+        { countryCode: true, field: 'countryCode' }
+      ]}
       showFlag={true}
       valueToShowInField={valueToShowInField || ['countryName', 'isoCountry']}
       required={required}

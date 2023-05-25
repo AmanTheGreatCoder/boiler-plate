@@ -85,7 +85,10 @@ const TotalIncomeDarkCard = ({ isLoading }) => {
                     </Typography>
                   }
                   secondary={
-                    <Typography variant="subtitle2" sx={{ color: 'primary.light', mt: 0.25 }}>
+                    <Typography
+                      variant="subtitle2"
+                      sx={{ color: 'primary.light', mt: 0.25 }}
+                    >
                       Total Income
                     </Typography>
                   }

@@ -15,7 +15,10 @@ import { useTheme } from '@mui/styles';
 const apiManager = new APIManager();
 
 const ProviderAddEdit = forwardRef(
-  ({ getList, rowsPerPage, editData, setSearch, clearSearchField }, modalRef) => {
+  (
+    { getList, rowsPerPage, editData, setSearch, clearSearchField },
+    modalRef
+  ) => {
     const theme = useTheme();
 
     let initialValues = {
@@ -60,11 +63,18 @@ const ProviderAddEdit = forwardRef(
           }
           const trimmedValues = trimValues(values);
           trimmedValues.initialPulse = parseInt(trimmedValues.initialPulse);
-          trimmedValues.subsequentPulse = parseInt(trimmedValues.subsequentPulse);
-          trimmedValues.connectionCharge = parseInt(trimmedValues.connectionCharge);
+          trimmedValues.subsequentPulse = parseInt(
+            trimmedValues.subsequentPulse
+          );
+          trimmedValues.connectionCharge = parseInt(
+            trimmedValues.connectionCharge
+          );
           trimmedValues.defaultRate = parseInt(trimmedValues.defaultRate);
           const res = editData
-            ? await apiManager.patch(`provider/update/${initialValues._id}`, trimmedValues)
+            ? await apiManager.patch(
+                `provider/update/${initialValues._id}`,
+                trimmedValues
+              )
             : await apiManager.post('provider/create', trimmedValues);
 
           if (!res.error) {
@@ -103,7 +113,11 @@ const ProviderAddEdit = forwardRef(
                 xl: '30%'
               }}
             >
-              <ReusableValidation fieldName="name" label={'Provider'} required={true} />
+              <ReusableValidation
+                fieldName="name"
+                label={'Provider'}
+                required={true}
+              />
               {
                 <Fragment>
                   <FieldArray name="inboundIP">
@@ -111,7 +125,10 @@ const ProviderAddEdit = forwardRef(
                       <Fragment>
                         {/* <div className='mt-10 flex-center-bt'> */}
                         <div className="flex-center-bt">
-                          <ReusableSwitch fieldName="isInbound" label={'Inbound'} />
+                          <ReusableSwitch
+                            fieldName="isInbound"
+                            label={'Inbound'}
+                          />
                           {values.isInbound && (
                             <IconButton
                               onClick={() =>
@@ -161,7 +178,8 @@ const ProviderAddEdit = forwardRef(
                                       remove(index);
                                     } else {
                                       CustomAlert({
-                                        message: 'Atleast one inbound is required',
+                                        message:
+                                          'Atleast one inbound is required',
                                         color: 'error'
                                       });
                                     }
@@ -169,7 +187,9 @@ const ProviderAddEdit = forwardRef(
                                   color="secondary"
                                   size="medium"
                                 >
-                                  <RemoveCircleOutline sx={{ color: theme.palette.error.main }} />
+                                  <RemoveCircleOutline
+                                    sx={{ color: theme.palette.error.main }}
+                                  />
                                 </IconButton>
                               </Grid>
                             </Grid>
@@ -205,14 +225,23 @@ const ProviderAddEdit = forwardRef(
                         label="Outbound Port"
                         required={true}
                       />,
-                      <ReusableValidation fieldName="outboundPrefix" label="Outbound Prefix" />,
-                      <ReusableValidation fieldName="outboundUserName" label="Outbound Username" />,
+                      <ReusableValidation
+                        fieldName="outboundPrefix"
+                        label="Outbound Prefix"
+                      />,
+                      <ReusableValidation
+                        fieldName="outboundUserName"
+                        label="Outbound Username"
+                      />,
                       <ReusableValidation
                         fieldName="outboundPassword"
                         type="password"
                         label="Outbound Password"
                       />,
-                      <ReusableSwitch fieldName="outboundRegister" label={'Outbound Register'} />
+                      <ReusableSwitch
+                        fieldName="outboundRegister"
+                        label={'Outbound Register'}
+                      />
                     ]}
                   />
                 </Fragment>

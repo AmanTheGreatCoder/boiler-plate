@@ -1,6 +1,13 @@
 import { useNavigate } from 'react-router-dom';
 import { useTheme } from '@mui/material/styles';
-import { Divider, Grid, IconButton, Stack, Typography, useMediaQuery } from '@mui/material';
+import {
+  Divider,
+  Grid,
+  IconButton,
+  Stack,
+  Typography,
+  useMediaQuery
+} from '@mui/material';
 import AuthWrapper1 from '../AuthWrapper1';
 import AuthCardWrapper from '../AuthCardWrapper';
 import Logo from 'components/Logo';
@@ -82,7 +89,12 @@ const CodeVerification = () => {
   return (
     <AuthWrapper1>
       <form onSubmit={handleSubmit}>
-        <Grid container direction="column" justifyContent="flex-end" sx={{ minHeight: '100vh' }}>
+        <Grid
+          container
+          direction="column"
+          justifyContent="flex-end"
+          sx={{ minHeight: '100vh' }}
+        >
           <Grid item xs={12}>
             <Grid
               container
@@ -99,7 +111,12 @@ const CodeVerification = () => {
                     justifyContent="center"
                     position={'relative'}
                   >
-                    <Grid display={'flex'} alignItems={'center'} item sx={{ mb: 3 }}>
+                    <Grid
+                      display={'flex'}
+                      alignItems={'center'}
+                      item
+                      sx={{ mb: 3 }}
+                    >
                       <IconButton
                         sx={{
                           position: 'absolute',
@@ -122,7 +139,11 @@ const CodeVerification = () => {
                         justifyContent="center"
                       >
                         <Grid item>
-                          <Stack alignItems="center" justifyContent="center" spacing={1}>
+                          <Stack
+                            alignItems="center"
+                            justifyContent="center"
+                            spacing={1}
+                          >
                             <Typography
                               color={theme.palette.secondary.main}
                               gutterBottom
@@ -138,14 +159,18 @@ const CodeVerification = () => {
                               fontSize="0.875rem"
                               textAlign={matchDownSM ? 'center' : 'inherit'}
                             >
-                              We've send you code on +{detail.countryCode} {maskedNumber}
+                              We've send you code on +{detail.countryCode}{' '}
+                              {maskedNumber}
                             </Typography>
                           </Stack>
                         </Grid>
                       </Grid>
                     </Grid>
                     <Grid item xs={12}>
-                      <AuthCodeVerification error={error} onChange={(otp) => setOTP(otp)} />
+                      <AuthCodeVerification
+                        error={error}
+                        onChange={(otp) => setOTP(otp)}
+                      />
                     </Grid>
                     <Grid item xs={12}>
                       <Divider />
@@ -176,7 +201,9 @@ const CodeVerification = () => {
                         <Typography
                           variant="subtitle1"
                           sx={{
-                            color: disabled ? theme.palette.grey[500] : theme.palette.primary.main,
+                            color: disabled
+                              ? theme.palette.grey[500]
+                              : theme.palette.primary.main,
                             cursor: disabled ? 'not-allowed' : 'pointer'
                           }}
                           style={{ textDecoration: 'underline' }}
@@ -184,10 +211,13 @@ const CodeVerification = () => {
                           onClick={async () => {
                             if (!disabled) {
                               try {
-                                const res = await apiManager.post('auth/admin-login', {
-                                  countryCode: detail.countryCode,
-                                  phoneNumber: detail.phoneNumber
-                                });
+                                const res = await apiManager.post(
+                                  'auth/admin-login',
+                                  {
+                                    countryCode: detail.countryCode,
+                                    phoneNumber: detail.phoneNumber
+                                  }
+                                );
                                 setDisabled(true);
                               } catch (e) {
                                 console.error(e);

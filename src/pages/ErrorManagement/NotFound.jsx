@@ -2,7 +2,14 @@ import { Link } from 'react-router-dom';
 
 // material-ui
 import { useTheme, styled } from '@mui/material/styles';
-import { Button, Card, CardContent, CardMedia, Grid, Typography } from '@mui/material';
+import {
+  Button,
+  Card,
+  CardContent,
+  CardMedia,
+  Grid,
+  Typography
+} from '@mui/material';
 
 // project imports
 import AnimateButton from 'components/AnimateButton';
@@ -74,7 +81,11 @@ const NotFound = () => {
             <CardMediaWrapper>
               <CardMedia
                 component="img"
-                image={theme.palette.mode === 'dark' ? imageDarkBackground : imageBackground}
+                image={
+                  theme.palette.mode === 'dark'
+                    ? imageDarkBackground
+                    : imageBackground
+                }
               />
               <CardMediaBlock src={imageText} />
               <CardMediaBlue src={imageBlue} />
@@ -91,13 +102,20 @@ const NotFound = () => {
                 </Grid>
                 <Grid item xs={12}>
                   <Typography variant="body2">
-                    The page you are looking was moved, removed, renamed, or might never exist!{' '}
+                    The page you are looking was moved, removed, renamed, or
+                    might never exist!{' '}
                   </Typography>
                 </Grid>
                 <Grid item xs={12}>
                   <AnimateButton>
-                    <Button variant="contained" size="large" component={Link} to={'/'}>
-                      <HomeTwoToneIcon sx={{ fontSize: '1.3rem', mr: 0.75 }} /> Home
+                    <Button
+                      variant="contained"
+                      size="large"
+                      component={Link}
+                      to={'/'}
+                    >
+                      <HomeTwoToneIcon sx={{ fontSize: '1.3rem', mr: 0.75 }} />{' '}
+                      Home
                     </Button>
                   </AnimateButton>
                 </Grid>

@@ -3,7 +3,12 @@ import { Formik } from 'formik';
 import React, { forwardRef, useEffect, useState } from 'react';
 import APIManager from 'utils/APImanager';
 import SimpleModal from 'components/SimpleModal';
-import { FormControl, FormControlLabel, FormGroup, Switch } from '@mui/material';
+import {
+  FormControl,
+  FormControlLabel,
+  FormGroup,
+  Switch
+} from '@mui/material';
 import * as Yup from 'yup';
 import { trimValues } from 'utils/Helper';
 import { MODULE_NAME } from './Values';
@@ -13,7 +18,15 @@ const apiManager = new APIManager();
 
 const UserFilter = forwardRef(
   (
-    { getList, rowsPerPage, editData, setSearch, clearSearchField, onFilterChange, onClear },
+    {
+      getList,
+      rowsPerPage,
+      editData,
+      setSearch,
+      clearSearchField,
+      onFilterChange,
+      onClear
+    },
     modalRef
   ) => {
     let initialValues = {

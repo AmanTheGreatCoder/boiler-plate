@@ -32,7 +32,14 @@ const columns = [
 ];
 
 function Country(props) {
-  const { rowsPerPage, getList, setSearch, clearSearchField, children, ...otherProps } = props;
+  const {
+    rowsPerPage,
+    getList,
+    setSearch,
+    clearSearchField,
+    children,
+    ...otherProps
+  } = props;
   const addEditRef = useRef(null);
   const importRef = useRef(null);
   const [editData, setEditData] = useState('');

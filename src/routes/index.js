@@ -6,7 +6,9 @@ import Loadable from 'utils/Loadable';
 
 const NotFound = Loadable(lazy(() => import('pages/ErrorManagement/NotFound')));
 
-const MaintenanceLanding = Loadable(lazy(() => import('pages/ErrorManagement/Maintenance')));
+const MaintenanceLanding = Loadable(
+  lazy(() => import('pages/ErrorManagement/Maintenance'))
+);
 
 export default function ThemeRoutes() {
   return useRoutes([

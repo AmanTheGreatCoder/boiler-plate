@@ -19,7 +19,9 @@ function ActionButtons({ deleteOnClick, editOnClick, rateListOnClick }) {
       {deleteOnClick && (
         <IconButton onClick={deleteOnClick} color="secondary" size="medium">
           <Tooltip arrow={true} title="Delete" placement={'top'}>
-            <DeleteIcon sx={{ fontSize: '1.3rem', color: theme.palette.error.main }} />
+            <DeleteIcon
+              sx={{ fontSize: '1.3rem', color: theme.palette.error.main }}
+            />
           </Tooltip>
         </IconButton>
       )}
