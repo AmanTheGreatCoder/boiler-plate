@@ -1,19 +1,15 @@
-// material-ui
-import { useTheme } from '@mui/material/styles';
 import { Avatar, Box } from '@mui/material';
-import { Formik } from 'formik';
-import SimpleModal from 'components/SimpleModal';
+import { useTheme } from '@mui/material/styles';
+import { IconMenu2 } from '@tabler/icons';
+import { AzhaiAuthContext } from 'contexts/AuthContext';
+import UserAddEdit from 'pages/User/UserAddEdit';
+import { useContext, useRef } from 'react';
+import { useDispatch, useSelector } from 'store';
+import { openDrawer } from 'store/slices/menu';
 import APIManager from 'utils/APImanager';
 import LogoSection from '../LogoSection';
 import MobileSection from './MobileSection';
 import ProfileSection from './ProfileSection';
-import { useDispatch, useSelector } from 'store';
-import { openDrawer } from 'store/slices/menu';
-import { IconMenu2 } from '@tabler/icons';
-import { useContext, useRef } from 'react';
-import { AzhaiAuthContext } from 'contexts/AuthContext';
-import UserAddEdit from 'pages/User/UserAddEdit';
-import { SettingsBackupRestoreSharp } from '@mui/icons-material';
 
 const apiManager = new APIManager();
 

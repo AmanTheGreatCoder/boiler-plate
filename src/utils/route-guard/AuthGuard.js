@@ -18,20 +18,20 @@ const AuthGuard = ({ children }) => {
   const { setAuth } = useContext(AzhaiAuthContext);
   const navigate = useNavigate();
 
-  useEffect(async () => {
-    if (localStorage.getItem('token')) {
-      const result = await apiManager.get('auth/profile');
+  // useEffect(async () => {
+  //   if (localStorage.getItem('token')) {
+  //     const result = await apiManager.get('auth/profile');
 
-      if (result.error) {
-        navigate('login', { replace: true });
-        localStorage.removeItem('token');
-      } else {
-        setAuth(result.data);
-      }
-    } else {
-      navigate('login', { replace: true });
-    }
-  }, []);
+  //     if (result.error) {
+  //       navigate('login', { replace: true });
+  //       localStorage.removeItem('token');
+  //     } else {
+  //       setAuth(result.data);
+  //     }
+  //   } else {
+  //     navigate('login', { replace: true });
+  //   }
+  // }, []);
 
   return children;
 };

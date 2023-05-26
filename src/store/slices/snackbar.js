@@ -18,8 +18,6 @@ const initialState = {
   actionButton: false
 };
 
-// ==============================|| SLICE - SNACKBAR ||============================== //
-
 const snackbar = createSlice({
   name: 'snackbar',
   initialState,

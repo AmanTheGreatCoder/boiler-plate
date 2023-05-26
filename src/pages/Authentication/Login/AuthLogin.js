@@ -8,6 +8,8 @@ import {
   Checkbox,
   FormControl,
   FormControlLabel,
+  InputLabel,
+  OutlinedInput,
   Stack
 } from '@mui/material';
 import { Formik } from 'formik';
@@ -27,33 +29,15 @@ const Login = ({ loginProp, ...others }) => {
   return (
     <Formik
       initialValues={{
-        phoneDetailObj: '',
-        checked: true
+        email: 'example@gmail.com',
+        password: '12345'
       }}
       onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
-        try {
-          if (!values.phoneDetailObj.phoneNumber) {
-            CustomAlert({
-              message: 'Please enter phone number',
-              color: 'error'
-            });
-            return;
-          }
-          const res = await apiManager.post('auth/admin-login', {
-            countryCode: values.phoneDetailObj.dialCode,
-            phoneNumber: values.phoneDetailObj.phoneNumber
-          });
-          if (!res.error) {
-            setDetail({
-              countryCode: values.phoneDetailObj.dialCode,
-              phoneNumber: values.phoneDetailObj.phoneNumber,
-              isRemember: values.checked
-            });
-            navigate('/otp-screen');
-          }
-        } catch (e) {
-          console.error(e);
-        }
+        CustomAlert({
+          message: 'Login Successfull',
+          color: 'success'
+        });
+        navigate('/dashboard');
       }}
     >
       {({
@@ -68,7 +52,19 @@ const Login = ({ loginProp, ...others }) => {
       }) => (
         <form noValidate onSubmit={handleSubmit} {...others}>
           <FormControl fullWidth sx={{ ...theme.typography.customInput }}>
-            <NumberWithCountryCode fieldName="phoneDetailObj" />
+            <InputLabel htmlFor="outlined-adornment-email-login">
+              Email Address / Username
+            </InputLabel>
+            <OutlinedInput
+              id="outlined-adornment-email-login"
+              type="email"
+              value={values.email}
+              name="email"
+              onBlur={handleBlur}
+              onChange={handleChange}
+              label="Email Address / Username"
+              inputProps={{}}
+            />
           </FormControl>
           <Stack
             direction="row"

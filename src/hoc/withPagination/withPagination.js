@@ -1,13 +1,12 @@
+import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded';
 import { Button, Grid, Menu, MenuItem, Pagination } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
+import noData from 'assets/images/no-data.svg';
 import SearchSection from 'layout/MainLayout/Header/SearchSection';
 import React, { useEffect, useRef, useState } from 'react';
 import APIManager from 'utils/APImanager';
-import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded';
-import noData from 'assets/images/no-data.svg';
-import { useTheme } from '@mui/material/styles';
+import { removePlusStr } from 'utils/Helper';
 import './withPagination.css';
-import EnhancedTable from 'components/EnhancedTable';
-import { removePlusStr, simplifyString } from 'utils/Helper';
 
 const apiManager = new APIManager();
 

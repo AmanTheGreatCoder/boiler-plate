@@ -1,9 +1,9 @@
-import { useEffect, useRef, useState } from 'react';
-import UserAddEdit from './UserAddEdit';
-import withPagination from 'hoc/withPagination/withPagination';
-import { MODULE_NAME } from './Values';
-import UserFilter from './UserFilter';
 import EnhancedTable from 'components/EnhancedTable';
+import withPagination from 'hoc/withPagination/withPagination';
+import { useRef, useState } from 'react';
+import UserAddEdit from './UserAddEdit';
+import UserFilter from './UserFilter';
+import { MODULE_NAME } from './Values';
 
 const columns = [
   { id: 'fullName', label: 'Name' },

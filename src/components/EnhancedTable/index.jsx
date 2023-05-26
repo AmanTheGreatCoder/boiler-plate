@@ -15,14 +15,12 @@ import { TableBody, TableCell, TableHead, TableRow } from '@mui/material';
 import { useEffect } from 'react';
 import { Box, TableSortLabel } from '@mui/material';
 import { visuallyHidden } from '@mui/utils';
-import { useTheme } from '@mui/styles';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 import { useNavigate } from 'react-router-dom';
 import { FileDownload } from '@mui/icons-material';
 import MainCard from 'components/MainCard';
 import Chip from 'components/Chip';
 import moment from 'moment';
-import { ErrorBoundary } from 'pages/ErrorManagement/ErrorBoundary';
 
 const apiManager = new APIManager();
 

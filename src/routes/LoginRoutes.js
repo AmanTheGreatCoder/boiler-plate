@@ -5,9 +5,6 @@ import NavMotion from 'layout/NavMotion';
 import Loadable from 'utils/Loadable';
 
 const AuthLogin = Loadable(lazy(() => import('pages/Authentication/Login')));
-const AuthCodeVerification = Loadable(
-  lazy(() => import('pages/Authentication/OTP'))
-);
 
 const LoginRoutes = {
   path: '/',
@@ -22,10 +19,6 @@ const LoginRoutes = {
     {
       path: '/login',
       element: <AuthLogin />
-    },
-    {
-      path: '/otp-screen',
-      element: <AuthCodeVerification />
     }
   ]
 };

@@ -1,18 +1,8 @@
-import { useContext } from 'react';
-
-// auth provider
-// import AuthContext from 'contexts/FirebaseContext';
 import { AzhaiAuthContext } from 'contexts/AuthContext';
-// import AuthContext from 'contexts/Auth0Context';
-// import AuthContext from 'contexts/JWTContext';
-// import AuthContext from 'contexts/AWSCognitoContext';
-
-// ==============================|| AUTH HOOKS ||============================== //
+import { useContext } from 'react';
 
 const useAuth = () => {
   const { auth } = useContext(AzhaiAuthContext);
-
-  // if (!isAuthenticated) throw new Error('context must be use inside provider');
 
   return auth;
 };

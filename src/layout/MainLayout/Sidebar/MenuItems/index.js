@@ -1,13 +1,4 @@
-import {
-  IconHeartHandshake,
-  IconSettings,
-  IconPhone,
-  IconUserCircle,
-  IconBrandStripe,
-  IconMap2,
-  IconMapPin,
-  IconDashboard
-} from '@tabler/icons';
+import { IconUserCircle, IconDashboard } from '@tabler/icons';
 
 const SidebarItems = {
   id: 'items',
