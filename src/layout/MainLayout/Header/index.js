@@ -1,45 +1,31 @@
 import { Avatar, Box } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { IconMenu2 } from '@tabler/icons';
-import { AzhaiAuthContext } from 'contexts/AuthContext';
 import UserAddEdit from 'pages/User/UserAddEdit';
-import { useContext, useRef } from 'react';
+import { useRef } from 'react';
 import { useDispatch, useSelector } from 'store';
 import { openDrawer } from 'store/slices/menu';
-import APIManager from 'utils/APImanager';
 import LogoSection from '../LogoSection';
 import MobileSection from './MobileSection';
 import ProfileSection from './ProfileSection';
 
-const apiManager = new APIManager();
-
 const Header = () => {
   const theme = useTheme();
-  const { auth, setAuth } = useContext(AzhaiAuthContext);
+  const { _id, name, email } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const { drawerOpen } = useSelector((state) => state.menu);
   const modalRef = useRef(null);
   const profileCardRef = useRef(null);
 
-  const { _id, fullName, email, fullNumber } = auth;
   const editData = {
     _id,
-    fullName,
-    email,
-    fullNumber
+    name,
+    email
   };
 
   const editProfileClick = () => {
     modalRef.current.handleOpen();
     profileCardRef.current.handleClose();
-  };
-
-  const setProfile = async () => {
-    const res = await apiManager.get('auth/profile');
-
-    if (!res.error) {
-      setAuth(res.data);
-    }
   };
 
   return (
@@ -93,7 +79,7 @@ const Header = () => {
         </Avatar>
       </Box>
       <Box sx={{ flexGrow: 1 }} />
-      <UserAddEdit setProfile={setProfile} ref={modalRef} editData={editData} />
+      <UserAddEdit ref={modalRef} editData={editData} />
       <Box sx={{ flexGrow: 1 }} />
       <ProfileSection
         ref={profileCardRef}

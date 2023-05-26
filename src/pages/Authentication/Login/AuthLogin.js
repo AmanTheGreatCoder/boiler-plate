@@ -1,7 +1,3 @@
-import PropTypes from 'prop-types';
-import { useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useTheme } from '@mui/material/styles';
 import {
   Box,
   Button,
@@ -12,19 +8,16 @@ import {
   OutlinedInput,
   Stack
 } from '@mui/material';
-import { Formik } from 'formik';
+import { useTheme } from '@mui/material/styles';
 import AnimateButton from 'components/AnimateButton';
-import APImanager from 'utils/APImanager';
-import { PhoneNumberContext } from 'contexts/PhoneNumberContext';
 import CustomAlert from 'components/CustomAlert';
-import NumberWithCountryCode from 'components/NumberWithCountryCode';
-
-const apiManager = new APImanager();
+import { Formik } from 'formik';
+import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom';
 
 const Login = ({ loginProp, ...others }) => {
   const theme = useTheme();
   const navigate = useNavigate();
-  const { detail, setDetail } = useContext(PhoneNumberContext);
 
   return (
     <Formik

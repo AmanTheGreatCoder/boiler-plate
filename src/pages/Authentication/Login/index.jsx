@@ -1,16 +1,14 @@
-import { Link } from 'react-router-dom';
+import { Grid, Stack, Typography, useMediaQuery } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import { Divider, Grid, Stack, Typography, useMediaQuery } from '@mui/material';
-import AuthWrapper1 from '../AuthWrapper1';
-import AuthCardWrapper from '../AuthCardWrapper';
-import AuthLogin from './AuthLogin';
-import useAuth from 'hooks/useAuth';
-import withTitle from 'hoc/withTitle';
 import Logo from 'components/Logo';
+import withTitle from 'hoc/withTitle';
+import { Link } from 'react-router-dom';
+import AuthCardWrapper from '../AuthCardWrapper';
+import AuthWrapper1 from '../AuthWrapper1';
+import AuthLogin from './AuthLogin';
 
 const Login = () => {
   const theme = useTheme();
-  const { isLoggedIn } = useAuth();
   const matchDownSM = useMediaQuery(theme.breakpoints.down('md'));
 
   return (

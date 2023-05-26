@@ -1,16 +1,4 @@
-import {
-  Fragment,
-  forwardRef,
-  useContext,
-  useEffect,
-  useImperativeHandle,
-  useRef,
-  useState
-} from 'react';
-import { useNavigate } from 'react-router-dom';
-import confirm from 'components/Confim';
-import { confirmMessage } from 'utils/Helper';
-import { useTheme } from '@mui/material/styles';
+import { AccountCircle } from '@mui/icons-material';
 import {
   Avatar,
   Box,
@@ -26,22 +14,30 @@ import {
   Stack,
   Typography
 } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
+import confirm from 'components/Confim';
 import MainCard from 'components/MainCard';
 import Transitions from 'components/Transition';
-import useAuth from 'hooks/useAuth';
-import { AccountCircle } from '@mui/icons-material';
+import {
+  Fragment,
+  forwardRef,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+  useState
+} from 'react';
+import { useNavigate } from 'react-router-dom';
+import { confirmMessage } from 'utils/Helper';
 // assets
-import { IconLogout, IconSearch, IconSettings, IconUser } from '@tabler/icons';
-import { AzhaiAuthContext } from 'contexts/AuthContext';
-import { ManageAccounts } from '@mui/icons-material';
+import { IconLogout, IconSettings } from '@tabler/icons';
+import { useSelector } from 'react-redux';
 
 const ProfileSection = forwardRef(({ editProfileClick }, ref) => {
-  const { auth } = useContext(AzhaiAuthContext);
   const theme = useTheme();
+  const { name, email } = useSelector((state) => state.auth);
   const { borderRadius } = theme.custom;
   const navigate = useNavigate();
-  const [selectedIndex, setSelectedIndex] = useState(-1);
-  const { user } = useAuth();
+  const [selectedIndex] = useState(-1);
   const [open, setOpen] = useState(false);
 
   /**
@@ -186,21 +182,11 @@ const ProfileSection = forwardRef(({ editProfileClick }, ref) => {
                             alignItems="center"
                           >
                             <Typography variant="h4">
-                              Welcome, {auth.fullName}
-                            </Typography>
-                            <Typography
-                              component="span"
-                              variant="h4"
-                              sx={{ fontWeight: 400 }}
-                            >
-                              {user?.name}
+                              Welcome, {name}
                             </Typography>
                           </Stack>
                           <Typography sx={{ mt: 1 }} variant="subtitle2">
-                            {auth.email}
-                          </Typography>
-                          <Typography variant="subtitle2">
-                            +{auth.countryCode + ' ' + auth.phoneNumber}
+                            {email}
                           </Typography>
                         </Stack>
                       </Box>

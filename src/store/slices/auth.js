@@ -1,6 +1,7 @@
 const { createSlice } = require('@reduxjs/toolkit');
 
 const initialState = {
+  _id: '',
   name: '',
   email: ''
 };

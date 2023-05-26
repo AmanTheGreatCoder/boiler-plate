@@ -1,4 +1,3 @@
-import { useTheme } from '@mui/material/styles';
 import {
   Box,
   Button,
@@ -7,22 +6,13 @@ import {
   InputLabel,
   OutlinedInput
 } from '@mui/material';
-import { useDispatch } from 'store';
-import { useNavigate } from 'react-router-dom';
-
-import * as Yup from 'yup';
+import { useTheme } from '@mui/material/styles';
+import AnimateButton from 'components/AnimateButton';
 import { Formik } from 'formik';
-
-import useAuth from 'hooks/useAuth';
-import useScriptRef from 'hooks/useScriptRef';
-import CustomAlert from 'components/CustomAlert';
+import * as Yup from 'yup';
 
 const AuthForgotPassword = ({ ...others }) => {
   const theme = useTheme();
-  const scriptedRef = useScriptRef();
-  const navigate = useNavigate();
-
-  const { resetPassword } = useAuth();
 
   return (
     <Formik
@@ -37,29 +27,7 @@ const AuthForgotPassword = ({ ...others }) => {
           .max(255)
           .required('Email is required')
       })}
-      onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
-        try {
-          await resetPassword(values.email);
-          if (scriptedRef.current) {
-            setStatus({ success: true });
-            setSubmitting(false);
-            CustomAlert({
-              message: 'Check mail for reset password link',
-              color: 'success'
-            });
-            setTimeout(() => {
-              navigate('/login', { replace: true });
-            }, 1500);
-          }
-        } catch (err) {
-          console.error(err);
-          if (scriptedRef.current) {
-            setStatus({ success: false });
-            setErrors({ submit: err.message });
-            setSubmitting(false);
-          }
-        }
-      }}
+      onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {}}
     >
       {({
         errors,
