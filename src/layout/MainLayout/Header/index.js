@@ -1,31 +1,49 @@
-import { Avatar, Box } from '@mui/material';
+// material-ui
 import { useTheme } from '@mui/material/styles';
-import { IconMenu2 } from '@tabler/icons';
-import UserAddEdit from 'pages/User/UserAddEdit';
-import { useRef } from 'react';
-import { useDispatch, useSelector } from 'store';
-import { openDrawer } from 'store/slices/menu';
+import { Avatar, Box } from '@mui/material';
+import { Formik } from 'formik';
+import SimpleModal from 'components/SimpleModal';
+import APIManager from 'utils/APImanager';
 import LogoSection from '../LogoSection';
 import MobileSection from './MobileSection';
 import ProfileSection from './ProfileSection';
+import { useDispatch, useSelector } from 'store';
+import { openDrawer } from 'store/slices/menu';
+import { IconMenu2 } from '@tabler/icons';
+import { useContext, useRef } from 'react';
+import { AzhaiAuthContext } from 'contexts/AuthContext';
+import UserAddEdit from 'pages/User/UserAddEdit';
+import { SettingsBackupRestoreSharp } from '@mui/icons-material';
+
+const apiManager = new APIManager();
 
 const Header = () => {
   const theme = useTheme();
-  const { _id, name, email } = useSelector((state) => state.auth);
+  const { auth, setAuth } = useContext(AzhaiAuthContext);
   const dispatch = useDispatch();
   const { drawerOpen } = useSelector((state) => state.menu);
   const modalRef = useRef(null);
   const profileCardRef = useRef(null);
 
+  const { _id, fullName, email, fullNumber } = auth;
   const editData = {
     _id,
-    name,
-    email
+    fullName,
+    email,
+    fullNumber
   };
 
   const editProfileClick = () => {
     modalRef.current.handleOpen();
     profileCardRef.current.handleClose();
+  };
+
+  const setProfile = async () => {
+    const res = await apiManager.get('auth/profile');
+
+    if (!res.error) {
+      setAuth(res.data);
+    }
   };
 
   return (
@@ -39,10 +57,7 @@ const Header = () => {
           }
         }}
       >
-        <Box
-          component="span"
-          sx={{ display: { xs: 'none', md: 'block' }, flexGrow: 1 }}
-        >
+        <Box component="span" sx={{ display: { xs: 'none', md: 'block' }, flexGrow: 1 }}>
           <LogoSection />
         </Box>
         <Avatar
@@ -79,12 +94,9 @@ const Header = () => {
         </Avatar>
       </Box>
       <Box sx={{ flexGrow: 1 }} />
-      <UserAddEdit ref={modalRef} editData={editData} />
+      <UserAddEdit setProfile={setProfile} ref={modalRef} editData={editData} />
       <Box sx={{ flexGrow: 1 }} />
-      <ProfileSection
-        ref={profileCardRef}
-        editProfileClick={editProfileClick}
-      />
+      <ProfileSection ref={profileCardRef} editProfileClick={editProfileClick} />
       <Box sx={{ display: { xs: 'block', sm: 'none' } }}>
         <MobileSection />
       </Box>

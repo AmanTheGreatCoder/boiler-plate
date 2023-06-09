@@ -44,16 +44,7 @@ const animation = {
 const Snackbar = () => {
   const dispatch = useDispatch();
   const snackbar = useSelector((state) => state.snackbar);
-  const {
-    actionButton,
-    anchorOrigin,
-    alert,
-    close,
-    message,
-    open,
-    transition,
-    variant
-  } = snackbar;
+  const { actionButton, anchorOrigin, alert, close, message, open, transition, variant } = snackbar;
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
@@ -107,11 +98,7 @@ const Snackbar = () => {
             action={
               <>
                 {actionButton !== false && (
-                  <Button
-                    size="small"
-                    onClick={handleClose}
-                    sx={{ color: 'background.paper' }}
-                  >
+                  <Button size="small" onClick={handleClose} sx={{ color: 'background.paper' }}>
                     UNDO
                   </Button>
                 )}

@@ -3,11 +3,7 @@ import AddIcon from '@mui/icons-material/Add';
 import TuneIcon from '@mui/icons-material/Tune';
 import ActionButtons from 'components/ActionButtons/ActionButtons';
 import confirm from 'components/Confim';
-import {
-  addDefaultSrc,
-  confirmMessage,
-  getValueFromObject
-} from 'utils/Helper';
+import { addDefaultSrc, confirmMessage, getValueFromObject } from 'utils/Helper';
 import APIManager from 'utils/APImanager';
 import { Table, TableContainer, LinearProgress, Switch } from '@mui/material';
 import { cloneElement, useState } from 'react';
@@ -15,12 +11,14 @@ import { TableBody, TableCell, TableHead, TableRow } from '@mui/material';
 import { useEffect } from 'react';
 import { Box, TableSortLabel } from '@mui/material';
 import { visuallyHidden } from '@mui/utils';
+import { useTheme } from '@mui/styles';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 import { useNavigate } from 'react-router-dom';
 import { FileDownload } from '@mui/icons-material';
 import MainCard from 'components/MainCard';
 import Chip from 'components/Chip';
 import moment from 'moment';
+import { ErrorBoundary } from 'pages/ErrorManagement/ErrorBoundary';
 
 const apiManager = new APIManager();
 
@@ -123,8 +121,7 @@ function EnhancedTable(props) {
                     style={renderStyle(ele.id, 'body')}
                     align={ele.align}
                     className={`${
-                      ele.id.includes('countryName') ||
-                      ele.id.includes('cityName')
+                      ele.id.includes('countryName') || ele.id.includes('cityName')
                         ? 'capitalize'
                         : ''
                     }`}
@@ -180,9 +177,7 @@ function EnhancedTable(props) {
                   {item.label}
                   {orderBy === item.id ? (
                     <Box component="span" sx={visuallyHidden}>
-                      {order === 'desc'
-                        ? 'sorted descending'
-                        : 'sorted ascending'}
+                      {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
                     </Box>
                   ) : null}
                 </TableSortLabel>
@@ -214,20 +209,16 @@ function EnhancedTable(props) {
       <Switch
         checked={e[ele.id]}
         onClick={() => {
-          confirm(confirmMessage(`${e[ele.id] ? 'de' : ''}active`)).then(
-            async () => {
-              const res = await apiManager.patch(
-                `${urlPrefix}/${ele.endpoint ? ele.endpoint : 'status'}/${
-                  e._id
-                }`,
-                { status: !e[ele.id] }
-              );
-              if (!res.error) {
-                e[ele.id] = !e[ele.id];
-                setList([...list]);
-              }
+          confirm(confirmMessage(`${e[ele.id] ? 'de' : ''}active`)).then(async () => {
+            const res = await apiManager.patch(
+              `${urlPrefix}/${ele.endpoint ? ele.endpoint : 'status'}/${e._id}`,
+              { status: !e[ele.id] }
+            );
+            if (!res.error) {
+              e[ele.id] = !e[ele.id];
+              setList([...list]);
             }
-          );
+          });
         }}
         color="primary"
       />
@@ -257,12 +248,9 @@ function EnhancedTable(props) {
             isDel
               ? () => {
                   confirm(confirmMessage('delete')).then(async () => {
-                    const res = await apiManager.delete(
-                      `${urlPrefix}/delete/${e._id}`,
-                      {
-                        status: true
-                      }
-                    );
+                    const res = await apiManager.delete(`${urlPrefix}/delete/${e._id}`, {
+                      status: true
+                    });
                     if (!res.error) {
                       getList();
                     }

@@ -1,13 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { useTheme } from '@mui/material/styles';
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  Divider,
-  Typography
-} from '@mui/material';
+import { Card, CardContent, CardHeader, Divider, Typography } from '@mui/material';
 
 const MainCard = React.forwardRef(
   (
@@ -53,10 +47,7 @@ const MainCard = React.forwardRef(
         {/* card header and action */}
         {!darkTitle && title && <CardHeader title={title} action={secondary} />}
         {darkTitle && title && (
-          <CardHeader
-            title={<Typography variant="h3">{title}</Typography>}
-            action={secondary}
-          />
+          <CardHeader title={<Typography variant="h3">{title}</Typography>} action={secondary} />
         )}
 
         {/* content & header divider */}
@@ -82,18 +73,10 @@ MainCard.propTypes = {
   contentClass: PropTypes.string,
   contentSX: PropTypes.object,
   darkTitle: PropTypes.bool,
-  secondary: PropTypes.oneOfType([
-    PropTypes.node,
-    PropTypes.string,
-    PropTypes.object
-  ]),
+  secondary: PropTypes.oneOfType([PropTypes.node, PropTypes.string, PropTypes.object]),
   shadow: PropTypes.string,
   sx: PropTypes.object,
-  title: PropTypes.oneOfType([
-    PropTypes.node,
-    PropTypes.string,
-    PropTypes.object
-  ])
+  title: PropTypes.oneOfType([PropTypes.node, PropTypes.string, PropTypes.object])
 };
 
 export default MainCard;

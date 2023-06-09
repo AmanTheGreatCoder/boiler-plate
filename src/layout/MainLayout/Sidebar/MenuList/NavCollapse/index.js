@@ -65,11 +65,7 @@ const NavCollapse = ({ menu, level }) => {
 
   const Icon = menu.icon;
   const menuIcon = menu.icon ? (
-    <Icon
-      strokeWidth={1.5}
-      size="1.3rem"
-      style={{ marginTop: 'auto', marginBottom: 'auto' }}
-    />
+    <Icon strokeWidth={1.5} size="1.3rem" style={{ marginTop: 'auto', marginBottom: 'auto' }} />
   ) : (
     <FiberManualRecordIcon
       sx={{
@@ -94,9 +90,7 @@ const NavCollapse = ({ menu, level }) => {
         selected={selected === menu.id}
         onClick={handleClick}
       >
-        <ListItemIcon sx={{ my: 'auto', minWidth: !menu.icon ? 18 : 36 }}>
-          {menuIcon}
-        </ListItemIcon>
+        <ListItemIcon sx={{ my: 'auto', minWidth: !menu.icon ? 18 : 36 }}>{menuIcon}</ListItemIcon>
         <ListItemText
           primary={
             <Typography

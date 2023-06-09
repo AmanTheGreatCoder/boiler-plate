@@ -10,20 +10,13 @@ const Chip = ({ chipcolor, disabled, sx = {}, variant, ...others }) => {
   const theme = useTheme();
 
   let defaultSX = {
-    color:
-      theme.palette.mode === 'dark'
-        ? theme.palette.primary.light
-        : theme.palette.primary.main,
+    color: theme.palette.mode === 'dark' ? theme.palette.primary.light : theme.palette.primary.main,
     bgcolor:
-      theme.palette.mode === 'dark'
-        ? theme.palette.primary.main
-        : theme.palette.primary.light,
+      theme.palette.mode === 'dark' ? theme.palette.primary.main : theme.palette.primary.light,
     ':hover': {
       color: theme.palette.primary.light,
       bgcolor:
-        theme.palette.mode === 'dark'
-          ? theme.palette.primary.dark + 90
-          : theme.palette.primary.dark
+        theme.palette.mode === 'dark' ? theme.palette.primary.dark + 90 : theme.palette.primary.dark
     }
   };
 
@@ -34,13 +27,9 @@ const Chip = ({ chipcolor, disabled, sx = {}, variant, ...others }) => {
     borderColor: theme.palette.primary.main,
     ':hover': {
       color:
-        theme.palette.mode === 'dark'
-          ? theme.palette.primary.light
-          : theme.palette.primary.light,
+        theme.palette.mode === 'dark' ? theme.palette.primary.light : theme.palette.primary.light,
       bgcolor:
-        theme.palette.mode === 'dark'
-          ? theme.palette.primary.main
-          : theme.palette.primary.dark
+        theme.palette.mode === 'dark' ? theme.palette.primary.main : theme.palette.primary.dark
     }
   };
 
@@ -128,21 +117,15 @@ const Chip = ({ chipcolor, disabled, sx = {}, variant, ...others }) => {
           borderColor: theme.palette.error.main,
           ':hover': {
             color:
-              theme.palette.mode === 'dark'
-                ? theme.palette.error.light
-                : theme.palette.error.dark,
+              theme.palette.mode === 'dark' ? theme.palette.error.light : theme.palette.error.dark,
             bgcolor:
-              theme.palette.mode === 'dark'
-                ? theme.palette.error.dark
-                : theme.palette.error.light
+              theme.palette.mode === 'dark' ? theme.palette.error.dark : theme.palette.error.light
           }
         };
       else
         defaultSX = {
           color:
-            theme.palette.mode === 'dark'
-              ? theme.palette.error.light
-              : theme.palette.error.dark,
+            theme.palette.mode === 'dark' ? theme.palette.error.light : theme.palette.error.dark,
           bgcolor:
             theme.palette.mode === 'dark'
               ? theme.palette.error.dark

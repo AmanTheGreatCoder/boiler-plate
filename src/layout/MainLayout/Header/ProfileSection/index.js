@@ -1,4 +1,16 @@
-import { AccountCircle } from '@mui/icons-material';
+import {
+  Fragment,
+  forwardRef,
+  useContext,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+  useState
+} from 'react';
+import { useNavigate } from 'react-router-dom';
+import confirm from 'components/Confim';
+import { confirmMessage } from 'utils/Helper';
+import { useTheme } from '@mui/material/styles';
 import {
   Avatar,
   Box,
@@ -14,30 +26,22 @@ import {
   Stack,
   Typography
 } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
-import confirm from 'components/Confim';
 import MainCard from 'components/MainCard';
 import Transitions from 'components/Transition';
-import {
-  Fragment,
-  forwardRef,
-  useEffect,
-  useImperativeHandle,
-  useRef,
-  useState
-} from 'react';
-import { useNavigate } from 'react-router-dom';
-import { confirmMessage } from 'utils/Helper';
+import useAuth from 'hooks/useAuth';
+import { AccountCircle } from '@mui/icons-material';
 // assets
-import { IconLogout, IconSettings } from '@tabler/icons';
-import { useSelector } from 'react-redux';
+import { IconLogout, IconSearch, IconSettings, IconUser } from '@tabler/icons';
+import { AzhaiAuthContext } from 'contexts/AuthContext';
+import { ManageAccounts } from '@mui/icons-material';
 
 const ProfileSection = forwardRef(({ editProfileClick }, ref) => {
+  const { auth } = useContext(AzhaiAuthContext);
   const theme = useTheme();
-  const { name, email } = useSelector((state) => state.auth);
   const { borderRadius } = theme.custom;
   const navigate = useNavigate();
-  const [selectedIndex] = useState(-1);
+  const [selectedIndex, setSelectedIndex] = useState(-1);
+  const { user } = useAuth();
   const [open, setOpen] = useState(false);
 
   /**
@@ -95,13 +99,9 @@ const ProfileSection = forwardRef(({ editProfileClick }, ref) => {
           borderRadius: '27px',
           transition: 'all .2s ease-in-out',
           borderColor:
-            theme.palette.mode === 'dark'
-              ? theme.palette.dark.main
-              : theme.palette.primary.light,
+            theme.palette.mode === 'dark' ? theme.palette.dark.main : theme.palette.primary.light,
           backgroundColor:
-            theme.palette.mode === 'dark'
-              ? theme.palette.dark.main
-              : theme.palette.primary.light,
+            theme.palette.mode === 'dark' ? theme.palette.dark.main : theme.palette.primary.light,
           '&[aria-controls="menu-list-grow"], &:hover': {
             borderColor: theme.palette.primary.main,
             background: `${theme.palette.primary.main}!important`,
@@ -128,13 +128,7 @@ const ProfileSection = forwardRef(({ editProfileClick }, ref) => {
             color="inherit"
           />
         }
-        label={
-          <IconSettings
-            stroke={1.5}
-            size="1.5rem"
-            color={theme.palette.primary.main}
-          />
-        }
+        label={<IconSettings stroke={1.5} size="1.5rem" color={theme.palette.primary.main} />}
         variant="outlined"
         ref={anchorRef}
         aria-controls={open ? 'menu-list-grow' : undefined}
@@ -176,17 +170,17 @@ const ProfileSection = forwardRef(({ editProfileClick }, ref) => {
                     >
                       <Box sx={{ p: 2 }}>
                         <Stack>
-                          <Stack
-                            direction="row"
-                            spacing={0.5}
-                            alignItems="center"
-                          >
-                            <Typography variant="h4">
-                              Welcome, {name}
+                          <Stack direction="row" spacing={0.5} alignItems="center">
+                            <Typography variant="h4">Welcome, {auth.fullName}</Typography>
+                            <Typography component="span" variant="h4" sx={{ fontWeight: 400 }}>
+                              {user?.name}
                             </Typography>
                           </Stack>
                           <Typography sx={{ mt: 1 }} variant="subtitle2">
-                            {email}
+                            {auth.email}
+                          </Typography>
+                          <Typography variant="subtitle2">
+                            +{auth.countryCode + ' ' + auth.phoneNumber}
                           </Typography>
                         </Stack>
                       </Box>
@@ -217,11 +211,7 @@ const ProfileSection = forwardRef(({ editProfileClick }, ref) => {
                               <IconSettings stroke={1.5} size="1.3rem" />
                             </ListItemIcon>
                             <ListItemText
-                              primary={
-                                <Typography variant="body2">
-                                  Edit Profile
-                                </Typography>
-                              }
+                              primary={<Typography variant="body2">Edit Profile</Typography>}
                             />
                           </ListItemButton>
                           <ListItemButton
@@ -233,9 +223,7 @@ const ProfileSection = forwardRef(({ editProfileClick }, ref) => {
                               <IconLogout stroke={1.5} size="1.3rem" />
                             </ListItemIcon>
                             <ListItemText
-                              primary={
-                                <Typography variant="body2">Logout</Typography>
-                              }
+                              primary={<Typography variant="body2">Logout</Typography>}
                             />
                           </ListItemButton>
                         </List>

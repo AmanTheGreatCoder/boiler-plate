@@ -1,21 +1,26 @@
 import MinimalLayout from 'layout/MinimalLayout';
 import NavMotion from 'layout/NavMotion';
-import { lazy } from 'react';
-import Loadable from 'utils/Loadable';
-
-const AuthLogin = Loadable(lazy(() => import('pages/Authentication/Login')));
+import GuestGuard from 'utils/route-guard/GuestGuard';
+import AuthLogin from 'pages/Authentication/Login';
+import AuthCode from 'pages/Authentication/OTP';
 
 const LoginRoutes = {
   path: '/',
   element: (
     <NavMotion>
-      <MinimalLayout />
+      <GuestGuard>
+        <MinimalLayout />
+      </GuestGuard>
     </NavMotion>
   ),
   children: [
     {
       path: '/login',
       element: <AuthLogin />
+    },
+    {
+      path: '/otp-screen',
+      element: <AuthCode />
     }
   ]
 };

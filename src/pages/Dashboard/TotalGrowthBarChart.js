@@ -109,11 +109,7 @@ const TotalGrowthBarChart = ({ isLoading }) => {
         <MainCard>
           <Grid container spacing={gridSpacing}>
             <Grid item xs={12}>
-              <Grid
-                container
-                alignItems="center"
-                justifyContent="space-between"
-              >
+              <Grid container alignItems="center" justifyContent="space-between">
                 <Grid item>
                   <Grid container direction="column" spacing={1}>
                     <Grid item>

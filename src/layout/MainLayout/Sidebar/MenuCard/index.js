@@ -25,23 +25,17 @@ const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   height: 10,
   borderRadius: 30,
   [`&.${linearProgressClasses.colorPrimary}`]: {
-    backgroundColor:
-      theme.palette.mode === 'dark' ? theme.palette.dark.light : '#fff'
+    backgroundColor: theme.palette.mode === 'dark' ? theme.palette.dark.light : '#fff'
   },
   [`& .${linearProgressClasses.bar}`]: {
     borderRadius: 5,
     backgroundColor:
-      theme.palette.mode === 'dark'
-        ? theme.palette.primary.dark
-        : theme.palette.primary.main
+      theme.palette.mode === 'dark' ? theme.palette.primary.dark : theme.palette.primary.main
   }
 }));
 
 const CardStyle = styled(Card)(({ theme }) => ({
-  background:
-    theme.palette.mode === 'dark'
-      ? theme.palette.dark.main
-      : theme.palette.primary.light,
+  background: theme.palette.mode === 'dark' ? theme.palette.dark.main : theme.palette.primary.light,
   marginBottom: '22px',
   overflow: 'hidden',
   position: 'relative',
@@ -51,9 +45,7 @@ const CardStyle = styled(Card)(({ theme }) => ({
     width: '157px',
     height: '157px',
     background:
-      theme.palette.mode === 'dark'
-        ? theme.palette.dark.dark
-        : theme.palette.primary[200],
+      theme.palette.mode === 'dark' ? theme.palette.dark.dark : theme.palette.primary[200],
     borderRadius: '50%',
     top: '-105px',
     right: '-96px'
@@ -83,9 +75,7 @@ function LinearProgressWithLabel({ value, ...others }) {
             </Typography>
           </Grid>
           <Grid item>
-            <Typography variant="h6" color="inherit">{`${Math.round(
-              value
-            )}%`}</Typography>
+            <Typography variant="h6" color="inherit">{`${Math.round(value)}%`}</Typography>
           </Grid>
         </Grid>
       </Grid>
@@ -119,10 +109,7 @@ const MenuCard = () => {
                   color: theme.palette.primary.main,
                   border: theme.palette.mode === 'dark' ? '1px solid' : 'none',
                   borderColor: theme.palette.primary.main,
-                  background:
-                    theme.palette.mode === 'dark'
-                      ? theme.palette.dark.dark
-                      : '#fff',
+                  background: theme.palette.mode === 'dark' ? theme.palette.dark.dark : '#fff',
                   marginRight: '12px'
                 }}
               >

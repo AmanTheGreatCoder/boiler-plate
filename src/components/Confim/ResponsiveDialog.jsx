@@ -16,10 +16,7 @@ import {
 // ===============================|| UI DIALOG - RESPONSIVE ||=============================== //
 
 const ResponsiveDialog = forwardRef(
-  (
-    { confirmation = 'ARE YOU SURE?', content, onAgree, proceed, dismiss },
-    ref
-  ) => {
+  ({ confirmation = 'ARE YOU SURE?', content, onAgree, proceed, dismiss }, ref) => {
     const [open, setOpen] = React.useState(true);
     let onAgreeFunc;
 
@@ -51,9 +48,7 @@ const ResponsiveDialog = forwardRef(
         >
           {open && (
             <>
-              <DialogTitle id="responsive-dialog-title">
-                {confirmation}
-              </DialogTitle>
+              <DialogTitle id="responsive-dialog-title">{confirmation}</DialogTitle>
               {/* <DialogContent>
                             <DialogContentText>
                                 <Typography variant="body2" component="span">

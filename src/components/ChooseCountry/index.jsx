@@ -1,18 +1,22 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import CustomAutoComplete from 'components/CustomAutoComplete';
 
 const ChooseCountry = (props) => {
   const {
+    ckey,
     disabled = false,
     required = true,
     disableClear = false,
     valueToShowInField,
+    initialValues,
+    setInitialValues,
+    showInitialValues,
+    setShowInitialValues,
     onChange
   } = props;
 
   return (
     <CustomAutoComplete
+      ckey={ckey}
       disabled={disabled}
       disableClear={disableClear}
       placeholder="Choose a country"
@@ -20,11 +24,11 @@ const ChooseCountry = (props) => {
       fieldName={'countryId'}
       errorName={'Country'}
       onChange={onChange}
-      optionRow={[
-        'countryName',
-        'isoCountry',
-        { countryCode: true, field: 'countryCode' }
-      ]}
+      initialValues={initialValues}
+      setInitialValues={setInitialValues}
+      showInitialValues={showInitialValues}
+      setShowInitialValues={setShowInitialValues}
+      optionRow={['countryName', 'isoCountry', { countryCode: true, field: 'countryCode' }]}
       showFlag={true}
       valueToShowInField={valueToShowInField || ['countryName', 'isoCountry']}
       required={required}

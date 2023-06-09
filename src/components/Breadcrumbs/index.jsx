@@ -136,8 +136,7 @@ const Breadcrumbs = ({
               theme.palette.mode === 'dark'
                 ? theme.palette.background.default
                 : theme.palette.primary[200] + 75,
-            background:
-              card === false ? 'transparent' : theme.palette.background.default
+            background: card === false ? 'transparent' : theme.palette.background.default
           }}
           {...others}
         >
@@ -194,9 +193,7 @@ const Breadcrumbs = ({
             </Grid>
           </Box>
           {card === false && divider !== false && (
-            <Divider
-              sx={{ borderColor: theme.palette.primary.main, mb: gridSpacing }}
-            />
+            <Divider sx={{ borderColor: theme.palette.primary.main, mb: gridSpacing }} />
           )}
         </Card>
       );

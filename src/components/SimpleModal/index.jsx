@@ -1,26 +1,17 @@
-import PropTypes from 'prop-types';
-import React, {
-  forwardRef,
-  useEffect,
-  useImperativeHandle,
-  useState
-} from 'react';
-
-// material-ui
+import CloseIcon from '@mui/icons-material/Close';
 import {
   Button,
-  CardContent,
   CardActions,
+  CardContent,
   Divider,
   Grid,
   IconButton,
   Modal,
   Typography
 } from '@mui/material';
-
-import CloseIcon from '@mui/icons-material/Close';
-import { useFormikContext } from 'formik';
 import MainCard from 'components/MainCard';
+import PropTypes from 'prop-types';
+import { forwardRef, useEffect, useImperativeHandle, useState } from 'react';
 
 const Body = forwardRef(
   (
@@ -128,7 +119,8 @@ const SimpleModal = forwardRef(
       showClearButton,
       resetOnClear,
       onClear,
-      size
+      size,
+      onOpen
     },
     ref
   ) => {
@@ -144,10 +136,15 @@ const SimpleModal = forwardRef(
       }
     }));
 
+    useEffect(() => {
+      onOpen && onOpen(open);
+    }, [open]);
+
     const handleClose = () => {
       setOpen(false);
       !resetOnClear && resetForm && resetForm();
     };
+
     return (
       <Grid container justifyContent="flex-end">
         <Modal

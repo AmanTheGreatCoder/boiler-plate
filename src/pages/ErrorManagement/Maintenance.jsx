@@ -93,11 +93,7 @@ const UnderConstruction = () => {
             <CardMediaWrapper>
               <CardMedia
                 component="img"
-                image={
-                  theme.palette.mode === 'dark'
-                    ? imageDarkBackground
-                    : imageBackground
-                }
+                image={theme.palette.mode === 'dark' ? imageDarkBackground : imageBackground}
               />
               <CardMediaParts src={imageParts} />
               <CardMediaBuild src={image} />
@@ -113,18 +109,13 @@ const UnderConstruction = () => {
                 </Grid>
                 <Grid item xs={12}>
                   <Typography variant="body2">
-                    We're very sorry for the inconvenience but we're performing
-                    maintenance.Please check back soon...
+                    We're very sorry for the inconvenience but we're performing maintenance.Please
+                    check back soon...
                   </Typography>
                 </Grid>
                 <Grid item xs={12}>
                   <AnimateButton>
-                    <Button
-                      variant="contained"
-                      size="large"
-                      component={Link}
-                      to="/"
-                    >
+                    <Button variant="contained" size="large" component={Link} to="/">
                       <ReplayIcon sx={{ fontSize: '1.3rem', mr: 0.75 }} />
                       RETRY
                     </Button>

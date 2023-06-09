@@ -1,20 +1,24 @@
-import App from 'App';
-import 'assets/scss/style.scss';
-import { ErrorBoundary } from 'pages/ErrorManagement/ErrorBoundary';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
-import reportWebVitals from 'reportWebVitals';
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
+import App from 'App';
+import { store, persister } from 'store';
 import * as serviceWorker from 'serviceWorker';
-import { store } from 'store';
+import reportWebVitals from 'reportWebVitals';
+import 'assets/scss/style.scss';
+import Loader from 'components/Loader';
+import { ErrorBoundary } from 'pages/ErrorManagement/ErrorBoundary';
 
 ReactDOM.render(
   <Provider store={store}>
-    <BrowserRouter>
+    {/* <PersistGate loading={<Loader />} persistor={persister}> */}
+    <BrowserRouter basename={''}>
       <ErrorBoundary>
         <App />
       </ErrorBoundary>
     </BrowserRouter>
+    {/* </PersistGate> */}
   </Provider>,
   document.getElementById('root')
 );

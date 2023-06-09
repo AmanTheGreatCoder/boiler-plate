@@ -1,13 +1,7 @@
 import React, { useEffect, useMemo } from 'react';
 import { Outlet } from 'react-router-dom';
 import { styled, useTheme } from '@mui/material/styles';
-import {
-  AppBar,
-  Box,
-  CssBaseline,
-  Toolbar,
-  useMediaQuery
-} from '@mui/material';
+import { AppBar, Box, CssBaseline, Toolbar, useMediaQuery } from '@mui/material';
 
 import Breadcrumbs from 'components/Breadcrumbs';
 import Header from './Header';
@@ -117,13 +111,7 @@ const MainLayout = () => {
       <Sidebar />
 
       <Main theme={theme} open={drawerOpen}>
-        <Breadcrumbs
-          separator={IconChevronRight}
-          navigation={navigation}
-          icon
-          title
-          rightAlign
-        />
+        <Breadcrumbs separator={IconChevronRight} navigation={navigation} icon title rightAlign />
         <Outlet />
       </Main>
     </Box>

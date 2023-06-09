@@ -1,9 +1,6 @@
-import EnhancedTable from 'components/EnhancedTable';
-import withPagination from 'hoc/withPagination/withPagination';
-import { useRef, useState } from 'react';
 import UserAddEdit from './UserAddEdit';
+import CommonTable from 'layout/CommonTable';
 import UserFilter from './UserFilter';
-import { MODULE_NAME } from './Values';
 
 const columns = [
   { id: 'fullName', label: 'Name' },
@@ -20,58 +17,20 @@ const columns = [
   { id: 'actions', name: 'Actions' }
 ];
 
-function User(props) {
-  const {
-    rowsPerPage,
-    setSearch,
-    getList,
-    clearSearchField,
-    setQuery,
-    children,
-    ...otherProps
-  } = props;
-  const addEditRef = useRef(null);
-  const filterRef = useRef(null);
-  const [editData, setEditData] = useState('');
-
+function User() {
   return (
-    <EnhancedTable
-      title={MODULE_NAME}
+    <CommonTable
+      title={'Users'}
+      imageRequired={true}
       addBtnTitle="Add Admin"
       urlPrefix="user"
       downloadUrl={`${process.env.REACT_APP_BASE_URL}sample/sample_import_phone.csv`}
-      pagination={children}
-      add={true}
-      addEditRef={addEditRef}
-      filterRef={filterRef}
       columns={columns}
-      setEditData={setEditData}
-      getList={getList}
-      {...otherProps}
     >
-      <UserAddEdit
-        clearSearchField={clearSearchField}
-        setSearch={setSearch}
-        editData={editData}
-        getList={getList}
-        ref={addEditRef}
-      />
-      <UserFilter
-        onFilterChange={(values) => {
-          filterRef.current.handleClose();
-          setQuery({ role: values?.filterObj?.role || '' });
-        }}
-        onClear={() => {
-          filterRef.current.handleClose();
-          setQuery(null);
-        }}
-        ref={filterRef}
-      />
-    </EnhancedTable>
+      <UserFilter type="filter" />
+      <UserAddEdit type="addEdit" />
+    </CommonTable>
   );
 }
 
-export default withPagination(User, 'user/list', {
-  imageRequired: true,
-  title: MODULE_NAME
-});
+export default User;

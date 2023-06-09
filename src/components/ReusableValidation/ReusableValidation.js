@@ -100,8 +100,7 @@ const ReusableValidation = memo((props) => {
           if (value < 1 || value > 65535) error = errorMessage(label);
           break;
         case 'isDomainOrIP':
-          if (!ipRegex.test(value) && !domainRegex.test(value))
-            error = errorMessage(label);
+          if (!ipRegex.test(value) && !domainRegex.test(value)) error = errorMessage(label);
           break;
       }
     }
@@ -128,12 +127,7 @@ const ReusableValidation = memo((props) => {
   }, []);
 
   return (
-    <FormControl
-      disabled={disabled}
-      fullWidth
-      error={hasError}
-      sx={{ mt: 1, mb: 0.5 }}
-    >
+    <FormControl disabled={disabled} fullWidth error={hasError} sx={{ mt: 1, mb: 0.5 }}>
       <TextField
         type={type || 'text'}
         label={label}
@@ -145,9 +139,7 @@ const ReusableValidation = memo((props) => {
         onBlur={onBlur}
         onChange={(e) => {
           if (
-            (control === 'isNumber' ||
-              control === 'isPort' ||
-              control === 'isPhoneNumber') &&
+            (control === 'isNumber' || control === 'isPort' || control === 'isPhoneNumber') &&
             !onlyNumber.test(e.target.value)
           ) {
             if (e.target.value === '') {

@@ -1,12 +1,13 @@
+// third-party
 import { combineReducers } from 'redux';
 import snackbarReducer from './slices/snackbar';
 import menuReducer from './slices/menu';
-import authReducer from './slices/auth';
+
+// ==============================|| COMBINE REDUCER ||============================== //
 
 const reducer = combineReducers({
   snackbar: snackbarReducer,
-  menu: menuReducer,
-  auth: authReducer
+  menu: menuReducer
 });
 
 export default reducer;

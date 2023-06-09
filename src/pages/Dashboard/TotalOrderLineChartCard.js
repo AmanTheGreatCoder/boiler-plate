@@ -21,9 +21,7 @@ import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 
 const CardWrapper = styled(MainCard)(({ theme }) => ({
   backgroundColor:
-    theme.palette.mode === 'dark'
-      ? theme.palette.dark.dark
-      : theme.palette.primary.dark,
+    theme.palette.mode === 'dark' ? theme.palette.dark.dark : theme.palette.primary.dark,
   color: '#fff',
   overflow: 'hidden',
   position: 'relative',
@@ -192,11 +190,7 @@ const TotalOrderLineChartCard = ({ isLoading }) => {
                     </Grid>
                   </Grid>
                   <Grid item xs={6}>
-                    {timeValue ? (
-                      <Chart {...ChartDataMonth} />
-                    ) : (
-                      <Chart {...ChartDataYear} />
-                    )}
+                    {timeValue ? <Chart {...ChartDataMonth} /> : <Chart {...ChartDataYear} />}
                   </Grid>
                 </Grid>
               </Grid>

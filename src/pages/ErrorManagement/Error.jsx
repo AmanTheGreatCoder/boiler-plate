@@ -64,11 +64,7 @@ const Error = (props) => {
             <CardMediaWrapper>
               <CardMedia
                 component="img"
-                image={
-                  theme.palette.mode === 'dark'
-                    ? imageDarkBackground
-                    : imageBackground
-                }
+                image={theme.palette.mode === 'dark' ? imageDarkBackground : imageBackground}
               />
               <CardMediaParts src={imageParts} />
               <CardMediaBuild src={image} />
@@ -81,9 +77,7 @@ const Error = (props) => {
                   <Typography variant="h2" component="div"></Typography>
                 </Grid>
                 <Grid item xs={12}>
-                  <Typography variant="body2">
-                    OOPS! Something Went Wrong!
-                  </Typography>
+                  <Typography variant="body2">OOPS! Something Went Wrong!</Typography>
                 </Grid>
                 <Grid item xs={12}>
                   <AnimateButton>

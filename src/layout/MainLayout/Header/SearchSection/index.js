@@ -1,25 +1,11 @@
 import PropTypes from 'prop-types';
-import {
-  useEffect,
-  useState,
-  useCallback,
-  forwardRef,
-  useImperativeHandle
-} from 'react';
+import { useEffect, useState, useCallback, forwardRef, useImperativeHandle } from 'react';
 // import { debounce, __ } from 'lodash'
 import debounce from 'lodash.debounce';
 
 // material-ui
 import { useTheme, styled } from '@mui/material/styles';
-import {
-  Avatar,
-  Box,
-  Card,
-  Grid,
-  InputAdornment,
-  OutlinedInput,
-  Popper
-} from '@mui/material';
+import { Avatar, Box, Card, Grid, InputAdornment, OutlinedInput, Popper } from '@mui/material';
 
 // third-party
 import PopupState, { bindPopper, bindToggle } from 'material-ui-popup-state';
@@ -42,52 +28,39 @@ const PopperStyle = styled(Popper, { shouldForwardProp })(({ theme }) => ({
   }
 }));
 
-const OutlineInputStyle = styled(OutlinedInput, { shouldForwardProp })(
-  ({ theme }) => ({
-    width: 434,
-    marginLeft: 16,
-    paddingLeft: 16,
-    paddingRight: 16,
-    '& input': {
-      background: 'transparent !important',
-      paddingLeft: '4px !important'
-    },
-    [theme.breakpoints.down('lg')]: {
-      width: 250
-    },
-    [theme.breakpoints.down('md')]: {
-      width: '100%',
-      marginLeft: 4,
-      background:
-        theme.palette.mode === 'dark' ? theme.palette.dark[800] : '#fff'
-    }
-  })
-);
+const OutlineInputStyle = styled(OutlinedInput, { shouldForwardProp })(({ theme }) => ({
+  width: 434,
+  marginLeft: 16,
+  paddingLeft: 16,
+  paddingRight: 16,
+  '& input': {
+    background: 'transparent !important',
+    paddingLeft: '4px !important'
+  },
+  [theme.breakpoints.down('lg')]: {
+    width: 250
+  },
+  [theme.breakpoints.down('md')]: {
+    width: '100%',
+    marginLeft: 4,
+    background: theme.palette.mode === 'dark' ? theme.palette.dark[800] : '#fff'
+  }
+}));
 
-const HeaderAvatarStyle = styled(Avatar, { shouldForwardProp })(
-  ({ theme }) => ({
-    ...theme.typography.commonAvatar,
-    ...theme.typography.mediumAvatar,
+const HeaderAvatarStyle = styled(Avatar, { shouldForwardProp })(({ theme }) => ({
+  ...theme.typography.commonAvatar,
+  ...theme.typography.mediumAvatar,
+  background:
+    theme.palette.mode === 'dark' ? theme.palette.dark.main : theme.palette.secondary.light,
+  color:
+    theme.palette.mode === 'dark' ? theme.palette.secondary.main : theme.palette.secondary.dark,
+  '&:hover': {
     background:
-      theme.palette.mode === 'dark'
-        ? theme.palette.dark.main
-        : theme.palette.secondary.light,
+      theme.palette.mode === 'dark' ? theme.palette.secondary.main : theme.palette.secondary.dark,
     color:
-      theme.palette.mode === 'dark'
-        ? theme.palette.secondary.main
-        : theme.palette.secondary.dark,
-    '&:hover': {
-      background:
-        theme.palette.mode === 'dark'
-          ? theme.palette.secondary.main
-          : theme.palette.secondary.dark,
-      color:
-        theme.palette.mode === 'dark'
-          ? theme.palette.secondary.light
-          : theme.palette.secondary.light
-    }
-  })
-);
+      theme.palette.mode === 'dark' ? theme.palette.secondary.light : theme.palette.secondary.light
+  }
+}));
 
 // ==============================|| SEARCH INPUT - MOBILE||============================== //
 
@@ -102,11 +75,7 @@ const MobileSearch = ({ value, setValue, popupState }) => {
       placeholder="Search"
       startAdornment={
         <InputAdornment position="start">
-          <IconSearch
-            stroke={1.5}
-            size="1rem"
-            color={theme.palette.grey[500]}
-          />
+          <IconSearch stroke={1.5} size="1rem" color={theme.palette.grey[500]} />
         </InputAdornment>
       }
       endAdornment={
@@ -178,10 +147,7 @@ const SearchSection = forwardRef(({ getValue }, ref) => {
           {(popupState) => (
             <>
               <Box sx={{ ml: 2 }}>
-                <HeaderAvatarStyle
-                  variant="rounded"
-                  {...bindToggle(popupState)}
-                >
+                <HeaderAvatarStyle variant="rounded" {...bindToggle(popupState)}>
                   <IconSearch stroke={1.5} size="1.2rem" />
                 </HeaderAvatarStyle>
               </Box>
@@ -196,9 +162,7 @@ const SearchSection = forwardRef(({ getValue }, ref) => {
                       <Card
                         sx={{
                           background:
-                            theme.palette.mode === 'dark'
-                              ? theme.palette.dark[900]
-                              : '#fff',
+                            theme.palette.mode === 'dark' ? theme.palette.dark[900] : '#fff',
                           [theme.breakpoints.down('sm')]: {
                             border: 0,
                             boxShadow: 'none'
@@ -206,11 +170,7 @@ const SearchSection = forwardRef(({ getValue }, ref) => {
                         }}
                       >
                         <Box sx={{ p: 2 }}>
-                          <Grid
-                            container
-                            alignItems="center"
-                            justifyContent="space-between"
-                          >
+                          <Grid container alignItems="center" justifyContent="space-between">
                             <Grid item xs>
                               <MobileSearch
                                 value={value}
@@ -245,11 +205,7 @@ const SearchSection = forwardRef(({ getValue }, ref) => {
           placeholder="Search"
           startAdornment={
             <InputAdornment position="start">
-              <IconSearch
-                stroke={1.5}
-                size="1rem"
-                color={theme.palette.grey[500]}
-              />
+              <IconSearch stroke={1.5} size="1rem" color={theme.palette.grey[500]} />
             </InputAdornment>
           }
           aria-describedby="search-helper-text"

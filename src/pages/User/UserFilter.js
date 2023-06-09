@@ -1,86 +1,72 @@
-import ReusableValidation from 'components/ReusableValidation/ReusableValidation';
-import { Formik } from 'formik';
-import React, { forwardRef, useEffect, useState } from 'react';
-import APIManager from 'utils/APImanager';
-import SimpleModal from 'components/SimpleModal';
-import {
-  FormControl,
-  FormControlLabel,
-  FormGroup,
-  Switch
-} from '@mui/material';
-import * as Yup from 'yup';
-import { trimValues } from 'utils/Helper';
-import { MODULE_NAME } from './Values';
 import CustomAutoComplete from 'components/CustomAutoComplete';
+import SimpleModal from 'components/SimpleModal';
+import { Formik } from 'formik';
+import { forwardRef } from 'react';
+import APIManager from 'utils/APImanager';
 
 const apiManager = new APIManager();
 
-const UserFilter = forwardRef(
-  (
-    {
-      getList,
-      rowsPerPage,
-      editData,
-      setSearch,
-      clearSearchField,
-      onFilterChange,
-      onClear
-    },
-    modalRef
-  ) => {
-    let initialValues = {
-      filterObj: ''
-    };
-    return (
-      <Formik
-        enableReinitialize
-        initialValues={initialValues}
-        onSubmit={async (values) => {
-          onFilterChange(values);
-        }}
-      >
-        {({
-          errors,
-          handleBlur,
-          handleChange,
-          handleSubmit,
-          isSubmitting,
-          touched,
-          values,
-          resetForm,
-          submitForm,
-          setFieldValue
-        }) => (
-          <SimpleModal
-            showClearButton={values.filterObj ? true : false}
-            resetOnClear={true}
-            title={MODULE_NAME}
-            onClear={onClear}
-            submitForm={submitForm}
-            resetForm={resetForm}
-            ref={modalRef}
-            errors={errors}
-            handleSubmit={handleSubmit}
-          >
-            <CustomAutoComplete
-              placeholder="Access Level"
-              disableClear={true}
-              customOptions={[
-                { name: 'Admin', role: 2 },
-                { name: 'User', role: 5 }
-              ]}
-              showCustomOptions={true}
-              valueToShowInField={'name'}
-              optionRow={['name']}
-              fieldName="filterObj"
-              errorName={'Access Level'}
-            />
-          </SimpleModal>
-        )}
-      </Formik>
-    );
-  }
-);
+const UserFilter = forwardRef((props, filterRef) => {
+  const { setQuery } = props;
+  
+  let initialValues = {
+    filterObj: ''
+  };
+
+  const onClear = () => {
+    filterRef.current.handleClose();
+    setQuery(null);
+  };
+
+  return (
+    <Formik
+      enableReinitialize
+      initialValues={initialValues}
+      onSubmit={async (values) => {
+        filterRef.current.handleClose();
+        setQuery({ role: values?.filterObj?.role || '' });
+      }}
+    >
+      {({
+        errors,
+        handleBlur,
+        handleChange,
+        handleSubmit,
+        isSubmitting,
+        touched,
+        values,
+        resetForm,
+        submitForm,
+        setFieldValue
+      }) => (
+        <SimpleModal
+          showClearButton={values.filterObj ? true : false}
+          resetOnClear={true}
+          title={'Filter'}
+          onClear={onClear}
+          submitForm={submitForm}
+          resetForm={resetForm}
+          ref={filterRef}
+          errors={errors}
+          handleSubmit={handleSubmit}
+        >
+          <CustomAutoComplete
+            placeholder="Access Level"
+            disableClear={true}
+            customOptions={[
+              { name: 'Admin', role: 2 },
+              { name: 'User', role: 5 }
+            ]}
+            showCustomOptions={true}
+            valueToShowInField={'name'}
+            optionRow={['name']}
+            fieldName="filterObj"
+            errorName={'Access Level'}
+          />
+        </SimpleModal>
+      )}
+    </Formik>
+  );
+});
 
 export default UserFilter;

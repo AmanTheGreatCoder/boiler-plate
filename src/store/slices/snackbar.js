@@ -18,21 +18,15 @@ const initialState = {
   actionButton: false
 };
 
+// ==============================|| SLICE - SNACKBAR ||============================== //
+
 const snackbar = createSlice({
   name: 'snackbar',
   initialState,
   reducers: {
     openSnackbar(state, action) {
-      const {
-        open,
-        message,
-        anchorOrigin,
-        variant,
-        alert,
-        transition,
-        close,
-        actionButton
-      } = action.payload;
+      const { open, message, anchorOrigin, variant, alert, transition, close, actionButton } =
+        action.payload;
 
       state.action = !state.action;
       state.open = open || initialState.open;
